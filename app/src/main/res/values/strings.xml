@@ -1,0 +1,82 @@
+<resources>
+    <string name="app_name">Skintker</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+
+    <string name="screen_log">Reporte</string>
+    <string name="screen_resume">Resumen</string>
+    <string name="screen_history">Historial</string>
+
+
+    <string name="next">NEXT</string>
+    <string name="previous">PREVIOUS</string>
+    <string name="done">DONE</string>
+
+    <!-- question 1 -->
+    <string name="question_1_title">Select overall discomfort level</string>
+    <string name="question_1_description">Assess your level of irritation throughout the day.</string>
+    <string name="question_1_slide_start">None</string>
+    <string name="question_1_slide_mid">Moderate</string>
+    <string name="question_1_slide_end">Unbearable</string>
+    <!-- question 2 -->
+    <string name="question_2_title">The area of the body that bothers me is …</string>
+    <string name="question_2_answer_1">Ears</string>
+    <string name="question_2_answer_2">Eyelid</string>
+    <string name="question_2_answer_3">Cheeks</string>
+    <string name="question_2_answer_4">Lips</string>
+    <string name="question_2_answer_5">Neck</string>
+    <string name="question_2_answer_6">Shoulders</string>
+    <string name="question_2_answer_7">Arms</string>
+    <string name="question_2_answer_8">Wrists</string>
+    <!-- question 3 -->
+    <string name="question_3_title">Stress level</string>
+    <string name="question_3_description">Have you had many stressful or worrying situations today?</string>
+    <string name="question_3_slide_start">None</string>
+    <string name="question_3_slide_mid">Moderate</string>
+    <string name="question_3_slide_end">Stressful </string>
+    <!-- question 4 -->
+    <string name="question_4_title">Did you drink any alcohol today?</string>
+    <string name="question_4_answer_1">No</string>
+    <string name="question_4_answer_2">A few beers</string>
+    <string name="question_4_answer_3">More than some beers</string>
+    <!-- question 5 -->
+    <string name="question_5_title">What was the weather like?</string>
+    <string name="question_5_description">Describe today\'s weather based on humidity and temperature.</string>
+    <string name="question_5_slide_1_start">Dry</string>
+    <string name="question_5_slide_1_end">Wet </string>
+    <string name="question_5_slide_2_start">Warm</string>
+    <string name="question_5_slide_2_end">Cold</string>
+    <!-- question 6 -->
+    <string name="question_6_title">Which city have you been in today?</string>
+    <string name="question_6_description">If you traveled between cities, pick the city were you slept last night</string>
+    <string name="question_6_hint">City</string>
+    <!-- question 7 -->
+    <string name="question_7_title">Did you traveled today?</string>
+    <string name="question_7_answer_1">Yes, I traveled</string>
+    <string name="question_7_answer_2">No</string>
+
+    <!-- Test questions  -->
+    <string name="multiple_answer_title" translatable="false">Multiple answer title</string>
+    <string name="multiple_description" translatable="false">Pick one or more</string>
+    <string name="multiple_answer_1" translatable="false">Multiple answer 1</string>
+    <string name="multiple_answer_2" translatable="false">Multiple answer 2</string>
+    <string name="multiple_answer_3" translatable="false">Multiple answer 3</string>
+    <string name="single_answer_title" translatable="false">Single answer title</string>
+    <string name="single_description" translatable="false">Pick one</string>
+    <string name="single_answer_1" translatable="false">Single answer 1</string>
+    <string name="single_answer_2" translatable="false">Single answer 2</string>
+    <string name="single_answer_3" translatable="false">Single answer 3</string>
+    <string name="slide_answer_title" translatable="false">Slide answer title</string>
+    <string name="slide_description" translatable="false">Slide to pick your answer</string>
+    <string name="slide_point_1" translatable="false">Low</string>
+    <string name="slide_point_2" translatable="false">Medium</string>
+    <string name="slide_point_3" translatable="false">High</string>
+
+
+    <!-- survey-->
+    <string name="question_count">\u00A0of %d</string>
+    <string name="survey">n</string>
+    <string name="survey_result">n %s</string>
+    <string name="survey_result_description">n</string>
+</resources>
