@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.p4r4d0x.skintker.domain.*
+import com.p4r4d0x.skintker.domain.bo.*
 import java.text.SimpleDateFormat
 import java.util.*
 

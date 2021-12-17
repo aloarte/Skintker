@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 val LightThemeColors = lightColors(
-    primary = Purple700,
-    primaryVariant = Purple800,
+    primary = SoftRedPrimary,
+    primaryVariant = SoftRedDark,
     onPrimary = Color.White,
     secondary = Color.White,
     onSecondary = Color.Black,
@@ -18,13 +18,13 @@ val LightThemeColors = lightColors(
     onBackground = Color.Black,
     surface = Color.White,
     onSurface = Color.Black,
-    error = Red800,
+    error = SoftRedDark,
     onError = Color.White
 )
 
 val DarkThemeColors = darkColors(
-    primary = Purple300,
-    primaryVariant = Purple600,
+    primary = SoftRedPrimary,
+    primaryVariant = SoftRedLight,
     onPrimary = Color.Black,
     secondary = Color.Black,
     onSecondary = Color.White,
@@ -32,13 +32,13 @@ val DarkThemeColors = darkColors(
     onBackground = Color.White,
     surface = Color.Black,
     onSurface = Color.White,
-    error = Red300,
+    error = SoftRedDark,
     onError = Color.Black
 )
 
 val Colors.snackbarAction: Color
     @Composable
-    get() = if (isLight) Purple300 else Purple700
+    get() = if (isLight) SoftRedPrimary else SoftRedDark
 
 val Colors.progressIndicatorBackground: Color
     @Composable

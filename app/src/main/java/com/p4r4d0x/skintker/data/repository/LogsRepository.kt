@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.p4r4d0x.skintker.presenter.view
+package com.p4r4d0x.skintker.data.repository
 
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.presenter.view.log.*
+import com.p4r4d0x.skintker.domain.log.*
 
 // Static data of questions
 private val jetpackQuestions = mutableListOf(
@@ -94,23 +94,15 @@ private val jetpackQuestions = mutableListOf(
         id = 6,
         questionText = R.string.question_6_title,
         description = R.string.question_6_description,
-        answer = PossibleAnswer.SingleTextInput(
+        answer = PossibleAnswer.SingleTextInputSingleChoice(
             hint = R.string.question_6_hint,
-            maxCharacters = 40
-        )
-    ),
-    Question(
-        id = 7,
-        questionText = R.string.question_7_title,
-        answer = PossibleAnswer.SingleChoice(
-            listOf(
-                R.string.question_7_answer_1,
-                R.string.question_7_answer_2
+            maxCharacters = 40,
+            optionsStringRes = listOf(
+                R.string.question_6_answer_1,
+                R.string.question_6_answer_2
             )
         )
-    ),
-
-
+    )
     ).toList()
 
 private val jetpackSurvey = Survey(

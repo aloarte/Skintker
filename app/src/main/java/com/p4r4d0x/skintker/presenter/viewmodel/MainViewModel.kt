@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.p4r4d0x.skintker.presenter.view.LogsRepository
-import com.p4r4d0x.skintker.presenter.view.log.LogState
-import com.p4r4d0x.skintker.presenter.view.log.SurveyState
+import com.p4r4d0x.skintker.data.repository.LogsRepository
+import com.p4r4d0x.skintker.domain.log.LogState
+import com.p4r4d0x.skintker.domain.log.SurveyState
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {

@@ -49,12 +49,10 @@
     <string name="question_5_slide_2_end">Cold</string>
     <!-- question 6 -->
     <string name="question_6_title">Which city have you been in today?</string>
-    <string name="question_6_description">If you traveled between cities, pick the city were you slept last night</string>
+    <string name="question_6_description">Answer also if your traveled. If you traveled between cities, pick the city were you slept last night</string>
     <string name="question_6_hint">City</string>
-    <!-- question 7 -->
-    <string name="question_7_title">Did you traveled today?</string>
-    <string name="question_7_answer_1">Yes, I traveled</string>
-    <string name="question_7_answer_2">No</string>
+    <string name="question_6_answer_1">Yes, I traveled</string>
+    <string name="question_6_answer_2">No, I didn\'t traveled today</string>
 
     <!-- Test questions  -->
     <string name="multiple_answer_title" translatable="false">Multiple answer title</string>

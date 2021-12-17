@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker.presenter.view.log
+package com.p4r4d0x.skintker.domain.log
 
 import androidx.annotation.StringRes
 
@@ -24,6 +24,12 @@ sealed class PossibleAnswer {
     data class SingleChoice(val optionsStringRes: List<Int>) : PossibleAnswer()
     data class MultipleChoice(val optionsStringRes: List<Int>) : PossibleAnswer()
     data class SingleTextInput(val hint: Int, val maxCharacters: Int) : PossibleAnswer()
+    data class SingleTextInputSingleChoice(
+        val hint: Int,
+        val maxCharacters: Int,
+        val optionsStringRes: List<Int>
+    ) : PossibleAnswer()
+
     data class Slider(
         val range: ClosedFloatingPointRange<Float>,
         val steps: Int,
@@ -58,6 +64,8 @@ sealed class Answer<T : PossibleAnswer> {
     data class DoubleSlider(val answerValueFirstSlider: Float, val answerValueSecondSlider: Float) :
         Answer<PossibleAnswer.Slider>()
 
+    data class SingleTextInputSingleChoice(val answers: String, @StringRes val answer: Int) :
+        Answer<PossibleAnswer.SingleTextInputSingleChoice>()
 }
 
 /**

@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker.domain
+package com.p4r4d0x.skintker.domain.bo
 
 class FoodScheduleBO(
     val breakfast: List<FoodItemBO>? = null,

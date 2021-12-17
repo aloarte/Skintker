@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker.presenter.view.log
+package com.p4r4d0x.skintker.domain.log
 
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Stable

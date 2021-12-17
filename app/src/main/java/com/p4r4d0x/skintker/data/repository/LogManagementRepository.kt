@@ -1,6 +1,6 @@
 package com.p4r4d0x.skintker.data.repository
 
-import com.p4r4d0x.skintker.domain.DailyLogBO
+import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 
 
 interface LogManagementRepository {
