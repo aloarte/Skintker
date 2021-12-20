@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
 @Stable
-class LogState(
+data class LogState(
     val question: Question,
     val index: Int,
     val totalCount: Int,

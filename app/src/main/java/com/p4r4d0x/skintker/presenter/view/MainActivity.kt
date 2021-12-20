@@ -1,6 +1,7 @@
 package com.p4r4d0x.skintker.presenter.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.p4r4d0x.skintker.domain.log.SurveyState
 import com.p4r4d0x.skintker.presenter.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -27,9 +29,30 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        observeViewModel()
+
         setContent {
             MyScreen()
         }
+    }
+
+    private fun observeViewModel() {
+        viewModel.uiState.observe(this) {
+            when (it) {
+                is SurveyState.LogQuestions -> {
+                    it.state.forEach { logState ->
+                        Log.d("ALRALR", "${logState.answer}")
+                    }
+
+                }
+                is SurveyState.Result -> {
+
+                }
+
+            }
+        }
+
     }
 
     @Preview

@@ -54,6 +54,27 @@
     <string name="question_6_answer_1">Yes, I traveled</string>
     <string name="question_6_answer_2">No, I didn\'t traveled today</string>
 
+
+    <!--History labels-->
+    <string name="traveled_today">Traveled today</string>
+    <string name="not_traveled_today">Not traveled today</string>
+    <string name="slept_in">Slept in </string>
+    <string name="no_alcohol">No alcohol ingested</string>
+    <string name="any_alcohol">Took a few beers</string>
+    <string name="quite_alcohol">Had some drinks</string>
+
+    <string name="humidity_1">Very dry</string>
+    <string name="humidity_2">Dry</string>
+    <string name="humidity_3">Neutral</string>
+    <string name="humidity_4">Wet</string>
+    <string name="humidity_5">Very wet</string>
+    <string name="temperature_1">Very warm</string>
+    <string name="temperature_2">Warm </string>
+    <string name="temperature_3">Neutral</string>
+    <string name="temperature_4">Cold</string>
+    <string name="temperature_5">Very cold</string>
+
+
     <!-- Test questions  -->
     <string name="multiple_answer_title" translatable="false">Multiple answer title</string>
     <string name="multiple_description" translatable="false">Pick one or more</string>
