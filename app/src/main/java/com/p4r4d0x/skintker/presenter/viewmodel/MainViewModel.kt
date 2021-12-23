@@ -5,17 +5,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.p4r4d0x.skintker.data.repository.LogsRepository
+import com.p4r4d0x.skintker.domain.GetLogsUseCase
+import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.log.LogState
 import com.p4r4d0x.skintker.domain.log.SurveyState
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(private val usecase: GetLogsUseCase) : ViewModel() {
 
     private val logsRepository = LogsRepository()
 
     private val _uiState = MutableLiveData<SurveyState>()
     val uiState: LiveData<SurveyState>
         get() = _uiState
+
+    private val _logList = MutableLiveData<List<DailyLogBO>>()
+    val logList: LiveData<List<DailyLogBO>>
+        get() = _logList
 
     private lateinit var surveyInitialState: SurveyState
 
@@ -39,6 +45,13 @@ class MainViewModel : ViewModel() {
             surveyInitialState = SurveyState.LogQuestions(survey.title, questions)
             _uiState.value = surveyInitialState
         }
+    }
+
+    fun getLogs() {
+        usecase.invoke(viewModelScope) {
+            _logList.value = it
+        }
+
     }
 
     fun computeResult(surveyQuestions: SurveyState.LogQuestions) {

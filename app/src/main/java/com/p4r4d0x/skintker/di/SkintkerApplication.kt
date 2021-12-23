@@ -9,7 +9,7 @@ class SkintkerApplication : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@SkintkerApplication)
-            modules(vmModule, repositoriesModule)
+            modules(vmModule, repositoriesModule, networkingModule, useCasesModule, databasesModule)
         }
     }
 }
