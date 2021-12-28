@@ -44,52 +44,35 @@ android {
 }
 
 dependencies {
-
-    //Compose
-    implementation 'androidx.activity:activity-compose:1.4.0'
-    implementation 'androidx.compose.material:material:1.0.5'
-    implementation 'androidx.compose.animation:animation:1.0.5'
-    implementation "androidx.compose.runtime:runtime-livedata:1.0.5"
-    implementation 'androidx.compose.ui:ui-tooling:1.0.5'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0'
-    implementation "com.google.android.material:compose-theme-adapter:1.1.2"
-    implementation("androidx.navigation:navigation-compose:2.4.0-rc01")
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.0.5'
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
-
-//    // Extensions = ViewModel + LiveData
-//    implementation "android.arch.lifecycle:extensions:1.1.1"
-////    kapt "android.arch.lifecycle:compiler:1.1.1"
-////    kapt 'android.arch.persistence.room:compiler:1.1.1'
-//    // Room
-//    implementation "androidx.room:room-runtime:2.4.0"
-//    annotationProcessor "androidx.room:room-compiler:2.4.0"
-
-
-    implementation "androidx.room:room-ktx:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
-    androidTestImplementation "androidx.room:room-testing:$roomVersion"
-    implementation 'com.google.code.gson:gson:2.8.7'
-
+    //Koin
     implementation "io.insert-koin:koin-core:$koinVersion"
     implementation "io.insert-koin:koin-android:$koinVersion"
     implementation "io.insert-koin:koin-androidx-navigation:$koinVersion"
     implementation "io.insert-koin:koin-androidx-compose:$koinVersion"
     testImplementation "io.insert-koin:koin-test:$koinVersion"
-
-
-
-
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'com.google.android.material:material:1.4.0'
-
-
-    //    //Test
-    androidTestImplementation "junit:junit:4.13.2"
-    androidTestImplementation "org.robolectric:robolectric:4.2.1"
-    androidTestImplementation "io.mockk:mockk-android:1.9.3"
-    testImplementation "junit:junit:4.13.2"
-    testImplementation "org.robolectric:robolectric:4.2.1"
-    testImplementation "io.mockk:mockk-android:1.9.3"
+    //Architecture
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$composeViewModel"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+    implementation "androidx.core:core-ktx:$coreKtx"
+    implementation "androidx.appcompat:appcompat:$appCompat"
+    //Compose
+    implementation "androidx.activity:activity-compose:$activityCompose"
+    implementation "androidx.compose.material:material:$compose"
+    implementation "androidx.compose.animation:animation:$compose"
+    implementation "androidx.compose.runtime:runtime-livedata:$compose"
+    implementation "androidx.compose.ui:ui-tooling:$compose"
+    implementation "androidx.navigation:navigation-compose:$composeNavigation"
+    implementation "com.google.android.material:compose-theme-adapter:$composeTheme"
+    implementation "com.google.android.material:material:$material"
+    //Room
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    androidTestImplementation "androidx.room:room-testing:$roomVersion"
+    //External
+    implementation "com.google.code.gson:gson:$gson"
+    //Test
+    androidTestImplementation "junit:junit:$junit"
+    androidTestImplementation "io.mockk:mockk-android:$mockk"
+    testImplementation "junit:junit:$junit"
+    testImplementation "io.mockk:mockk-android:$mockk"
 }
