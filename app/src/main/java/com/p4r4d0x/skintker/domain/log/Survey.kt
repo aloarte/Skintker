@@ -64,7 +64,7 @@ sealed class Answer<T : PossibleAnswer> {
     data class DoubleSlider(val answerValueFirstSlider: Float, val answerValueSecondSlider: Float) :
         Answer<PossibleAnswer.Slider>()
 
-    data class SingleTextInputSingleChoice(val answers: String, @StringRes val answer: Int) :
+    data class SingleTextInputSingleChoice(val input: String, @StringRes val answer: Int) :
         Answer<PossibleAnswer.SingleTextInputSingleChoice>()
 }
 

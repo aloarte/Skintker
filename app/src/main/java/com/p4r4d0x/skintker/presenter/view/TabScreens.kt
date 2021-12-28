@@ -1,6 +1,6 @@
 package com.p4r4d0x.skintker.presenter.view
 
-import android.util.Log
+import android.content.res.Resources
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,24 +19,29 @@ import com.p4r4d0x.skintker.theme.SkintkerTheme
 
 
 @Composable
-fun LogScreen(viewModel: MainViewModel) {
+fun LogScreen(viewModel: MainViewModel, resources: Resources) {
     SkintkerTheme {
         viewModel.uiState.observeAsState().value?.let { logState ->
             when (logState) {
                 is SurveyState.LogQuestions -> {
                     logState.state.forEach {
-                        Log.d("ALRALR", "${it}")
+//                        Log.d("ALRALR", "${it}")
                     }
                     LogQuestionScreen(
                         logQuestions = logState,
-                        onDonePressed = { viewModel.computeResult(logState) },
+                        onDonePressed = {
+                            viewModel.computeResult(
+                                logState,
+                                resources = resources
+                            )
+                        },
                         onBackPressed = {
 //                            activity?.onBackPressedDispatcher?.onBackPressed()
                         }
                     )
                 }
                 is SurveyState.Result -> {
-                    Log.d("ALRALR", "$logState")
+//                    Log.d("ALRALR", "$logState")
                     SurveyResultScreen(
                         result = logState,
                         onDonePressed = {
@@ -53,12 +58,10 @@ fun LogScreen(viewModel: MainViewModel) {
 
 @Composable
 fun ResumeScreen() {
-
 }
 
 @Composable
 fun HistoryScreen(viewModel: MainViewModel) {
-    viewModel.getLogs()
     viewModel.logList.observeAsState().value?.let {
         SkintkerTheme {
             LazyColumn(

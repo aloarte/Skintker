@@ -1,16 +1,41 @@
 package com.p4r4d0x.skintker
 
-import org.junit.Assert.assertEquals
+import android.os.Build
+import androidx.test.runner.AndroidJUnit4
+import com.p4r4d0x.skintker.domain.AddLogUseCase
+import com.p4r4d0x.skintker.domain.GetLogsUseCase
+import com.p4r4d0x.skintker.presenter.viewmodel.MainViewModel
+import io.mockk.MockKAnnotations
+import io.mockk.verify
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.koin.java.KoinJavaComponent.inject
+import org.robolectric.annotation.Config
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
+
+@ExperimentalCoroutinesApi
+@RunWith(AndroidJUnit4::class)
+@Config(application = KoinTestApplication::class, sdk = [Build.VERSION_CODES.P])
+class ExampleUnitTest : KoinBaseTest(viewModelModule) {
+
+
+    private val getLogsUseCase by inject<GetLogsUseCase>()
+    private val addLogsUseCase by inject<AddLogUseCase>()
+
+    private lateinit var viewModelSUT: MainViewModel
+
+    @Before
+    fun setUp() {
+        MockKAnnotations.init(this)
+        viewModelSUT = MainViewModel(getLogsUseCase, addLogsUseCase)
+    }
+
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 4)
+    fun `dfdfsdf`() {
+        viewModelSUT.getLogs()
+        verify { viewModelSUT.getLogs() }
+
     }
 }

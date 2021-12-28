@@ -1,15 +1,17 @@
 package com.p4r4d0x.skintker.data.repository
 
+import android.util.Log
 import com.p4r4d0x.skintker.data.room.LogsDatabase
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 
 class LogManagementRepositoryImpl(private val database: LogsDatabase) : LogManagementRepository {
     override suspend fun addDailyLog(log: DailyLogBO): Boolean {
-        TODO("Not yet implemented")
+        return database.dailyLogDao().insertDailyLog(log)
     }
 
-    override suspend fun updateRecord(log: DailyLogBO): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun updateDailyLog(log: DailyLogBO): Boolean {
+        TODO()
+//        return database.dailyLogDao().updateDailyLog(log)
     }
 
     override suspend fun getWeeklyLogs(): List<DailyLogBO> {
@@ -19,6 +21,14 @@ class LogManagementRepositoryImpl(private val database: LogsDatabase) : LogManag
     }
 
     override suspend fun getAllLogs(): List<DailyLogBO> {
-        TODO("Not yet implemented")
+        return database.dailyLogDao().getAll().map { dailyLogAndIrritation ->
+            dailyLogAndIrritation.toDomain()
+        }
+    }
+
+    override suspend fun getLogByDate(date: Long): DailyLogBO? {
+        val a = database.dailyLogDao().loadLogByDate(date)
+        Log.d("ALRALR", "$a")
+        return a?.toDomain()
     }
 }

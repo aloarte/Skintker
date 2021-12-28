@@ -1,26 +1,14 @@
 package com.p4r4d0x.skintker.presenter.view.compose
 
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.dp
-import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.domain.log.LogState
 import com.p4r4d0x.skintker.domain.log.SurveyState
-import com.p4r4d0x.skintker.theme.progressIndicatorBackground
 
 @Composable
 fun LogQuestionScreen(
@@ -47,6 +35,7 @@ fun LogQuestionScreen(
                     question = questionState.question,
                     answer = questionState.answer,
                     onAnswer = {
+                        questionState.answer = it
                         questionState.enableNext = true
                     },
                     modifier = Modifier

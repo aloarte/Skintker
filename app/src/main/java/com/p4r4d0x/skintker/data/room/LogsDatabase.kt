@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @TypeConverters(Converters::class)
-@Database(entities = [DailyLog::class], version = 1)
+@Database(entities = [DailyLog::class, Irritation::class, AdditionalData::class], version = 4)
 abstract class LogsDatabase : RoomDatabase() {
     abstract fun dailyLogDao(): DailyLogDao
 }

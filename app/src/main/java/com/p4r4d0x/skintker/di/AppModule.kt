@@ -7,14 +7,15 @@ import com.p4r4d0x.skintker.data.repository.LogManagementRepositoryImpl
 import com.p4r4d0x.skintker.data.repository.LogsRepository
 import com.p4r4d0x.skintker.data.room.DailyLogDao
 import com.p4r4d0x.skintker.data.room.LogsDatabase
-import com.p4r4d0x.skintker.domain.GetLogsUseCase
+import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
+import com.p4r4d0x.skintker.domain.usecases.GetLogsUseCase
 import com.p4r4d0x.skintker.presenter.viewmodel.MainViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val vmModule = module {
-    viewModel { MainViewModel(get()) }
+    viewModel { MainViewModel(get(), get()) }
 
 }
 val repositoriesModule = module {
@@ -24,6 +25,7 @@ val repositoriesModule = module {
 
 val useCasesModule = module {
     factory { GetLogsUseCase(get()) }
+    factory { AddLogUseCase(get()) }
 }
 
 

@@ -1,11 +1,26 @@
 package com.p4r4d0x.skintker.presenter.view
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.p4r4d0x.skintker.domain.log.SurveyState
 import com.p4r4d0x.skintker.presenter.viewmodel.MainViewModel
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,13 +36,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getLogs()
+
+    }
+
     private fun observeViewModel() {
         viewModel.uiState.observe(this) {
             when (it) {
                 is SurveyState.LogQuestions -> {
-                    it.state.forEach { logState ->
-                        Log.d("ALRALR", "${logState.answer}")
-                    }
+//                    it.state.forEach { logState ->
+//                        Log.d("ALRALR", "${logState.answer}")
+//                    }
 
                 }
                 is SurveyState.Result -> {
@@ -78,9 +99,15 @@ class MainActivity : AppCompatActivity() {
                 startDestination = Screen.Log.route,
                 Modifier.padding(innerPadding)
             ) {
-                composable(Screen.Log.route) { LogScreen(viewModel) }
-                composable(Screen.Resume.route) { ResumeScreen() }
-                composable(Screen.History.route) { HistoryScreen(viewModel) }
+                composable(Screen.Log.route) {
+                    LogScreen(viewModel, resources)
+                }
+                composable(Screen.Resume.route) {
+                    ResumeScreen()
+                }
+                composable(Screen.History.route) {
+                    HistoryScreen(viewModel)
+                }
             }
         }
     }

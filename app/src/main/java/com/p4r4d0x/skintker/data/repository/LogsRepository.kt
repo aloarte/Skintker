@@ -17,13 +17,19 @@
 package com.p4r4d0x.skintker.data.repository
 
 import com.p4r4d0x.skintker.R
+import com.p4r4d0x.skintker.data.Constants.FIFTH_QUESTION_NUMBER
+import com.p4r4d0x.skintker.data.Constants.FIRST_QUESTION_NUMBER
+import com.p4r4d0x.skintker.data.Constants.FOURTH_QUESTION_NUMBER
+import com.p4r4d0x.skintker.data.Constants.SECOND_QUESTION_NUMBER
+import com.p4r4d0x.skintker.data.Constants.SIXTH_QUESTION_NUMBER
+import com.p4r4d0x.skintker.data.Constants.THIRD_QUESTION_NUMBER
 import com.p4r4d0x.skintker.domain.log.*
 
 // Static data of questions
 private val jetpackQuestions = mutableListOf(
 
     Question(
-        id = 1,
+        id = FIRST_QUESTION_NUMBER,
         questionText = R.string.question_1_title,
         description = R.string.question_1_description,
         answer = PossibleAnswer.Slider(
@@ -36,7 +42,7 @@ private val jetpackQuestions = mutableListOf(
         )
     ),
     Question(
-        id = 2,
+        id = SECOND_QUESTION_NUMBER,
         questionText = R.string.question_2_title,
         answer = PossibleAnswer.MultipleChoice(
             optionsStringRes = listOf(
@@ -52,7 +58,7 @@ private val jetpackQuestions = mutableListOf(
         ),
     ),
     Question(
-        id = 3,
+        id = THIRD_QUESTION_NUMBER,
         questionText = R.string.question_3_title,
         description = R.string.question_3_description,
         answer = PossibleAnswer.Slider(
@@ -65,7 +71,7 @@ private val jetpackQuestions = mutableListOf(
         )
     ),
     Question(
-        id = 4,
+        id = FOURTH_QUESTION_NUMBER,
         questionText = R.string.question_4_title,
         answer = PossibleAnswer.SingleChoice(
             listOf(
@@ -76,7 +82,7 @@ private val jetpackQuestions = mutableListOf(
         )
     ),
     Question(
-        id = 5,
+        id = FIFTH_QUESTION_NUMBER,
         questionText = R.string.question_5_title,
         description = R.string.question_5_description,
         answer = PossibleAnswer.DoubleSlider(
@@ -91,7 +97,7 @@ private val jetpackQuestions = mutableListOf(
         )
     ),
     Question(
-        id = 6,
+        id = SIXTH_QUESTION_NUMBER,
         questionText = R.string.question_6_title,
         description = R.string.question_6_description,
         answer = PossibleAnswer.SingleTextInputSingleChoice(
@@ -103,7 +109,7 @@ private val jetpackQuestions = mutableListOf(
             )
         )
     )
-    ).toList()
+).toList()
 
 private val jetpackSurvey = Survey(
     title = R.string.survey,

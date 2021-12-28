@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.p4r4d0x.skintker.R
+import com.p4r4d0x.skintker.data.AlcoholLevel
 import com.p4r4d0x.skintker.domain.bo.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -68,17 +69,23 @@ private fun DailyLogCardItemBody(log: DailyLogBO, collapseView: Boolean = false)
             .padding(vertical = 4.dp, horizontal = 4.dp)
     ) {
         Row(Modifier.fillMaxWidth()) {
-            IrritationItem(
-                irritationBO = log.irritation, modifier = Modifier
-                    .fillMaxWidth(0.5f),
-                collapseView = collapseView
-            )
-            AdditionalData(
-                additionalDataBO = log.additionalData, modifier = Modifier
-                    .fillMaxWidth(1f)
-            )
+            log.irritation?.let { irritation ->
+                IrritationItem(
+                    irritationBO = irritation, modifier = Modifier
+                        .fillMaxWidth(0.5f),
+                    collapseView = collapseView
+                )
+            }
+            log.additionalData?.let { additionalData ->
+                AdditionalData(
+                    additionalDataBO = additionalData, modifier = Modifier
+                        .fillMaxWidth(1f)
+                )
+            }
         }
-        FoodSchedule(log.foodSchedule, collapseView)
+        log.foodSchedule?.let { foodSchedule ->
+            FoodSchedule(foodSchedule, collapseView)
+        }
     }
 }
 
@@ -141,7 +148,7 @@ private fun AdditionalData(additionalDataBO: AdditionalDataBO, modifier: Modifie
             modifier = additionalDataModifier
         )
         Text(
-            text = stringResource(id = getAlcoholLevel(additionalDataBO.alcoholLevel)),
+            text = stringResource(id = getAlcoholLevel(additionalDataBO.alcoholLevel.value)),
             fontSize = 10.sp,
             style = MaterialTheme.typography.body1,
             modifier = additionalDataModifier
@@ -336,7 +343,7 @@ class DailyLogProvider : PreviewParameterProvider<DailyLogBO> {
                 ),
                 additionalData = AdditionalDataBO(
                     stressLevel = 7,
-                    alcoholLevel = 2,
+                    alcoholLevel = AlcoholLevel.Few,
                     weather = AdditionalDataBO.WeatherBO(humidity = 2, temperature = 1),
                     travel = AdditionalDataBO.TravelBO(traveled = true, city = "Madrid")
                 )
