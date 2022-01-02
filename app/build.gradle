@@ -71,8 +71,12 @@ dependencies {
     //External
     implementation "com.google.code.gson:gson:$gson"
     //Test
-    androidTestImplementation "junit:junit:$junit"
-    androidTestImplementation "io.mockk:mockk-android:$mockk"
+
     testImplementation "junit:junit:$junit"
-    testImplementation "io.mockk:mockk-android:$mockk"
+    testImplementation "io.mockk:mockk:$mockk"
+    androidTestImplementation "io.mockk:mockk:$mockk"
+    androidTestImplementation "junit:junit:$junit"
+//    androidTestImplementation "io.mockk:mockk-android:$mockk"
+//    testImplementation "io.mockk:mockk-android:$mockk"
+
 }
