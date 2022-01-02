@@ -3,8 +3,8 @@ package com.p4r4d0x.skintker.domain
 import android.annotation.SuppressLint
 import android.content.res.Resources
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.AlcoholLevel
 import com.p4r4d0x.skintker.data.Constants
+import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.bo.FoodScheduleBO
@@ -98,5 +98,34 @@ object DataParser {
         )
         return formatter.parse(formatter.format(Calendar.getInstance().time)) ?: Date()
     }
+
+
+    fun getHumidityString(value: Int) =
+        when (value) {
+            0, 1 -> R.string.humidity_1
+            2, 3 -> R.string.humidity_2
+            4, 5, 6 -> R.string.humidity_3
+            7, 8 -> R.string.humidity_4
+            9, 10 -> R.string.humidity_5
+            else -> R.string.humidity_3
+        }
+
+    fun getTemperatureString(value: Int) =
+        when (value) {
+            0, 1 -> R.string.temperature_1
+            2, 3 -> R.string.temperature_2
+            4, 5, 6 -> R.string.temperature_3
+            7, 8 -> R.string.temperature_4
+            9, 10 -> R.string.temperature_5
+            else -> R.string.temperature_3
+        }
+
+    fun getAlcoholLevel(alcoholLevel: Int): Int =
+        when (alcoholLevel) {
+            0 -> R.string.no_alcohol
+            1 -> R.string.any_alcohol
+            2 -> R.string.quite_alcohol
+            else -> R.string.no_alcohol
+        }
 
 }

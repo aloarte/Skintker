@@ -18,7 +18,10 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.AlcoholLevel
+import com.p4r4d0x.skintker.data.enums.AlcoholLevel
+import com.p4r4d0x.skintker.domain.DataParser.getAlcoholLevel
+import com.p4r4d0x.skintker.domain.DataParser.getHumidityString
+import com.p4r4d0x.skintker.domain.DataParser.getTemperatureString
 import com.p4r4d0x.skintker.domain.bo.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -350,35 +353,3 @@ class DailyLogProvider : PreviewParameterProvider<DailyLogBO> {
             )
         ).asSequence()
 }
-
-
-private fun getHumidityString(value: Int) =
-    when (value) {
-        0 -> R.string.humidity_1
-        1 -> R.string.humidity_2
-        2 -> R.string.humidity_3
-        3 -> R.string.humidity_3
-        4 -> R.string.humidity_4
-        else -> R.string.humidity_3
-    }
-
-private fun getTemperatureString(value: Int) =
-    when (value) {
-        0 -> R.string.temperature_1
-        1 -> R.string.temperature_2
-        2 -> R.string.temperature_3
-        3 -> R.string.temperature_3
-        4 -> R.string.temperature_4
-        else -> R.string.temperature_3
-    }
-
-
-fun getAlcoholLevel(alcoholLevel: Int): Int =
-    when (alcoholLevel) {
-        0 -> R.string.no_alcohol
-        1 -> R.string.any_alcohol
-        2 -> R.string.quite_alcohol
-        else -> R.string.no_alcohol
-    }
-
-

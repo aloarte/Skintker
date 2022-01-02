@@ -3,7 +3,7 @@ package com.p4r4d0x.skintker.data.room
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.p4r4d0x.skintker.data.AlcoholLevel
+import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
 import java.lang.reflect.Type
 import java.util.*

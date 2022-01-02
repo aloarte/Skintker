@@ -10,8 +10,7 @@ class LogManagementRepositoryImpl(private val database: LogsDatabase) : LogManag
     }
 
     override suspend fun updateDailyLog(log: DailyLogBO): Boolean {
-        TODO()
-//        return database.dailyLogDao().updateDailyLog(log)
+        return database.dailyLogDao().updateDailyLog(log)
     }
 
     override suspend fun getWeeklyLogs(): List<DailyLogBO> {

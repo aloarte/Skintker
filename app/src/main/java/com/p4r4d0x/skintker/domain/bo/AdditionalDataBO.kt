@@ -1,6 +1,6 @@
 package com.p4r4d0x.skintker.domain.bo
 
-import com.p4r4d0x.skintker.data.AlcoholLevel
+import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 
 class AdditionalDataBO(
     val stressLevel: Int,

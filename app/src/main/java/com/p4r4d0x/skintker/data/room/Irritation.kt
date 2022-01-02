@@ -21,11 +21,12 @@ data class Irritation(
     val overallValue: Int,
     @NonNull @ColumnInfo(name = "log_id")
     val logId: Long,
-    val zones: List<IrritatedZone>
-) {
+    val zones: List<IrritatedZone>,
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "irritation_id")
     var irritationId: Long = 0
+) {
+
 
     fun toDomainObject(): IrritationBO {
         val irritatedZones = zones.map {

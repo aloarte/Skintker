@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.p4r4d0x.skintker.data.AlcoholLevel
+import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
 
 @Entity(
@@ -24,11 +24,12 @@ data class AdditionalData(
     val stressLevel: Int,
     val weather: AdditionalDataBO.WeatherBO,
     val travel: AdditionalDataBO.TravelBO,
-    val alcoholLevel: AlcoholLevel
-) {
+    val alcoholLevel: AlcoholLevel,
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "additional_data_id")
     var additionalDataId: Long = 0
+) {
+
 
     fun toDomainObject(): AdditionalDataBO {
         return AdditionalDataBO(

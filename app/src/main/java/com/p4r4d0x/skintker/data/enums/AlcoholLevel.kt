@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker.data
+package com.p4r4d0x.skintker.data.enums
 
 import android.content.res.Resources
 import com.p4r4d0x.skintker.R

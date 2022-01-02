@@ -10,8 +10,8 @@ class AddLogUseCase(private val repository: LogManagementRepository) :
     override suspend fun run(params: Params): Boolean {
         val logExist = repository.getLogByDate(params.log.date.time) != null
         return if (logExist) {
-            repository.addDailyLog(params.log)
-//            repository.updateDailyLog(params.log)
+//            repository.addDailyLog(params.log)
+            repository.updateDailyLog(params.log)
         } else {
             repository.addDailyLog(params.log)
         }
