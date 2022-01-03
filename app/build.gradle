@@ -14,7 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.p4r4d0x.skintker.di.KoinTestRunner"
     }
 
     buildTypes {
@@ -41,6 +41,12 @@ android {
         kotlinCompilerExtensionVersion '1.0.1'
     }
 
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
 }
 
 dependencies {
@@ -49,12 +55,14 @@ dependencies {
     implementation "io.insert-koin:koin-android:$koinVersion"
     implementation "io.insert-koin:koin-androidx-navigation:$koinVersion"
     implementation "io.insert-koin:koin-androidx-compose:$koinVersion"
-    testImplementation "io.insert-koin:koin-test:$koinVersion"
     //Architecture
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$composeViewModel"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
     implementation "androidx.core:core-ktx:$coreKtx"
     implementation "androidx.appcompat:appcompat:$appCompat"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
+
     //Compose
     implementation "androidx.activity:activity-compose:$activityCompose"
     implementation "androidx.compose.material:material:$compose"
@@ -67,10 +75,28 @@ dependencies {
     //Room
     implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
-    androidTestImplementation "androidx.room:room-testing:$roomVersion"
     //External
     implementation "com.google.code.gson:gson:$gson"
     //Test
+
+
+    testImplementation "io.insert-koin:koin-test:$koinVersion"
+    androidTestImplementation "androidx.room:room-testing:$roomVersion"
+
+    testImplementation "androidx.test.ext:junit-ktx:1.1.3"
+    testImplementation "androidx.test:core-ktx:1.4.0"
+    testImplementation "androidx.test:rules:1.4.0"
+    testImplementation "androidx.test:runner:1.4.0"
+    testImplementation "androidx.test.espresso:espresso-core:3.4.0"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.2"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:5.8.2"
+    testImplementation "org.junit.platform:junit-platform-launcher:1.8.2"
+    testImplementation "io.insert-koin:koin-test-junit4:$koinVersion"
+    testImplementation "io.insert-koin:koin-test-junit5:$koinVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines"
+    testImplementation "org.robolectric:robolectric:4.6.1"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+
 
     testImplementation "junit:junit:$junit"
     testImplementation "io.mockk:mockk:$mockk"

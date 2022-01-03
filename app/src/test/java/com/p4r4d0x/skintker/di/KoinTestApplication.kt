@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker
+package com.p4r4d0x.skintker.di
 
 import android.app.Application
 import org.koin.android.ext.koin.androidContext

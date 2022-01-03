@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker.presenter.view.compose
+package com.p4r4d0x.skintker.presenter.home.view.compose
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker.presenter.view.compose
+package com.p4r4d0x.skintker.presenter.survey.view.compose
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.*
@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.domain.log.LogState
 import com.p4r4d0x.skintker.domain.log.SurveyState
+import com.p4r4d0x.skintker.presenter.home.view.compose.QuestionContent
 import com.p4r4d0x.skintker.theme.progressIndicatorBackground
 
 @Composable

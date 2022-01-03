@@ -9,13 +9,18 @@ import com.p4r4d0x.skintker.data.room.DailyLogDao
 import com.p4r4d0x.skintker.data.room.LogsDatabase
 import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
 import com.p4r4d0x.skintker.domain.usecases.GetLogsUseCase
-import com.p4r4d0x.skintker.presenter.viewmodel.MainViewModel
+import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
+import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
+import com.p4r4d0x.skintker.presenter.welcome.viewmodel.WelcomeViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val vmModule = module {
-    viewModel { MainViewModel(get(), get()) }
+    viewModel { WelcomeViewModel() }
+    viewModel { SurveyViewModel(get()) }
+    viewModel { HomeViewModel(get()) }
+
 
 }
 val repositoriesModule = module {

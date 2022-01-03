@@ -1,7 +1,6 @@
 package com.p4r4d0x.skintker.domain.usecases
 
 import com.p4r4d0x.skintker.data.repository.LogManagementRepository
-import com.p4r4d0x.skintker.domain.BaseUseCaseParamsResult
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 
 class AddLogUseCase(private val repository: LogManagementRepository) :
