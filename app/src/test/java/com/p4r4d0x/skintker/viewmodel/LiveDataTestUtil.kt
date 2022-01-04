@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker
+package com.p4r4d0x.skintker.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer

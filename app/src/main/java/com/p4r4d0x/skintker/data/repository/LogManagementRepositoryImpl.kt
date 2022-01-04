@@ -1,6 +1,5 @@
 package com.p4r4d0x.skintker.data.repository
 
-import android.util.Log
 import com.p4r4d0x.skintker.data.room.LogsDatabase
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 
@@ -26,8 +25,6 @@ class LogManagementRepositoryImpl(private val database: LogsDatabase) : LogManag
     }
 
     override suspend fun getLogByDate(date: Long): DailyLogBO? {
-        val a = database.dailyLogDao().loadLogByDate(date)
-        Log.d("ALRALR", "$a")
-        return a?.toDomain()
+        return database.dailyLogDao().loadLogByDate(date)?.toDomain()
     }
 }

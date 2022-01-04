@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker
+package com.p4r4d0x.skintker.viewmodel
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -27,7 +27,7 @@ import java.util.*
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @Config(application = KoinTestApplication::class, sdk = [Build.VERSION_CODES.P])
-class ExampleUnitTest : KoinBaseTest(testViewmodelModule, testUseCasesModule) {
+class HomeViewModelTest : KoinBaseTest(testViewmodelModule, testUseCasesModule) {
 
 //    @get:Rule
 //    val coroutinesTestRule = CoroutinesTestRule()

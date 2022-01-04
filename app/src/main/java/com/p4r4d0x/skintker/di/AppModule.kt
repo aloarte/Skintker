@@ -8,6 +8,7 @@ import com.p4r4d0x.skintker.data.repository.LogsRepository
 import com.p4r4d0x.skintker.data.room.DailyLogDao
 import com.p4r4d0x.skintker.data.room.LogsDatabase
 import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
+import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
 import com.p4r4d0x.skintker.domain.usecases.GetLogsUseCase
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
@@ -17,11 +18,9 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val vmModule = module {
-    viewModel { WelcomeViewModel() }
+    viewModel { WelcomeViewModel(get()) }
     viewModel { SurveyViewModel(get()) }
     viewModel { HomeViewModel(get()) }
-
-
 }
 val repositoriesModule = module {
     factory { LogsRepository() }
@@ -29,8 +28,9 @@ val repositoriesModule = module {
 }
 
 val useCasesModule = module {
-    factory { GetLogsUseCase(get()) }
     factory { AddLogUseCase(get()) }
+    factory { GetLogUseCase(get()) }
+    factory { GetLogsUseCase(get()) }
 }
 
 
