@@ -27,10 +27,11 @@ object DataParser {
         val irritationZones = mutableListOf<IrritationBO.IrritatedZoneBO>()
         answers.forEach { answer ->
             when (answer) {
-                is Answer.DoubleSlider -> {
-                    if (questionCnt == Constants.FIFTH_QUESTION_NUMBER) {
-                        weatherHumidity = answer.answerValueFirstSlider
-                        weatherTemperature = answer.answerValueSecondSlider
+                is Answer.Slider -> {
+                    if (questionCnt == Constants.FIRST_QUESTION_NUMBER) {
+                        irritation = answer.answerValue
+                    } else if (questionCnt == Constants.THIRD_QUESTION_NUMBER) {
+                        stress = answer.answerValue
                     }
                 }
                 is Answer.MultipleChoice -> {
@@ -45,25 +46,26 @@ object DataParser {
                         }
                     }
                 }
+
                 is Answer.SingleChoice -> {
                     if (questionCnt == Constants.FOURTH_QUESTION_NUMBER) {
                         alcohol = resources.getString(answer.answer)
                     }
                 }
-                is Answer.SingleTextInput -> TODO()
+                is Answer.DoubleSlider -> {
+                    if (questionCnt == Constants.FIFTH_QUESTION_NUMBER) {
+                        weatherHumidity = answer.answerValueFirstSlider
+                        weatherTemperature = answer.answerValueSecondSlider
+                    }
+                }
                 is Answer.SingleTextInputSingleChoice -> {
                     if (questionCnt == Constants.SIXTH_QUESTION_NUMBER) {
                         traveled = resources.getString(answer.answer)
                         city = answer.input
                     }
                 }
-                is Answer.Slider -> {
-                    if (questionCnt == Constants.FIRST_QUESTION_NUMBER) {
-                        irritation = answer.answerValue
-                    } else if (questionCnt == Constants.THIRD_QUESTION_NUMBER) {
-                        stress = answer.answerValue
-                    }
-                }
+                is Answer.SingleTextInput -> TODO()
+
             }
             questionCnt++
         }
