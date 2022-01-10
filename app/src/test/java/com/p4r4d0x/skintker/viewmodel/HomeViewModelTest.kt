@@ -14,7 +14,6 @@ import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.slot
 import io.mockk.verify
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
 import org.junit.Before
 import org.junit.jupiter.api.Test
@@ -24,15 +23,19 @@ import org.robolectric.annotation.Config
 import java.util.*
 
 
-@ExperimentalCoroutinesApi
+//@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-@Config(application = KoinTestApplication::class, sdk = [Build.VERSION_CODES.P])
+@Config(
+    manifest = Config.NONE,
+    application = KoinTestApplication::class,
+    sdk = [Build.VERSION_CODES.O]
+)
 class HomeViewModelTest : KoinBaseTest(testViewmodelModule, testUseCasesModule) {
 
 //    @get:Rule
 //    val coroutinesTestRule = CoroutinesTestRule()
 //    @get:Rule
-//    val coroutinesTestRule = InstantTaskExecutorRule()
+//    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val getLogsUseCase: GetLogsUseCase by inject()
     private val addLogsUseCase: AddLogUseCase by inject()
@@ -46,9 +49,9 @@ class HomeViewModelTest : KoinBaseTest(testViewmodelModule, testUseCasesModule) 
     }
 
     @Test
-    fun `get logs`() {
+    fun getLogs() {
         val logsResult = slot<(List<DailyLogBO>?) -> Unit>()
-        val logs = listOf(DailyLogBO(date = Date()))
+        val logs = listOf(DailyLogBO(date = Date(), foodList = emptyList()))
         every {
             getLogsUseCase.invoke(scope = any(), resultCallback = capture(logsResult))
         } answers {

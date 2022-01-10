@@ -1,6 +1,9 @@
 package com.p4r4d0x.skintker.presenter.survey.viewmodel
 
 import android.content.res.Resources
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,6 +23,12 @@ class SurveyViewModel(
     val uiState: MutableLiveData<SurveyState>
         get() = _uiState
 
+    private val _city = MutableLiveData<String>()
+    val city: MutableLiveData<String>
+        get() = _city
+
+    var askForPermissions by mutableStateOf(true)
+        private set
 
     private val logsRepository = LogsRepository()
     private lateinit var surveyInitialState: SurveyState
@@ -54,11 +63,14 @@ class SurveyViewModel(
 
 
     private fun addLog(log: DailyLogBO) {
-        addLogUseCase.invoke(viewModelScope, params = AddLogUseCase.Params(log)) { added ->
-//            if (added) {
-//                getLogs()
-//            }
-        }
+        addLogUseCase.invoke(viewModelScope, params = AddLogUseCase.Params(log))
     }
 
+    fun updateCityValue(city: String) {
+        _city.value = city
+    }
+
+    fun shouldAskForPermissions() {
+        askForPermissions = false
+    }
 }

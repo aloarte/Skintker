@@ -17,18 +17,26 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.domain.log.LogState
+import com.p4r4d0x.skintker.domain.log.SurveyActionType
 import com.p4r4d0x.skintker.domain.log.SurveyState
-import com.p4r4d0x.skintker.presenter.home.view.compose.QuestionContent
+import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
 import com.p4r4d0x.skintker.theme.progressIndicatorBackground
 
+@ExperimentalPermissionsApi
 @Composable
 fun LogQuestionScreen(
+    viewModel: SurveyViewModel,
     logQuestions: SurveyState.LogQuestions,
+    shouldAskPermissions: Boolean,
+    onDoNotAskForPermissions: () -> Unit,
     onDonePressed: () -> Unit,
-    onBackPressed: () -> Unit
-) {
+    onBackPressed: () -> Unit,
+    onAction: (SurveyActionType) -> Unit,
+
+    ) {
 
     val questionState = remember(logQuestions.currentIndex) {
         logQuestions.state[logQuestions.currentIndex]
@@ -45,12 +53,16 @@ fun LogQuestionScreen(
             },
             content = { innerPadding ->
                 QuestionContent(
+                    viewModel = viewModel,
                     question = questionState.question,
                     answer = questionState.answer,
+                    shouldAskPermissions = shouldAskPermissions,
+                    onDoNotAskForPermissions = onDoNotAskForPermissions,
                     onAnswer = {
                         questionState.answer = it
                         questionState.enableNext = true
                     },
+                    onAction = onAction,
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(innerPadding)

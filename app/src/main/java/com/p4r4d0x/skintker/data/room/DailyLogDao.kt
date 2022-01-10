@@ -58,6 +58,12 @@ interface DailyLogDao {
         //Get the already inserted log to get the rest of the item ids
         val insertedLog = loadLogByDate(log.date.time)
         return if (insertedLog != null) {
+            val updateLog = updateLog(
+                insertedLog.dailyLog.copy(
+                    id = insertedLog.dailyLog.id,
+                    foodList = log.foodList
+                )
+            )
             val irritationId = log.irritation?.let { irritation ->
                 updateIrritation(
                     fromDomainObject(
@@ -74,7 +80,7 @@ interface DailyLogDao {
                     ).copy(additionalDataId = insertedLog.additionalData.additionalDataId)
                 )
             } ?: -1
-            return irritationId > 0 && additionalId > 0
+            return irritationId > 0 && additionalId > 0 && updateLog > 0
         } else false
     }
 

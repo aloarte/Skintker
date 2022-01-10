@@ -17,7 +17,9 @@ data class Question(
     val id: Int,
     @StringRes val questionText: Int,
     val answer: PossibleAnswer,
-    @StringRes val description: Int? = null
+    @StringRes val description: Int? = null,
+    val permissionsRequired: List<String> = emptyList(),
+    @StringRes val permissionsRationaleText: Int? = null
 )
 
 sealed class PossibleAnswer {
@@ -25,7 +27,7 @@ sealed class PossibleAnswer {
     data class MultipleChoice(val optionsStringRes: List<Int>) : PossibleAnswer()
     data class SingleTextInput(val hint: Int, val maxCharacters: Int) : PossibleAnswer()
     data class SingleTextInputSingleChoice(
-        val hint: Int,
+        val hint: String,
         val maxCharacters: Int,
         val optionsStringRes: List<Int>
     ) : PossibleAnswer()
@@ -51,6 +53,8 @@ sealed class PossibleAnswer {
     ) : PossibleAnswer()
 }
 
+enum class SurveyActionType { GET_LOCATION }
+
 /**
  * Sealed class with the possible answers in the survey
  */
@@ -63,9 +67,9 @@ sealed class Answer<T : PossibleAnswer> {
     data class Slider(val answerValue: Float) : Answer<PossibleAnswer.Slider>()
     data class DoubleSlider(val answerValueFirstSlider: Float, val answerValueSecondSlider: Float) :
         Answer<PossibleAnswer.Slider>()
-
     data class SingleTextInputSingleChoice(val input: String, @StringRes val answer: Int) :
         Answer<PossibleAnswer.SingleTextInputSingleChoice>()
+
 }
 
 /**

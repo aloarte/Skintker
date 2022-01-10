@@ -53,7 +53,14 @@
     <string name="question_6_hint">City</string>
     <string name="question_6_answer_1">Yes, I traveled</string>
     <string name="question_6_answer_2">No, I didn\'t traveled today</string>
-
+    <!-- question 7 -->
+    <string name="question_7_title">Today I ate one of this aliments …</string>
+    <string name="question_7_answer_1">Chocolate</string>
+    <string name="question_7_answer_2">Meat</string>
+    <string name="question_7_answer_3">Wheat</string>
+    <string name="question_7_answer_4">Dairy products</string>
+    <string name="question_7_answer_5">Fermented</string>
+    <string name="question_7_answer_6">Nuts</string>
 
     <!--History labels-->
     <string name="traveled_today">Traveled today</string>
@@ -73,6 +80,13 @@
     <string name="temperature_3">Neutral</string>
     <string name="temperature_4">Cold</string>
     <string name="temperature_5">Very cold</string>
+
+    <!-- Permissions-->
+    <string name="permissions_rationale">This question requires some permissions. Please grant them.</string>
+    <string name="permissions_denied">Permissions were denied. Unfortunately, this question is not available at the moment. Please continue with the survey or grant access to the permissions on the Settings screen.</string>
+    <string name="request_permissions">OK!</string>
+    <string name="do_not_ask_permissions">Nope 🙅</string>
+    <string name="open_settings">Open Settings</string>
 
 
     <!-- Test questions  -->

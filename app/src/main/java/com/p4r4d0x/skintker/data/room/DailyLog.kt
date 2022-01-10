@@ -5,26 +5,29 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
-import com.p4r4d0x.skintker.domain.bo.FoodScheduleBO
 import java.util.*
 
 @Entity(
     tableName = "logs_table",
 )
-class DailyLog(
-    var date: Date
-) {
+data class DailyLog(
+    var date: Date,
+    var foodList: List<String>,
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
+) {
+
 
     fun toDomain() = DailyLogBO(
-        date = date
+        date = date,
+        foodList = foodList
     )
 
 }
 
-fun fromDomain(logBO: DailyLogBO) = DailyLog(date = logBO.date)
-
+fun fromDomain(logBO: DailyLogBO): DailyLog {
+    return DailyLog(date = Date(logBO.date.time), foodList = logBO.foodList)
+}
 
 @Entity
 data class DailyLogDetails(
@@ -46,9 +49,7 @@ data class DailyLogDetails(
     fun toDomain() = DailyLogBO(
         date = dailyLog.date,
         irritation = irritation.toDomainObject(),
-        foodSchedule = FoodScheduleBO(),
+        foodList = dailyLog.foodList,
         additionalData = additionalData.toDomainObject()
     )
-
 }
-

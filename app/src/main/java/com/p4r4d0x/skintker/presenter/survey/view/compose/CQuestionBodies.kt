@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker.presenter.home.view.compose
+package com.p4r4d0x.skintker.presenter.survey.view.compose
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -6,6 +6,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
@@ -14,14 +16,20 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.domain.log.Answer
 import com.p4r4d0x.skintker.domain.log.PossibleAnswer
 import com.p4r4d0x.skintker.domain.log.Question
+import com.p4r4d0x.skintker.domain.log.SurveyActionType
+import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
 import com.p4r4d0x.skintker.theme.SkintkerTheme
 
 @Composable
@@ -348,18 +356,24 @@ fun SingleTextInput(
 
 @Composable
 fun SingleTextInputSingleChoice(
+    viewModel: SurveyViewModel?,
     possibleAnswer: PossibleAnswer.SingleTextInputSingleChoice,
     answer: Answer.SingleTextInputSingleChoice?,
     onAnswerSelected: (String, Int) -> Unit,
+    onAction: (SurveyActionType) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val textAnswerSaved = stringResource(id = possibleAnswer.hint)
+    onAction.invoke(SurveyActionType.GET_LOCATION)
+    var radioSelected = false
+    var inputFilled = true
+
+    val textAnswerSaved = viewModel?.city?.value ?: ""
     val optionSelectedAnswerSaved = -1
     var inputText by rememberSaveable { mutableStateOf(textAnswerSaved) }
     var inputOption by rememberSaveable { mutableStateOf(optionSelectedAnswerSaved) }
     val options = possibleAnswer.optionsStringRes.associateBy { stringResource(id = it) }
     val radioOptions = options.keys.toList()
-    val selected = if (answer != null) {
+    val selected = if (answer != null && answer.answer != -1) {
         stringResource(id = answer.answer)
     } else {
         null
@@ -367,12 +381,13 @@ fun SingleTextInputSingleChoice(
     val (selectedOption, onOptionSelected) = remember(answer) { mutableStateOf(selected) }
 
     Column(modifier = modifier) {
+        val focusManager = LocalFocusManager.current
         Column {
             TextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 6.dp, horizontal = 11.dp),
-                value = inputText,
+                value = viewModel?.city?.value ?: inputText,
                 textStyle = MaterialTheme.typography.caption,
                 colors = TextFieldDefaults.textFieldColors(
                     textColor = MaterialTheme.colors.primary,
@@ -382,11 +397,23 @@ fun SingleTextInputSingleChoice(
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent
                 ),
+                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Password
+                ),
                 onValueChange = {
-                    if (it.length <= possibleAnswer.maxCharacters) {
+                    if (it.length <= possibleAnswer.maxCharacters && it.isNotEmpty()) {
+                        inputFilled = true
                         inputText = it
-                        onAnswerSelected(inputText, inputOption)
+                        if (radioSelected) {
+                            onAnswerSelected(inputText, inputOption)
+                        }
+
+                    } else {
+                        inputFilled = false
                     }
+
                 },
                 shape = RoundedCornerShape(8.dp),
                 singleLine = true,
@@ -417,7 +444,10 @@ fun SingleTextInputSingleChoice(
                     onOptionSelected(text)
                     options[text]?.let {
                         inputOption = it
-                        onAnswerSelected(inputText, it)
+                        radioSelected = true
+                        if (inputFilled) {
+                            onAnswerSelected(inputText, it)
+                        }
                     }
                     Unit
                 }
@@ -473,6 +503,7 @@ fun SingleTextInputSingleChoice(
 }
 
 
+@ExperimentalPermissionsApi
 @Preview
 @Composable
 fun MultipleAnswerQuestionPreview() {
@@ -490,13 +521,18 @@ fun MultipleAnswerQuestionPreview() {
     )
     SkintkerTheme {
         QuestionContent(
+            viewModel = null,
             question = question,
             answer = null,
+            shouldAskPermissions = false,
+            onDoNotAskForPermissions = {},
             onAnswer = {},
+            onAction = {}
         )
     }
 }
 
+@ExperimentalPermissionsApi
 @Preview
 @Composable
 fun SingleAnswerQuestionPreview() {
@@ -514,13 +550,18 @@ fun SingleAnswerQuestionPreview() {
     )
     SkintkerTheme {
         QuestionContent(
+            viewModel = null,
             question = question,
             answer = null,
+            shouldAskPermissions = false,
+            onDoNotAskForPermissions = {},
             onAnswer = {},
+            onAction = {},
         )
     }
 }
 
+@ExperimentalPermissionsApi
 @Preview
 @Composable
 fun SlideAnswerQuestionPreview() {
@@ -538,13 +579,18 @@ fun SlideAnswerQuestionPreview() {
     )
     SkintkerTheme {
         QuestionContent(
+            viewModel = null,
             question = question,
             answer = null,
+            shouldAskPermissions = false,
+            onDoNotAskForPermissions = {},
             onAnswer = {},
+            onAction = {},
         )
     }
 }
 
+@ExperimentalPermissionsApi
 @Preview
 @Composable
 fun DoubleSlideAnswerQuestionPreview() {
@@ -565,13 +611,18 @@ fun DoubleSlideAnswerQuestionPreview() {
     )
     SkintkerTheme {
         QuestionContent(
+            viewModel = null,
             question = question,
             answer = null,
+            shouldAskPermissions = false,
+            onDoNotAskForPermissions = {},
             onAnswer = {},
+            onAction = {}
         )
     }
 }
 
+@ExperimentalPermissionsApi
 @Preview
 @Composable
 fun SingleTextInputAnswerQuestionPreview() {
@@ -586,13 +637,18 @@ fun SingleTextInputAnswerQuestionPreview() {
     )
     SkintkerTheme {
         QuestionContent(
+            viewModel = null,
             question = question,
             answer = null,
+            shouldAskPermissions = false,
+            onDoNotAskForPermissions = {},
             onAnswer = {},
+            onAction = {},
         )
     }
 }
 
+@ExperimentalPermissionsApi
 @Preview
 @Composable
 fun SingleTextInputSingleChoiceAnswerQuestionPreview() {
@@ -600,7 +656,7 @@ fun SingleTextInputSingleChoiceAnswerQuestionPreview() {
         id = 5,
         questionText = R.string.slide_answer_title,
         answer = PossibleAnswer.SingleTextInputSingleChoice(
-            hint = R.string.slide_point_2,
+            hint = stringResource(id = R.string.slide_point_2),
             maxCharacters = 40,
             optionsStringRes = listOf(
                 R.string.single_answer_1,
@@ -612,9 +668,13 @@ fun SingleTextInputSingleChoiceAnswerQuestionPreview() {
     )
     SkintkerTheme {
         QuestionContent(
+            viewModel = null,
             question = question,
             answer = null,
+            shouldAskPermissions = false,
+            onDoNotAskForPermissions = {},
             onAnswer = {},
+            onAction = {},
         )
     }
 }

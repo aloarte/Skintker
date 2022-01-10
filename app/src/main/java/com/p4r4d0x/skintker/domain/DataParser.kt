@@ -7,7 +7,6 @@ import com.p4r4d0x.skintker.data.Constants
 import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
-import com.p4r4d0x.skintker.domain.bo.FoodScheduleBO
 import com.p4r4d0x.skintker.domain.bo.IrritationBO
 import com.p4r4d0x.skintker.domain.log.Answer
 import java.text.SimpleDateFormat
@@ -25,6 +24,7 @@ object DataParser {
         var city = ""
         var traveled = ""
         val irritationZones = mutableListOf<IrritationBO.IrritatedZoneBO>()
+        val foodList = mutableListOf<String>()
         answers.forEach { answer ->
             when (answer) {
                 is Answer.Slider -> {
@@ -40,10 +40,17 @@ object DataParser {
                             irritationZones.add(
                                 IrritationBO.IrritatedZoneBO(
                                     resources.getString(it),
-                                    5
+                                    -1
                                 )
                             )
                         }
+                    } else if (questionCnt == Constants.SEVENTH_QUESTION_NUMBER) {
+                        answer.answersStringRes.forEach {
+                            foodList.add(
+                                resources.getString(it)
+                            )
+                        }
+
                     }
                 }
 
@@ -88,9 +95,8 @@ object DataParser {
                 ),
                 alcoholLevel = AlcoholLevel.fromString(alcohol, resources)
             ),
-            foodSchedule = FoodScheduleBO()
+            foodList = foodList
         )
-
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -100,7 +106,6 @@ object DataParser {
         )
         return formatter.parse(formatter.format(Calendar.getInstance().time)) ?: Date()
     }
-
 
     fun getHumidityString(value: Int) =
         when (value) {
@@ -129,5 +134,4 @@ object DataParser {
             2 -> R.string.quite_alcohol
             else -> R.string.no_alcohol
         }
-
 }

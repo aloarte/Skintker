@@ -22,7 +22,9 @@ import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.domain.DataParser.getAlcoholLevel
 import com.p4r4d0x.skintker.domain.DataParser.getHumidityString
 import com.p4r4d0x.skintker.domain.DataParser.getTemperatureString
-import com.p4r4d0x.skintker.domain.bo.*
+import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
+import com.p4r4d0x.skintker.domain.bo.DailyLogBO
+import com.p4r4d0x.skintker.domain.bo.IrritationBO
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -86,9 +88,10 @@ private fun DailyLogCardItemBody(log: DailyLogBO, collapseView: Boolean = false)
                 )
             }
         }
-        log.foodSchedule?.let { foodSchedule ->
-            FoodSchedule(foodSchedule, collapseView)
+        if (log.foodList.isNotEmpty()) {
+            FoodSchedule(log.foodList, collapseView)
         }
+
     }
 }
 
@@ -160,49 +163,30 @@ private fun AdditionalData(additionalDataBO: AdditionalDataBO, modifier: Modifie
 }
 
 @Composable
-private fun FoodSchedule(foodScheduleBO: FoodScheduleBO, collapseView: Boolean = false) {
-    val anyListNotEmpty = foodScheduleBO.breakfast?.isNotEmpty() == true ||
-            foodScheduleBO.morningSnack?.isNotEmpty() == true ||
-            foodScheduleBO.lunch?.isNotEmpty() == true ||
-            foodScheduleBO.afternoonSnack?.isNotEmpty() == true ||
-            foodScheduleBO.dinner?.isNotEmpty() == true
-    if (anyListNotEmpty) {
-        if (!collapseView) {
-            foodScheduleBO.breakfast?.let {
-                FoodScheduleList("Breakfast", it)
-            }
-            foodScheduleBO.morningSnack?.let {
-                FoodScheduleList("Morning Snack", it)
-            }
-            foodScheduleBO.lunch?.let {
-                FoodScheduleList("Lunch", it)
-            }
-            foodScheduleBO.afternoonSnack?.let {
-                FoodScheduleList("Afternoon Snack", it)
-            }
-            foodScheduleBO.dinner?.let {
-                FoodScheduleList("Dinner", it)
-            }
-        } else {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "_",
-                    fontSize = 10.sp,
-                    style = MaterialTheme.typography.body1,
-                    color = MaterialTheme.colors.primary,
-                    modifier = Modifier
-                        .padding(vertical = 1.dp, horizontal = 10.dp)
-                )
-            }
+private fun FoodSchedule(/*foodScheduleBO: FoodScheduleBO,*/foodList: List<String>,
+                                                            collapseView: Boolean = false
+) {
+    if (!collapseView) {
+        FoodScheduleList("Breakfast", foodList)
+    } else {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "_",
+                fontSize = 10.sp,
+                style = MaterialTheme.typography.body1,
+                color = MaterialTheme.colors.primary,
+                modifier = Modifier
+                    .padding(vertical = 1.dp, horizontal = 10.dp)
+            )
         }
     }
 }
 
 @Composable
-private fun FoodScheduleList(title: String, list: List<FoodItemBO>) {
+private fun FoodScheduleList(title: String, list: List<String>) {
     Column(
         Modifier
             .padding(horizontal = 10.dp, vertical = 2.dp)
@@ -217,12 +201,11 @@ private fun FoodScheduleList(title: String, list: List<FoodItemBO>) {
             } else {
                 ""
             }
-            stringFoodList = "$stringFoodList$comma${foodItem.name}"
+            stringFoodList = "$stringFoodList$comma${foodItem}"
         }
         Text(text = stringFoodList, fontSize = 10.sp, maxLines = 2)
     }
 }
-
 
 @Composable
 private fun ItemTextPairNumber(
@@ -240,23 +223,25 @@ private fun ItemTextPairNumber(
                 .fillMaxWidth(0.5f)
                 .padding(vertical = 1.dp, horizontal = 10.dp)
         )
-        Text(
-            text = value.toString(),
-            fontSize = 10.sp,
-            style = if (highlight) {
-                MaterialTheme.typography.body1
-            } else {
-                MaterialTheme.typography.caption
-            },
-            color = if (highlight) {
-                MaterialTheme.colors.primaryVariant
-            } else {
-                MaterialTheme.colors.primary
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 1.dp, horizontal = 10.dp)
-        )
+        if (value != -1) {
+            Text(
+                text = value.toString(),
+                fontSize = 10.sp,
+                style = if (highlight) {
+                    MaterialTheme.typography.body1
+                } else {
+                    MaterialTheme.typography.caption
+                },
+                color = if (highlight) {
+                    MaterialTheme.colors.primaryVariant
+                } else {
+                    MaterialTheme.colors.primary
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 1.dp, horizontal = 10.dp)
+            )
+        }
     }
 }
 
@@ -331,18 +316,13 @@ class DailyLogProvider : PreviewParameterProvider<DailyLogBO> {
                         IrritationBO.IrritatedZoneBO("Ear", 7)
                     )
                 ),
-                foodSchedule = FoodScheduleBO(
-                    breakfast = listOf(FoodItemBO("Apple"), FoodItemBO("Coffee")),
-                    lunch = listOf(
-                        FoodItemBO("Tomatoes"),
-                        FoodItemBO("Rice"),
-                        FoodItemBO("Shrimp"),
-                        FoodItemBO("Red pepper"),
-                        FoodItemBO("Onion"),
-                        FoodItemBO("Bread")
-                    ),
-                    afternoonSnack = listOf(FoodItemBO("Biscuit"), FoodItemBO("Milk")),
-                    dinner = listOf(FoodItemBO("Chickpea"), FoodItemBO("Bread"))
+                foodList = listOf(
+                    "Tomatoes",
+                    "Rice",
+                    "Shrimp",
+                    "Red pepper",
+                    "Onion",
+                    "Bread"
                 ),
                 additionalData = AdditionalDataBO(
                     stressLevel = 7,

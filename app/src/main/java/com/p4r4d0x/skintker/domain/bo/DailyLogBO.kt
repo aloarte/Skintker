@@ -5,6 +5,6 @@ import java.util.*
 data class DailyLogBO(
     val date: Date,
     val irritation: IrritationBO? = null,
-    val foodSchedule: FoodScheduleBO? = null,
-    val additionalData: AdditionalDataBO? = null
+    val additionalData: AdditionalDataBO? = null,
+    val foodList: List<String>
 )

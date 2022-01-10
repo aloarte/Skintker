@@ -7,5 +7,7 @@ object Constants {
     const val FOURTH_QUESTION_NUMBER = 4
     const val FIFTH_QUESTION_NUMBER = 5
     const val SIXTH_QUESTION_NUMBER = 6
+    const val SEVENTH_QUESTION_NUMBER = 7
+
 
 }

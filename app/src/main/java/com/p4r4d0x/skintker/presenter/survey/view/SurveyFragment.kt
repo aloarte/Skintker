@@ -1,15 +1,18 @@
 package com.p4r4d0x.skintker.presenter.survey.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.domain.log.SurveyState
 import com.p4r4d0x.skintker.presenter.FragmentScreen
+import com.p4r4d0x.skintker.presenter.MainActivity
 import com.p4r4d0x.skintker.presenter.navigate
 import com.p4r4d0x.skintker.presenter.survey.view.compose.LogQuestionScreen
 import com.p4r4d0x.skintker.presenter.survey.view.compose.SurveyResultScreen
@@ -19,7 +22,13 @@ import org.koin.android.ext.android.inject
 
 class SurveyFragment : Fragment() {
 
+    interface OnCityObtained {
+        fun cityObtained(city: String)
+    }
+
     private val viewModel: SurveyViewModel by inject()
+
+    @ExperimentalPermissionsApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,6 +47,7 @@ class SurveyFragment : Fragment() {
                         when (logState) {
                             is SurveyState.LogQuestions -> {
                                 LogQuestionScreen(
+                                    viewModel = viewModel,
                                     logQuestions = logState,
                                     onDonePressed = {
                                         viewModel.computeResult(
@@ -45,10 +55,19 @@ class SurveyFragment : Fragment() {
                                             resources = resources
                                         )
                                     },
+                                    shouldAskPermissions = viewModel.askForPermissions,
+                                    onDoNotAskForPermissions = { viewModel.shouldAskForPermissions() },
                                     onBackPressed = {
                                         activity?.onBackPressedDispatcher?.onBackPressed()
-                                    }
-                                )
+                                    },
+                                    onAction = {
+                                        Log.d("ALRALR", "onPermissionRequired")
+                                        (requireActivity() as? MainActivity)?.getLocation {
+                                            viewModel.updateCityValue(it)
+                                        }
+
+                                    })
+
                             }
                             is SurveyState.Result -> {
                                 SurveyResultScreen(

@@ -27,6 +27,7 @@ class WelcomeFragment : Fragment() {
 
     private val viewModel: WelcomeViewModel by inject()
 
+
     override fun onResume() {
         super.onResume()
         observeViewModel()
@@ -40,7 +41,7 @@ class WelcomeFragment : Fragment() {
             }
         }
         viewModel.logReported.observe(viewLifecycleOwner) { logAlreadyReported ->
-            viewModel.handleContinue(logAlreadyReported)
+            viewModel.handleContinue(false)
         }
     }
 
