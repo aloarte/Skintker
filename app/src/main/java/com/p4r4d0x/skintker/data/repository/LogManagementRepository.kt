@@ -15,5 +15,5 @@ interface LogManagementRepository {
 
     suspend fun getLogByDate(date: Long): DailyLogBO?
 
-
+    suspend fun getLogsByIrritationLevel(irritationLevel: Int): List<DailyLogBO>
 }

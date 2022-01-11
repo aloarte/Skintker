@@ -14,12 +14,15 @@ import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
 import com.p4r4d0x.skintker.theme.SkintkerTheme
 
 @Composable
-fun ResumeScreen() {
+fun ResumeScreen(viewModel: HomeViewModel) {
+    viewModel.possibleCauses.observeAsState().value?.let { causes ->
+
+    }
 }
 
 @Composable
 fun HistoryScreen(viewModel: HomeViewModel) {
-    viewModel.logList.observeAsState().value?.let {
+    viewModel.logList.observeAsState().value?.let { logs ->
         SkintkerTheme {
             LazyColumn(
                 modifier = Modifier
@@ -27,7 +30,7 @@ fun HistoryScreen(viewModel: HomeViewModel) {
                     .padding(horizontal = 10.dp, vertical = 14.dp)
             ) {
                 item {
-                    it.forEach { log ->
+                    logs.forEach { log ->
                         DailyLogCard(log = log)
                         Spacer(modifier = Modifier.height(5.dp))
 
@@ -36,110 +39,4 @@ fun HistoryScreen(viewModel: HomeViewModel) {
             }
         }
     }
-//    val shortLog = DailyLogBO(
-//        date = Calendar.getInstance().time,
-//        irritation = IrritationBO(
-//            overallValue = 8,
-//            zoneValues = listOf(
-//                IrritationBO.IrritatedZoneBO("Wrist", 10),
-//                IrritationBO.IrritatedZoneBO("Shoulder", 6),
-//                IrritationBO.IrritatedZoneBO("Ear", 7)
-//            )
-//        ),
-//        foodSchedule = FoodScheduleBO(),
-//        additionalData = AdditionalDataBO(
-//            stressLevel = 7,
-//            alcoholLevel = 0,
-//            weather = AdditionalDataBO.WeatherBO(humidity = 0, temperature = 4),
-//            travel = AdditionalDataBO.TravelBO(traveled = true, city = "Madrid")
-//        )
-//    )
-//
-//    val log = DailyLogBO(
-//        date = Calendar.getInstance().time,
-//        irritation = IrritationBO(
-//            overallValue = 8,
-//            zoneValues = listOf(
-//                IrritationBO.IrritatedZoneBO("Wrist", 10),
-//                IrritationBO.IrritatedZoneBO("Shoulder", 6),
-//                IrritationBO.IrritatedZoneBO("Ear", 7)
-//            )
-//        ),
-//        foodSchedule = FoodScheduleBO(dinner = listOf(FoodItemBO("a"), FoodItemBO("b"))),
-//        additionalData = AdditionalDataBO(
-//            alcoholLevel = 1,
-//            stressLevel = 7,
-//            weather = AdditionalDataBO.WeatherBO(humidity = 3, temperature = 3),
-//            travel = AdditionalDataBO.TravelBO(traveled = true, city = "Madrid")
-//        )
-//    )
-//
-//    val irritationLog = DailyLogBO(
-//        date = Calendar.getInstance().time,
-//        irritation = IrritationBO(
-//            overallValue = 8,
-//            zoneValues = listOf(
-//                IrritationBO.IrritatedZoneBO("Wrist", 10),
-//                IrritationBO.IrritatedZoneBO("Shoulder", 6),
-//                IrritationBO.IrritatedZoneBO("Ear", 7),
-//                IrritationBO.IrritatedZoneBO("Knee", 7),
-//                IrritationBO.IrritatedZoneBO("Lips", 7)
-//            )
-//        ),
-//        foodSchedule = FoodScheduleBO(/*dinner = listOf(FoodItemBO("a"),FoodItemBO("b"))*/),
-//        additionalData = AdditionalDataBO(
-//            alcoholLevel = 2,
-//            stressLevel = 7,
-//            weather = AdditionalDataBO.WeatherBO(humidity = 0, temperature = 4),
-//            travel = AdditionalDataBO.TravelBO(traveled = true, city = "Madrid")
-//        )
-//    )
-//
-//    val long = DailyLogBO(
-//        date = Calendar.getInstance().time,
-//        irritation = IrritationBO(
-//            overallValue = 8,
-//            zoneValues = listOf(
-//                IrritationBO.IrritatedZoneBO("Wrist", 10),
-//                IrritationBO.IrritatedZoneBO("Shoulder", 6),
-//                IrritationBO.IrritatedZoneBO("Ear", 7),
-//                IrritationBO.IrritatedZoneBO("Knee", 7),
-//                IrritationBO.IrritatedZoneBO("Nose", 7),
-//                IrritationBO.IrritatedZoneBO("Knee", 7),
-//                IrritationBO.IrritatedZoneBO("Lips", 7)
-//
-//            )
-//        ),
-//        foodSchedule = FoodScheduleBO(
-//            dinner = listOf(
-//                FoodItemBO("Garbanzos"),
-//                FoodItemBO("Pimenton"),
-//                FoodItemBO("Comino"),
-//                FoodItemBO("Aceite"),
-//                FoodItemBO("Pan"),
-//                FoodItemBO("Harina"),
-//                FoodItemBO("Cerveza"),
-//                FoodItemBO("Garbanzos"),
-//                FoodItemBO("Pimenton"),
-//                FoodItemBO("Comino"),
-//                FoodItemBO("Aceite"),
-//                FoodItemBO("Pan"),
-//                FoodItemBO("Harina")
-//
-//
-//            ),
-//            breakfast = listOf(FoodItemBO("a 1"), FoodItemBO("b")),
-//            lunch = listOf(FoodItemBO("a 1"), FoodItemBO("b"), FoodItemBO("c"), FoodItemBO("d")),
-//            afternoonSnack = listOf(FoodItemBO("a 1")),
-//
-//            ),
-//        additionalData = AdditionalDataBO(
-//            alcoholLevel = 2,
-//            stressLevel = 7,
-//            weather = AdditionalDataBO.WeatherBO(humidity = 4, temperature = 2),
-//            travel = AdditionalDataBO.TravelBO(traveled = true, city = "Madrid")
-//        )
-//    )
-
-
 }

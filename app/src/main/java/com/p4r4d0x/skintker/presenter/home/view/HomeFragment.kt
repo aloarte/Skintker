@@ -30,6 +30,7 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.getLogs()
+        viewModel.getLogsByIntensityLevel()
     }
 
     override fun onCreateView(
@@ -90,7 +91,7 @@ class HomeFragment : Fragment() {
                             HistoryScreen(viewModel)
                         }
                         composable(Screen.Resume.route) {
-                            ResumeScreen()
+                            ResumeScreen(viewModel)
                         }
                     }
                 }

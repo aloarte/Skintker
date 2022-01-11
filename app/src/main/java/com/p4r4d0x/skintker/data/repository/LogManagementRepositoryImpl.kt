@@ -27,4 +27,10 @@ class LogManagementRepositoryImpl(private val database: LogsDatabase) : LogManag
     override suspend fun getLogByDate(date: Long): DailyLogBO? {
         return database.dailyLogDao().loadLogByDate(date)?.toDomain()
     }
+
+    override suspend fun getLogsByIrritationLevel(irritationLevel: Int): List<DailyLogBO> {
+        return database.dailyLogDao().getLogsWithIrritationLevel(irritationLevel)
+            .map { it.toDomain() }
+    }
+
 }

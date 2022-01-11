@@ -14,6 +14,10 @@ interface DailyLogDao {
     @Query("SELECT * FROM logs_table WHERE date = :givenDateInLong")
     suspend fun loadLogByDate(givenDateInLong: Long): DailyLogDetails?
 
+    @Transaction
+    @Query("SELECT * FROM logs_table INNER JOIN  irritation_table ON logs_table.id=irritation_table.log_id WHERE overallValue>:irritationLevel")
+    suspend fun getLogsWithIrritationLevel(irritationLevel: Int): List<DailyLogDetails>
+
 //    @Query(
 //        "SELECT * FROM user WHERE first_name LIKE :first AND " +
 //                "last_name LIKE :last LIMIT 1"

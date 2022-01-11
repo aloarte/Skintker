@@ -10,6 +10,7 @@ import com.p4r4d0x.skintker.data.room.LogsDatabase
 import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
 import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
 import com.p4r4d0x.skintker.domain.usecases.GetLogsUseCase
+import com.p4r4d0x.skintker.domain.usecases.GetQueriedLogsUseCase
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
 import com.p4r4d0x.skintker.presenter.welcome.viewmodel.WelcomeViewModel
@@ -20,7 +21,7 @@ import org.koin.dsl.module
 val vmModule = module {
     viewModel { WelcomeViewModel(get()) }
     viewModel { SurveyViewModel(get()) }
-    viewModel { HomeViewModel(get()) }
+    viewModel { HomeViewModel(get(), get()) }
 }
 val repositoriesModule = module {
     factory { LogsRepository() }
@@ -31,8 +32,9 @@ val useCasesModule = module {
     factory { AddLogUseCase(get()) }
     factory { GetLogUseCase(get()) }
     factory { GetLogsUseCase(get()) }
-}
+    factory { GetQueriedLogsUseCase(get()) }
 
+}
 
 val databasesModule = module {
     fun provideDataBase(application: Application): LogsDatabase {
