@@ -1,5 +1,6 @@
 package com.p4r4d0x.skintker.presenter.home.view
 
+import android.util.Log
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,7 +17,7 @@ import com.p4r4d0x.skintker.theme.SkintkerTheme
 @Composable
 fun ResumeScreen(viewModel: HomeViewModel) {
     viewModel.possibleCauses.observeAsState().value?.let { causes ->
-
+        Log.d("ALRALR", "$causes")
     }
 }
 

@@ -15,6 +15,12 @@ class HomeViewModel(
 
     companion object {
         private const val IRRITATION_LEVEL_THRESHOLD = 7
+        private const val FOOD_THRESHOLD = 7
+        private const val ZONES_THRESHOLD = 7
+        private val STRESS_THRESHOLDS = Pair(7, 0.5f)
+        private val TRAVEL_THRESHOLDS = Pair(7, 0.5f)
+        private val WEATHER_THRESHOLDS = Pair(7, 0.5f)
+
     }
 
 
@@ -35,9 +41,17 @@ class HomeViewModel(
     fun getLogsByIntensityLevel() {
         getQueriedLogsUseCase.invoke(
             viewModelScope,
-            params = GetQueriedLogsUseCase.Params(IRRITATION_LEVEL_THRESHOLD)
+            params = GetQueriedLogsUseCase.Params(
+                irritationLevel = IRRITATION_LEVEL_THRESHOLD,
+                foodThreshold = FOOD_THRESHOLD,
+                zonesThreshold = ZONES_THRESHOLD,
+                stressThresholds = STRESS_THRESHOLDS,
+                travelThresholds = TRAVEL_THRESHOLDS,
+                weatherThresholds = WEATHER_THRESHOLDS
+            )
         ) {
             _possibleCauses.value = it
         }
     }
+
 }

@@ -2,6 +2,7 @@ package com.p4r4d0x.skintker.domain.bo
 
 data class PossibleCausesBO(
     val dietaryCauses: List<String>,
+    val mostAffectedZones: List<String>,
     val stressCause: StressCauseBO,
     val travelCause: TravelCauseBO,
     val weatherCause: Pair<WeatherCauseBO, WeatherCauseBO>
