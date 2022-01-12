@@ -19,12 +19,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.data.enums.AlcoholLevel
-import com.p4r4d0x.skintker.domain.DataParser.getAlcoholLevel
-import com.p4r4d0x.skintker.domain.DataParser.getHumidityString
-import com.p4r4d0x.skintker.domain.DataParser.getTemperatureString
 import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.bo.IrritationBO
+import com.p4r4d0x.skintker.domain.parsers.DataParser.getAlcoholLevel
+import com.p4r4d0x.skintker.domain.parsers.DataParser.getHumidityString
+import com.p4r4d0x.skintker.domain.parsers.DataParser.getTemperatureString
 import java.text.SimpleDateFormat
 import java.util.*
 

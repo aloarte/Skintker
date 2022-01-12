@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.p4r4d0x.skintker.data.Event
-import com.p4r4d0x.skintker.domain.DataParser.getDateWithoutTimeUsingFormat
+import com.p4r4d0x.skintker.domain.parsers.DataParser.getDateWithoutTimeUsingFormat
 import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
 import com.p4r4d0x.skintker.presenter.FragmentScreen
 

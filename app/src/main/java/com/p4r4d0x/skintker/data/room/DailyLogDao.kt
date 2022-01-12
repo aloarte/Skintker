@@ -15,7 +15,7 @@ interface DailyLogDao {
     suspend fun loadLogByDate(givenDateInLong: Long): DailyLogDetails?
 
     @Transaction
-    @Query("SELECT * FROM logs_table INNER JOIN  irritation_table ON logs_table.id=irritation_table.log_id WHERE overallValue>:irritationLevel")
+    @Query("SELECT * FROM logs_table INNER JOIN  irritation_table ON logs_table.id=irritation_table.log_id WHERE overallValue>=:irritationLevel")
     suspend fun getLogsWithIrritationLevel(irritationLevel: Int): List<DailyLogDetails>
 
 //    @Query(

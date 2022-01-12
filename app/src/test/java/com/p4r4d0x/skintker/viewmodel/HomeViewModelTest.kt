@@ -7,8 +7,8 @@ import com.p4r4d0x.skintker.di.KoinTestApplication
 import com.p4r4d0x.skintker.di.testUseCasesModule
 import com.p4r4d0x.skintker.di.testViewmodelModule
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
-import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
 import com.p4r4d0x.skintker.domain.usecases.GetLogsUseCase
+import com.p4r4d0x.skintker.domain.usecases.GetQueriedLogsUseCase
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -38,14 +38,14 @@ class HomeViewModelTest : KoinBaseTest(testViewmodelModule, testUseCasesModule) 
 //    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val getLogsUseCase: GetLogsUseCase by inject()
-    private val addLogsUseCase: AddLogUseCase by inject()
+    private val getQueriedLogsUseCase: GetQueriedLogsUseCase by inject()
 
     private lateinit var viewModelSUT: HomeViewModel
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        viewModelSUT = HomeViewModel(getLogsUseCase)
+        viewModelSUT = HomeViewModel(getLogsUseCase, getQueriedLogsUseCase)
     }
 
     @Test

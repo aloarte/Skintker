@@ -15,14 +15,12 @@ class HomeViewModel(
 
     companion object {
         private const val IRRITATION_LEVEL_THRESHOLD = 7
-        private const val FOOD_THRESHOLD = 7
-        private const val ZONES_THRESHOLD = 7
+        private const val FOOD_THRESHOLD = 0.7f
+        private const val ZONES_THRESHOLD = 0.7f
+        private const val TRAVEL_THRESHOLD = 0.5f
         private val STRESS_THRESHOLDS = Pair(7, 0.5f)
-        private val TRAVEL_THRESHOLDS = Pair(7, 0.5f)
-        private val WEATHER_THRESHOLDS = Pair(7, 0.5f)
-
+        private val WEATHER_THRESHOLDS = Pair(0.5f, 0.5f)
     }
-
 
     private val _logList = MutableLiveData<List<DailyLogBO>>()
     val logList: MutableLiveData<List<DailyLogBO>>
@@ -46,7 +44,7 @@ class HomeViewModel(
                 foodThreshold = FOOD_THRESHOLD,
                 zonesThreshold = ZONES_THRESHOLD,
                 stressThresholds = STRESS_THRESHOLDS,
-                travelThresholds = TRAVEL_THRESHOLDS,
+                travelThreshold = TRAVEL_THRESHOLD,
                 weatherThresholds = WEATHER_THRESHOLDS
             )
         ) {

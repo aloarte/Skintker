@@ -46,7 +46,7 @@ class WelcomeViewModelTest : KoinBaseTest(testViewmodelModule, testUseCasesModul
     @Test
     fun `get logs`() {
         val logResult = slot<(DailyLogBO?) -> Unit>()
-        val log = DailyLogBO(date = Date())
+        val log = DailyLogBO(date = Date(), foodList = emptyList())
         every {
             getLogUseCase.invoke(
                 scope = any(),
