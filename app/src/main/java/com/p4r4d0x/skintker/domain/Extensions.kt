@@ -1,5 +1,7 @@
 package com.p4r4d0x.skintker.domain
 
+import com.p4r4d0x.skintker.data.enums.AlcoholLevel
+
 fun Map<String, Int>.getMaxValue(): String? {
     return this.toSortedMap().toList().reversed().maxByOrNull { (_, value) -> value }?.first
 }
@@ -21,5 +23,9 @@ fun MutableMap<Int, Int>.updateValue(key: Int) {
 }
 
 fun MutableMap<Boolean, Int>.updateValue(key: Boolean) {
+    this[key] = (this[key] ?: 0) + 1
+}
+
+fun MutableMap<AlcoholLevel, Int>.updateValue(key: AlcoholLevel) {
     this[key] = (this[key] ?: 0) + 1
 }

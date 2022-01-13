@@ -1,7 +1,9 @@
 package com.p4r4d0x.skintker.domain.bo
 
 data class PossibleCausesBO(
+    val enoughData: Boolean,
     val dietaryCauses: List<String>,
+    val alcoholCause: Boolean,
     val mostAffectedZones: List<String>,
     val stressCause: StressCauseBO,
     val travelCause: TravelCauseBO,

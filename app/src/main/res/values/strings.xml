@@ -1,13 +1,9 @@
 <resources>
-    <string name="app_name">Skintker</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-
+    <string name="app_name" translatable="false">Skintker</string>
 
     <string name="screen_log">Reporte</string>
     <string name="screen_resume">Resumen</string>
     <string name="screen_history">Historial</string>
-
 
     <string name="next">NEXT</string>
     <string name="previous">PREVIOUS</string>
@@ -83,11 +79,8 @@
 
     <!-- Permissions-->
     <string name="permissions_rationale">This question requires some permissions. Please grant them.</string>
-    <string name="permissions_denied">Permissions were denied. Unfortunately, this question is not available at the moment. Please continue with the survey or grant access to the permissions on the Settings screen.</string>
     <string name="request_permissions">OK!</string>
     <string name="do_not_ask_permissions">Nope 🙅</string>
-    <string name="open_settings">Open Settings</string>
-
 
     <!-- Test questions  -->
     <string name="multiple_answer_title" translatable="false">Multiple answer title</string>
@@ -108,8 +101,24 @@
 
 
     <!-- survey-->
-    <string name="question_count">\u00A0of %d</string>
-    <string name="survey">n</string>
-    <string name="survey_result">n %s</string>
-    <string name="survey_result_description">n</string>
+    <string name="question_count" translatable="false">\u00A0of %d</string>
+    <string name="survey" translatable="false">n</string>
+    <string name="survey_result" translatable="false">n %s</string>
+    <string name="survey_result_description" translatable="false">n</string>
+
+    <!-- Resume  -->
+    <string name="resume_title">Possible causes</string>
+    <string name="resume_description">The data that may be related as the cause of the itch that have been extracted are based on those logs that exceed the configured intensity threshold</string>
+    <string name="resume_zones_caption">The most affected zones are:</string>
+    <string name="resume_alcohol">The alcohol ingestion seems that may be a cause.</string>
+    <string name="resume_stress">You\'ve been in too many stressful situations and it can be related with your high irritation levels.</string>
+    <string name="resume_stress_level">The most scored stress level is </string>
+    <string name="resume_dietary_caption">The foods in your diet that can cause the problem are:</string>
+    <string name="resume_travel">You\'ve traveled long enough to be a possible factor for itchiness.</string>
+    <string name="resume_travel_city">Mainly you stayed in </string>
+    <string name="resume_weather">It seems that some weather conditions affect your skin.</string>
+    <string name="resume_weather_temperature">Temperature</string>
+    <string name="resume_weather_humidity">Humidity</string>
+    <string name="resume_no_causes_title">Not enough data</string>
+    <string name="resume_no_causes">Can\'t extract any conclusions with the number of logs reported. Please, come back to this section when you log a few days more.</string>
 </resources>

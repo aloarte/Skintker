@@ -1,0 +1,103 @@
+<resources>
+
+    <string name="screen_log">Reporte</string>
+    <string name="screen_resume">Resumen</string>
+    <string name="screen_history">Historial</string>
+
+
+    <string name="next">SIGUIENTE</string>
+    <string name="previous">ANTERIOR</string>
+    <string name="done">HECHO</string>
+
+    <!-- question 1 -->
+    <string name="question_1_title">Selecciona el nivel de incomodidad</string>
+    <string name="question_1_description">Evalua tu nivel de irritación/picor a lo largo del día.</string>
+    <string name="question_1_slide_start">Nada</string>
+    <string name="question_1_slide_mid">Moderado</string>
+    <string name="question_1_slide_end">Insoportable</string>
+    <!-- question 2 -->
+    <string name="question_2_title">La parte del cuerpo que me molesta es …</string>
+    <string name="question_2_answer_1">Orejas</string>
+    <string name="question_2_answer_2">Párpados</string>
+    <string name="question_2_answer_3">Mejillas</string>
+    <string name="question_2_answer_4">Labios</string>
+    <string name="question_2_answer_5">Cuello</string>
+    <string name="question_2_answer_6">Hombros</string>
+    <string name="question_2_answer_7">Brazos</string>
+    <string name="question_2_answer_8">Muñecas</string>
+    <!-- question 3 -->
+    <string name="question_3_title">Nivel de estrés</string>
+    <string name="question_3_description">¿Has sufrido alguna situación de estrés o preocupación hoy?</string>
+    <string name="question_3_slide_start">Nada</string>
+    <string name="question_3_slide_mid">Moderado</string>
+    <string name="question_3_slide_end">Estresante</string>
+    <!-- question 4 -->
+    <string name="question_4_title">¿Has tomado algo de alcohol hoy?</string>
+    <string name="question_4_answer_1">No</string>
+    <string name="question_4_answer_2">Algunas cervezas</string>
+    <string name="question_4_answer_3">Algunas copas</string>
+    <!-- question 5 -->
+    <string name="question_5_title">¿Qué tiempo ha hecho hoy?</string>
+    <string name="question_5_description">Describe el tiempo que ha hecho hoy expresado con los valores de temperatura y humedad.</string>
+    <string name="question_5_slide_1_start">Seco</string>
+    <string name="question_5_slide_1_end">Húmedo</string>
+    <string name="question_5_slide_2_start">Caluroso</string>
+    <string name="question_5_slide_2_end">Frío</string>
+    <!-- question 6 -->
+    <string name="question_6_title">¿En qué ciudad has estado hoy?</string>
+    <string name="question_6_description">Indica también si viajaste. Si realizaste algún viaje entre ciudades, indica la ciudad donde dormiste la noche anterior.</string>
+    <string name="question_6_hint">Ciudad</string>
+    <string name="question_6_answer_1">Si, viajé</string>
+    <string name="question_6_answer_2">No, hoy no viajé</string>
+    <!-- question 7 -->
+    <string name="question_7_title">Hoy comí alguno de estos alimentos …</string>
+    <string name="question_7_answer_1">Chocolate</string>
+    <string name="question_7_answer_2">Carne</string>
+    <string name="question_7_answer_3">Trigo</string>
+    <string name="question_7_answer_4">Productos lácteos</string>
+    <string name="question_7_answer_5">Fermentados</string>
+    <string name="question_7_answer_6">Frutos secos</string>
+
+    <!--History labels-->
+    <string name="traveled_today">Viajé hoy</string>
+    <string name="not_traveled_today">No viajé hoy</string>
+    <string name="slept_in">Dormí en </string>
+    <string name="no_alcohol">No ingerí alcohol</string>
+    <string name="any_alcohol">Me tomé algunas cervezas</string>
+    <string name="quite_alcohol">Me tomé algunas copas</string>
+
+
+    <string name="humidity_1">Muy seco</string>
+    <string name="humidity_2">Seco</string>
+    <string name="humidity_3">Neutral</string>
+    <string name="humidity_4">Húmedo</string>
+    <string name="humidity_5">Muy húmedo</string>
+    <string name="temperature_1">Muy caluroso</string>
+    <string name="temperature_2">Caluroso</string>
+    <string name="temperature_3">Neutral</string>
+    <string name="temperature_4">Frío</string>
+    <string name="temperature_5">Muy frío</string>
+
+    <!-- Permissions-->
+    <string name="permissions_rationale">Esta pregunta necesita algunos permisos. Por favor, concedeselos a la aplicación.</string>
+    <string name="request_permissions">OK!</string>
+    <string name="do_not_ask_permissions">No 🙅</string>
+
+    <!-- Resume  -->
+    <string name="resume_title">Causas posibles</string>
+    <string name="resume_description">Los datos que pueden estar relacionados como la causa del picor que se han extraído se basan  en aquellos logs que superan el umbral de intensidad configurado</string>
+    <string name="resume_zones_caption">Las zonas más afectadas son las siguientes:</string>
+    <string name="resume_alcohol">Tomar alcohol parece que puede ser una causa.</string>
+    <string name="resume_stress">Has sufrido muchas situaciones de estrés y eso parece estar relacionado con los altos niveres de picor reportados.</string>
+    <string name="resume_stress_level">El nivel de estrés más reportado ha sido </string>
+    <string name="resume_dietary_caption">Los alimentos de tu dieta que pueden causar el problema son:</string>
+    <string name="resume_travel">Has viajado lo suficiente como para poder ser un posible factor del picor.</string>
+    <string name="resume_travel_city">Has estado principalmente en </string>
+    <string name="resume_weather">Parece que las condiciones climáticas afectan al estado de tu piel.</string>
+    <string name="resume_weather_temperature">Temperatura</string>
+    <string name="resume_weather_humidity">Humedad</string>
+    <string name="resume_no_causes_title">No hay información suficiente</string>
+    <string name="resume_no_causes">No se pueden extrar conclusiones con el número de reportes diarios almacenado. Por favor, vuelve a esta sección cuando aportes más datos para poder extraer posibles causas.</string>
+
+
+</resources>

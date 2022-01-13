@@ -14,19 +14,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.bo.IrritationBO
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getAlcoholLevel
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getHumidityString
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getTemperatureString
+import com.p4r4d0x.skintker.presenter.utils.DailyLogProvider
 import java.text.SimpleDateFormat
-import java.util.*
 
 @SuppressLint("SimpleDateFormat")
 @Preview
@@ -303,33 +301,3 @@ fun WeatherText(weather: AdditionalDataBO.WeatherBO) {
     }
 }
 
-class DailyLogProvider : PreviewParameterProvider<DailyLogBO> {
-    override val values: Sequence<DailyLogBO>
-        get() = listOf(
-            DailyLogBO(
-                date = Calendar.getInstance().time,
-                irritation = IrritationBO(
-                    overallValue = 8,
-                    zoneValues = listOf(
-                        IrritationBO.IrritatedZoneBO("Wrist", 10),
-                        IrritationBO.IrritatedZoneBO("Shoulder", 6),
-                        IrritationBO.IrritatedZoneBO("Ear", 7)
-                    )
-                ),
-                foodList = listOf(
-                    "Tomatoes",
-                    "Rice",
-                    "Shrimp",
-                    "Red pepper",
-                    "Onion",
-                    "Bread"
-                ),
-                additionalData = AdditionalDataBO(
-                    stressLevel = 7,
-                    alcoholLevel = AlcoholLevel.Few,
-                    weather = AdditionalDataBO.WeatherBO(humidity = 2, temperature = 1),
-                    travel = AdditionalDataBO.TravelBO(traveled = true, city = "Madrid")
-                )
-            )
-        ).asSequence()
-}

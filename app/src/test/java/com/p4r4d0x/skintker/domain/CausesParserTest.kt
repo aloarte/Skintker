@@ -1,6 +1,8 @@
 package com.p4r4d0x.skintker.domain
 
+import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.domain.bo.PossibleCausesBO
+import com.p4r4d0x.skintker.domain.parsers.CausesParser.getAlcoholCause
 import com.p4r4d0x.skintker.domain.parsers.CausesParser.getPossibleCausesItemList
 import com.p4r4d0x.skintker.domain.parsers.CausesParser.getPossibleStressCauses
 import com.p4r4d0x.skintker.domain.parsers.CausesParser.getPossibleTravelCauses
@@ -109,4 +111,21 @@ class CausesParserTest {
 
 
     }
+
+    @Test
+    fun `get alcohol cause`() {
+        val alcoholMap = mapOf(
+            AlcoholLevel.None to 30,
+            AlcoholLevel.Few to 60,
+            AlcoholLevel.Some to 10,
+        )
+
+        val cause = getAlcoholCause(alcoholLevelMap = alcoholMap, alcoholThreshold = 0.7f)
+
+        Assert.assertEquals(true, cause)
+
+
+    }
+
+
 }

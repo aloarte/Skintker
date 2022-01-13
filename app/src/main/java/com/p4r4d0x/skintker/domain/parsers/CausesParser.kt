@@ -1,5 +1,6 @@
 package com.p4r4d0x.skintker.domain.parsers
 
+import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.domain.bo.PossibleCausesBO
 import com.p4r4d0x.skintker.domain.getKeyOfMaxValue
 import com.p4r4d0x.skintker.domain.getMaxValue
@@ -98,4 +99,20 @@ object CausesParser {
             )
         )
     }
+
+
+    fun getAlcoholCause(alcoholLevelMap: Map<AlcoholLevel, Int>, alcoholThreshold: Float): Boolean {
+        var alcoholRepetitions = 0
+        var totalRepetitions = 0
+
+        alcoholLevelMap.forEach { (alcoholLevel, times) ->
+            if (alcoholLevel != AlcoholLevel.None) {
+                alcoholRepetitions += times
+            }
+            totalRepetitions += times
+        }
+
+        return alcoholRepetitions >= totalRepetitions * alcoholThreshold
+    }
+
 }
