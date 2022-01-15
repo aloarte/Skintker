@@ -1,9 +1,8 @@
 <resources>
 
-    <string name="screen_log">Reporte</string>
     <string name="screen_resume">Resumen</string>
     <string name="screen_history">Historial</string>
-
+    <string name="screen_configuration">Configuración</string>
 
     <string name="next">SIGUIENTE</string>
     <string name="previous">ANTERIOR</string>
@@ -84,7 +83,7 @@
     <string name="do_not_ask_permissions">No 🙅</string>
 
     <!-- Resume  -->
-    <string name="resume_title">Causas posibles</string>
+    <string name="resume_title">Causas posibles 📋</string>
     <string name="resume_description">Los datos que pueden estar relacionados como la causa del picor que se han extraído se basan  en aquellos logs que superan el umbral de intensidad configurado</string>
     <string name="resume_zones_caption">Las zonas más afectadas son las siguientes:</string>
     <string name="resume_alcohol">Tomar alcohol parece que puede ser una causa.</string>
@@ -96,7 +95,7 @@
     <string name="resume_weather">Parece que las condiciones climáticas afectan al estado de tu piel.</string>
     <string name="resume_weather_temperature">Temperatura</string>
     <string name="resume_weather_humidity">Humedad</string>
-    <string name="resume_no_causes_title">No hay información suficiente</string>
+    <string name="resume_no_causes_title">No hay información suficiente 😓</string>
     <string name="resume_no_causes">No se pueden extrar conclusiones con el número de reportes diarios almacenado. Por favor, vuelve a esta sección cuando aportes más datos para poder extraer posibles causas.</string>
 
 

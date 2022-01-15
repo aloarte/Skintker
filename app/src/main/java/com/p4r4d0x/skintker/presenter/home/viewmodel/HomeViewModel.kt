@@ -55,5 +55,4 @@ class HomeViewModel(
             _possibleCauses.value = it
         }
     }
-
 }

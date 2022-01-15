@@ -1,12 +1,15 @@
 package com.p4r4d0x.skintker.presenter.home.view.compose
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -15,11 +18,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.domain.bo.PossibleCausesBO
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getHumidityString
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getTemperatureString
 import com.p4r4d0x.skintker.presenter.utils.PossibleCausesProvider
+import com.p4r4d0x.skintker.theme.SkintkerTheme
 
 @SuppressLint("SimpleDateFormat")
 @Preview
@@ -27,36 +34,39 @@ import com.p4r4d0x.skintker.presenter.utils.PossibleCausesProvider
 fun ResumeBody(
     @PreviewParameter(PossibleCausesProvider::class) causes: PossibleCausesBO
 ) {
-    val noCauses = causes.mostAffectedZones.isEmpty() &&
-            !causes.alcoholCause &&
-            causes.dietaryCauses.isEmpty() &&
-            !causes.stressCause.possibleCause &&
-            !causes.travelCause.possibleCause &&
-            !causes.weatherCause.first.possibleCause &&
-            !causes.weatherCause.first.possibleCause
-    Column {
-        ResumeTitle(noCauses)
-        if (!causes.enoughData || noCauses) {
-            Text(
-                stringResource(id = R.string.resume_no_causes),
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Light,
-                style = MaterialTheme.typography.caption,
-                modifier = Modifier
-                    .padding(vertical = 20.dp, horizontal = 30.dp)
-            )
-        } else {
-            LazyColumn {
-                item {
-                    Column {
-                        Description()
-                        ZonesOrFoodResume(causes.mostAffectedZones, zones = true)
-                        AlcoholResume(causes.alcoholCause)
-                        ZonesOrFoodResume(causes.dietaryCauses, zones = false)
-                        StressResume(causes.stressCause)
-                        TravelResume(causes.travelCause)
-                        WeatherResume(causes.weatherCause)
+    SkintkerTheme {
+        val noCauses = causes.mostAffectedZones.isEmpty() &&
+                !causes.alcoholCause &&
+                causes.dietaryCauses.isEmpty() &&
+                !causes.stressCause.possibleCause &&
+                !causes.travelCause.possibleCause &&
+                !causes.weatherCause.first.possibleCause &&
+                !causes.weatherCause.first.possibleCause
+        Column(Modifier.background(MaterialTheme.colors.background)) {
+            ResumeTitle(!causes.enoughData || noCauses)
+            if (!causes.enoughData || noCauses) {
+                Text(
+                    stringResource(id = R.string.resume_no_causes),
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Light,
+                    style = MaterialTheme.typography.caption,
+                    modifier = Modifier
+                        .padding(vertical = 20.dp, horizontal = 30.dp)
+                )
 
+                TumbleweedRolling()
+            } else {
+                LazyColumn {
+                    item {
+                        Column {
+                            Description()
+                            ZonesOrFoodResume(causes.mostAffectedZones, zones = true)
+                            AlcoholResume(causes.alcoholCause)
+                            ZonesOrFoodResume(causes.dietaryCauses, zones = false)
+                            StressResume(causes.stressCause)
+                            TravelResume(causes.travelCause)
+                            WeatherResume(causes.weatherCause)
+                        }
                     }
                 }
             }
@@ -311,4 +321,18 @@ fun ResumeDivider() {
             .padding(horizontal = 80.dp),
         color = MaterialTheme.colors.primaryVariant
     )
+}
+
+@Composable
+fun TumbleweedRolling() {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.tumbleweed_rolling))
+    Surface(
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 30.dp, vertical = 10.dp)
+    ) {
+        LottieAnimation(composition)
+
+    }
+
 }

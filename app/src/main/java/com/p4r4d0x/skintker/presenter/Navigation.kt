@@ -5,21 +5,31 @@ import androidx.navigation.fragment.findNavController
 import com.p4r4d0x.skintker.R
 import java.security.InvalidParameterException
 
-enum class FragmentScreen { Welcome, Survey, Home }
+enum class FragmentScreen { Welcome, Survey, Home, Settings }
 
 fun Fragment.navigate(to: FragmentScreen, from: FragmentScreen) {
+    val navController = findNavController()
     if (to == from) {
         throw InvalidParameterException("Can't navigate to $to")
     }
-    when (to) {
+    when (from) {
         FragmentScreen.Welcome -> {
-            findNavController().navigate(R.id.welcome_fragment)
+            when (to) {
+                FragmentScreen.Survey -> navController.navigate(R.id.action_welcomeFragment_to_surveyFragment)
+                FragmentScreen.Home -> navController.navigate(R.id.action_welcomeFragment_to_homeFragment)
+                else -> {}
+            }
         }
         FragmentScreen.Survey -> {
-            findNavController().navigate(R.id.survey_fragment)
+            navController.navigate(R.id.action_surveyFragment_to_homeFragment)
         }
         FragmentScreen.Home -> {
-            findNavController().navigate(R.id.home_fragment)
+            when (to) {
+                FragmentScreen.Survey -> navController.navigate(R.id.action_homeFragment_to_surveyFragment)
+                FragmentScreen.Settings -> navController.navigate(R.id.action_homeFragment_to_settingsFragment)
+                else -> {}
+            }
         }
+        else -> {}
     }
 }

@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name" translatable="false">Skintker</string>
 
-    <string name="screen_log">Reporte</string>
-    <string name="screen_resume">Resumen</string>
-    <string name="screen_history">Historial</string>
-
+    <string name="screen_resume">Resume</string>
+    <string name="screen_history">History</string>
+    <string name="screen_configuration">Configuration</string>
     <string name="next">NEXT</string>
     <string name="previous">PREVIOUS</string>
     <string name="done">DONE</string>
@@ -107,7 +106,7 @@
     <string name="survey_result_description" translatable="false">n</string>
 
     <!-- Resume  -->
-    <string name="resume_title">Possible causes</string>
+    <string name="resume_title">Possible causes 📋</string>
     <string name="resume_description">The data that may be related as the cause of the itch that have been extracted are based on those logs that exceed the configured intensity threshold</string>
     <string name="resume_zones_caption">The most affected zones are:</string>
     <string name="resume_alcohol">The alcohol ingestion seems that may be a cause.</string>
@@ -119,6 +118,6 @@
     <string name="resume_weather">It seems that some weather conditions affect your skin.</string>
     <string name="resume_weather_temperature">Temperature</string>
     <string name="resume_weather_humidity">Humidity</string>
-    <string name="resume_no_causes_title">Not enough data</string>
+    <string name="resume_no_causes_title">Not enough data 😓</string>
     <string name="resume_no_causes">Can\'t extract any conclusions with the number of logs reported. Please, come back to this section when you log a few days more.</string>
 </resources>

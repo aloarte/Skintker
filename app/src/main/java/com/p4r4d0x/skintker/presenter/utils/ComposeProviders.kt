@@ -126,6 +126,46 @@ class PossibleCausesProvider : PreviewParameterProvider<PossibleCausesBO> {
                         0
                     )
                 )
+            ),
+            PossibleCausesBO(
+                enoughData = false,
+                dietaryCauses = listOf("Alcohol", "Nuts", "Fermented"),
+                alcoholCause = true,
+                mostAffectedZones = listOf("Neck", "Wrists"),
+                stressCause = PossibleCausesBO.StressCauseBO(false, 0),
+                travelCause = PossibleCausesBO.TravelCauseBO(false, null),
+                weatherCause = Pair(
+                    PossibleCausesBO.WeatherCauseBO(
+                        PossibleCausesBO.WeatherCauseBO.WeatherType.TEMPERATURE,
+                        true,
+                        2
+                    ),
+                    PossibleCausesBO.WeatherCauseBO(
+                        PossibleCausesBO.WeatherCauseBO.WeatherType.HUMIDITY,
+                        false,
+                        0
+                    )
+                )
+            ),
+            PossibleCausesBO(
+                enoughData = true,
+                dietaryCauses = listOf("Alcohol"),
+                alcoholCause = false,
+                mostAffectedZones = emptyList(),
+                stressCause = PossibleCausesBO.StressCauseBO(true, 6),
+                travelCause = PossibleCausesBO.TravelCauseBO(false, null),
+                weatherCause = Pair(
+                    PossibleCausesBO.WeatherCauseBO(
+                        PossibleCausesBO.WeatherCauseBO.WeatherType.TEMPERATURE,
+                        false,
+                        2
+                    ),
+                    PossibleCausesBO.WeatherCauseBO(
+                        PossibleCausesBO.WeatherCauseBO.WeatherType.HUMIDITY,
+                        false,
+                        0
+                    )
+                )
             )
         ).asSequence()
 }

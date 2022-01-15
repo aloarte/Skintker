@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker.presenter.home.view
+package com.p4r4d0x.skintker.presenter.settings.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,23 +7,10 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.presenter.FragmentScreen
-import com.p4r4d0x.skintker.presenter.home.view.compose.TabScreen
-import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
-import com.p4r4d0x.skintker.presenter.navigate
+import com.p4r4d0x.skintker.presenter.home.view.compose.SettingScreen
 import com.p4r4d0x.skintker.theme.SkintkerTheme
-import org.koin.android.ext.android.inject
 
-class HomeFragment : Fragment() {
-
-    private val viewModel: HomeViewModel by inject()
-
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getLogs()
-        viewModel.getLogsByIntensityLevel()
-    }
+class SettingsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,15 +18,16 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         return ComposeView(requireContext()).apply {
-            id = R.id.survey_fragment
+            id = R.id.settings_fragment
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
+
             setContent {
                 SkintkerTheme {
-                    TabScreen(viewModel) { fragmentScreenDestination ->
-                        navigate(fragmentScreenDestination, FragmentScreen.Home)
+                    SettingScreen {
+                        activity?.onBackPressed()
                     }
                 }
             }
