@@ -2,11 +2,14 @@
 
     <string name="screen_resume">Resumen</string>
     <string name="screen_history">Historial</string>
-    <string name="screen_configuration">Configuración</string>
+    <string name="screen_settings">Configuración</string>
 
-    <string name="next">SIGUIENTE</string>
-    <string name="previous">ANTERIOR</string>
-    <string name="done">HECHO</string>
+    <string name="btn_next">SIGUIENTE</string>
+    <string name="btn_previous">ANTERIOR</string>
+    <string name="btn_done">HECHO</string>
+    <string name="btn_export_data">EXPORTAR DATOS DE LOS LOGS</string>
+    <string name="btn_import_data">IMPORTAR DATOS DESDE UN FICHERO</string>
+    <string name="btn_save_logs">GUARDAR PREFERENCIAS</string>
 
     <!-- question 1 -->
     <string name="question_1_title">Selecciona el nivel de incomodidad</string>
@@ -97,6 +100,24 @@
     <string name="resume_weather_humidity">Humedad</string>
     <string name="resume_no_causes_title">No hay información suficiente 😓</string>
     <string name="resume_no_causes">No se pueden extrar conclusiones con el número de reportes diarios almacenado. Por favor, vuelve a esta sección cuando aportes más datos para poder extraer posibles causas.</string>
-
-
+    <!-- survey-->
+    <string name="settings_parameters_description">Se pueden ajustar los parámetros que configuran como se realiza el procesado de los datos con el objetivo de ajustar las posibles conclusiones extraidas.</string>
+    <string name="settings_export_description">Puedes exportar todos los datos almacenados en un fichero externo.</string>
+    <string name="settings_import_description">También puedes importar los datos de un fichero existente previo.</string>
+    <string name="settings_parameters_description_levels">El Nivel de Picor es el principal valor que se utiliza para extraer las posibles conclusiones. Todo reporte que tenga un valor inferior al configurado será ignorado. El Número Mínimo de Reportes restringe cuántos logs tienen que superar el Nivel de Picor para poder procesarlos y extraer información de ellos.</string>
+    <string name="settings_parameters_description_thresholds">Modifica los valores de los umbrales para ajustar la proporción deseada de los eventos para contabilizarlos como una posible causa.</string>
+    <string name="settings_parameters_description_stress">El Nivel de Estrés determina si un reporte con este valor puede ser influyente. Su umbral ajusta el proceso de decisión sobre este valor.</string>
+    <string name="settings_param_irritation">Nivel de picor</string>
+    <string name="settings_param_min_logs">Numero mínimo de reportes</string>
+    <string name="settings_param_food_threshold">Umbral de alimentos</string>
+    <string name="settings_param_zones_threshold">Umbral en zonas irritadas</string>
+    <string name="settings_param_alcohol_threshold">Umbral de alcohol consumido</string>
+    <string name="settings_param_travel_threshold">Umbral de viajes realizados</string>
+    <string name="settings_param_weather_temperature_threshold">Umbral de temperatura</string>
+    <string name="settings_param_weather_humidity_threshold">Umbral de humedad</string>
+    <string name="settings_param_stress_threshold">Umbral de estrés</string>
+    <string name="settings_param_stress_value">Nivel de estrés</string>
+    <string name="settings_toast_preferences_load_error">No se han podido guardar las preferencias</string>
+    <string name="settings_toast_preferences_save_error">No se han podido cargar las preferencias</string>
+    <string name="settings_toast_preferences_saved">Preferencias guardadas correctamente</string>
 </resources>

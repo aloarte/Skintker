@@ -74,6 +74,7 @@ dependencies {
     implementation "com.google.android.material:compose-theme-adapter:$composeTheme"
     implementation "com.google.android.material:material:$material"
     implementation "com.google.accompanist:accompanist-permissions:0.22.0-rc"
+    implementation "com.chargemap.compose:numberpicker:0.0.11"
     //Room
     implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"

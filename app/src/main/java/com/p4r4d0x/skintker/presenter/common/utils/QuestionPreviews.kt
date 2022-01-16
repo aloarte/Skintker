@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker.presenter.utils
+package com.p4r4d0x.skintker.presenter.common.utils
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource

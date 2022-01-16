@@ -44,9 +44,9 @@ val Typography = Typography(
         letterSpacing = 0.sp
     ),
     h6 = TextStyle(
-        fontWeight = FontWeight.W600,
-        fontSize = 20.sp,
-        letterSpacing = 0.sp
+        fontWeight = FontWeight.W300,
+        fontSize = 22.sp,
+        letterSpacing = (-0.5).sp
     ),
     subtitle1 = TextStyle(
         fontWeight = FontWeight.W600,

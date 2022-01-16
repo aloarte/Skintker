@@ -1,5 +1,7 @@
 package com.p4r4d0x.skintker.presenter.home.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +9,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.p4r4d0x.skintker.R
+import com.p4r4d0x.skintker.data.Constants
 import com.p4r4d0x.skintker.presenter.FragmentScreen
 import com.p4r4d0x.skintker.presenter.home.view.compose.TabScreen
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
@@ -21,8 +24,10 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        val prefs: SharedPreferences? =
+            activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
         viewModel.getLogs()
-        viewModel.getLogsByIntensityLevel()
+        viewModel.getLogsByIntensityLevel(prefs)
     }
 
     override fun onCreateView(

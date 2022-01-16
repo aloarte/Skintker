@@ -73,7 +73,7 @@ class SurveyFragment : Fragment() {
                                 SurveyResultScreen(
                                     result = logState,
                                     onDonePressed = {
-                                        navigate(FragmentScreen.Home, FragmentScreen.Welcome)
+                                        navigate(FragmentScreen.Home, FragmentScreen.Survey)
                                     }
                                 )
                             }

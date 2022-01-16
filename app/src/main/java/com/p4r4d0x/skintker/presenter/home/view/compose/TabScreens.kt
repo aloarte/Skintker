@@ -23,6 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.presenter.FragmentScreen
 import com.p4r4d0x.skintker.presenter.home.view.Screen
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
@@ -98,12 +99,20 @@ fun HomeTopBar(navigationPressed: (FragmentScreen) -> Unit) {
 
         //TopAppBar Content
         Box(Modifier.fillMaxSize()) {
-            Text(
-                modifier = Modifier.align(Alignment.TopCenter),
-                textAlign = TextAlign.Center,
-                maxLines = 1,
-                text = "Hello"
-            )
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .padding(top = 15.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    modifier = Modifier.align(Alignment.TopCenter),
+                    textAlign = TextAlign.Center,
+                    maxLines = 1,
+                    style = MaterialTheme.typography.h6,
+                    text = stringResource(id = R.string.app_name)
+                )
+            }
             IconButton(
                 modifier = Modifier.align(Alignment.CenterEnd),
                 onClick = {

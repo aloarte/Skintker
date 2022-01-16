@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -25,7 +24,9 @@ import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.domain.bo.PossibleCausesBO
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getHumidityString
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getTemperatureString
-import com.p4r4d0x.skintker.presenter.utils.PossibleCausesProvider
+import com.p4r4d0x.skintker.presenter.common.compose.Description
+import com.p4r4d0x.skintker.presenter.common.compose.SkintkerDivider
+import com.p4r4d0x.skintker.presenter.common.utils.PossibleCausesProvider
 import com.p4r4d0x.skintker.theme.SkintkerTheme
 
 @SuppressLint("SimpleDateFormat")
@@ -53,13 +54,12 @@ fun ResumeBody(
                     modifier = Modifier
                         .padding(vertical = 20.dp, horizontal = 30.dp)
                 )
-
                 TumbleweedRolling()
             } else {
                 LazyColumn {
                     item {
                         Column {
-                            Description()
+                            Description(R.string.resume_description)
                             ZonesOrFoodResume(causes.mostAffectedZones, zones = true)
                             AlcoholResume(causes.alcoholCause)
                             ZonesOrFoodResume(causes.dietaryCauses, zones = false)
@@ -102,21 +102,9 @@ fun ResumeTitle(noCauses: Boolean) {
 }
 
 @Composable
-fun Description() {
-    Text(
-        stringResource(id = R.string.resume_description),
-        fontSize = 10.sp,
-        fontWeight = FontWeight.Light,
-        style = MaterialTheme.typography.caption,
-        modifier = Modifier
-            .padding(vertical = 20.dp, horizontal = 30.dp)
-    )
-}
-
-@Composable
 fun ZonesOrFoodResume(list: List<String>, zones: Boolean) {
     if (list.isNotEmpty()) {
-        ResumeDivider()
+        SkintkerDivider()
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -160,7 +148,7 @@ fun ZonesOrFoodResume(list: List<String>, zones: Boolean) {
 @Composable
 fun AlcoholResume(alcoholCause: Boolean) {
     if (alcoholCause) {
-        ResumeDivider()
+        SkintkerDivider()
         Text(
             stringResource(id = R.string.resume_alcohol),
             fontSize = 12.sp,
@@ -175,7 +163,7 @@ fun AlcoholResume(alcoholCause: Boolean) {
 @Composable
 fun StressResume(stressCause: PossibleCausesBO.StressCauseBO) {
     if (stressCause.possibleCause) {
-        ResumeDivider()
+        SkintkerDivider()
         Column(
             Modifier
                 .padding(vertical = 20.dp, horizontal = 30.dp)
@@ -210,7 +198,7 @@ fun StressResume(stressCause: PossibleCausesBO.StressCauseBO) {
 @Composable
 fun TravelResume(travelCause: PossibleCausesBO.TravelCauseBO) {
     if (travelCause.possibleCause) {
-        ResumeDivider()
+        SkintkerDivider()
         Column(
             Modifier
                 .padding(vertical = 20.dp, horizontal = 30.dp)
@@ -251,7 +239,7 @@ fun WeatherResume(weatherCause: Pair<PossibleCausesBO.WeatherCauseBO, PossibleCa
     val weatherHumidity = weatherCause.second
 
     if (weatherTemperature.possibleCause || weatherHumidity.possibleCause) {
-        ResumeDivider()
+        SkintkerDivider()
         Column(
             Modifier
                 .padding(vertical = 20.dp, horizontal = 30.dp)
@@ -313,15 +301,6 @@ fun WeatherResume(weatherCause: Pair<PossibleCausesBO.WeatherCauseBO, PossibleCa
     }
 }
 
-@Composable
-fun ResumeDivider() {
-    Divider(
-        modifier = Modifier
-            .height(0.2.dp)
-            .padding(horizontal = 80.dp),
-        color = MaterialTheme.colors.primaryVariant
-    )
-}
 
 @Composable
 fun TumbleweedRolling() {

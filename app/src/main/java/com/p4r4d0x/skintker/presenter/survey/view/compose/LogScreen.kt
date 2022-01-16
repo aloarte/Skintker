@@ -98,7 +98,7 @@ fun SurveyResultScreen(
                         .fillMaxWidth()
                         .padding(horizontal = 20.dp, vertical = 24.dp)
                 ) {
-                    Text(text = stringResource(id = R.string.done))
+                    Text(text = stringResource(id = R.string.btn_done))
                 }
             }
         )
@@ -226,7 +226,7 @@ private fun SurveyBottomBar(
                         .height(40.dp),
                     onClick = onPreviousPressed
                 ) {
-                    Text(text = stringResource(id = R.string.previous))
+                    Text(text = stringResource(id = R.string.btn_previous))
                 }
                 Spacer(modifier = Modifier.width(16.dp))
             }
@@ -238,7 +238,7 @@ private fun SurveyBottomBar(
                     onClick = onDonePressed,
                     enabled = state.enableNext
                 ) {
-                    Text(text = stringResource(id = R.string.done))
+                    Text(text = stringResource(id = R.string.btn_done))
                 }
             } else {
                 Button(
@@ -248,7 +248,7 @@ private fun SurveyBottomBar(
                     onClick = onNextPressed,
                     enabled = state.enableNext
                 ) {
-                    Text(text = stringResource(id = R.string.next))
+                    Text(text = stringResource(id = R.string.btn_next))
                 }
             }
         }

@@ -23,7 +23,7 @@ import com.p4r4d0x.skintker.domain.bo.IrritationBO
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getAlcoholLevel
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getHumidityString
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getTemperatureString
-import com.p4r4d0x.skintker.presenter.utils.DailyLogProvider
+import com.p4r4d0x.skintker.presenter.common.utils.DailyLogProvider
 import java.text.SimpleDateFormat
 
 @SuppressLint("SimpleDateFormat")
