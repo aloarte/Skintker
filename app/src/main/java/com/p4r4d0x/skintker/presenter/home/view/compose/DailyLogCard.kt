@@ -9,9 +9,12 @@ import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -35,7 +38,7 @@ fun DailyLogCard(
     var collapseView by remember { mutableStateOf(true) }
     Card(
         elevation = 4.dp,
-        border = BorderStroke(width = 0.5.dp, color = MaterialTheme.colors.primaryVariant),
+        border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.primaryVariant),
         modifier = Modifier.clickable(
             onClick = { collapseView = !collapseView }
         )
@@ -43,29 +46,75 @@ fun DailyLogCard(
         Column(
             Modifier
                 .fillMaxWidth()
+                .padding(horizontal = 15.dp, vertical = 15.dp)
         ) {
             val dfDay = SimpleDateFormat("EEEE")
             val dfDate = SimpleDateFormat("dd/MM/yyyy")
 
-            Text(
-                "${dfDay.format(log.date)} ${dfDate.format(log.date)}".replaceFirstChar {
-                    if (it.isLowerCase()) it.titlecase() else it.toString()
-                },
-                fontSize = 10.sp,
-                fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.subtitle1,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp, horizontal = 10.dp)
-            )
-            Divider(modifier = Modifier.height(0.5.dp), color = MaterialTheme.colors.primaryVariant)
-            DailyLogCardItemBody(log, collapseView)
+            Row(
+                Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    textAlign = if (collapseView) {
+                        TextAlign.Left
+                    } else {
+                        TextAlign.Center
+                    },
+                    text = "${dfDay.format(log.date)} ${dfDate.format(log.date)}".replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase() else it.toString()
+                    },
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.subtitle1,
+                    modifier = Modifier
+                        .fillMaxWidth(
+                            if (collapseView) {
+                                0.8f
+                            } else {
+                                1f
+                            }
+                        )
+                )
+
+                if (collapseView) {
+                    Text(
+                        log.irritation?.overallValue.toString(),
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.body1,
+                        color = MaterialTheme.colors.primary,
+                        modifier = Modifier
+                            .fillMaxWidth(0.2f)
+                    )
+                }
+
+            }
+
+            if (!collapseView) {
+                Divider(
+                    modifier = Modifier.height(10.dp),
+                    color = Color.Transparent
+                )
+                Divider(
+                    modifier = Modifier
+                        .height(0.5.dp)
+                        .padding(horizontal = 50.dp),
+                    color = MaterialTheme.colors.primaryVariant
+                )
+                Divider(
+                    modifier = Modifier.height(10.dp),
+                    color = Color.Transparent
+                )
+                DailyLogCardItemBody(log)
+            }
         }
     }
 }
 
 @Composable
-private fun DailyLogCardItemBody(log: DailyLogBO, collapseView: Boolean = false) {
+private fun DailyLogCardItemBody(log: DailyLogBO) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -75,8 +124,7 @@ private fun DailyLogCardItemBody(log: DailyLogBO, collapseView: Boolean = false)
             log.irritation?.let { irritation ->
                 IrritationItem(
                     irritationBO = irritation, modifier = Modifier
-                        .fillMaxWidth(0.5f),
-                    collapseView = collapseView
+                        .fillMaxWidth(0.5f)
                 )
             }
             log.additionalData?.let { additionalData ->
@@ -87,7 +135,7 @@ private fun DailyLogCardItemBody(log: DailyLogBO, collapseView: Boolean = false)
             }
         }
         if (log.foodList.isNotEmpty()) {
-            FoodSchedule(log.foodList, collapseView)
+            FoodScheduleList(log.foodList)
         }
 
     }
@@ -96,39 +144,27 @@ private fun DailyLogCardItemBody(log: DailyLogBO, collapseView: Boolean = false)
 @Composable
 private fun IrritationItem(
     irritationBO: IrritationBO,
-    modifier: Modifier,
-    collapseView: Boolean = false
+    modifier: Modifier
 ) {
-    val maxVisibleItems = 4
-    var zoneCnt = 0
-    var dotsShown = false
     Column(
         modifier = modifier
     ) {
         val irritationModifier = Modifier.fillMaxWidth()
-        ItemTextPairNumber("Overall", irritationBO.overallValue, true, irritationModifier)
+        ItemTextPairNumber(
+            stringResource(id = R.string.card_irritation_label),
+            irritationBO.overallValue,
+            irritationModifier
+        )
         irritationBO.zoneValues.forEach { zone ->
-            if (!collapseView || (collapseView && zoneCnt < maxVisibleItems)) {
-                ItemTextPairNumber(zone.name, zone.intensity, false, irritationModifier)
-            } else {
-                if (!dotsShown) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Text(
-                            text = "...",
-                            fontSize = 10.sp,
-                            style = MaterialTheme.typography.body1,
-                            modifier = Modifier
-                                .fillMaxWidth(0.5f)
-                                .padding(vertical = 1.dp, horizontal = 10.dp)
-                        )
-                    }
-                    dotsShown = true
-                }
-            }
-            zoneCnt++
+            Text(
+                text = zone.name,
+                fontSize = 10.sp,
+                style = MaterialTheme.typography.body1,
+                color = MaterialTheme.colors.primary,
+                modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .padding(vertical = 1.dp, horizontal = 5.dp)
+            )
         }
     }
 }
@@ -138,11 +174,10 @@ private fun AdditionalData(additionalDataBO: AdditionalDataBO, modifier: Modifie
     Column(modifier = modifier) {
         val additionalDataModifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 1.dp, horizontal = 10.dp)
+            .padding(vertical = 1.dp, horizontal = 5.dp)
         ItemTextPairNumber(
-            text = "Stress level",
+            text = stringResource(id = R.string.card_stress_label),
             value = additionalDataBO.stressLevel,
-            highlight = true,
             modifier = Modifier
                 .fillMaxWidth()
         )
@@ -161,38 +196,20 @@ private fun AdditionalData(additionalDataBO: AdditionalDataBO, modifier: Modifie
 }
 
 @Composable
-private fun FoodSchedule(/*foodScheduleBO: FoodScheduleBO,*/foodList: List<String>,
-                                                            collapseView: Boolean = false
-) {
-    if (!collapseView) {
-        FoodScheduleList("Breakfast", foodList)
-    } else {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "_",
-                fontSize = 10.sp,
-                style = MaterialTheme.typography.body1,
-                color = MaterialTheme.colors.primary,
-                modifier = Modifier
-                    .padding(vertical = 1.dp, horizontal = 10.dp)
-            )
-        }
-    }
-}
-
-@Composable
-private fun FoodScheduleList(title: String, list: List<String>) {
+private fun FoodScheduleList(list: List<String>) {
     Column(
         Modifier
-            .padding(horizontal = 10.dp, vertical = 2.dp)
+            .padding(horizontal = 5.dp, vertical = 2.dp)
             .fillMaxWidth()
     ) {
         var stringFoodList = ""
 
-        Text(title, fontSize = 12.sp)
+        Text(
+            fontWeight = FontWeight.Bold,
+            text = stringResource(id = R.string.card_dietary_label),
+            fontSize = 10.sp,
+            style = MaterialTheme.typography.body1,
+        )
         list.forEach { foodItem ->
             val comma = if (list.indexOf(foodItem) != 0) {
                 ", "
@@ -209,7 +226,6 @@ private fun FoodScheduleList(title: String, list: List<String>) {
 private fun ItemTextPairNumber(
     text: String,
     value: Int,
-    highlight: Boolean = false,
     modifier: Modifier
 ) {
     Row(modifier = modifier) {
@@ -218,26 +234,18 @@ private fun ItemTextPairNumber(
             fontSize = 10.sp,
             style = MaterialTheme.typography.body1,
             modifier = Modifier
-                .fillMaxWidth(0.5f)
-                .padding(vertical = 1.dp, horizontal = 10.dp)
+                .fillMaxWidth(0.6f)
+                .padding(vertical = 1.dp, horizontal = 5.dp)
         )
         if (value != -1) {
             Text(
                 text = value.toString(),
                 fontSize = 10.sp,
-                style = if (highlight) {
-                    MaterialTheme.typography.body1
-                } else {
-                    MaterialTheme.typography.caption
-                },
-                color = if (highlight) {
-                    MaterialTheme.colors.primaryVariant
-                } else {
-                    MaterialTheme.colors.primary
-                },
+                style = MaterialTheme.typography.body1,
+                color = MaterialTheme.colors.primary,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 1.dp, horizontal = 10.dp)
+                    .fillMaxWidth(0.4f)
+                    .padding(vertical = 1.dp, horizontal = 5.dp)
             )
         }
     }
@@ -248,9 +256,9 @@ fun TextCity(travel: AdditionalDataBO.TravelBO, modifier: Modifier) {
     Text(
         text = stringResource(
             id = if (travel.traveled) {
-                R.string.traveled_today
+                R.string.card_traveled_today
             } else {
-                R.string.traveled_today
+                R.string.card_not_traveled_today
             }
         ),
         fontSize = 10.sp,
@@ -259,7 +267,7 @@ fun TextCity(travel: AdditionalDataBO.TravelBO, modifier: Modifier) {
     )
     Row(modifier = modifier) {
         Text(
-            text = stringResource(R.string.slept_in),
+            text = stringResource(R.string.card_slept_in),
             fontSize = 10.sp,
             style = MaterialTheme.typography.caption,
             modifier = Modifier
@@ -281,7 +289,7 @@ fun WeatherText(weather: AdditionalDataBO.WeatherBO) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 1.dp, horizontal = 10.dp)
+            .padding(vertical = 1.dp, horizontal = 5.dp)
     ) {
         Text(
             text = stringResource(id = getHumidityString(weather.humidity)),

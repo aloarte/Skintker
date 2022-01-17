@@ -61,12 +61,15 @@
     <string name="question_7_answer_6">Frutos secos</string>
 
     <!--History labels-->
-    <string name="traveled_today">Viajé hoy</string>
-    <string name="not_traveled_today">No viajé hoy</string>
-    <string name="slept_in">Dormí en </string>
-    <string name="no_alcohol">No ingerí alcohol</string>
-    <string name="any_alcohol">Me tomé algunas cervezas</string>
-    <string name="quite_alcohol">Me tomé algunas copas</string>
+    <string name="card_traveled_today">Viajé hoy</string>
+    <string name="card_not_traveled_today">No viajé hoy</string>
+    <string name="card_slept_in">Dormí en </string>
+    <string name="card_no_alcohol">No ingerí alcohol</string>
+    <string name="card_any_alcohol">Me tomé algunas cervezas</string>
+    <string name="card_quite_alcohol">Me tomé algunas copas</string>
+    <string name="card_dietary_label">Elementos de la dieta</string>
+    <string name="card_irritation_label">Nivel de picor</string>
+    <string name="card_stress_label">Nivel de estrés</string>
 
 
     <string name="humidity_1">Muy seco</string>

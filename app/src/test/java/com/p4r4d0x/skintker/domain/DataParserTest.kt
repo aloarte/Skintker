@@ -25,7 +25,7 @@ class DataParserTest {
         private var SECOND_QUESTION_ANSWER_MULTIPLE =
             setOf(R.string.multiple_answer_1, R.string.multiple_answer_2)
         private const val THIRD_QUESTION_ANSWER_SLIDER = 2f
-        private const val FOURTH_QUESTION_ANSWER_SINGLE = R.string.no_alcohol
+        private const val FOURTH_QUESTION_ANSWER_SINGLE = R.string.card_no_alcohol
         private const val FIFTH_QUESTION_ANSWER_SLIDER_1 = 3f
         private const val FIFTH_QUESTION_ANSWER_SLIDER_2 = 7f
         private const val SIXTH_QUESTION_ANSWER_INPUT = "AnswerInput"
@@ -83,10 +83,10 @@ class DataParserTest {
 
     @Test
     fun `get alcohol level`() {
-        Assert.assertEquals(R.string.no_alcohol, getAlcoholLevel(-1))
-        Assert.assertEquals(R.string.no_alcohol, getAlcoholLevel(0))
-        Assert.assertEquals(R.string.any_alcohol, getAlcoholLevel(1))
-        Assert.assertEquals(R.string.quite_alcohol, getAlcoholLevel(2))
+        Assert.assertEquals(R.string.card_no_alcohol, getAlcoholLevel(-1))
+        Assert.assertEquals(R.string.card_no_alcohol, getAlcoholLevel(0))
+        Assert.assertEquals(R.string.card_any_alcohol, getAlcoholLevel(1))
+        Assert.assertEquals(R.string.card_quite_alcohol, getAlcoholLevel(2))
     }
 
     @Test
@@ -107,7 +107,7 @@ class DataParserTest {
                 SIXTH_QUESTION_ANSWER_SINGLE
             )
         )
-        every { resources.getString(R.string.no_alcohol) } returns SINGLE_ANSWER_1_VALUE
+        every { resources.getString(R.string.card_no_alcohol) } returns SINGLE_ANSWER_1_VALUE
         every { resources.getString(R.string.single_answer_2) } returns SINGLE_ANSWER_2_VALUE
         every { resources.getString(R.string.multiple_answer_1) } returns MULTIPLE_ANSWER_1_VALUE
         every { resources.getString(R.string.multiple_answer_2) } returns MULTIPLE_ANSWER_2_VALUE

@@ -61,12 +61,15 @@
     <string name="question_7_answer_6">Nuts</string>
 
     <!--History labels-->
-    <string name="traveled_today">Traveled today</string>
-    <string name="not_traveled_today">Not traveled today</string>
-    <string name="slept_in">Slept in </string>
-    <string name="no_alcohol">No alcohol ingested</string>
-    <string name="any_alcohol">Took a few beers</string>
-    <string name="quite_alcohol">Had some drinks</string>
+    <string name="card_traveled_today">Traveled today</string>
+    <string name="card_not_traveled_today">Not traveled today</string>
+    <string name="card_slept_in">Slept in </string>
+    <string name="card_no_alcohol">No alcohol ingested</string>
+    <string name="card_any_alcohol">Took a few beers</string>
+    <string name="card_quite_alcohol">Had some drinks</string>
+    <string name="card_dietary_label">Dietary elements</string>
+    <string name="card_irritation_label">Irritation Level</string>
+    <string name="card_stress_label">Stress Level</string>
 
     <string name="humidity_1">Very dry</string>
     <string name="humidity_2">Dry</string>
