@@ -2,14 +2,7 @@ package com.p4r4d0x.skintker.domain.log
 
 import androidx.annotation.StringRes
 
-data class SurveyResult(
-    val library: String,
-    @StringRes val result: Int,
-    @StringRes val description: Int
-)
-
 data class Survey(
-    @StringRes val title: Int,
     val questions: List<Question>
 )
 

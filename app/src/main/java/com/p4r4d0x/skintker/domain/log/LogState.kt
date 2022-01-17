@@ -1,6 +1,5 @@
 package com.p4r4d0x.skintker.domain.log
 
-import androidx.annotation.StringRes
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,14 +19,10 @@ data class LogState(
 
 sealed class SurveyState {
     data class LogQuestions(
-        @StringRes val surveyTitle: Int,
         val state: List<LogState>
     ) : SurveyState() {
         var currentIndex by mutableStateOf(0)
     }
 
-    data class Result(
-        @StringRes val surveyTitle: Int,
-        val surveyResult: SurveyResult
-    ) : SurveyState()
+    object Result : SurveyState()
 }

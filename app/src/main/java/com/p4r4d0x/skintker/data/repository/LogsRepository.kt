@@ -24,7 +24,9 @@ import com.p4r4d0x.skintker.data.Constants.SECOND_QUESTION_NUMBER
 import com.p4r4d0x.skintker.data.Constants.SEVENTH_QUESTION_NUMBER
 import com.p4r4d0x.skintker.data.Constants.SIXTH_QUESTION_NUMBER
 import com.p4r4d0x.skintker.data.Constants.THIRD_QUESTION_NUMBER
-import com.p4r4d0x.skintker.domain.log.*
+import com.p4r4d0x.skintker.domain.log.PossibleAnswer
+import com.p4r4d0x.skintker.domain.log.Question
+import com.p4r4d0x.skintker.domain.log.Survey
 
 // Static data of questions
 private val jetpackQuestions = mutableListOf(
@@ -130,20 +132,9 @@ private val jetpackQuestions = mutableListOf(
     ).toList()
 
 private val jetpackSurvey = Survey(
-    title = R.string.survey,
     questions = jetpackQuestions
 )
 
 class LogsRepository {
-
     fun getSurvey() = jetpackSurvey
-
-    @Suppress("UNUSED_PARAMETER")
-    fun getSurveyResult(answers: List<Answer<*>>): SurveyResult {
-        return SurveyResult(
-            library = "Compose",
-            result = R.string.survey_result,
-            description = R.string.survey_result_description
-        )
-    }
 }

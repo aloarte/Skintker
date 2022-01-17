@@ -15,7 +15,6 @@ import com.p4r4d0x.skintker.presenter.FragmentScreen
 import com.p4r4d0x.skintker.presenter.MainActivity
 import com.p4r4d0x.skintker.presenter.navigate
 import com.p4r4d0x.skintker.presenter.survey.view.compose.LogQuestionScreen
-import com.p4r4d0x.skintker.presenter.survey.view.compose.SurveyResultScreen
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
 import com.p4r4d0x.skintker.theme.SkintkerTheme
 import org.koin.android.ext.android.inject
@@ -70,12 +69,7 @@ class SurveyFragment : Fragment() {
 
                             }
                             is SurveyState.Result -> {
-                                SurveyResultScreen(
-                                    result = logState,
-                                    onDonePressed = {
-                                        navigate(FragmentScreen.Home, FragmentScreen.Survey)
-                                    }
-                                )
+                                navigate(FragmentScreen.Home, FragmentScreen.Survey)
                             }
                         }
                     }

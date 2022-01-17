@@ -2,7 +2,6 @@ package com.p4r4d0x.skintker.presenter.survey.view.compose
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -77,58 +76,6 @@ fun LogQuestionScreen(
                 )
             }
         )
-    }
-}
-
-@Composable
-fun SurveyResultScreen(
-    result: SurveyState.Result,
-    onDonePressed: () -> Unit
-) {
-    Surface {
-        Scaffold(
-            content = { innerPadding ->
-                val modifier = Modifier.padding(innerPadding)
-                SurveyResultContent(result = result, modifier = modifier)
-            },
-            bottomBar = {
-                OutlinedButton(
-                    onClick = { onDonePressed() },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp, vertical = 24.dp)
-                ) {
-                    Text(text = stringResource(id = R.string.btn_done))
-                }
-            }
-        )
-    }
-}
-
-@Composable
-private fun SurveyResultContent(result: SurveyState.Result, modifier: Modifier = Modifier) {
-    LazyColumn(modifier = modifier.fillMaxSize()) {
-        item {
-            Spacer(modifier = Modifier.height(44.dp))
-            Text(
-                text = result.surveyResult.library,
-                style = MaterialTheme.typography.h3,
-                modifier = Modifier.padding(horizontal = 20.dp)
-            )
-            Text(
-                text = stringResource(
-                    result.surveyResult.result,
-                    result.surveyResult.library
-                ),
-                style = MaterialTheme.typography.subtitle1,
-                modifier = Modifier.padding(20.dp)
-            )
-            Text(
-                text = stringResource(result.surveyResult.description),
-                style = MaterialTheme.typography.body1,
-                modifier = Modifier.padding(horizontal = 20.dp)
-            )
-        }
     }
 }
 

@@ -49,7 +49,7 @@ class SurveyViewModel(
                     showDone = showDone
                 )
             }
-            surveyInitialState = SurveyState.LogQuestions(survey.title, questions)
+            surveyInitialState = SurveyState.LogQuestions(questions)
             _uiState.value = surveyInitialState
         }
     }
@@ -57,8 +57,7 @@ class SurveyViewModel(
     fun computeResult(surveyQuestions: SurveyState.LogQuestions, resources: Resources) {
         val answers = surveyQuestions.state.mapNotNull { it.answer }
         addLog(DataParser.createLogFromSurvey(answers, resources))
-        val result = logsRepository.getSurveyResult(answers)
-        _uiState.value = SurveyState.Result(surveyQuestions.surveyTitle, result)
+        _uiState.value = SurveyState.Result
     }
 
 
