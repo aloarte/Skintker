@@ -18,6 +18,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.p4r4d0x.skintker.R
+import com.p4r4d0x.skintker.domain.log.Answer
 import com.p4r4d0x.skintker.domain.log.LogState
 import com.p4r4d0x.skintker.domain.log.SurveyActionType
 import com.p4r4d0x.skintker.domain.log.SurveyState
@@ -59,7 +60,10 @@ fun LogQuestionScreen(
                     onDoNotAskForPermissions = onDoNotAskForPermissions,
                     onAnswer = {
                         questionState.answer = it
-                        questionState.enableNext = true
+                        questionState.enableNext =
+                            (questionState.answer as? Answer.SingleTextInputSingleChoice)?.let { answer ->
+                                answer.input != "" && answer.answer != -1
+                            } ?: run { true }
                     },
                     onAction = onAction,
                     modifier = Modifier

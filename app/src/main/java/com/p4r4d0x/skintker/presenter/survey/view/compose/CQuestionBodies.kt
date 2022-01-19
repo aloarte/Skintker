@@ -22,6 +22,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.p4r4d0x.skintker.domain.log.Answer
 import com.p4r4d0x.skintker.domain.log.PossibleAnswer
 import com.p4r4d0x.skintker.domain.log.SurveyActionType
@@ -78,12 +79,13 @@ fun SingleChoiceQuestion(
                             onClick = onClickHandle
                         )
                         .background(answerBackgroundColor)
-                        .padding(vertical = 6.dp, horizontal = 16.dp),
+                        .padding(vertical = 4.dp, horizontal = 16.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = text
+                        text = text,
+                        fontSize = 12.sp
                     )
 
                     RadioButton(
@@ -142,11 +144,14 @@ fun MultipleChoiceQuestion(
                                 onAnswerSelected(option.value, checkedState)
                             }
                         )
-                        .padding(vertical = 6.dp, horizontal = 16.dp),
+                        .padding(vertical = 4.dp, horizontal = 16.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(text = option.key)
+                    Text(
+                        text = option.key,
+                        fontSize = 12.sp
+                    )
                     Checkbox(
                         checked = checkedState,
                         onCheckedChange = { selected ->
@@ -359,9 +364,7 @@ fun SingleTextInputSingleChoice(
     modifier: Modifier = Modifier
 ) {
     onAction.invoke(SurveyActionType.GET_LOCATION)
-    var radioSelected = false
-    var inputFilled = true
-    var inputText: String = viewModel?.city?.collectAsState()?.value ?: ""
+    val inputText: String = viewModel?.city?.collectAsState()?.value ?: ""
     val optionSelectedAnswerSaved = -1
     var inputOption by rememberSaveable { mutableStateOf(optionSelectedAnswerSaved) }
     val options = possibleAnswer.optionsStringRes.associateBy { stringResource(id = it) }
@@ -375,20 +378,21 @@ fun SingleTextInputSingleChoice(
 
     Column(modifier = modifier) {
         val focusManager = LocalFocusManager.current
+        //Input text
         Column {
             TextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 6.dp, horizontal = 11.dp),
-                value = viewModel?.city?.value ?: inputText,
+                value = inputText,
                 textStyle = MaterialTheme.typography.caption,
                 colors = TextFieldDefaults.textFieldColors(
                     textColor = MaterialTheme.colors.primary,
                     backgroundColor = MaterialTheme.colors.background,
                     cursorColor = MaterialTheme.colors.primary,
                     disabledLabelColor = MaterialTheme.colors.background,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent
+                    focusedIndicatorColor = MaterialTheme.colors.primaryVariant,
+                    unfocusedIndicatorColor = MaterialTheme.colors.primary
                 ),
                 keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -397,22 +401,20 @@ fun SingleTextInputSingleChoice(
                 ),
                 onValueChange = {
                     if (it.length <= possibleAnswer.maxCharacters && it.isNotEmpty()) {
-                        inputFilled = true
                         viewModel?.updateCityValue(it)
-                        if (radioSelected) {
-                            onAnswerSelected(inputText, inputOption)
-                        }
+                        onAnswerSelected(inputText, inputOption)
 
-                    } else {
-                        inputFilled = false
+
                     }
-
                 },
                 shape = RoundedCornerShape(8.dp),
                 singleLine = true,
                 trailingIcon = {
                     if (inputText.isNotEmpty()) {
-                        IconButton(onClick = { inputText = "" }) {
+                        IconButton(onClick = {
+                            viewModel?.updateCityValue("")
+                            onAnswerSelected("", inputOption)
+                        }) {
                             Icon(
                                 imageVector = Icons.Outlined.Close,
                                 contentDescription = null
@@ -431,16 +433,15 @@ fun SingleTextInputSingleChoice(
                 color = MaterialTheme.colors.primary
             )
         }
+        //Radio check list
         Column(modifier = modifier) {
             radioOptions.forEach { text ->
                 val onClickHandle = {
                     onOptionSelected(text)
                     options[text]?.let {
                         inputOption = it
-                        radioSelected = true
-                        if (inputFilled) {
-                            onAnswerSelected(inputText, it)
-                        }
+                        onAnswerSelected(inputText, it)
+
                     }
                     Unit
                 }
@@ -473,12 +474,13 @@ fun SingleTextInputSingleChoice(
                                 onClick = onClickHandle
                             )
                             .background(answerBackgroundColor)
-                            .padding(vertical = 6.dp, horizontal = 16.dp),
+                            .padding(vertical = 4.dp, horizontal = 16.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = text
+                            text = text,
+                            fontSize = 12.sp
                         )
 
                         RadioButton(

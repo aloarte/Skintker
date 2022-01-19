@@ -69,7 +69,7 @@ fun DailyLogCard(
                     text = "${dfDay.format(log.date)} ${dfDate.format(log.date)}".replaceFirstChar {
                         if (it.isLowerCase()) it.titlecase() else it.toString()
                     },
-                    fontSize = 10.sp,
+                    fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.subtitle1,
                     modifier = Modifier
@@ -85,7 +85,7 @@ fun DailyLogCard(
                 if (collapseView) {
                     Text(
                         log.irritation?.overallValue.toString(),
-                        fontSize = 10.sp,
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.body1,
                         color = MaterialTheme.colors.primaryVariant,
