@@ -1,7 +1,6 @@
 package com.p4r4d0x.skintker.presenter.survey.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,10 +19,6 @@ import com.p4r4d0x.skintker.theme.SkintkerTheme
 import org.koin.android.ext.android.inject
 
 class SurveyFragment : Fragment() {
-
-    interface OnCityObtained {
-        fun cityObtained(city: String)
-    }
 
     private val viewModel: SurveyViewModel by inject()
 
@@ -60,13 +55,10 @@ class SurveyFragment : Fragment() {
                                         activity?.onBackPressedDispatcher?.onBackPressed()
                                     },
                                     onAction = {
-                                        Log.d("ALRALR", "onPermissionRequired")
                                         (requireActivity() as? MainActivity)?.getLocation {
                                             viewModel.updateCityValue(it)
                                         }
-
                                     })
-
                             }
                             is SurveyState.Result -> {
                                 navigate(FragmentScreen.Home, FragmentScreen.Survey)

@@ -91,7 +91,7 @@ object DataParser {
                 ),
                 travel = AdditionalDataBO.TravelBO(
                     traveled = traveled == resources.getString(R.string.question_6_answer_1),
-                    city = city
+                    city = city.lowercase(Locale.getDefault())
                 ),
                 alcoholLevel = AlcoholLevel.fromString(alcohol, resources)
             ),

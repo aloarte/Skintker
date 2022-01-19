@@ -361,10 +361,8 @@ fun SingleTextInputSingleChoice(
     onAction.invoke(SurveyActionType.GET_LOCATION)
     var radioSelected = false
     var inputFilled = true
-
-    val textAnswerSaved = viewModel?.city?.value ?: ""
+    var inputText: String = viewModel?.city?.collectAsState()?.value ?: ""
     val optionSelectedAnswerSaved = -1
-    var inputText by rememberSaveable { mutableStateOf(textAnswerSaved) }
     var inputOption by rememberSaveable { mutableStateOf(optionSelectedAnswerSaved) }
     val options = possibleAnswer.optionsStringRes.associateBy { stringResource(id = it) }
     val radioOptions = options.keys.toList()
@@ -400,7 +398,7 @@ fun SingleTextInputSingleChoice(
                 onValueChange = {
                     if (it.length <= possibleAnswer.maxCharacters && it.isNotEmpty()) {
                         inputFilled = true
-                        inputText = it
+                        viewModel?.updateCityValue(it)
                         if (radioSelected) {
                             onAnswerSelected(inputText, inputOption)
                         }

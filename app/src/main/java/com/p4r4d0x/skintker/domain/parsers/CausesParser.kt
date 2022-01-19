@@ -83,7 +83,7 @@ object CausesParser {
      */
     fun getPossibleWeatherCauses(
         temperatureMap: Map<Int, Int>,
-        humidityCityMap: Map<Int, Int>,
+        humidityMap: Map<Int, Int>,
         thresholds: Pair<Float, Float>
     ): Pair<PossibleCausesBO.WeatherCauseBO, PossibleCausesBO.WeatherCauseBO> {
         return Pair(
@@ -94,8 +94,8 @@ object CausesParser {
             ),
             PossibleCausesBO.WeatherCauseBO(
                 weatherType = PossibleCausesBO.WeatherCauseBO.WeatherType.TEMPERATURE,
-                possibleCause = humidityCityMap.getKeyOfMaxValue() > humidityCityMap.size * thresholds.first,
-                averageValue = humidityCityMap.getMaxValue()
+                possibleCause = humidityMap.getKeyOfMaxValue() > humidityMap.size * thresholds.first,
+                averageValue = humidityMap.getMaxValue()
             )
         )
     }

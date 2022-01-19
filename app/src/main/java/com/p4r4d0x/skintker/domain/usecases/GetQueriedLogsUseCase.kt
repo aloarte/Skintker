@@ -68,7 +68,7 @@ class GetQueriedLogsUseCase(private val repository: LogManagementRepository) :
             ),
             weatherCause = getPossibleWeatherCauses(
                 temperatureMap = temperatureMap,
-                humidityCityMap = humidityCityMap,
+                humidityMap = humidityCityMap,
                 thresholds = params.weatherThresholds
             )
         )

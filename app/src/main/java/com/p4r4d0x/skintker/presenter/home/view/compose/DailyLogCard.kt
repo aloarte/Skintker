@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
@@ -28,6 +29,7 @@ import com.p4r4d0x.skintker.domain.parsers.DataParser.getHumidityString
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getTemperatureString
 import com.p4r4d0x.skintker.presenter.common.utils.DailyLogProvider
 import java.text.SimpleDateFormat
+import java.util.*
 
 @SuppressLint("SimpleDateFormat")
 @Preview
@@ -37,12 +39,14 @@ fun DailyLogCard(
 ) {
     var collapseView by remember { mutableStateOf(true) }
     Card(
-        elevation = 4.dp,
-        border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.primaryVariant),
         modifier = Modifier.clickable(
             onClick = { collapseView = !collapseView }
-        )
-    ) {
+        ),
+        shape = RoundedCornerShape(15.dp),
+        elevation = 4.dp,
+        border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.primary),
+
+        ) {
         Column(
             Modifier
                 .fillMaxWidth()
@@ -84,7 +88,7 @@ fun DailyLogCard(
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.body1,
-                        color = MaterialTheme.colors.primary,
+                        color = MaterialTheme.colors.primaryVariant,
                         modifier = Modifier
                             .fillMaxWidth(0.2f)
                     )
@@ -160,7 +164,7 @@ private fun IrritationItem(
                 text = zone.name,
                 fontSize = 10.sp,
                 style = MaterialTheme.typography.body1,
-                color = MaterialTheme.colors.primary,
+                color = MaterialTheme.colors.primaryVariant,
                 modifier = Modifier
                     .fillMaxWidth(0.5f)
                     .padding(vertical = 1.dp, horizontal = 5.dp)
@@ -242,7 +246,7 @@ private fun ItemTextPairNumber(
                 text = value.toString(),
                 fontSize = 10.sp,
                 style = MaterialTheme.typography.body1,
-                color = MaterialTheme.colors.primary,
+                color = MaterialTheme.colors.primaryVariant,
                 modifier = Modifier
                     .fillMaxWidth(0.4f)
                     .padding(vertical = 1.dp, horizontal = 5.dp)
@@ -274,7 +278,7 @@ fun TextCity(travel: AdditionalDataBO.TravelBO, modifier: Modifier) {
                 .padding(vertical = 1.dp)
         )
         Text(
-            text = travel.city,
+            text = travel.city.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() },
             fontSize = 10.sp,
             style = MaterialTheme.typography.caption,
             color = MaterialTheme.colors.primaryVariant,

@@ -7,7 +7,7 @@ import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 interface DailyLogDao {
 
     @Transaction
-    @Query("SELECT * FROM logs_table")
+    @Query("SELECT * FROM logs_table ORDER BY date DESC")
     suspend fun getAll(): List<DailyLogDetails>
 
     @Transaction
@@ -17,12 +17,6 @@ interface DailyLogDao {
     @Transaction
     @Query("SELECT * FROM logs_table INNER JOIN  irritation_table ON logs_table.id=irritation_table.log_id WHERE overallValue>=:irritationLevel")
     suspend fun getLogsWithIrritationLevel(irritationLevel: Int): List<DailyLogDetails>
-
-//    @Query(
-//        "SELECT * FROM user WHERE first_name LIKE :first AND " +
-//                "last_name LIKE :last LIMIT 1"
-//    )
-//    suspend fun findByName(first: String, last: String): DailyLogEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLog(log: DailyLog): Long

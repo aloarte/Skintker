@@ -13,6 +13,7 @@ import com.p4r4d0x.skintker.domain.log.LogState
 import com.p4r4d0x.skintker.domain.log.SurveyState
 import com.p4r4d0x.skintker.domain.parsers.DataParser
 import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class SurveyViewModel(
@@ -23,8 +24,8 @@ class SurveyViewModel(
     val uiState: MutableLiveData<SurveyState>
         get() = _uiState
 
-    private val _city = MutableLiveData<String>()
-    val city: MutableLiveData<String>
+    private val _city = MutableStateFlow("")
+    val city: MutableStateFlow<String>
         get() = _city
 
     var askForPermissions by mutableStateOf(true)

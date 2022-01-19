@@ -92,7 +92,7 @@ class CausesParserTest {
 
         val causes = getPossibleWeatherCauses(
             temperatureMap = temperatureMap,
-            humidityCityMap = humidityCityMap,
+            humidityMap = humidityCityMap,
             thresholds = Pair(0.5f, 0.5f)
         )
 

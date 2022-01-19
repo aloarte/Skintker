@@ -28,6 +28,7 @@ import com.p4r4d0x.skintker.presenter.common.compose.Description
 import com.p4r4d0x.skintker.presenter.common.compose.SkintkerDivider
 import com.p4r4d0x.skintker.presenter.common.utils.PossibleCausesProvider
 import com.p4r4d0x.skintker.theme.SkintkerTheme
+import java.util.*
 
 @SuppressLint("SimpleDateFormat")
 @Preview
@@ -219,7 +220,7 @@ fun TravelResume(travelCause: PossibleCausesBO.TravelCauseBO) {
                         style = MaterialTheme.typography.caption
                     )
                     Text(
-                        city,
+                        city.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() },
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Light,
                         color = MaterialTheme.colors.primaryVariant,
