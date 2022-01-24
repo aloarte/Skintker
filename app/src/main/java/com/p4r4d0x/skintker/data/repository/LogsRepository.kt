@@ -17,6 +17,7 @@
 package com.p4r4d0x.skintker.data.repository
 
 import com.p4r4d0x.skintker.R
+import com.p4r4d0x.skintker.data.Constants.EIGHT_QUESTION_NUMBER
 import com.p4r4d0x.skintker.data.Constants.FIFTH_QUESTION_NUMBER
 import com.p4r4d0x.skintker.data.Constants.FIRST_QUESTION_NUMBER
 import com.p4r4d0x.skintker.data.Constants.FOURTH_QUESTION_NUMBER
@@ -56,7 +57,11 @@ private val jetpackQuestions = mutableListOf(
                 R.string.question_2_answer_5,
                 R.string.question_2_answer_6,
                 R.string.question_2_answer_7,
-                R.string.question_2_answer_8
+                R.string.question_2_answer_8,
+                R.string.question_2_answer_9,
+                R.string.question_2_answer_10,
+                R.string.question_2_answer_11,
+                R.string.question_2_answer_12
             )
         ),
     ),
@@ -116,6 +121,7 @@ private val jetpackQuestions = mutableListOf(
     Question(
         id = SEVENTH_QUESTION_NUMBER,
         questionText = R.string.question_7_title,
+        description = R.string.question_7_description,
         answer = PossibleAnswer.MultipleChoice(
             optionsStringRes = listOf(
                 R.string.question_7_answer_1,
@@ -123,13 +129,49 @@ private val jetpackQuestions = mutableListOf(
                 R.string.question_7_answer_3,
                 R.string.question_7_answer_4,
                 R.string.question_7_answer_5,
-                R.string.question_7_answer_6
+                R.string.question_7_answer_6,
+                R.string.question_7_answer_7,
+                R.string.question_7_answer_8,
+                R.string.question_7_answer_9,
+                R.string.question_7_answer_10,
+                R.string.question_7_answer_11,
+                R.string.question_7_answer_12,
+                R.string.question_7_answer_13,
+                R.string.question_7_answer_14,
+                R.string.question_7_answer_15,
+                R.string.question_7_answer_16,
+                R.string.question_7_answer_17,
+                R.string.question_7_answer_18
+
             )
-        ),
+        )
     ),
+    Question(
+        id = EIGHT_QUESTION_NUMBER,
+        questionText = R.string.question_8_title,
+        description = R.string.question_8_description,
+        answer = PossibleAnswer.MultipleChoice(
+            optionsStringRes = listOf(
+                R.string.question_8_answer_1,
+                R.string.question_8_answer_2,
+                R.string.question_8_answer_3,
+                R.string.question_8_answer_4,
+                R.string.question_8_answer_5,
+                R.string.question_8_answer_6,
+                R.string.question_8_answer_7,
+                R.string.question_8_answer_8,
+                R.string.question_8_answer_9,
+                R.string.question_8_answer_10,
+                R.string.question_8_answer_11,
+                R.string.question_8_answer_12,
+                R.string.question_8_answer_13
+
+            )
+        )
+    )
 
 
-    ).toList()
+).toList()
 
 private val jetpackSurvey = Survey(
     questions = jetpackQuestions

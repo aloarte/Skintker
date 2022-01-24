@@ -27,6 +27,11 @@
     <string name="question_2_answer_6">Hombros</string>
     <string name="question_2_answer_7">Brazos</string>
     <string name="question_2_answer_8">Muñecas</string>
+    <string name="question_2_answer_9">Manos</string>
+    <string name="question_2_answer_10">Piernas</string>
+    <string name="question_2_answer_11">Pecho</string>
+    <string name="question_2_answer_12">Espalda</string>
+
     <!-- question 3 -->
     <string name="question_3_title">Nivel de estrés</string>
     <string name="question_3_description">¿Has sufrido alguna situación de estrés o preocupación hoy?</string>
@@ -53,12 +58,43 @@
     <string name="question_6_answer_2">No, hoy no viajé</string>
     <!-- question 7 -->
     <string name="question_7_title">Hoy comí alguno de estos alimentos …</string>
-    <string name="question_7_answer_1">Chocolate</string>
-    <string name="question_7_answer_2">Carne</string>
-    <string name="question_7_answer_3">Trigo</string>
-    <string name="question_7_answer_4">Productos lácteos</string>
-    <string name="question_7_answer_5">Fermentados</string>
-    <string name="question_7_answer_6">Frutos secos</string>
+    <string name="question_7_description">Alimentos frescos</string>
+    <string name="question_7_answer_1">Carne 🥩</string>
+    <string name="question_7_answer_2">Marisco 🦐</string>
+    <string name="question_7_answer_3">Pescado azul 🐟</string>
+    <string name="question_7_answer_4">Pescado blanco 🐟</string>
+    <string name="question_7_answer_5">Piña 🍍</string>
+    <string name="question_7_answer_6">Fresas 🍓</string>
+    <string name="question_7_answer_7">Plátanos 🍌</string>
+    <string name="question_7_answer_8">Cítricos 🍊</string>
+    <string name="question_7_answer_9">Tomate 🍅</string>
+    <string name="question_7_answer_10">Aguacate 🥑</string>
+    <string name="question_7_answer_11">Berenjena 🍆</string>
+    <string name="question_7_answer_12">Calabacin 🍆</string>
+    <string name="question_7_answer_13">Calabaza 🎃</string>
+    <string name="question_7_answer_14">Guisantes 🌿</string>
+    <string name="question_7_answer_15">Setas 🍄</string>
+    <string name="question_7_answer_16">Huevos 🥚</string>
+    <string name="question_7_answer_17">Especias picantes 🌶️</string>
+    <string name="question_7_answer_18">Frutos secos 🥜</string>
+
+    <!-- question 8 -->
+    <string name="question_8_title">Hoy comí alguno de estos alimentos …</string>
+    <string name="question_8_description">Alimentos procesados</string>
+    <string name="question_8_answer_1">Chcolate 🍫</string>
+    <string name="question_8_answer_2">Dulces 🍮</string>
+    <string name="question_8_answer_3">Lácteos 🥛</string>
+    <string name="question_8_answer_4">Lácteos fermentados 🧀</string>
+    <string name="question_8_answer_5">Pan 🍞</string>
+    <string name="question_8_answer_6">Pasta 🍝</string>
+    <string name="question_8_answer_7">Encurtidos 🥒</string>
+    <string name="question_8_answer_8">Conservas de legumbres 🥫</string>
+    <string name="question_8_answer_9">Conservas de verduras 🥫</string>
+    <string name="question_8_answer_10">Conservas de pescados 🥫</string>
+    <string name="question_8_answer_11">Embutido 🥪</string>
+    <string name="question_8_answer_12">Salsas 🍯</string>
+    <string name="question_8_answer_13">Derivados de la soja 🌱</string>
+
 
     <!--History labels-->
     <string name="card_traveled_today">Viajé hoy</string>

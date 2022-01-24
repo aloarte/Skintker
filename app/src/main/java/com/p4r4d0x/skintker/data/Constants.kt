@@ -8,6 +8,8 @@ object Constants {
     const val FIFTH_QUESTION_NUMBER = 5
     const val SIXTH_QUESTION_NUMBER = 6
     const val SEVENTH_QUESTION_NUMBER = 7
+    const val EIGHT_QUESTION_NUMBER = 8
+
 
     const val SKITNKER_PREFERENCES = "preferences_skintker"
 

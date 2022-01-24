@@ -2,6 +2,7 @@ package com.p4r4d0x.skintker.presenter.home.view.compose
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,6 +32,7 @@ import com.p4r4d0x.skintker.presenter.common.utils.DailyLogProvider
 import java.text.SimpleDateFormat
 import java.util.*
 
+@OptIn(ExperimentalFoundationApi::class)
 @SuppressLint("SimpleDateFormat")
 @Preview
 @Composable
@@ -117,6 +119,7 @@ fun DailyLogCard(
     }
 }
 
+@ExperimentalFoundationApi
 @Composable
 private fun DailyLogCardItemBody(log: DailyLogBO) {
     Column(
@@ -199,32 +202,49 @@ private fun AdditionalData(additionalDataBO: AdditionalDataBO, modifier: Modifie
     }
 }
 
+@ExperimentalFoundationApi
 @Composable
 private fun FoodScheduleList(list: List<String>) {
     Column(
         Modifier
-            .padding(horizontal = 5.dp, vertical = 2.dp)
+            .padding(vertical = 2.dp)
             .fillMaxWidth()
     ) {
-        var stringFoodList = ""
-
         Text(
             fontWeight = FontWeight.Bold,
             text = stringResource(id = R.string.card_dietary_label),
             fontSize = 10.sp,
             style = MaterialTheme.typography.body1,
         )
-        list.forEach { foodItem ->
-            val comma = if (list.indexOf(foodItem) != 0) {
-                ", "
-            } else {
-                ""
-            }
-            stringFoodList = "$stringFoodList$comma${foodItem}"
-        }
-        Text(text = stringFoodList, fontSize = 10.sp, maxLines = 2)
+        FoodGrid(list)
     }
 }
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun FoodGrid(foodList: List<String>) {
+    val halfList = if (foodList.size % 2 == 0) {
+        foodList.size / 2
+    } else {
+        foodList.size / 2 + 1
+    }
+    val firstColumn = foodList.subList(0, halfList)
+    val secondColumn = foodList.subList(halfList, foodList.size)
+
+    Row(Modifier.fillMaxWidth()) {
+        Column(Modifier.fillMaxWidth(0.5F)) {
+            firstColumn.forEach { item ->
+                Text(text = item, fontSize = 10.sp)
+            }
+        }
+        Column(Modifier.fillMaxWidth(0.5F)) {
+            secondColumn.forEach { item ->
+                Text(text = item, fontSize = 10.sp)
+            }
+        }
+    }
+}
+
 
 @Composable
 private fun ItemTextPairNumber(

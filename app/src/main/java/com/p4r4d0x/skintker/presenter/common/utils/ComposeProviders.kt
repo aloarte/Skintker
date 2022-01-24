@@ -22,12 +22,11 @@ class DailyLogProvider : PreviewParameterProvider<DailyLogBO> {
                     )
                 ),
                 foodList = listOf(
-                    "Tomatoes",
-                    "Rice",
-                    "Shrimp",
-                    "Red pepper",
-                    "Onion",
-                    "Bread"
+                    "Tomatoes \uD83C\uDF3F",
+                    "Rice \uD83C\uDF3F",
+                    "Shrimp \uD83C\uDF3F",
+                    "Red pepper \uD83C\uDF3F",
+                    "Onion \uD83C\uDF3F"
                 ),
                 additionalData = AdditionalDataBO(
                     stressLevel = 7,
@@ -43,7 +42,11 @@ class DailyLogProvider : PreviewParameterProvider<DailyLogBO> {
                     zoneValues = listOf(
                         IrritationBO.IrritatedZoneBO("Wrist", 10),
                         IrritationBO.IrritatedZoneBO("Shoulder", 6),
-                        IrritationBO.IrritatedZoneBO("Ear", 7)
+                        IrritationBO.IrritatedZoneBO("Ear", 7),
+                        IrritationBO.IrritatedZoneBO("Legs", 6),
+                        IrritationBO.IrritatedZoneBO("Hand", 7),
+                        IrritationBO.IrritatedZoneBO("Neck", 6),
+                        IrritationBO.IrritatedZoneBO("Back", 7)
                     )
                 ),
                 foodList = listOf(
@@ -52,7 +55,9 @@ class DailyLogProvider : PreviewParameterProvider<DailyLogBO> {
                     "Shrimp",
                     "Red pepper",
                     "Onion",
-                    "Bread"
+                    "Bread",
+                    "Red pepper",
+                    "Onion"
                 ),
                 additionalData = AdditionalDataBO(
                     stressLevel = 7,

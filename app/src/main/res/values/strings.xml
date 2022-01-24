@@ -27,6 +27,11 @@
     <string name="question_2_answer_6">Shoulders</string>
     <string name="question_2_answer_7">Arms</string>
     <string name="question_2_answer_8">Wrists</string>
+    <string name="question_2_answer_9">Hands</string>
+    <string name="question_2_answer_10">Legs</string>
+    <string name="question_2_answer_11">Chest</string>
+    <string name="question_2_answer_12">Back</string>
+
     <!-- question 3 -->
     <string name="question_3_title">Stress level</string>
     <string name="question_3_description">Have you had many stressful or worrying situations today?</string>
@@ -53,12 +58,41 @@
     <string name="question_6_answer_2">No, I didn\'t traveled today</string>
     <!-- question 7 -->
     <string name="question_7_title">Today I ate one of this aliments …</string>
-    <string name="question_7_answer_1">Chocolate</string>
-    <string name="question_7_answer_2">Meat</string>
-    <string name="question_7_answer_3">Wheat</string>
-    <string name="question_7_answer_4">Dairy products</string>
-    <string name="question_7_answer_5">Fermented</string>
-    <string name="question_7_answer_6">Nuts</string>
+    <string name="question_7_description">Fresh foods</string>
+    <string name="question_7_answer_1">Meat 🥩</string>
+    <string name="question_7_answer_2">Seafood 🦐</string>
+    <string name="question_7_answer_3">Blue fish 🐟</string>
+    <string name="question_7_answer_4">White fish 🐟</string>
+    <string name="question_7_answer_5">Pineapple 🍍</string>
+    <string name="question_7_answer_6">Strawberries 🍓</string>
+    <string name="question_7_answer_7">Bananas 🍌</string>
+    <string name="question_7_answer_8">Citrus 🍊</string>
+    <string name="question_7_answer_9">Tomato 🍅</string>
+    <string name="question_7_answer_10">Avocado 🥑</string>
+    <string name="question_7_answer_11">Eggplant 🍆</string>
+    <string name="question_7_answer_12">Zucchini 🍆</string>
+    <string name="question_7_answer_13">Pumpkin 🎃</string>
+    <string name="question_7_answer_14">Peas 🌿</string>
+    <string name="question_7_answer_15">Mushrooms 🍄</string>
+    <string name="question_7_answer_16">Eggs 🥚</string>
+    <string name="question_7_answer_17">Hot spices 🌶️</string>
+    <string name="question_7_answer_18">Nuts 🥜</string>
+    <!-- question 8 -->
+    <string name="question_8_title">Today I ate one of this aliments …</string>
+    <string name="question_8_description">Processed foods</string>
+    <string name="question_8_answer_1">Chocolate 🍫</string>
+    <string name="question_8_answer_2">Sweets 🍮</string>
+    <string name="question_8_answer_3">Dairy products 🥛</string>
+    <string name="question_8_answer_4">Fermented dairy 🧀</string>
+    <string name="question_8_answer_5">Bread 🍞</string>
+    <string name="question_8_answer_6">Pasta 🍝</string>
+    <string name="question_8_answer_7">Pickles 🥒</string>
+    <string name="question_8_answer_8">Canned legumes 🥫</string>
+    <string name="question_8_answer_9">Canned vegetables 🥫</string>
+    <string name="question_8_answer_10">Canned fish 🥫</string>
+    <string name="question_8_answer_11">Inlay 🥪</string>
+    <string name="question_8_answer_12">Sauces 🍯</string>
+    <string name="question_8_answer_13">Soy derivatives 🌱</string>
 
     <!--History labels-->
     <string name="card_traveled_today">Traveled today</string>

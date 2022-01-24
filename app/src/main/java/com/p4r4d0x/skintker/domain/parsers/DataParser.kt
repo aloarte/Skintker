@@ -44,7 +44,7 @@ object DataParser {
                                 )
                             )
                         }
-                    } else if (questionCnt == Constants.SEVENTH_QUESTION_NUMBER) {
+                    } else if (questionCnt == Constants.SEVENTH_QUESTION_NUMBER || questionCnt == Constants.EIGHT_QUESTION_NUMBER) {
                         answer.answersStringRes.forEach {
                             foodList.add(
                                 resources.getString(it)
