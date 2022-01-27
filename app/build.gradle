@@ -75,6 +75,7 @@ dependencies {
     implementation "com.google.android.material:material:$material"
     implementation "com.google.accompanist:accompanist-permissions:0.22.0-rc"
     implementation "com.chargemap.compose:numberpicker:0.0.11"
+    implementation "com.github.doyaaaaaken:kotlin-csv-jvm:0.9.0"
     //Room
     implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"

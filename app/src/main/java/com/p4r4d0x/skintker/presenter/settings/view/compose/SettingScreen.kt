@@ -46,6 +46,8 @@ import com.p4r4d0x.skintker.presenter.common.compose.SkintkerDivider
 fun SettingScreen(
     prefs: SharedPreferences?,
     onBackIconPressed: () -> Unit,
+    onExportPressed: () -> Unit,
+    onImportPressed: () -> Unit,
     settingsCallback: (SettingsStatus) -> Unit
 ) {
 
@@ -54,12 +56,14 @@ fun SettingScreen(
             SettingsTopBar(onBackIconPressed)
         }
     ) {
-        SettingScreenContent(prefs, settingsCallback)
+        SettingScreenContent(prefs, onExportPressed, onImportPressed, settingsCallback)
     }
 }
 
 @Composable
-fun SettingsTopBar(onBackIconPressed: () -> Unit) {
+fun SettingsTopBar(
+    onBackIconPressed: () -> Unit,
+) {
     TopAppBar(
         backgroundColor = MaterialTheme.colors.primaryVariant,
         elevation = 0.dp
@@ -98,13 +102,18 @@ fun SettingsTopBar(onBackIconPressed: () -> Unit) {
 }
 
 @Composable
-fun SettingScreenContent(prefs: SharedPreferences?, settingsCallback: (SettingsStatus) -> Unit) {
+fun SettingScreenContent(
+    prefs: SharedPreferences?,
+    onExportPressed: () -> Unit,
+    onImportPressed: () -> Unit,
+    settingsCallback: (SettingsStatus) -> Unit
+) {
 
     LazyColumn {
         item {
             Column(Modifier.fillMaxSize()) {
                 ParametersConfiguration(prefs, settingsCallback)
-                CSVButtons()
+                CSVButtons(onExportPressed, onImportPressed)
             }
         }
     }
@@ -541,7 +550,10 @@ fun setPreferenceValues(
 }
 
 @Composable
-fun CSVButtons() {
+fun CSVButtons(
+    onExportPressed: () -> Unit,
+    onImportPressed: () -> Unit
+) {
     SkintkerDivider()
 
     Column(Modifier.fillMaxWidth(), horizontalAlignment = CenterHorizontally) {
@@ -550,7 +562,7 @@ fun CSVButtons() {
             enabled = true,
             modifier = Modifier
                 .height(40.dp),
-            onClick = { }
+            onClick = { onExportPressed() }
         ) {
             Text(text = stringResource(id = R.string.btn_export_data))
         }
@@ -560,7 +572,7 @@ fun CSVButtons() {
             enabled = true,
             modifier = Modifier
                 .height(40.dp),
-            onClick = { }
+            onClick = { onImportPressed() }
         ) {
             Text(text = stringResource(id = R.string.btn_import_data))
         }

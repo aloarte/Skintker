@@ -21,37 +21,20 @@ data class Irritation(
     val overallValue: Int,
     @NonNull @ColumnInfo(name = "log_id")
     val logId: Long,
-    val zones: List<IrritatedZone>,
+    val zones: List<String>,
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "irritation_id")
     var irritationId: Long = 0
 ) {
 
-
     fun toDomainObject(): IrritationBO {
-        val irritatedZones = zones.map {
-            it.toDomainObject()
-        }
-        return IrritationBO(overallValue = overallValue, zoneValues = irritatedZones)
+        return IrritationBO(overallValue = overallValue, zoneValues = zones)
     }
 }
-
-data class IrritatedZone(
-    val name: String,
-    val intensity: Int
-) {
-    fun toDomainObject() = IrritationBO.IrritatedZoneBO(name = name, intensity = intensity)
-}
-
-fun fromDomainObject(irritatedZone: IrritationBO.IrritatedZoneBO) =
-    IrritatedZone(name = irritatedZone.name, intensity = irritatedZone.intensity)
-
 
 fun fromDomainObject(irritationBo: IrritationBO, logId: Long) =
     Irritation(
         overallValue = irritationBo.overallValue,
-        zones = irritationBo.zoneValues.map {
-            fromDomainObject(it)
-        },
+        zones = irritationBo.zoneValues,
         logId = logId
     )

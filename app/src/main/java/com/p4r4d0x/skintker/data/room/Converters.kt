@@ -20,7 +20,7 @@ object Converters {
     }
 
     @TypeConverter
-    fun toToFoodList(zonesStr: String?): List<String>? {
+    fun toStringList(zonesStr: String?): List<String>? {
         if (zonesStr == null) {
             return null
         }
@@ -30,7 +30,7 @@ object Converters {
     }
 
     @TypeConverter
-    fun fromFoodList(zones: List<String>?): String? {
+    fun fromStringList(zones: List<String>?): String? {
         if (zones == null) {
             return null
         }
@@ -39,25 +39,6 @@ object Converters {
         return gson.toJson(zones, type)
     }
 
-    @TypeConverter
-    fun toToZonesList(zonesStr: String?): List<IrritatedZone>? {
-        if (zonesStr == null) {
-            return null
-        }
-        val gson = Gson()
-        val type: Type = object : TypeToken<List<IrritatedZone?>?>() {}.type
-        return gson.fromJson(zonesStr, type)
-    }
-
-    @TypeConverter
-    fun fromZonesList(zones: List<IrritatedZone>?): String? {
-        if (zones == null) {
-            return null
-        }
-        val gson = Gson()
-        val type: Type = object : TypeToken<List<IrritatedZone?>?>() {}.type
-        return gson.toJson(zones, type)
-    }
 
     @TypeConverter
     fun toToWeather(weatherStr: String?): AdditionalDataBO.WeatherBO? {

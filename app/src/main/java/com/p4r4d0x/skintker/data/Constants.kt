@@ -33,6 +33,6 @@ object Constants {
     const val DEFAULT_STRESS_THRESHOLD = 0.5f
     const val DEFAULT_WEATHER_TEMPERATURE_THRESHOLD = 0.5f
     const val DEFAULT_WEATHER_HUMIDITY_THRESHOLD = 0.5f
-
-
+    const val CHARACTER_FILTER_REGEX = "[^\\p{L}\\p{Z}]"
+    const val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+"
 }

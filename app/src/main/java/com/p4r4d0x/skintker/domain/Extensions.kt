@@ -1,6 +1,12 @@
 package com.p4r4d0x.skintker.domain
 
+import android.annotation.SuppressLint
+import com.p4r4d0x.skintker.data.Constants
+import com.p4r4d0x.skintker.data.Constants.REGEX_UNACCENT
 import com.p4r4d0x.skintker.data.enums.AlcoholLevel
+import java.text.Normalizer
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun Map<String, Int>.getMaxValue(): String? {
     return this.toSortedMap().toList().reversed().maxByOrNull { (_, value) -> value }?.first
@@ -29,3 +35,32 @@ fun MutableMap<Boolean, Int>.updateValue(key: Boolean) {
 fun MutableMap<AlcoholLevel, Int>.updateValue(key: AlcoholLevel) {
     this[key] = (this[key] ?: 0) + 1
 }
+
+fun String.cleanFoodString(): String {
+    val normalized = Normalizer.normalize(this, Normalizer.Form.NFD)
+    return REGEX_UNACCENT.toRegex().replace(normalized, "").replace(
+        Constants.CHARACTER_FILTER_REGEX.toRegex(),
+        ""
+    )
+}
+
+@SuppressLint("SimpleDateFormat")
+fun Date.getDDMMYYYYDate(): String {
+    val dfDate = SimpleDateFormat("dd/MM/yyyy")
+    return dfDate.format(this)
+}
+
+@SuppressLint("SimpleDateFormat")
+fun Date.getDayDate(): String {
+    val dfDay = SimpleDateFormat("EEEE")
+    return dfDay.format(this)
+}
+
+@SuppressLint("SimpleDateFormat")
+fun Date.getDateWithoutTime(): Date {
+    val formatter = SimpleDateFormat(
+        "dd/MM/yyyy"
+    )
+    return formatter.parse(formatter.format(this)) ?: Date()
+}
+

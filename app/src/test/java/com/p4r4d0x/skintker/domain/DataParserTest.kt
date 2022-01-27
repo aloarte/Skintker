@@ -119,12 +119,12 @@ class DataParserTest {
         val surveyLog = createLogFromSurvey(answers = answerList, resources = resources)
 
         val expectedLog = DailyLogBO(
-            date = DataParser.getDateWithoutTimeUsingFormat(),
+            date = DataParser.getCurrentFormattedDate(),
             irritation = IrritationBO(
                 overallValue = FIRST_QUESTION_ANSWER_SLIDER.toInt(),
                 zoneValues = listOf(
-                    IrritationBO.IrritatedZoneBO(MULTIPLE_ANSWER_1_VALUE, 5),
-                    IrritationBO.IrritatedZoneBO(MULTIPLE_ANSWER_2_VALUE, 5)
+                    MULTIPLE_ANSWER_1_VALUE,
+                    MULTIPLE_ANSWER_2_VALUE
                 )
             ),
             additionalData = AdditionalDataBO(

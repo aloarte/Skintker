@@ -7,11 +7,9 @@ import com.p4r4d0x.skintker.data.repository.LogManagementRepositoryImpl
 import com.p4r4d0x.skintker.data.repository.LogsRepository
 import com.p4r4d0x.skintker.data.room.DailyLogDao
 import com.p4r4d0x.skintker.data.room.LogsDatabase
-import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
-import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
-import com.p4r4d0x.skintker.domain.usecases.GetLogsUseCase
-import com.p4r4d0x.skintker.domain.usecases.GetQueriedLogsUseCase
+import com.p4r4d0x.skintker.domain.usecases.*
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
+import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
 import com.p4r4d0x.skintker.presenter.welcome.viewmodel.WelcomeViewModel
 import org.koin.android.ext.koin.androidApplication
@@ -22,6 +20,8 @@ val vmModule = module {
     viewModel { WelcomeViewModel(get()) }
     viewModel { SurveyViewModel(get()) }
     viewModel { HomeViewModel(get(), get()) }
+    viewModel { SettingsViewModel(get()) }
+
 }
 val repositoriesModule = module {
     factory { LogsRepository() }
@@ -33,6 +33,7 @@ val useCasesModule = module {
     factory { GetLogUseCase(get()) }
     factory { GetLogsUseCase(get()) }
     factory { GetQueriedLogsUseCase(get()) }
+    factory { ExportLogsDBUseCase(get()) }
 
 }
 

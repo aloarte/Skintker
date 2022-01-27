@@ -34,7 +34,7 @@ class GetQueriedLogsUseCase(private val repository: LogManagementRepository) :
                 foodMap.updateValue(food)
             }
             log.irritation?.zoneValues?.forEach { irritatedZone ->
-                zonesMap.updateValue(irritatedZone.name)
+                zonesMap.updateValue(irritatedZone)
             }
             log.additionalData?.let { additionalData ->
                 stressMap.updateValue(additionalData.stressLevel)

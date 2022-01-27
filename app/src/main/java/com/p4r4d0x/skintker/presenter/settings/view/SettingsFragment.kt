@@ -13,9 +13,14 @@ import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.data.Constants.SKITNKER_PREFERENCES
 import com.p4r4d0x.skintker.data.enums.SettingsStatus
 import com.p4r4d0x.skintker.presenter.settings.view.compose.SettingScreen
+import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 import com.p4r4d0x.skintker.theme.SkintkerTheme
+import org.koin.android.ext.android.inject
 
 class SettingsFragment : Fragment() {
+
+    private val viewModel: SettingsViewModel by inject()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,25 +37,37 @@ class SettingsFragment : Fragment() {
                 activity?.getSharedPreferences(SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
             setContent {
                 SkintkerTheme {
-                    SettingScreen(prefs, onBackIconPressed = {
-                        activity?.onBackPressed()
-                    }, settingsCallback = {
-                        Toast.makeText(
-                            activity,
-                            when (it) {
-                                SettingsStatus.ErrorLoadPreferences -> activity?.resources?.getString(
-                                    R.string.settings_toast_preferences_load_error
-                                )
-                                SettingsStatus.ErrorSavePreferences -> activity?.resources?.getString(
-                                    R.string.settings_toast_preferences_save_error
-                                )
-                                SettingsStatus.PreferencesSaved -> activity?.resources?.getString(R.string.settings_toast_preferences_saved)
-                            },
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    })
+                    SettingScreen(
+                        prefs = prefs,
+                        onBackIconPressed = {
+                            activity?.onBackPressed()
+                        },
+                        onExportPressed = {
+                            viewModel.launchExportUseCase(context)
+                        },
+                        onImportPressed = {
+                        },
+                        settingsCallback = {
+                            Toast.makeText(
+                                activity,
+                                when (it) {
+                                    SettingsStatus.ErrorLoadPreferences -> activity?.resources?.getString(
+                                        R.string.settings_toast_preferences_load_error
+                                    )
+                                    SettingsStatus.ErrorSavePreferences -> activity?.resources?.getString(
+                                        R.string.settings_toast_preferences_save_error
+                                    )
+                                    SettingsStatus.PreferencesSaved -> activity?.resources?.getString(
+                                        R.string.settings_toast_preferences_saved
+                                    )
+                                },
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        })
                 }
             }
         }
     }
+
+
 }

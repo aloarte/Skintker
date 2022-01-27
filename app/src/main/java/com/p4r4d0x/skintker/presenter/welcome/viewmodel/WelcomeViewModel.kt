@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.p4r4d0x.skintker.data.Event
-import com.p4r4d0x.skintker.domain.parsers.DataParser.getDateWithoutTimeUsingFormat
+import com.p4r4d0x.skintker.domain.parsers.DataParser.getCurrentFormattedDate
 import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
 import com.p4r4d0x.skintker.presenter.FragmentScreen
 
@@ -25,7 +25,7 @@ class WelcomeViewModel(private val getLogUseCase: GetLogUseCase) : ViewModel() {
     }
 
     fun checkLogReportedToday() {
-        getLogUseCase.invoke(params = GetLogUseCase.Params(date = getDateWithoutTimeUsingFormat())) { log ->
+        getLogUseCase.invoke(params = GetLogUseCase.Params(date = getCurrentFormattedDate())) { log ->
             _logReported.value = log != null
         }
     }

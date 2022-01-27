@@ -16,9 +16,9 @@ class DailyLogProvider : PreviewParameterProvider<DailyLogBO> {
                 irritation = IrritationBO(
                     overallValue = 8,
                     zoneValues = listOf(
-                        IrritationBO.IrritatedZoneBO("Wrist", 10),
-                        IrritationBO.IrritatedZoneBO("Shoulder", 6),
-                        IrritationBO.IrritatedZoneBO("Ear", 7)
+                        "Wrist",
+                        "Shoulder",
+                        "Ear"
                     )
                 ),
                 foodList = listOf(
@@ -40,13 +40,13 @@ class DailyLogProvider : PreviewParameterProvider<DailyLogBO> {
                 irritation = IrritationBO(
                     overallValue = 8,
                     zoneValues = listOf(
-                        IrritationBO.IrritatedZoneBO("Wrist", 10),
-                        IrritationBO.IrritatedZoneBO("Shoulder", 6),
-                        IrritationBO.IrritatedZoneBO("Ear", 7),
-                        IrritationBO.IrritatedZoneBO("Legs", 6),
-                        IrritationBO.IrritatedZoneBO("Hand", 7),
-                        IrritationBO.IrritatedZoneBO("Neck", 6),
-                        IrritationBO.IrritatedZoneBO("Back", 7)
+                        "Wrist",
+                        "Shoulder",
+                        "Ear",
+                        "Legs",
+                        "Hand",
+                        "Neck",
+                        "Back",
                     )
                 ),
                 foodList = listOf(

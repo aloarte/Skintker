@@ -8,8 +8,8 @@ import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.bo.IrritationBO
+import com.p4r4d0x.skintker.domain.getDateWithoutTime
 import com.p4r4d0x.skintker.domain.log.Answer
-import java.text.SimpleDateFormat
 import java.util.*
 
 object DataParser {
@@ -23,7 +23,7 @@ object DataParser {
         var alcohol = ""
         var city = ""
         var traveled = ""
-        val irritationZones = mutableListOf<IrritationBO.IrritatedZoneBO>()
+        val irritationZones = mutableListOf<String>()
         val foodList = mutableListOf<String>()
         answers.forEach { answer ->
             when (answer) {
@@ -37,12 +37,7 @@ object DataParser {
                 is Answer.MultipleChoice -> {
                     if (questionCnt == Constants.SECOND_QUESTION_NUMBER) {
                         answer.answersStringRes.forEach {
-                            irritationZones.add(
-                                IrritationBO.IrritatedZoneBO(
-                                    resources.getString(it),
-                                    -1
-                                )
-                            )
+                            irritationZones.add(resources.getString(it))
                         }
                     } else if (questionCnt == Constants.SEVENTH_QUESTION_NUMBER || questionCnt == Constants.EIGHT_QUESTION_NUMBER) {
                         answer.answersStringRes.forEach {
@@ -78,7 +73,7 @@ object DataParser {
         }
 
         return DailyLogBO(
-            date = getDateWithoutTimeUsingFormat(),
+            date = getCurrentFormattedDate(),
             irritation = IrritationBO(
                 overallValue = irritation.toInt(),
                 zoneValues = irritationZones
@@ -100,11 +95,8 @@ object DataParser {
     }
 
     @SuppressLint("SimpleDateFormat")
-    fun getDateWithoutTimeUsingFormat(): Date {
-        val formatter = SimpleDateFormat(
-            "dd/MM/yyyy"
-        )
-        return formatter.parse(formatter.format(Calendar.getInstance().time)) ?: Date()
+    fun getCurrentFormattedDate(): Date {
+        return Calendar.getInstance().time.getDateWithoutTime()
     }
 
     fun getHumidityString(value: Int) =
