@@ -4,12 +4,12 @@ import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.data.repository.LogManagementRepository
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.bo.PossibleCausesBO
+import com.p4r4d0x.skintker.domain.increaseValue
 import com.p4r4d0x.skintker.domain.parsers.CausesParser.getAlcoholCause
 import com.p4r4d0x.skintker.domain.parsers.CausesParser.getPossibleCausesItemList
 import com.p4r4d0x.skintker.domain.parsers.CausesParser.getPossibleStressCauses
 import com.p4r4d0x.skintker.domain.parsers.CausesParser.getPossibleTravelCauses
 import com.p4r4d0x.skintker.domain.parsers.CausesParser.getPossibleWeatherCauses
-import com.p4r4d0x.skintker.domain.updateValue
 
 class GetQueriedLogsUseCase(private val repository: LogManagementRepository) :
     BaseUseCaseParamsResult<GetQueriedLogsUseCase.Params, PossibleCausesBO>() {
@@ -31,18 +31,18 @@ class GetQueriedLogsUseCase(private val repository: LogManagementRepository) :
 
         logs.forEach { log ->
             log.foodList.forEach { food ->
-                foodMap.updateValue(food)
+                foodMap.increaseValue(food)
             }
             log.irritation?.zoneValues?.forEach { irritatedZone ->
-                zonesMap.updateValue(irritatedZone)
+                zonesMap.increaseValue(irritatedZone)
             }
             log.additionalData?.let { additionalData ->
-                stressMap.updateValue(additionalData.stressLevel)
-                traveledMap.updateValue(additionalData.travel.traveled)
-                traveledCityMap.updateValue(additionalData.travel.city)
-                temperatureMap.updateValue(additionalData.weather.temperature)
-                humidityCityMap.updateValue(additionalData.weather.humidity)
-                alcoholLevelMap.updateValue(additionalData.alcoholLevel)
+                stressMap.increaseValue(additionalData.stressLevel)
+                traveledMap.increaseValue(additionalData.travel.traveled)
+                traveledCityMap.increaseValue(additionalData.travel.city)
+                temperatureMap.increaseValue(additionalData.weather.temperature)
+                humidityCityMap.increaseValue(additionalData.weather.humidity)
+                alcoholLevelMap.increaseValue(additionalData.alcoholLevel)
             }
         }
 

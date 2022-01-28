@@ -1,69 +1,49 @@
 package com.p4r4d0x.skintker.domain.usecases
 
 import android.content.Context
+import android.content.res.Resources
 import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
-import com.p4r4d0x.skintker.data.Constants.CHARACTER_FILTER_REGEX
+import com.p4r4d0x.skintker.data.Constants.EXPORT_FILE_NAME
 import com.p4r4d0x.skintker.data.repository.LogManagementRepository
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
-import com.p4r4d0x.skintker.domain.cleanFoodString
-import com.p4r4d0x.skintker.domain.getDDMMYYYYDate
-import java.io.File
+import com.p4r4d0x.skintker.domain.generateFile
+import com.p4r4d0x.skintker.domain.parsers.DataParser.getDataCSVRow
+import com.p4r4d0x.skintker.domain.parsers.DataParser.getFoodReferenceMap
+import com.p4r4d0x.skintker.domain.parsers.DataParser.getHeaderCSVRow
+import com.p4r4d0x.skintker.domain.parsers.DataParser.getZonesReferenceMap
 
 class ExportLogsDBUseCase(private val repository: LogManagementRepository) :
     BaseUseCaseParamsResult<ExportLogsDBUseCase.Params, Boolean>() {
 
-
-    data class Params(val context: Context)
+    data class Params(val context: Context, val resources: Resources)
 
     override suspend fun run(params: Params): Boolean {
         val logList = repository.getAllLogs()
-        exportDatabaseToCSVFile(params.context, logList)
+        exportDatabaseToCSVFile(params.context, params.resources, logList)
         return false
     }
 
-    private fun exportDatabaseToCSVFile(context: Context, logList: List<DailyLogBO>): Boolean {
-        val csvFile = generateFile(context, "filename.csv")
+    private fun exportDatabaseToCSVFile(
+        context: Context,
+        resources: Resources,
+        logList: List<DailyLogBO>
+    ): Boolean {
+        val csvFile = generateFile(context, EXPORT_FILE_NAME)
+        val referenceZonesList = getZonesReferenceMap(resources)
+        val referenceFoodList = getFoodReferenceMap(resources)
         return if (csvFile != null) {
             csvWriter().open(csvFile, append = false) {
                 // Header
                 writeRow(
-                    listOf(
-                        "[id]",
-                        "[date]",
-                        "[foodList]",
-                        "[irritation]",
-                        "[irritationZones]",
-                        "[alcohol]",
-                        "[stress]",
-                        "[humidity]",
-                        "[temperature]",
-                        "[city]",
-                        "[traveled]"
-                    )
+                    getHeaderCSVRow(referenceZonesList, referenceFoodList)
                 )
                 logList.forEachIndexed { index, log ->
-
                     writeRow(
-                        listOf(
-                            index,
-                            log.date.getDDMMYYYYDate(),
-                            log.foodList.joinToString(separator = ",") { food ->
-                                food.cleanFoodString()
-                            },
-                            log.irritation?.overallValue,
-                            log.irritation?.zoneValues?.joinToString(separator = ",") { zone ->
-                                zone.replace(
-                                    CHARACTER_FILTER_REGEX.toRegex(),
-                                    ""
-                                )
-                            },
-                            log.additionalData?.alcoholLevel,
-                            log.additionalData?.stressLevel,
-                            log.additionalData?.weather?.humidity,
-                            log.additionalData?.weather?.temperature,
-                            log.additionalData?.travel?.city,
-                            log.additionalData?.travel?.traveled
-
+                        getDataCSVRow(
+                            index = index,
+                            log = log,
+                            referenceZonesList = referenceZonesList,
+                            referenceFoodList = referenceFoodList
                         )
                     )
                 }
@@ -74,17 +54,4 @@ class ExportLogsDBUseCase(private val repository: LogManagementRepository) :
             false
         }
     }
-
-    fun generateFile(context: Context, fileName: String): File? {
-        val csvFile = File(context.filesDir, fileName)
-        csvFile.createNewFile()
-
-        return if (csvFile.exists()) {
-            csvFile
-        } else {
-            null
-        }
-    }
-
-
 }

@@ -43,7 +43,7 @@ class SettingsFragment : Fragment() {
                             activity?.onBackPressed()
                         },
                         onExportPressed = {
-                            viewModel.launchExportUseCase(context)
+                            viewModel.launchExportUseCase(context, resources)
                         },
                         onImportPressed = {
                         },

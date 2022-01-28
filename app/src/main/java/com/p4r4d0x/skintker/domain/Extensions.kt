@@ -20,23 +20,23 @@ fun Map<Int, Int>.getMaxValue(): Int {
     return this.toSortedMap().toList().reversed().maxByOrNull { (_, value) -> value }?.first ?: 0
 }
 
-fun MutableMap<String, Int>.updateValue(key: String) {
+fun MutableMap<String, Int>.increaseValue(key: String) {
     this[key] = (this[key] ?: 0) + 1
 }
 
-fun MutableMap<Int, Int>.updateValue(key: Int) {
+fun MutableMap<Int, Int>.increaseValue(key: Int) {
     this[key] = (this[key] ?: 0) + 1
 }
 
-fun MutableMap<Boolean, Int>.updateValue(key: Boolean) {
+fun MutableMap<Boolean, Int>.increaseValue(key: Boolean) {
     this[key] = (this[key] ?: 0) + 1
 }
 
-fun MutableMap<AlcoholLevel, Int>.updateValue(key: AlcoholLevel) {
+fun MutableMap<AlcoholLevel, Int>.increaseValue(key: AlcoholLevel) {
     this[key] = (this[key] ?: 0) + 1
 }
 
-fun String.cleanFoodString(): String {
+fun String.cleanString(): String {
     val normalized = Normalizer.normalize(this, Normalizer.Form.NFD)
     return REGEX_UNACCENT.toRegex().replace(normalized, "").replace(
         Constants.CHARACTER_FILTER_REGEX.toRegex(),
