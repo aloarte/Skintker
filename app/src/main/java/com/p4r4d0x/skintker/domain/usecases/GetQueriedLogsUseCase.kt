@@ -1,7 +1,7 @@
 package com.p4r4d0x.skintker.domain.usecases
 
 import com.p4r4d0x.skintker.data.enums.AlcoholLevel
-import com.p4r4d0x.skintker.data.repository.LogManagementRepository
+import com.p4r4d0x.skintker.data.repository.LogsManagementRepository
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.bo.PossibleCausesBO
 import com.p4r4d0x.skintker.domain.increaseValue
@@ -11,7 +11,7 @@ import com.p4r4d0x.skintker.domain.parsers.CausesParser.getPossibleStressCauses
 import com.p4r4d0x.skintker.domain.parsers.CausesParser.getPossibleTravelCauses
 import com.p4r4d0x.skintker.domain.parsers.CausesParser.getPossibleWeatherCauses
 
-class GetQueriedLogsUseCase(private val repository: LogManagementRepository) :
+class GetQueriedLogsUseCase(private val repository: LogsManagementRepository) :
     BaseUseCaseParamsResult<GetQueriedLogsUseCase.Params, PossibleCausesBO>() {
 
     override suspend fun run(params: Params): PossibleCausesBO {

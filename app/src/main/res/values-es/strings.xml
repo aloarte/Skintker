@@ -159,4 +159,8 @@
     <string name="settings_toast_preferences_load_error">No se han podido guardar las preferencias</string>
     <string name="settings_toast_preferences_save_error">No se han podido cargar las preferencias</string>
     <string name="settings_toast_preferences_saved">Preferencias guardadas correctamente</string>
+    <string name="settings_toast_preferences_export_error">No se ha podido exportar la base de datos de reportes</string>
+    <string name="settings_toast_preferences_logs_exported">La base de datos de los reportes exportada correctamente</string>
+    <string name="settings_toast_preferences_import_error">No se ha podido importar la base de datos de reportes</string>
+    <string name="settings_toast_preferences_logs_imported">La base de datos de los reportes importada correctamente</string>
 </resources>

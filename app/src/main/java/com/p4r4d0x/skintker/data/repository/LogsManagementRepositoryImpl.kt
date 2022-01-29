@@ -3,9 +3,13 @@ package com.p4r4d0x.skintker.data.repository
 import com.p4r4d0x.skintker.data.room.LogsDatabase
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 
-class LogManagementRepositoryImpl(private val database: LogsDatabase) : LogManagementRepository {
+class LogsManagementRepositoryImpl(private val database: LogsDatabase) : LogsManagementRepository {
     override suspend fun addDailyLog(log: DailyLogBO): Boolean {
         return database.dailyLogDao().insertDailyLog(log)
+    }
+
+    override suspend fun addAllLogs(logs: List<DailyLogBO>): Boolean {
+        return database.dailyLogDao().insertAllDailyLogs(logs)
     }
 
     override suspend fun updateDailyLog(log: DailyLogBO): Boolean {

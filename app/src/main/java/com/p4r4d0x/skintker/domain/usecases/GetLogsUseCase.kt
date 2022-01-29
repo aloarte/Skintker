@@ -1,9 +1,9 @@
 package com.p4r4d0x.skintker.domain.usecases
 
-import com.p4r4d0x.skintker.data.repository.LogManagementRepository
+import com.p4r4d0x.skintker.data.repository.LogsManagementRepository
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 
-class GetLogsUseCase(private val repository: LogManagementRepository) :
+class GetLogsUseCase(private val repository: LogsManagementRepository) :
     BaseUseCaseResult<List<DailyLogBO>>() {
 
     override suspend fun run(): List<DailyLogBO> {

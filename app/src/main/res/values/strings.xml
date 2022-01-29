@@ -117,6 +117,10 @@
     <string name="temperature_5">Very cold</string>
 
     <!-- Permissions-->
+    <string name="file_rationale">To perform this action its required to grant write files permission. Please grant it.</string>
+    <string name="file_rationale_title">To perform this action its required to grant write files permission. Please grant it.</string>
+    <string name="file_rationale_no_permissions">To perform this action its required to grant write files permission. Please grant it.</string>
+
     <string name="permissions_rationale">This question requires some permissions. Please grant them.</string>
     <string name="request_permissions">OK!</string>
     <string name="do_not_ask_permissions">Nope 🙅</string>
@@ -182,5 +186,8 @@
     <string name="settings_toast_preferences_load_error">Preferences couldn\'t be saved</string>
     <string name="settings_toast_preferences_save_error">Preferences couldn\'t be saved</string>
     <string name="settings_toast_preferences_saved">Preferences saved</string>
-
+    <string name="settings_toast_preferences_export_error">Logs couldn\'t be exported</string>
+    <string name="settings_toast_preferences_logs_exported">Logs exported successfully from database</string>
+    <string name="settings_toast_preferences_import_error">Logs couldn\'t be imported</string>
+    <string name="settings_toast_preferences_logs_imported">Logs imported successfully from database</string>
 </resources>

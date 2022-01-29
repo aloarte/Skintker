@@ -2,8 +2,8 @@ package com.p4r4d0x.skintker.di
 
 import android.app.Application
 import androidx.room.Room
-import com.p4r4d0x.skintker.data.repository.LogManagementRepository
-import com.p4r4d0x.skintker.data.repository.LogManagementRepositoryImpl
+import com.p4r4d0x.skintker.data.repository.LogsManagementRepository
+import com.p4r4d0x.skintker.data.repository.LogsManagementRepositoryImpl
 import com.p4r4d0x.skintker.data.repository.LogsRepository
 import com.p4r4d0x.skintker.data.room.DailyLogDao
 import com.p4r4d0x.skintker.data.room.LogsDatabase
@@ -20,12 +20,12 @@ val vmModule = module {
     viewModel { WelcomeViewModel(get()) }
     viewModel { SurveyViewModel(get()) }
     viewModel { HomeViewModel(get(), get()) }
-    viewModel { SettingsViewModel(get()) }
+    viewModel { SettingsViewModel(get(), get()) }
 
 }
 val repositoriesModule = module {
     factory { LogsRepository() }
-    factory<LogManagementRepository> { LogManagementRepositoryImpl(get()) }
+    factory<LogsManagementRepository> { LogsManagementRepositoryImpl(get()) }
 }
 
 val useCasesModule = module {
@@ -34,6 +34,7 @@ val useCasesModule = module {
     factory { GetLogsUseCase(get()) }
     factory { GetQueriedLogsUseCase(get()) }
     factory { ExportLogsDBUseCase(get()) }
+    factory { ImportLogsDBUseCase(get()) }
 
 }
 

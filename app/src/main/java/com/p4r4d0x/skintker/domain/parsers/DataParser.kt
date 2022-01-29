@@ -8,62 +8,13 @@ import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.bo.IrritationBO
-import com.p4r4d0x.skintker.domain.cleanString
-import com.p4r4d0x.skintker.domain.getDDMMYYYYDate
 import com.p4r4d0x.skintker.domain.getDateWithoutTime
 import com.p4r4d0x.skintker.domain.log.Answer
+import java.text.ParsePosition
+import java.text.SimpleDateFormat
 import java.util.*
 
 object DataParser {
-
-    private val zonesReferenceMap = mapOf(
-        R.string.question_2_answer_1 to 0,
-        R.string.question_2_answer_2 to 1,
-        R.string.question_2_answer_3 to 2,
-        R.string.question_2_answer_4 to 3,
-        R.string.question_2_answer_5 to 4,
-        R.string.question_2_answer_6 to 5,
-        R.string.question_2_answer_7 to 6,
-        R.string.question_2_answer_8 to 7,
-        R.string.question_2_answer_9 to 8,
-        R.string.question_2_answer_10 to 9,
-        R.string.question_2_answer_11 to 10,
-        R.string.question_2_answer_12 to 11
-    )
-
-    private val foodReferenceMap = mapOf(
-        R.string.question_7_answer_1 to 0,
-        R.string.question_7_answer_2 to 1,
-        R.string.question_7_answer_3 to 2,
-        R.string.question_7_answer_4 to 3,
-        R.string.question_7_answer_5 to 4,
-        R.string.question_7_answer_6 to 5,
-        R.string.question_7_answer_7 to 6,
-        R.string.question_7_answer_8 to 7,
-        R.string.question_7_answer_9 to 8,
-        R.string.question_7_answer_10 to 9,
-        R.string.question_7_answer_11 to 10,
-        R.string.question_7_answer_12 to 11,
-        R.string.question_7_answer_13 to 12,
-        R.string.question_7_answer_14 to 13,
-        R.string.question_7_answer_15 to 14,
-        R.string.question_7_answer_16 to 15,
-        R.string.question_7_answer_17 to 16,
-        R.string.question_7_answer_18 to 17,
-        R.string.question_8_answer_1 to 18,
-        R.string.question_8_answer_2 to 19,
-        R.string.question_8_answer_3 to 20,
-        R.string.question_8_answer_4 to 21,
-        R.string.question_8_answer_5 to 22,
-        R.string.question_8_answer_6 to 23,
-        R.string.question_8_answer_7 to 24,
-        R.string.question_8_answer_8 to 25,
-        R.string.question_8_answer_9 to 26,
-        R.string.question_8_answer_10 to 27,
-        R.string.question_8_answer_11 to 28,
-        R.string.question_8_answer_12 to 29,
-        R.string.question_8_answer_13 to 30
-    )
 
     fun createLogFromSurvey(answers: List<Answer<*>>, resources: Resources): DailyLogBO {
         var questionCnt = 1
@@ -139,7 +90,7 @@ object DataParser {
                     traveled = traveled == resources.getString(R.string.question_6_answer_1),
                     city = city.lowercase(Locale.getDefault())
                 ),
-                alcoholLevel = AlcoholLevel.fromString(alcohol, resources)
+                alcoholLevel = AlcoholLevel.fromStringResource(alcohol, resources)
             ),
             foodList = foodList
         )
@@ -148,6 +99,13 @@ object DataParser {
     @SuppressLint("SimpleDateFormat")
     fun getCurrentFormattedDate(): Date {
         return Calendar.getInstance().time.getDateWithoutTime()
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun stringToDate(aDate: String): Date {
+        val pos = ParsePosition(0)
+        val sdf = SimpleDateFormat("dd/mm/yyyy")
+        return sdf.parse(aDate, pos) ?: Date(aDate)
     }
 
     fun getHumidityString(value: Int) =
@@ -178,99 +136,5 @@ object DataParser {
             else -> R.string.card_no_alcohol
         }
 
-
-    private fun getReferenceMap(
-        resources: Resources,
-        referenceResourceMap: Map<Int, Int>
-    ): Map<String, Int> {
-        val transformedMap = mutableMapOf<String, Int>()
-        referenceResourceMap.forEach {
-            transformedMap[resources.getString(it.key).cleanString()] = it.value
-        }
-        return transformedMap
-    }
-
-    fun getZonesReferenceMap(resources: Resources) =
-        getReferenceMap(resources, zonesReferenceMap)
-
-    fun getFoodReferenceMap(resources: Resources) =
-        getReferenceMap(resources, foodReferenceMap)
-
-    fun getHeaderCSVRow(
-        referenceZonesList: Map<String, Int>,
-        referenceFoodList: Map<String, Int>
-    ): List<String> {
-        val zonesHeaderList = referenceZonesList.toList().map { it.first }
-        val foodHeaderList = referenceFoodList.toList().map { it.first }
-
-        val headerList = mutableListOf(
-            "Id",
-            "Date",
-            "FoodList",
-            "Irritation",
-            "IrritationZones",
-            "Alcohol",
-            "Stress",
-            "Humidity",
-            "Temperature",
-            "City",
-            "Traveled"
-        )
-        headerList.addAll(zonesHeaderList)
-        headerList.addAll(foodHeaderList)
-        return headerList
-    }
-
-    fun getDataCSVRow(
-        index: Int,
-        log: DailyLogBO,
-        referenceZonesList: Map<String, Int>,
-        referenceFoodList: Map<String, Int>
-    ): List<Any?> {
-
-        val dataList = mutableListOf(
-            index.toString(),
-            log.date.getDDMMYYYYDate(),
-            log.foodList.joinToString(separator = ",") { food ->
-                food.cleanString()
-            },
-            log.irritation?.overallValue.toString(),
-            log.irritation?.zoneValues?.joinToString(separator = ",") { zone ->
-                zone.cleanString()
-            },
-            log.additionalData?.alcoholLevel?.name,
-            log.additionalData?.stressLevel.toString(),
-            log.additionalData?.weather?.humidity.toString(),
-            log.additionalData?.weather?.temperature.toString(),
-            log.additionalData?.travel?.city,
-            log.additionalData?.travel?.traveled.toString()
-
-        )
-
-        dataList.addAll(getDataList(log.irritation?.zoneValues, referenceZonesList))
-        dataList.addAll(getDataList(log.foodList, referenceFoodList))
-        return dataList
-    }
-
-    private fun getDataList(
-        dataValues: List<String>?,
-        referenceMap: Map<String, Int>
-    ): List<String> {
-        val rowMap = mutableMapOf<Int, String>()
-        var indexCnt = 0
-        referenceMap.forEach { _ ->
-            rowMap[indexCnt] = ""
-            indexCnt++
-        }
-
-        dataValues?.forEach { dataValue ->
-            val cleanedData = dataValue.cleanString()
-            val position = referenceMap[cleanedData]
-            position?.let {
-                rowMap[it] = cleanedData
-            }
-        }
-        return rowMap.toList().map { it.second }
-    }
 
 }

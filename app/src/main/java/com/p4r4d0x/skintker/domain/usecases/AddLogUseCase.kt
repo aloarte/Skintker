@@ -1,9 +1,9 @@
 package com.p4r4d0x.skintker.domain.usecases
 
-import com.p4r4d0x.skintker.data.repository.LogManagementRepository
+import com.p4r4d0x.skintker.data.repository.LogsManagementRepository
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 
-class AddLogUseCase(private val repository: LogManagementRepository) :
+class AddLogUseCase(private val repository: LogsManagementRepository) :
     BaseUseCaseParamsResult<AddLogUseCase.Params, Boolean>() {
 
     override suspend fun run(params: Params): Boolean {

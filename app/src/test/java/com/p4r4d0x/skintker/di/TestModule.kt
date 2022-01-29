@@ -1,7 +1,7 @@
 package com.p4r4d0x.skintker.di
 
-import com.p4r4d0x.skintker.data.repository.LogManagementRepository
-import com.p4r4d0x.skintker.data.repository.LogManagementRepositoryImpl
+import com.p4r4d0x.skintker.data.repository.LogsManagementRepository
+import com.p4r4d0x.skintker.data.repository.LogsManagementRepositoryImpl
 import com.p4r4d0x.skintker.data.repository.LogsRepository
 import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
 import com.p4r4d0x.skintker.domain.usecases.GetLogsUseCase
@@ -15,7 +15,7 @@ val testViewmodelModule = module {
 }
 val testRepositoriesModule = module {
     factory { LogsRepository() }
-    factory<LogManagementRepository> { LogManagementRepositoryImpl(get()) }
+    factory<LogsManagementRepository> { LogsManagementRepositoryImpl(get()) }
 }
 
 val testUseCasesModule = module {

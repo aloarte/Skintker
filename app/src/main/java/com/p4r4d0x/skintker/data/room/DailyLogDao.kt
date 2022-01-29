@@ -1,7 +1,9 @@
 package com.p4r4d0x.skintker.data.room
 
+import android.util.Log
 import androidx.room.*
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
+import com.p4r4d0x.skintker.domain.getDateWithoutTime
 
 @Dao
 interface DailyLogDao {
@@ -31,10 +33,22 @@ interface DailyLogDao {
     suspend fun updateIrritation(irritation: Irritation): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAdditionalData(additionalData: AdditionalData): Long
+    suspend fun insertAdditionalData(additionalData: AdditionalData)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateAdditionalData(additionalData: AdditionalData): Int
+
+    suspend fun insertAllDailyLogs(logs: List<DailyLogBO>): Boolean {
+        var allInserted = true
+        logs.forEach { log ->
+            if (loadLogByDate(log.date.getDateWithoutTime().time) == null) {
+                allInserted = allInserted && insertDailyLog(log)
+            } else {
+                Log.d("ALRALR", "AlreadyExist")
+            }
+        }
+        return allInserted
+    }
 
     suspend fun insertDailyLog(log: DailyLogBO): Boolean {
         val logId = insertLog(fromDomain(log))

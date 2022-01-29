@@ -7,7 +7,7 @@ enum class AlcoholLevel(val value: Int) {
     None(0), Few(1), Some(2);
 
     companion object {
-        fun fromString(alcoholStr: String, resources: Resources): AlcoholLevel {
+        fun fromStringResource(alcoholStr: String, resources: Resources): AlcoholLevel {
             val alcoholNone = resources.getString(R.string.question_4_answer_1)
             val alcoholFew = resources.getString(R.string.question_4_answer_2)
             val alcoholSome = resources.getString(R.string.question_4_answer_3)

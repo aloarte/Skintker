@@ -1,12 +1,15 @@
 package com.p4r4d0x.skintker.presenter.settings.view
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.p4r4d0x.skintker.R
@@ -21,6 +24,34 @@ class SettingsFragment : Fragment() {
 
     private val viewModel: SettingsViewModel by inject()
 
+    private fun observeViewModel() {
+        with(viewModel) {
+
+            exportStatus.observe(viewLifecycleOwner) {
+                launchToast(
+                    if (it) {
+                        SettingsStatus.LogsExported
+                    } else {
+                        SettingsStatus.ErrorExportingLogs
+                    }
+                )
+            }
+            importStatus.observe(viewLifecycleOwner) {
+                launchToast(
+                    if (it) {
+                        SettingsStatus.LogsImported
+                    } else {
+                        SettingsStatus.ErrorImportingLogs
+                    }
+                )
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        observeViewModel()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,26 +74,13 @@ class SettingsFragment : Fragment() {
                             activity?.onBackPressed()
                         },
                         onExportPressed = {
-                            viewModel.launchExportUseCase(context, resources)
+                            viewModel.launchExportUseCase(resources)
                         },
                         onImportPressed = {
+                            openSomeActivityForResult()
                         },
                         settingsCallback = {
-                            Toast.makeText(
-                                activity,
-                                when (it) {
-                                    SettingsStatus.ErrorLoadPreferences -> activity?.resources?.getString(
-                                        R.string.settings_toast_preferences_load_error
-                                    )
-                                    SettingsStatus.ErrorSavePreferences -> activity?.resources?.getString(
-                                        R.string.settings_toast_preferences_save_error
-                                    )
-                                    SettingsStatus.PreferencesSaved -> activity?.resources?.getString(
-                                        R.string.settings_toast_preferences_saved
-                                    )
-                                },
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            launchToast(it)
                         })
                 }
             }
@@ -70,4 +88,38 @@ class SettingsFragment : Fragment() {
     }
 
 
+    private var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // There are no request codes
+                val data: Intent? = result.data
+                viewModel.launchImportUseCase(requireContext(), resources, data?.data)
+            }
+        }
+
+    private fun openSomeActivityForResult() {
+        val intent = Intent()
+            .addCategory(Intent.CATEGORY_OPENABLE)
+            .setType("*/*")
+            .setAction(Intent.ACTION_GET_CONTENT)
+        resultLauncher.launch(intent)
+    }
+
+
+    private fun launchToast(status: SettingsStatus) {
+        Toast.makeText(
+            activity,
+            when (status) {
+                SettingsStatus.ErrorLoadPreferences -> resources.getString(R.string.settings_toast_preferences_load_error)
+                SettingsStatus.ErrorSavePreferences -> resources.getString(R.string.settings_toast_preferences_save_error)
+                SettingsStatus.PreferencesSaved -> resources.getString(R.string.settings_toast_preferences_saved)
+                SettingsStatus.ErrorExportingLogs -> resources.getString(R.string.settings_toast_preferences_export_error)
+                SettingsStatus.LogsExported -> resources.getString(R.string.settings_toast_preferences_logs_exported)
+                SettingsStatus.ErrorImportingLogs -> resources.getString(R.string.settings_toast_preferences_import_error)
+                SettingsStatus.LogsImported -> resources.getString(R.string.settings_toast_preferences_logs_imported)
+            },
+            Toast.LENGTH_SHORT
+        ).show()
+
+    }
 }
