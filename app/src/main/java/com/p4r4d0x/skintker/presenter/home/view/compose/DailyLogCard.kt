@@ -197,6 +197,20 @@ private fun AdditionalData(additionalDataBO: AdditionalDataBO, modifier: Modifie
             style = MaterialTheme.typography.body1,
             modifier = additionalDataModifier
         )
+        if (additionalDataBO.beerTypes.isNotEmpty()) {
+            additionalDataBO.beerTypes.forEach { beerType ->
+                Text(
+                    text = beerType,
+                    fontSize = 10.sp,
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.primaryVariant,
+                    modifier = Modifier
+                        .fillMaxWidth(0.5f)
+                        .padding(vertical = 1.dp, horizontal = 5.dp)
+                )
+            }
+        }
+
     }
 }
 

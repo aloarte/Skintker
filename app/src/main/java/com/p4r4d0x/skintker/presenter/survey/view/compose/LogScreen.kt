@@ -74,8 +74,24 @@ fun LogQuestionScreen(
             bottomBar = {
                 SurveyBottomBar(
                     state = questionState,
-                    onPreviousPressed = { logQuestions.currentIndex-- },
-                    onNextPressed = { logQuestions.currentIndex++ },
+                    onPreviousPressed = {
+                        if (logQuestions.skipBeerQuestion) {
+                            logQuestions.currentIndex -= 2
+                        } else {
+                            logQuestions.currentIndex--
+                        }
+                    },
+                    onNextPressed = {
+                        logQuestions.skipBeerQuestion =
+                            questionState.question.id == 4 && ((questionState.answer as? Answer.SingleChoice)?.let {
+                                it.answer != R.string.question_4_answer_2
+                            } ?: false)
+                        if (logQuestions.skipBeerQuestion) {
+                            logQuestions.currentIndex += 2
+                        } else {
+                            logQuestions.currentIndex++
+                        }
+                    },
                     onDonePressed = onDonePressed
                 )
             }

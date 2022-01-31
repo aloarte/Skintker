@@ -63,7 +63,8 @@ class DailyLogProvider : PreviewParameterProvider<DailyLogBO> {
                     stressLevel = 7,
                     alcoholLevel = AlcoholLevel.Few,
                     weather = AdditionalDataBO.WeatherBO(humidity = 2, temperature = 1),
-                    travel = AdditionalDataBO.TravelBO(traveled = true, city = "Madrid")
+                    travel = AdditionalDataBO.TravelBO(traveled = true, city = "Madrid"),
+                    beerTypes = listOf("IPA", "Stout")
                 )
             )
         ).asSequence()

@@ -44,56 +44,67 @@
     <string name="question_4_answer_2">Algunas cervezas</string>
     <string name="question_4_answer_3">Algunas copas</string>
     <!-- question 5 -->
-    <string name="question_5_title">¿Qué tiempo ha hecho hoy?</string>
-    <string name="question_5_description">Describe el tiempo que ha hecho hoy expresado con los valores de temperatura y humedad.</string>
-    <string name="question_5_slide_1_start">Seco</string>
-    <string name="question_5_slide_1_end">Húmedo</string>
-    <string name="question_5_slide_2_start">Caluroso</string>
-    <string name="question_5_slide_2_end">Frío</string>
+    <string name="question_5_title">Choose the beer type that you drank</string>
+    <string name="question_5_answer_1">Trigo</string>
+    <string name="question_5_answer_2">Stout</string>
+    <string name="question_5_answer_3">Porter</string>
+    <string name="question_5_answer_4">Lager/Pilsner</string>
+    <string name="question_5_answer_5">Lager extra</string>
+    <string name="question_5_answer_6">Tostada</string>
+    <string name="question_5_answer_7">Pale Ale/IPA</string>
+    <string name="question_5_answer_8">Ale estilo belga</string>
+    <string name="question_5_answer_9">Wild &amp; Sour Ale</string>
     <!-- question 6 -->
-    <string name="question_6_title">¿En qué ciudad has estado hoy?</string>
-    <string name="question_6_description">Indica también si viajaste. Si realizaste algún viaje entre ciudades, indica la ciudad donde dormiste la noche anterior.</string>
-    <string name="question_6_hint">Ciudad</string>
-    <string name="question_6_answer_1">Si, viajé</string>
-    <string name="question_6_answer_2">No, hoy no viajé</string>
+    <string name="question_6_title">¿Qué tiempo ha hecho hoy?</string>
+    <string name="question_6_description">Describe el tiempo que ha hecho hoy expresado con los valores de temperatura y humedad.</string>
+    <string name="question_6_slide_1_start">Seco</string>
+    <string name="question_6_slide_1_end">Húmedo</string>
+    <string name="question_6_slide_2_start">Caluroso</string>
+    <string name="question_6_slide_2_end">Frío</string>
     <!-- question 7 -->
-    <string name="question_7_title">Hoy comí alguno de estos alimentos …</string>
-    <string name="question_7_description">Alimentos frescos</string>
-    <string name="question_7_answer_1">Carne 🥩</string>
-    <string name="question_7_answer_2">Marisco 🦐</string>
-    <string name="question_7_answer_3">Pescado azul 🐟</string>
-    <string name="question_7_answer_4">Pescado blanco 🐟</string>
-    <string name="question_7_answer_5">Piña 🍍</string>
-    <string name="question_7_answer_6">Fresas 🍓</string>
-    <string name="question_7_answer_7">Plátanos 🍌</string>
-    <string name="question_7_answer_8">Cítricos 🍊</string>
-    <string name="question_7_answer_9">Tomate 🍅</string>
-    <string name="question_7_answer_10">Aguacate 🥑</string>
-    <string name="question_7_answer_11">Berenjena 🍆</string>
-    <string name="question_7_answer_12">Calabacin 🍆</string>
-    <string name="question_7_answer_13">Calabaza 🎃</string>
-    <string name="question_7_answer_14">Guisantes 🌿</string>
-    <string name="question_7_answer_15">Setas 🍄</string>
-    <string name="question_7_answer_16">Huevos 🥚</string>
-    <string name="question_7_answer_17">Especias picantes 🌶️</string>
-    <string name="question_7_answer_18">Frutos secos 🥜</string>
-
+    <string name="question_7_title">¿En qué ciudad has estado hoy?</string>
+    <string name="question_7_description">Indica también si viajaste. Si realizaste algún viaje entre ciudades, indica la ciudad donde dormiste la noche anterior.</string>
+    <string name="question_7_hint">Ciudad</string>
+    <string name="question_7_answer_1">Si, viajé</string>
+    <string name="question_7_answer_2">No, hoy no viajé</string>
     <!-- question 8 -->
     <string name="question_8_title">Hoy comí alguno de estos alimentos …</string>
-    <string name="question_8_description">Alimentos procesados</string>
-    <string name="question_8_answer_1">Chcolate 🍫</string>
-    <string name="question_8_answer_2">Dulces 🍮</string>
-    <string name="question_8_answer_3">Lácteos 🥛</string>
-    <string name="question_8_answer_4">Lácteos fermentados 🧀</string>
-    <string name="question_8_answer_5">Pan 🍞</string>
-    <string name="question_8_answer_6">Pasta 🍝</string>
-    <string name="question_8_answer_7">Encurtidos 🥒</string>
-    <string name="question_8_answer_8">Conservas de legumbres 🥫</string>
-    <string name="question_8_answer_9">Conservas de verduras 🥫</string>
-    <string name="question_8_answer_10">Conservas de pescados 🥫</string>
-    <string name="question_8_answer_11">Embutido 🥪</string>
-    <string name="question_8_answer_12">Salsas 🍯</string>
-    <string name="question_8_answer_13">Derivados de la soja 🌱</string>
+    <string name="question_8_description">Alimentos frescos</string>
+    <string name="question_8_answer_1">Carne 🥩</string>
+    <string name="question_8_answer_2">Marisco 🦐</string>
+    <string name="question_8_answer_3">Pescado azul 🐟</string>
+    <string name="question_8_answer_4">Pescado blanco 🐟</string>
+    <string name="question_8_answer_5">Piña 🍍</string>
+    <string name="question_8_answer_6">Fresas 🍓</string>
+    <string name="question_8_answer_7">Plátanos 🍌</string>
+    <string name="question_8_answer_8">Cítricos 🍊</string>
+    <string name="question_8_answer_9">Tomate 🍅</string>
+    <string name="question_8_answer_10">Aguacate 🥑</string>
+    <string name="question_8_answer_11">Berenjena 🍆</string>
+    <string name="question_8_answer_12">Calabacin 🍆</string>
+    <string name="question_8_answer_13">Calabaza 🎃</string>
+    <string name="question_8_answer_14">Guisantes 🌿</string>
+    <string name="question_8_answer_15">Setas 🍄</string>
+    <string name="question_8_answer_16">Huevos 🥚</string>
+    <string name="question_8_answer_17">Especias picantes 🌶️</string>
+    <string name="question_8_answer_18">Frutos secos 🥜</string>
+
+    <!-- question 9 -->
+    <string name="question_9_title">Hoy comí alguno de estos alimentos …</string>
+    <string name="question_9_description">Alimentos procesados</string>
+    <string name="question_9_answer_1">Chcolate 🍫</string>
+    <string name="question_9_answer_2">Dulces 🍮</string>
+    <string name="question_9_answer_3">Lácteos 🥛</string>
+    <string name="question_9_answer_4">Lácteos fermentados 🧀</string>
+    <string name="question_9_answer_5">Pan 🍞</string>
+    <string name="question_9_answer_6">Pasta 🍝</string>
+    <string name="question_9_answer_7">Encurtidos 🥒</string>
+    <string name="question_9_answer_8">Conservas de legumbres 🥫</string>
+    <string name="question_9_answer_9">Conservas de verduras 🥫</string>
+    <string name="question_9_answer_10">Conservas de pescados 🥫</string>
+    <string name="question_9_answer_11">Embutido 🥪</string>
+    <string name="question_9_answer_12">Salsas 🍯</string>
+    <string name="question_9_answer_13">Derivados de la soja 🌱</string>
 
 
     <!--History labels-->
@@ -123,6 +134,10 @@
     <string name="permissions_rationale">Esta pregunta necesita algunos permisos. Por favor, concedeselos a la aplicación.</string>
     <string name="request_permissions">OK!</string>
     <string name="do_not_ask_permissions">No 🙅</string>
+    <!-- Permissions-->
+    <string name="file_rationale">Para poder utilizar esta funcionalidad es necesario que proporciones permisos.</string>
+    <string name="file_rationale_title">Permisos de lectura/escrtura de ficheros</string>
+    <string name="file_rationale_no_permissions">Estas características están deshabilitadas. Por favor, ve a ajustes del sistema y habilita los permisos para poder activarlas.</string>
 
     <!-- Resume  -->
     <string name="resume_title">Causas posibles 📋</string>

@@ -22,6 +22,7 @@ sealed class SurveyState {
         val state: List<LogState>
     ) : SurveyState() {
         var currentIndex by mutableStateOf(0)
+        var skipBeerQuestion by mutableStateOf(false)
     }
 
     object Result : SurveyState()

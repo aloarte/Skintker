@@ -1,5 +1,6 @@
 package com.p4r4d0x.skintker.domain
 
+
 import android.content.res.Resources
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.data.enums.AlcoholLevel
@@ -13,13 +14,12 @@ import com.p4r4d0x.skintker.domain.parsers.DataParser.getAlcoholLevel
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getHumidityString
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getTemperatureString
 import io.mockk.every
-import io.mockk.impl.annotations.MockK
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.mockito.Mock
 
 class DataParserTest {
-
     companion object {
         private const val FIRST_QUESTION_ANSWER_SLIDER = 5f
         private var SECOND_QUESTION_ANSWER_MULTIPLE =
@@ -40,10 +40,10 @@ class DataParserTest {
         private const val TRAVEL_QUESTION_ANSWER = "Yes, I traveled"
     }
 
-    @MockK
-    private lateinit var resources: Resources
+    @Mock
+    lateinit var resources: Resources
 
-    @Before
+    @BeforeEach
     fun setup() {
 
     }
@@ -80,7 +80,6 @@ class DataParserTest {
         Assert.assertEquals(R.string.temperature_5, getTemperatureString(10))
     }
 
-
     @Test
     fun `get alcohol level`() {
         Assert.assertEquals(R.string.card_no_alcohol, getAlcoholLevel(-1))
@@ -89,8 +88,10 @@ class DataParserTest {
         Assert.assertEquals(R.string.card_quite_alcohol, getAlcoholLevel(2))
     }
 
+
     @Test
     fun `create log from survey `() {
+
         val answerList = mutableListOf<Answer<*>>()
         answerList.add(Answer.Slider(FIRST_QUESTION_ANSWER_SLIDER))
         answerList.add(Answer.MultipleChoice(SECOND_QUESTION_ANSWER_MULTIPLE))
@@ -114,7 +115,7 @@ class DataParserTest {
         every { resources.getString(R.string.question_4_answer_1) } returns ALCOHOL_QUESTION_ANSWER_1
         every { resources.getString(R.string.question_4_answer_2) } returns ALCOHOL_QUESTION_ANSWER_2
         every { resources.getString(R.string.question_4_answer_3) } returns ALCOHOL_QUESTION_ANSWER_3
-        every { resources.getString(R.string.question_6_answer_1) } returns TRAVEL_QUESTION_ANSWER
+        every { resources.getString(R.string.question_7_answer_1) } returns TRAVEL_QUESTION_ANSWER
 
         val surveyLog = createLogFromSurvey(answers = answerList, resources = resources)
 

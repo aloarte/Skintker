@@ -44,55 +44,66 @@
     <string name="question_4_answer_2">A few beers</string>
     <string name="question_4_answer_3">More than some beers</string>
     <!-- question 5 -->
-    <string name="question_5_title">What was the weather like?</string>
-    <string name="question_5_description">Describe today\'s weather based on humidity and temperature.</string>
-    <string name="question_5_slide_1_start">Dry</string>
-    <string name="question_5_slide_1_end">Wet </string>
-    <string name="question_5_slide_2_start">Warm</string>
-    <string name="question_5_slide_2_end">Cold</string>
+    <string name="question_5_title">Choose the beer type that you drank</string>
+    <string name="question_5_answer_1">Wheat</string>
+    <string name="question_5_answer_2">Stout</string>
+    <string name="question_5_answer_3">Porter</string>
+    <string name="question_5_answer_4">Lager/Pilsner</string>
+    <string name="question_5_answer_5">Dark Lager</string>
+    <string name="question_5_answer_6">Brown Ale</string>
+    <string name="question_5_answer_7">Pale Ale/IPA</string>
+    <string name="question_5_answer_8">Belgian-Style Ale</string>
+    <string name="question_5_answer_9">Wild &amp; Sour Ale</string>
     <!-- question 6 -->
-    <string name="question_6_title">Which city have you been in today?</string>
-    <string name="question_6_description">Answer also if your traveled. If you traveled between cities, pick the city were you slept last night</string>
-    <string name="question_6_hint">City</string>
-    <string name="question_6_answer_1">Yes, I traveled</string>
-    <string name="question_6_answer_2">No, I didn\'t traveled today</string>
+    <string name="question_6_title">What was the weather like?</string>
+    <string name="question_6_description">Describe today\'s weather based on humidity and temperature.</string>
+    <string name="question_6_slide_1_start">Dry</string>
+    <string name="question_6_slide_1_end">Wet </string>
+    <string name="question_6_slide_2_start">Warm</string>
+    <string name="question_6_slide_2_end">Cold</string>
     <!-- question 7 -->
-    <string name="question_7_title">Today I ate one of this aliments …</string>
-    <string name="question_7_description">Fresh foods</string>
-    <string name="question_7_answer_1">Meat 🥩</string>
-    <string name="question_7_answer_2">Seafood 🦐</string>
-    <string name="question_7_answer_3">Blue fish 🐟</string>
-    <string name="question_7_answer_4">White fish 🐟</string>
-    <string name="question_7_answer_5">Pineapple 🍍</string>
-    <string name="question_7_answer_6">Strawberries 🍓</string>
-    <string name="question_7_answer_7">Bananas 🍌</string>
-    <string name="question_7_answer_8">Citrus 🍊</string>
-    <string name="question_7_answer_9">Tomato 🍅</string>
-    <string name="question_7_answer_10">Avocado 🥑</string>
-    <string name="question_7_answer_11">Eggplant 🍆</string>
-    <string name="question_7_answer_12">Zucchini 🍆</string>
-    <string name="question_7_answer_13">Pumpkin 🎃</string>
-    <string name="question_7_answer_14">Peas 🌿</string>
-    <string name="question_7_answer_15">Mushrooms 🍄</string>
-    <string name="question_7_answer_16">Eggs 🥚</string>
-    <string name="question_7_answer_17">Hot spices 🌶️</string>
-    <string name="question_7_answer_18">Nuts 🥜</string>
+    <string name="question_7_title">Which city have you been in today?</string>
+    <string name="question_7_description">Answer also if your traveled. If you traveled between cities, pick the city were you slept last night</string>
+    <string name="question_7_hint">City</string>
+    <string name="question_7_answer_1">Yes, I traveled</string>
+    <string name="question_7_answer_2">No, I didn\'t traveled today</string>
     <!-- question 8 -->
     <string name="question_8_title">Today I ate one of this aliments …</string>
-    <string name="question_8_description">Processed foods</string>
-    <string name="question_8_answer_1">Chocolate 🍫</string>
-    <string name="question_8_answer_2">Sweets 🍮</string>
-    <string name="question_8_answer_3">Dairy products 🥛</string>
-    <string name="question_8_answer_4">Fermented dairy 🧀</string>
-    <string name="question_8_answer_5">Bread 🍞</string>
-    <string name="question_8_answer_6">Pasta 🍝</string>
-    <string name="question_8_answer_7">Pickles 🥒</string>
-    <string name="question_8_answer_8">Canned legumes 🥫</string>
-    <string name="question_8_answer_9">Canned vegetables 🥫</string>
-    <string name="question_8_answer_10">Canned fish 🥫</string>
-    <string name="question_8_answer_11">Inlay 🥪</string>
-    <string name="question_8_answer_12">Sauces 🍯</string>
-    <string name="question_8_answer_13">Soy derivatives 🌱</string>
+    <string name="question_8_description">Fresh foods</string>
+    <string name="question_8_answer_1">Meat 🥩</string>
+    <string name="question_8_answer_2">Seafood 🦐</string>
+    <string name="question_8_answer_3">Blue fish 🐟</string>
+    <string name="question_8_answer_4">White fish 🐟</string>
+    <string name="question_8_answer_5">Pineapple 🍍</string>
+    <string name="question_8_answer_6">Strawberries 🍓</string>
+    <string name="question_8_answer_7">Bananas 🍌</string>
+    <string name="question_8_answer_8">Citrus 🍊</string>
+    <string name="question_8_answer_9">Tomato 🍅</string>
+    <string name="question_8_answer_10">Avocado 🥑</string>
+    <string name="question_8_answer_11">Eggplant 🍆</string>
+    <string name="question_8_answer_12">Zucchini 🍆</string>
+    <string name="question_8_answer_13">Pumpkin 🎃</string>
+    <string name="question_8_answer_14">Peas 🌿</string>
+    <string name="question_8_answer_15">Mushrooms 🍄</string>
+    <string name="question_8_answer_16">Eggs 🥚</string>
+    <string name="question_8_answer_17">Hot spices 🌶️</string>
+    <string name="question_8_answer_18">Nuts 🥜</string>
+    <!-- question 8 -->
+    <string name="question_9_title">Today I ate one of this aliments …</string>
+    <string name="question_9_description">Processed foods</string>
+    <string name="question_9_answer_1">Chocolate 🍫</string>
+    <string name="question_9_answer_2">Sweets 🍮</string>
+    <string name="question_9_answer_3">Dairy products 🥛</string>
+    <string name="question_9_answer_4">Fermented dairy 🧀</string>
+    <string name="question_9_answer_5">Bread 🍞</string>
+    <string name="question_9_answer_6">Pasta 🍝</string>
+    <string name="question_9_answer_7">Pickles 🥒</string>
+    <string name="question_9_answer_8">Canned legumes 🥫</string>
+    <string name="question_9_answer_9">Canned vegetables 🥫</string>
+    <string name="question_9_answer_10">Canned fish 🥫</string>
+    <string name="question_9_answer_11">Inlay 🥪</string>
+    <string name="question_9_answer_12">Sauces 🍯</string>
+    <string name="question_9_answer_13">Soy derivatives 🌱</string>
 
     <!--History labels-->
     <string name="card_traveled_today">Traveled today</string>
@@ -118,9 +129,8 @@
 
     <!-- Permissions-->
     <string name="file_rationale">To perform this action its required to grant write files permission. Please grant it.</string>
-    <string name="file_rationale_title">To perform this action its required to grant write files permission. Please grant it.</string>
-    <string name="file_rationale_no_permissions">To perform this action its required to grant write files permission. Please grant it.</string>
-
+    <string name="file_rationale_title">File read/write permissions</string>
+    <string name="file_rationale_no_permissions">This features are disabled. Please, go to settings and enable the permissions to enable them.</string>
     <string name="permissions_rationale">This question requires some permissions. Please grant them.</string>
     <string name="request_permissions">OK!</string>
     <string name="do_not_ask_permissions">Nope 🙅</string>

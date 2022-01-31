@@ -20,8 +20,11 @@ class CSVParserTest {
         private const val FOOD_3 = "Fish"
         private const val ZONE_1 = "Leg"
         private const val ZONE_2 = "Shoulder"
+        private const val BEER_TYPE_1 = "Lager"
+        private const val BEER_TYPE_2 = "Porter"
         val referenceZonesList = mapOf(ZONE_1 to 0, ZONE_2 to 1)
         val referenceFoodList = mapOf(FOOD_1 to 0, FOOD_2 to 1, FOOD_3 to 2)
+        val referenceBeerList = mapOf(BEER_TYPE_1 to 0, BEER_TYPE_2 to 1)
     }
 
     @Before
@@ -31,7 +34,7 @@ class CSVParserTest {
 
     @Test
     fun `get header CSV row`() {
-        val headerList = getHeaderCSVRow(referenceZonesList, referenceFoodList)
+        val headerList = getHeaderCSVRow(referenceZonesList, referenceFoodList, referenceBeerList)
 
         val expectedList = listOf(
             "Id",
@@ -40,13 +43,15 @@ class CSVParserTest {
             "Irritation",
             "IrritationZones",
             "Alcohol",
+            "Beer Type",
             "Stress",
             "Humidity",
             "Temperature",
             "City",
             "Traveled",
             ZONE_1, ZONE_2,
-            FOOD_1, FOOD_2, FOOD_3
+            FOOD_1, FOOD_2, FOOD_3,
+            BEER_TYPE_1, BEER_TYPE_2
         )
 
         assertEquals(expectedList, headerList)
@@ -72,6 +77,7 @@ class CSVParserTest {
             log = dailyLog,
             referenceZonesList = referenceZonesList,
             referenceFoodList = referenceFoodList,
+            referenceBeerTypesList = referenceBeerList
         )
 
         val expectedList = listOf(
@@ -81,13 +87,15 @@ class CSVParserTest {
             "10",
             ZONE_1,
             "Few",
+            "",
             "10",
             "4",
             "3",
             "Madrid",
             "true",
             ZONE_1, "",
-            FOOD_1, "", FOOD_3
+            FOOD_1, "", FOOD_3,
+            "", ""
         )
         assertEquals(expectedList, dataRow)
     }

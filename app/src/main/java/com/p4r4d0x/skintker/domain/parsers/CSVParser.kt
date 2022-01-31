@@ -28,37 +28,49 @@ object CSVParser {
     )
 
     private val foodReferenceMap = mapOf(
-        0 to R.string.question_7_answer_1,
-        1 to R.string.question_7_answer_2,
-        2 to R.string.question_7_answer_3,
-        3 to R.string.question_7_answer_4,
-        4 to R.string.question_7_answer_5,
-        5 to R.string.question_7_answer_6,
-        6 to R.string.question_7_answer_7,
-        7 to R.string.question_7_answer_8,
-        8 to R.string.question_7_answer_9,
-        9 to R.string.question_7_answer_10,
-        10 to R.string.question_7_answer_11,
-        11 to R.string.question_7_answer_12,
-        12 to R.string.question_7_answer_13,
-        13 to R.string.question_7_answer_14,
-        14 to R.string.question_7_answer_15,
-        15 to R.string.question_7_answer_16,
-        16 to R.string.question_7_answer_17,
-        17 to R.string.question_7_answer_18,
-        18 to R.string.question_8_answer_1,
-        19 to R.string.question_8_answer_2,
-        20 to R.string.question_8_answer_3,
-        21 to R.string.question_8_answer_4,
-        22 to R.string.question_8_answer_5,
-        23 to R.string.question_8_answer_6,
-        24 to R.string.question_8_answer_7,
-        25 to R.string.question_8_answer_8,
-        26 to R.string.question_8_answer_9,
-        27 to R.string.question_8_answer_10,
-        28 to R.string.question_8_answer_11,
-        29 to R.string.question_8_answer_12,
-        30 to R.string.question_8_answer_13
+        0 to R.string.question_8_answer_1,
+        1 to R.string.question_8_answer_2,
+        2 to R.string.question_8_answer_3,
+        3 to R.string.question_8_answer_4,
+        4 to R.string.question_8_answer_5,
+        5 to R.string.question_8_answer_6,
+        6 to R.string.question_8_answer_7,
+        7 to R.string.question_8_answer_8,
+        8 to R.string.question_8_answer_9,
+        9 to R.string.question_8_answer_10,
+        10 to R.string.question_8_answer_11,
+        11 to R.string.question_8_answer_12,
+        12 to R.string.question_8_answer_13,
+        13 to R.string.question_8_answer_14,
+        14 to R.string.question_8_answer_15,
+        15 to R.string.question_8_answer_16,
+        16 to R.string.question_8_answer_17,
+        17 to R.string.question_8_answer_18,
+        18 to R.string.question_9_answer_1,
+        19 to R.string.question_9_answer_2,
+        20 to R.string.question_9_answer_3,
+        21 to R.string.question_9_answer_4,
+        22 to R.string.question_9_answer_5,
+        23 to R.string.question_9_answer_6,
+        24 to R.string.question_9_answer_7,
+        25 to R.string.question_9_answer_8,
+        26 to R.string.question_9_answer_9,
+        27 to R.string.question_9_answer_10,
+        28 to R.string.question_9_answer_11,
+        29 to R.string.question_9_answer_12,
+        30 to R.string.question_9_answer_13
+    )
+
+    private val beerTypesReferenceMap = mapOf(
+        0 to R.string.question_5_answer_1,
+        1 to R.string.question_5_answer_2,
+        2 to R.string.question_5_answer_3,
+        3 to R.string.question_5_answer_4,
+        4 to R.string.question_5_answer_5,
+        5 to R.string.question_5_answer_6,
+        6 to R.string.question_5_answer_7,
+        7 to R.string.question_5_answer_8,
+        8 to R.string.question_5_answer_9
     )
 
     private fun getReferenceMap(
@@ -78,15 +90,21 @@ object CSVParser {
     fun getFoodReferenceMap(resources: Resources) =
         getReferenceMap(resources, foodReferenceMap)
 
+    fun getBeerTypesReferenceMap(resources: Resources) =
+        getReferenceMap(resources, beerTypesReferenceMap)
+
     /**
      * Build a header CSV row for the export process
      */
     fun getHeaderCSVRow(
         referenceZonesList: Map<String, Int>,
-        referenceFoodList: Map<String, Int>
+        referenceFoodList: Map<String, Int>,
+        referenceBeerTypesList: Map<String, Int>
+
     ): List<String> {
         val zonesHeaderList = referenceZonesList.toList().map { it.first }
         val foodHeaderList = referenceFoodList.toList().map { it.first }
+        val beerTypesHeaderList = referenceBeerTypesList.toList().map { it.first }
 
         val headerList = mutableListOf(
             "Id",
@@ -95,6 +113,7 @@ object CSVParser {
             "Irritation",
             "IrritationZones",
             "Alcohol",
+            "Beer Type",
             "Stress",
             "Humidity",
             "Temperature",
@@ -103,6 +122,8 @@ object CSVParser {
         )
         headerList.addAll(zonesHeaderList)
         headerList.addAll(foodHeaderList)
+        headerList.addAll(beerTypesHeaderList)
+
         return headerList
     }
 
@@ -113,7 +134,8 @@ object CSVParser {
         index: Int,
         log: DailyLogBO,
         referenceZonesList: Map<String, Int>,
-        referenceFoodList: Map<String, Int>
+        referenceFoodList: Map<String, Int>,
+        referenceBeerTypesList: Map<String, Int>
     ): List<Any?> {
 
         val dataList = mutableListOf(
@@ -127,6 +149,9 @@ object CSVParser {
                 zone.cleanString()
             },
             log.additionalData?.alcoholLevel?.name,
+            log.additionalData?.beerTypes?.joinToString(separator = ",") { beerType ->
+                beerType.cleanString()
+            },
             log.additionalData?.stressLevel.toString(),
             log.additionalData?.weather?.humidity.toString(),
             log.additionalData?.weather?.temperature.toString(),
@@ -137,6 +162,11 @@ object CSVParser {
 
         dataList.addAll(getDataList(log.irritation?.zoneValues, referenceZonesList))
         dataList.addAll(getDataList(log.foodList, referenceFoodList))
+        log.additionalData?.beerTypes?.let {
+            dataList.addAll(getDataList(it, referenceBeerTypesList))
+
+        }
+
         return dataList
     }
 
@@ -171,6 +201,7 @@ object CSVParser {
         csvRow: List<String>,
         referenceZonesList: Map<String, Int>,
         referenceFoodList: Map<String, Int>,
+        referenceBeerTypeList: Map<String, Int>,
         resources: Resources
     ): DailyLogBO {
 
@@ -193,10 +224,16 @@ object CSVParser {
             ),
             additionalData = AdditionalDataBO(
                 alcoholLevel = AlcoholLevel.valueOf(csvRow[5]),
-                stressLevel = csvRow[6].toInt(),
+                beerTypes = getListFromCSV(
+                    csvRow[6],
+                    referenceBeerTypeList,
+                    beerTypesReferenceMap,
+                    resources
+                ),
+                stressLevel = csvRow[7].toInt(),
                 weather = AdditionalDataBO.WeatherBO(
-                    humidity = csvRow[7].toInt(),
-                    temperature = csvRow[8].toInt()
+                    humidity = csvRow[8].toInt(),
+                    temperature = csvRow[9].toInt()
                 ),
                 travel = AdditionalDataBO.TravelBO(
                     city = csvRow[9],

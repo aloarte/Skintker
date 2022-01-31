@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.res.Resources
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.data.Constants
+import com.p4r4d0x.skintker.data.Constants.FIFTH_QUESTION_NUMBER
 import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
@@ -23,6 +24,7 @@ object DataParser {
         var irritation = 0.0f
         var stress = 0.0f
         var alcohol = ""
+        val beerType = mutableListOf<String>()
         var city = ""
         var traveled = ""
         val irritationZones = mutableListOf<String>()
@@ -41,29 +43,33 @@ object DataParser {
                         answer.answersStringRes.forEach {
                             irritationZones.add(resources.getString(it))
                         }
-                    } else if (questionCnt == Constants.SEVENTH_QUESTION_NUMBER || questionCnt == Constants.EIGHT_QUESTION_NUMBER) {
+                    } else if (questionCnt == Constants.NINTH_QUESTION_NUMBER || questionCnt == Constants.EIGHTH_QUESTION_NUMBER) {
                         answer.answersStringRes.forEach {
                             foodList.add(
                                 resources.getString(it)
                             )
                         }
-
+                    } else if (questionCnt == FIFTH_QUESTION_NUMBER) {
+                        answer.answersStringRes.forEach {
+                            beerType.add(
+                                resources.getString(it)
+                            )
+                        }
                     }
                 }
-
                 is Answer.SingleChoice -> {
                     if (questionCnt == Constants.FOURTH_QUESTION_NUMBER) {
                         alcohol = resources.getString(answer.answer)
                     }
                 }
                 is Answer.DoubleSlider -> {
-                    if (questionCnt == Constants.FIFTH_QUESTION_NUMBER) {
+                    if (questionCnt == Constants.SIXTH_QUESTION_NUMBER) {
                         weatherHumidity = answer.answerValueFirstSlider
                         weatherTemperature = answer.answerValueSecondSlider
                     }
                 }
                 is Answer.SingleTextInputSingleChoice -> {
-                    if (questionCnt == Constants.SIXTH_QUESTION_NUMBER) {
+                    if (questionCnt == Constants.SEVENTH_QUESTION_NUMBER) {
                         traveled = resources.getString(answer.answer)
                         city = answer.input
                     }
@@ -87,10 +93,11 @@ object DataParser {
                     temperature = weatherTemperature.toInt()
                 ),
                 travel = AdditionalDataBO.TravelBO(
-                    traveled = traveled == resources.getString(R.string.question_6_answer_1),
+                    traveled = traveled == resources.getString(R.string.question_7_answer_1),
                     city = city.lowercase(Locale.getDefault())
                 ),
-                alcoholLevel = AlcoholLevel.fromStringResource(alcohol, resources)
+                alcoholLevel = AlcoholLevel.fromStringResource(alcohol, resources),
+                beerTypes = beerType
             ),
             foodList = foodList
         )

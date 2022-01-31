@@ -6,6 +6,7 @@ import com.p4r4d0x.skintker.data.Constants.EXPORT_FILE_NAME
 import com.p4r4d0x.skintker.data.repository.LogsManagementRepository
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.generateFile
+import com.p4r4d0x.skintker.domain.parsers.CSVParser.getBeerTypesReferenceMap
 import com.p4r4d0x.skintker.domain.parsers.CSVParser.getCSVRowFromData
 import com.p4r4d0x.skintker.domain.parsers.CSVParser.getFoodReferenceMap
 import com.p4r4d0x.skintker.domain.parsers.CSVParser.getHeaderCSVRow
@@ -28,11 +29,12 @@ class ExportLogsDBUseCase(private val repository: LogsManagementRepository) :
         val csvFile = generateFile(EXPORT_FILE_NAME)
         val referenceZonesList = getZonesReferenceMap(resources)
         val referenceFoodList = getFoodReferenceMap(resources)
+        val referenceBeerTypesList = getBeerTypesReferenceMap(resources)
         return if (csvFile != null) {
             csvWriter().open(csvFile, append = false) {
                 // Header
                 writeRow(
-                    getHeaderCSVRow(referenceZonesList, referenceFoodList)
+                    getHeaderCSVRow(referenceZonesList, referenceFoodList, referenceBeerTypesList)
                 )
                 logList.forEachIndexed { index, log ->
                     writeRow(
@@ -40,7 +42,8 @@ class ExportLogsDBUseCase(private val repository: LogsManagementRepository) :
                             index = index,
                             log = log,
                             referenceZonesList = referenceZonesList,
-                            referenceFoodList = referenceFoodList
+                            referenceFoodList = referenceFoodList,
+                            referenceBeerTypesList = referenceBeerTypesList
                         )
                     )
                 }

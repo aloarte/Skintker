@@ -7,6 +7,7 @@ import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.p4r4d0x.skintker.data.repository.LogsManagementRepository
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.openFile
+import com.p4r4d0x.skintker.domain.parsers.CSVParser.getBeerTypesReferenceMap
 import com.p4r4d0x.skintker.domain.parsers.CSVParser.getDataFromCSVRow
 import com.p4r4d0x.skintker.domain.parsers.CSVParser.getFoodReferenceMap
 import com.p4r4d0x.skintker.domain.parsers.CSVParser.getZonesReferenceMap
@@ -21,9 +22,13 @@ class ImportLogsDBUseCase(private val repository: LogsManagementRepository) :
         val csvFile = openFile(params.uri)
 
         return csvFile?.let {
-            val logList = importDatabaseToCSVFile(csvFile, params.resources)
-            repository.addAllLogs(logList)
-            true
+            try {
+                val logList = importDatabaseToCSVFile(csvFile, params.resources)
+                repository.addAllLogs(logList)
+                true
+            } catch (e: Exception) {
+                false
+            }
         } ?: run {
             false
         }
@@ -36,6 +41,7 @@ class ImportLogsDBUseCase(private val repository: LogsManagementRepository) :
         val importedList = mutableListOf<DailyLogBO>()
         val referenceZonesList = getZonesReferenceMap(resources)
         val referenceFoodList = getFoodReferenceMap(resources)
+        val referenceBeerTypesList = getBeerTypesReferenceMap(resources)
 
         csvReader().open(csvFile) {
             // Header
@@ -48,6 +54,7 @@ class ImportLogsDBUseCase(private val repository: LogsManagementRepository) :
                             readRow,
                             referenceZonesList,
                             referenceFoodList,
+                            referenceBeerTypesList,
                             resources
                         )
                     )

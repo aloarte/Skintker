@@ -17,10 +17,11 @@
 package com.p4r4d0x.skintker.data.repository
 
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.Constants.EIGHT_QUESTION_NUMBER
+import com.p4r4d0x.skintker.data.Constants.EIGHTH_QUESTION_NUMBER
 import com.p4r4d0x.skintker.data.Constants.FIFTH_QUESTION_NUMBER
 import com.p4r4d0x.skintker.data.Constants.FIRST_QUESTION_NUMBER
 import com.p4r4d0x.skintker.data.Constants.FOURTH_QUESTION_NUMBER
+import com.p4r4d0x.skintker.data.Constants.NINTH_QUESTION_NUMBER
 import com.p4r4d0x.skintker.data.Constants.SECOND_QUESTION_NUMBER
 import com.p4r4d0x.skintker.data.Constants.SEVENTH_QUESTION_NUMBER
 import com.p4r4d0x.skintker.data.Constants.SIXTH_QUESTION_NUMBER
@@ -92,62 +93,51 @@ private val jetpackQuestions = mutableListOf(
     Question(
         id = FIFTH_QUESTION_NUMBER,
         questionText = R.string.question_5_title,
-        description = R.string.question_5_description,
-        answer = PossibleAnswer.DoubleSlider(
-            range = 1f..10f,
-            steps = 3,
-            defaultValueFirstSlider = 5.5f,
-            startTextFirstSlider = R.string.question_5_slide_1_start,
-            endTextFirstSlider = R.string.question_5_slide_1_end,
-            defaultValueSecondSlider = 5.5f,
-            startTextSecondSlider = R.string.question_5_slide_2_start,
-            endTextSecondSlider = R.string.question_5_slide_2_end
+        answer = PossibleAnswer.MultipleChoice(
+            listOf(
+                R.string.question_5_answer_1,
+                R.string.question_5_answer_2,
+                R.string.question_5_answer_3,
+                R.string.question_5_answer_4,
+                R.string.question_5_answer_5,
+                R.string.question_5_answer_6,
+                R.string.question_5_answer_7,
+                R.string.question_5_answer_8,
+                R.string.question_5_answer_9
+            )
         )
     ),
     Question(
         id = SIXTH_QUESTION_NUMBER,
         questionText = R.string.question_6_title,
         description = R.string.question_6_description,
-        answer = PossibleAnswer.SingleTextInputSingleChoice(
-            hint = "R.string.question_6_hint",
-            maxCharacters = 40,
-            optionsStringRes = listOf(
-                R.string.question_6_answer_1,
-                R.string.question_6_answer_2
-            )
-        ), permissionsRequired = listOf(android.Manifest.permission.ACCESS_COARSE_LOCATION)
-
+        answer = PossibleAnswer.DoubleSlider(
+            range = 1f..10f,
+            steps = 3,
+            defaultValueFirstSlider = 5.5f,
+            startTextFirstSlider = R.string.question_6_slide_1_start,
+            endTextFirstSlider = R.string.question_6_slide_1_end,
+            defaultValueSecondSlider = 5.5f,
+            startTextSecondSlider = R.string.question_6_slide_2_start,
+            endTextSecondSlider = R.string.question_6_slide_2_end
+        )
     ),
     Question(
         id = SEVENTH_QUESTION_NUMBER,
         questionText = R.string.question_7_title,
         description = R.string.question_7_description,
-        answer = PossibleAnswer.MultipleChoice(
+        answer = PossibleAnswer.SingleTextInputSingleChoice(
+            hint = "",
+            maxCharacters = 40,
             optionsStringRes = listOf(
                 R.string.question_7_answer_1,
-                R.string.question_7_answer_2,
-                R.string.question_7_answer_3,
-                R.string.question_7_answer_4,
-                R.string.question_7_answer_5,
-                R.string.question_7_answer_6,
-                R.string.question_7_answer_7,
-                R.string.question_7_answer_8,
-                R.string.question_7_answer_9,
-                R.string.question_7_answer_10,
-                R.string.question_7_answer_11,
-                R.string.question_7_answer_12,
-                R.string.question_7_answer_13,
-                R.string.question_7_answer_14,
-                R.string.question_7_answer_15,
-                R.string.question_7_answer_16,
-                R.string.question_7_answer_17,
-                R.string.question_7_answer_18
-
+                R.string.question_7_answer_2
             )
-        )
+        ), permissionsRequired = listOf(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+
     ),
     Question(
-        id = EIGHT_QUESTION_NUMBER,
+        id = EIGHTH_QUESTION_NUMBER,
         questionText = R.string.question_8_title,
         description = R.string.question_8_description,
         answer = PossibleAnswer.MultipleChoice(
@@ -164,8 +154,34 @@ private val jetpackQuestions = mutableListOf(
                 R.string.question_8_answer_10,
                 R.string.question_8_answer_11,
                 R.string.question_8_answer_12,
-                R.string.question_8_answer_13
-
+                R.string.question_8_answer_13,
+                R.string.question_8_answer_14,
+                R.string.question_8_answer_15,
+                R.string.question_8_answer_16,
+                R.string.question_8_answer_17,
+                R.string.question_8_answer_18
+            )
+        )
+    ),
+    Question(
+        id = NINTH_QUESTION_NUMBER,
+        questionText = R.string.question_9_title,
+        description = R.string.question_9_description,
+        answer = PossibleAnswer.MultipleChoice(
+            optionsStringRes = listOf(
+                R.string.question_9_answer_1,
+                R.string.question_9_answer_2,
+                R.string.question_9_answer_3,
+                R.string.question_9_answer_4,
+                R.string.question_9_answer_5,
+                R.string.question_9_answer_6,
+                R.string.question_9_answer_7,
+                R.string.question_9_answer_8,
+                R.string.question_9_answer_9,
+                R.string.question_9_answer_10,
+                R.string.question_9_answer_11,
+                R.string.question_9_answer_12,
+                R.string.question_9_answer_13
             )
         )
     )
