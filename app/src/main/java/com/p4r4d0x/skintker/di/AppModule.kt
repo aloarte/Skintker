@@ -18,7 +18,7 @@ import org.koin.dsl.module
 
 val vmModule = module {
     viewModel { WelcomeViewModel(get()) }
-    viewModel { SurveyViewModel(get()) }
+    viewModel { SurveyViewModel(get(), get()) }
     viewModel { HomeViewModel(get(), get()) }
     viewModel { SettingsViewModel(get(), get()) }
 

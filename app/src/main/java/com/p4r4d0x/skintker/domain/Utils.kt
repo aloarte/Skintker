@@ -10,9 +10,10 @@ import androidx.annotation.RequiresApi
 import java.io.File
 import java.net.URL
 
-fun generateFile(fileName: String): File? {
+fun generateFile(context: Context, fileName: String): File? {
     val csvFile = File(
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+//        context.getExternalFilesDir(null),
         fileName
     )
     csvFile.createNewFile()

@@ -4,6 +4,7 @@ import android.content.res.Resources
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,11 +14,13 @@ import com.p4r4d0x.skintker.domain.log.LogState
 import com.p4r4d0x.skintker.domain.log.SurveyState
 import com.p4r4d0x.skintker.domain.parsers.DataParser
 import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
+import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class SurveyViewModel(
-    private val addLogUseCase: AddLogUseCase
+    private val addLogUseCase: AddLogUseCase,
+    private val getLogUseCase: GetLogUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableLiveData<SurveyState>()
@@ -27,6 +30,10 @@ class SurveyViewModel(
     private val _city = MutableStateFlow("")
     val city: MutableStateFlow<String>
         get() = _city
+
+    private val _logReported = MutableLiveData<Boolean>()
+    val logReported: LiveData<Boolean>
+        get() = _logReported
 
     var askForPermissions by mutableStateOf(true)
         private set
@@ -72,5 +79,11 @@ class SurveyViewModel(
 
     fun shouldAskForPermissions() {
         askForPermissions = false
+    }
+
+    fun checkIfLogIsAlreadyInserted() {
+        getLogUseCase.invoke(params = GetLogUseCase.Params(date = DataParser.getCurrentFormattedDate())) { log ->
+            _logReported.value = log != null
+        }
     }
 }

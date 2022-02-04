@@ -52,7 +52,7 @@ class SurveyFragment : Fragment() {
                                     shouldAskPermissions = viewModel.askForPermissions,
                                     onDoNotAskForPermissions = { viewModel.shouldAskForPermissions() },
                                     onBackPressed = {
-                                        activity?.onBackPressedDispatcher?.onBackPressed()
+                                        viewModel.checkIfLogIsAlreadyInserted()
                                     },
                                     onAction = {
                                         (requireActivity() as? MainActivity)?.getLocation {
@@ -68,5 +68,21 @@ class SurveyFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        viewModel.logReported.observe(viewLifecycleOwner) { logAlreadyReported ->
+            if (logAlreadyReported) {
+                activity?.onBackPressedDispatcher?.onBackPressed()
+            } else {
+                navigate(FragmentScreen.Home, FragmentScreen.Survey)
+            }
+        }
+
     }
 }

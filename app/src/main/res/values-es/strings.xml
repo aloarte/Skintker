@@ -108,6 +108,7 @@
 
 
     <!--History labels-->
+    <string name="history_no_logs">Todavía no has realizado ningún reporte diario.</string>
     <string name="card_traveled_today">Viajé hoy</string>
     <string name="card_not_traveled_today">No viajé hoy</string>
     <string name="card_slept_in">Dormí en </string>
@@ -117,8 +118,6 @@
     <string name="card_dietary_label">Elementos de la dieta</string>
     <string name="card_irritation_label">Nivel de picor</string>
     <string name="card_stress_label">Nivel de estrés</string>
-
-
     <string name="humidity_1">Muy seco</string>
     <string name="humidity_2">Seco</string>
     <string name="humidity_3">Neutral</string>

@@ -23,10 +23,10 @@ class SettingsViewModel(
     private val _importStatus = MutableLiveData<Boolean>()
     val importStatus: LiveData<Boolean> = _importStatus
 
-    fun launchExportUseCase(resources: Resources) {
+    fun launchExportUseCase(context: Context, resources: Resources) {
         exportLogsUseCase.invoke(
             scope = viewModelScope,
-            params = ExportLogsDBUseCase.Params(resources)
+            params = ExportLogsDBUseCase.Params(resources, context)
         ) {
             _exportStatus.value = it
         }

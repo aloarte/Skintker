@@ -74,7 +74,7 @@ class SettingsFragment : Fragment() {
                             activity?.onBackPressed()
                         },
                         onExportPressed = {
-                            viewModel.launchExportUseCase(resources)
+                            viewModel.launchExportUseCase(requireContext(), resources)
                         },
                         onImportPressed = {
                             openSomeActivityForResult()

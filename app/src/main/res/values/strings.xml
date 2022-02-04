@@ -31,7 +31,6 @@
     <string name="question_2_answer_10">Legs</string>
     <string name="question_2_answer_11">Chest</string>
     <string name="question_2_answer_12">Back</string>
-
     <!-- question 3 -->
     <string name="question_3_title">Stress level</string>
     <string name="question_3_description">Have you had many stressful or worrying situations today?</string>
@@ -106,6 +105,7 @@
     <string name="question_9_answer_13">Soy derivatives 🌱</string>
 
     <!--History labels-->
+    <string name="history_no_logs">You don\'t have any reported log yet.</string>
     <string name="card_traveled_today">Traveled today</string>
     <string name="card_not_traveled_today">Not traveled today</string>
     <string name="card_slept_in">Slept in </string>
@@ -115,7 +115,6 @@
     <string name="card_dietary_label">Dietary elements</string>
     <string name="card_irritation_label">Irritation Level</string>
     <string name="card_stress_label">Stress Level</string>
-
     <string name="humidity_1">Very dry</string>
     <string name="humidity_2">Dry</string>
     <string name="humidity_3">Neutral</string>
@@ -182,7 +181,6 @@
     <string name="settings_parameters_description_levels">The Irritation Level is the main value to extract possible causes. Any log that had a level below the configured will be ignored. The Minimum Report Number restrict how many logs that exceed the Irritation Level are mandatory to extract information.</string>
     <string name="settings_parameters_description_thresholds">Change the threshold values to adjust the desired proportion of events to count one of them as a possible cause or not.</string>
     <string name="settings_parameters_description_stress">The Stress Level determines if any log with this value could be significant. The threshold adjust the decision process.</string>
-
     <string name="settings_param_irritation">Irritation level number</string>
     <string name="settings_param_min_logs">Min logs number</string>
     <string name="settings_param_food_threshold">Food threshold</string>
