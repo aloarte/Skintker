@@ -8,8 +8,7 @@ class GetLogUseCase(private val repository: LogsManagementRepository) :
     BaseUseCaseParamsResult<GetLogUseCase.Params, DailyLogBO?>() {
 
     override suspend fun run(params: Params): DailyLogBO? {
-        val log = repository.getLogByDate(params.date.time)
-        return log
+        return repository.getLogByDate(params.date.time)
     }
 
     data class Params(val date: Date)

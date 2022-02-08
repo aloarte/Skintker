@@ -13,7 +13,7 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "com.p4r4d0x.skintker.di.KoinTestRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -46,7 +46,6 @@ android {
         unitTests {
             includeAndroidResources = true
         }
-
     }
 
 }
@@ -112,7 +111,6 @@ dependencies {
     testImplementation "io.mockk:mockk:$mockk"
     androidTestImplementation "io.mockk:mockk:$mockk"
     androidTestImplementation "junit:junit:$junit"
-//    androidTestImplementation "io.mockk:mockk-android:$mockk"
-//    testImplementation "io.mockk:mockk-android:$mockk"
+
 
 }

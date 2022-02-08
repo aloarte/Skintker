@@ -33,6 +33,12 @@ object CausesParser {
         stressMap: Map<Int, Int>,
         stressThresholds: Pair<Int, Float>
     ): PossibleCausesBO.StressCauseBO {
+        if (stressMap.isEmpty()) {
+            return PossibleCausesBO.StressCauseBO(
+                possibleCause = false,
+                averageLevel = -1
+            )
+        }
         val threshold = stressThresholds.first
         val averageThreshold = stressThresholds.second
         var totalRepetitions = 0
@@ -61,6 +67,9 @@ object CausesParser {
         traveledCityMap: Map<String, Int>,
         thresholds: Float
     ): PossibleCausesBO.TravelCauseBO {
+        if (traveledMap.isEmpty() || traveledCityMap.isEmpty()) {
+            return PossibleCausesBO.TravelCauseBO(false, null)
+        }
         var travelRepetitions = 0
         var totalRepetitions = 0
 
@@ -86,22 +95,40 @@ object CausesParser {
         humidityMap: Map<Int, Int>,
         thresholds: Pair<Float, Float>
     ): Pair<PossibleCausesBO.WeatherCauseBO, PossibleCausesBO.WeatherCauseBO> {
-        return Pair(
-            PossibleCausesBO.WeatherCauseBO(
-                weatherType = PossibleCausesBO.WeatherCauseBO.WeatherType.HUMIDITY,
-                possibleCause = temperatureMap.getKeyOfMaxValue() > temperatureMap.size * thresholds.first,
-                averageValue = temperatureMap.getMaxValue()
-            ),
-            PossibleCausesBO.WeatherCauseBO(
-                weatherType = PossibleCausesBO.WeatherCauseBO.WeatherType.TEMPERATURE,
-                possibleCause = humidityMap.getKeyOfMaxValue() > humidityMap.size * thresholds.first,
-                averageValue = humidityMap.getMaxValue()
+        return if (temperatureMap.isEmpty() || humidityMap.isEmpty()) {
+            Pair(
+                PossibleCausesBO.WeatherCauseBO(
+                    weatherType = PossibleCausesBO.WeatherCauseBO.WeatherType.HUMIDITY,
+                    possibleCause = false,
+                    averageValue = -1
+                ),
+                PossibleCausesBO.WeatherCauseBO(
+                    weatherType = PossibleCausesBO.WeatherCauseBO.WeatherType.TEMPERATURE,
+                    possibleCause = false,
+                    averageValue = -1
+                )
             )
-        )
+        } else {
+            Pair(
+                PossibleCausesBO.WeatherCauseBO(
+                    weatherType = PossibleCausesBO.WeatherCauseBO.WeatherType.HUMIDITY,
+                    possibleCause = temperatureMap.getKeyOfMaxValue() > temperatureMap.size * thresholds.first,
+                    averageValue = temperatureMap.getMaxValue()
+                ),
+                PossibleCausesBO.WeatherCauseBO(
+                    weatherType = PossibleCausesBO.WeatherCauseBO.WeatherType.TEMPERATURE,
+                    possibleCause = humidityMap.getKeyOfMaxValue() > humidityMap.size * thresholds.first,
+                    averageValue = humidityMap.getMaxValue()
+                )
+            )
+        }
     }
 
 
     fun getAlcoholCause(alcoholLevelMap: Map<AlcoholLevel, Int>, alcoholThreshold: Float): Boolean {
+        if (alcoholLevelMap.isEmpty()) {
+            return false
+        }
         var alcoholRepetitions = 0
         var totalRepetitions = 0
 

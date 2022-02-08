@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.p4r4d0x.skintker.data.repository.LogsRepository
-import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.log.LogState
 import com.p4r4d0x.skintker.domain.log.SurveyState
 import com.p4r4d0x.skintker.domain.parsers.DataParser
@@ -62,15 +61,19 @@ class SurveyViewModel(
         }
     }
 
-    fun computeResult(surveyQuestions: SurveyState.LogQuestions, resources: Resources) {
-        val answers = surveyQuestions.state.mapNotNull { it.answer }
-        addLog(DataParser.createLogFromSurvey(answers, resources))
-        _uiState.value = SurveyState.Result
+    fun checkIfLogIsAlreadyInserted() {
+        getLogUseCase.invoke(params = GetLogUseCase.Params(date = DataParser.getCurrentFormattedDate())) { log ->
+            _logReported.value = log != null
+        }
     }
 
-
-    private fun addLog(log: DailyLogBO) {
-        addLogUseCase.invoke(viewModelScope, params = AddLogUseCase.Params(log))
+    fun computeResult(surveyQuestions: SurveyState.LogQuestions, resources: Resources) {
+        val answers = surveyQuestions.state.mapNotNull { it.answer }
+        addLogUseCase.invoke(
+            viewModelScope,
+            params = AddLogUseCase.Params(DataParser.createLogFromSurvey(answers, resources))
+        )
+        _uiState.value = SurveyState.Result
     }
 
     fun updateCityValue(city: String) {
@@ -79,11 +82,5 @@ class SurveyViewModel(
 
     fun shouldAskForPermissions() {
         askForPermissions = false
-    }
-
-    fun checkIfLogIsAlreadyInserted() {
-        getLogUseCase.invoke(params = GetLogUseCase.Params(date = DataParser.getCurrentFormattedDate())) { log ->
-            _logReported.value = log != null
-        }
     }
 }

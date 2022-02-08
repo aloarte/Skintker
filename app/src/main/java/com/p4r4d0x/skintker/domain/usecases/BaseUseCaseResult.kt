@@ -1,10 +1,11 @@
 package com.p4r4d0x.skintker.domain.usecases
 
+import androidx.annotation.VisibleForTesting
 import kotlinx.coroutines.*
 
 abstract class BaseUseCaseResult<Result> {
-
-    protected abstract suspend fun run(): Result
+    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
+    abstract suspend fun run(): Result
 
     fun invoke(
         scope: CoroutineScope = GlobalScope,
@@ -14,11 +15,12 @@ abstract class BaseUseCaseResult<Result> {
         val job = scope.async(dispatcher) { run() }
         scope.launch(Dispatchers.Main) { resultCallback(job.await()) }
     }
+
 }
 
 abstract class BaseUseCaseParamsResult<Params, Result> {
-
-    protected abstract suspend fun run(params: Params): Result
+    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
+    abstract suspend fun run(params: Params): Result
 
     fun invoke(
         scope: CoroutineScope = GlobalScope,
