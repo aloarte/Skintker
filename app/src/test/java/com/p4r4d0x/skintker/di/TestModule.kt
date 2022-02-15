@@ -19,7 +19,7 @@ import org.koin.dsl.module
 val testViewModelModule = module {
     viewModel { WelcomeViewModel(get()) }
     viewModel { SurveyViewModel(get(), get()) }
-    viewModel { HomeViewModel(get(), get()) }
+    viewModel { HomeViewModel(get(), get(), get()) }
     viewModel { SettingsViewModel(get(), get()) }
 }
 val testRepositoriesModule = module {

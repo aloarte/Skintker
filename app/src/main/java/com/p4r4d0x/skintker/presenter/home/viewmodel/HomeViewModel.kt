@@ -11,10 +11,12 @@ import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.bo.PossibleCausesBO
 import com.p4r4d0x.skintker.domain.usecases.GetLogsUseCase
 import com.p4r4d0x.skintker.domain.usecases.GetQueriedLogsUseCase
+import com.p4r4d0x.skintker.domain.usecases.UpdateDdbbUseCase
 
 class HomeViewModel(
     private val getLogsUseCase: GetLogsUseCase,
-    private val getQueriedLogsUseCase: GetQueriedLogsUseCase
+    private val getQueriedLogsUseCase: GetQueriedLogsUseCase,
+    private val updateDdbbUseCase: UpdateDdbbUseCase
 ) : ViewModel() {
 
     private val _logList = MutableLiveData<List<DailyLogBO>>()
@@ -26,13 +28,14 @@ class HomeViewModel(
         get() = _possibleCauses
 
     fun getLogs() {
+//        updateDdbbUseCase.invoke(viewModelScope){
         getLogsUseCase.invoke(viewModelScope) {
             _logList.value = it
         }
+//        }
     }
 
     fun getLogsByIntensityLevel(preference: SharedPreferences?) {
-
         preference?.let {
             getQueriedLogsUseCase.invoke(
                 viewModelScope,

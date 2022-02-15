@@ -11,8 +11,6 @@ interface LogsManagementRepository {
 
     suspend fun updateDailyLog(log: DailyLogBO): Boolean
 
-    suspend fun getWeeklyLogs(): List<DailyLogBO>
-
     suspend fun getAllLogs(): List<DailyLogBO>
 
     suspend fun getLogByDate(date: Long): DailyLogBO?

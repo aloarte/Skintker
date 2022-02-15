@@ -1,10 +1,17 @@
 package com.p4r4d0x.skintker.data.repository
 
+import com.p4r4d0x.skintker.data.FirebaseLogsManagementDataSource
 import com.p4r4d0x.skintker.data.room.LogsDatabase
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 
-class LogsManagementRepositoryImpl(private val database: LogsDatabase) : LogsManagementRepository {
+class LogsManagementRepositoryImpl(
+    private val database: LogsDatabase,
+    private val firebaseDatabase: FirebaseLogsManagementDataSource
+) : LogsManagementRepository {
+
+
     override suspend fun addDailyLog(log: DailyLogBO): Boolean {
+        firebaseDatabase.addLog(log)
         return database.dailyLogDao().insertDailyLog(log)
     }
 
@@ -14,12 +21,6 @@ class LogsManagementRepositoryImpl(private val database: LogsDatabase) : LogsMan
 
     override suspend fun updateDailyLog(log: DailyLogBO): Boolean {
         return database.dailyLogDao().updateDailyLog(log)
-    }
-
-    override suspend fun getWeeklyLogs(): List<DailyLogBO> {
-        return database.dailyLogDao().getAll().map { dailyLogAndIrritation ->
-            dailyLogAndIrritation.toDomain()
-        }
     }
 
     override suspend fun getAllLogs(): List<DailyLogBO> {

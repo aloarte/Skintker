@@ -2,6 +2,7 @@ package com.p4r4d0x.skintker.di
 
 import android.app.Application
 import androidx.room.Room
+import com.p4r4d0x.skintker.data.FirebaseLogsManagementDataSource
 import com.p4r4d0x.skintker.data.repository.LogsManagementRepository
 import com.p4r4d0x.skintker.data.repository.LogsManagementRepositoryImpl
 import com.p4r4d0x.skintker.data.repository.LogsRepository
@@ -9,6 +10,7 @@ import com.p4r4d0x.skintker.data.room.DailyLogDao
 import com.p4r4d0x.skintker.data.room.LogsDatabase
 import com.p4r4d0x.skintker.domain.usecases.*
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
+import com.p4r4d0x.skintker.presenter.login.viewmodel.LoginViewModel
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
 import com.p4r4d0x.skintker.presenter.welcome.viewmodel.WelcomeViewModel
@@ -18,14 +20,16 @@ import org.koin.dsl.module
 
 val vmModule = module {
     viewModel { WelcomeViewModel(get()) }
+    viewModel { LoginViewModel() }
     viewModel { SurveyViewModel(get(), get()) }
-    viewModel { HomeViewModel(get(), get()) }
+    viewModel { HomeViewModel(get(), get(), get()) }
     viewModel { SettingsViewModel(get(), get()) }
 
 }
 val repositoriesModule = module {
     factory { LogsRepository() }
-    factory<LogsManagementRepository> { LogsManagementRepositoryImpl(get()) }
+    factory { FirebaseLogsManagementDataSource() }
+    factory<LogsManagementRepository> { LogsManagementRepositoryImpl(get(), get()) }
 }
 
 val useCasesModule = module {
@@ -35,7 +39,7 @@ val useCasesModule = module {
     factory { GetQueriedLogsUseCase(get()) }
     factory { ExportLogsDBUseCase(get()) }
     factory { ImportLogsDBUseCase(get()) }
-
+    factory { UpdateDdbbUseCase(get(), get()) }
 }
 
 val databasesModule = module {

@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker.presenter
+package com.p4r4d0x.skintker.presenter.main
 
 import android.location.*
 import android.os.Bundle
@@ -13,15 +13,15 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var locationManager: LocationManager? = null
+    private lateinit var locationManager: LocationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // Create persistent LocationManager reference
-        locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?
-//        getLocation(){}
+        //Location mgr
+        locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
+        //Navigation
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         try {
             // Request location updates
-            locationManager?.requestLocationUpdates(
+            locationManager.requestLocationUpdates(
                 LocationManager.NETWORK_PROVIDER,
                 0L,
                 0f,

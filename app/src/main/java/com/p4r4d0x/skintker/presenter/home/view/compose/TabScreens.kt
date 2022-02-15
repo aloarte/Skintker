@@ -27,9 +27,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.presenter.FragmentScreen
 import com.p4r4d0x.skintker.presenter.home.view.Screen
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
+import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 
 @Composable
 fun TabScreen(viewModel: HomeViewModel, navPressed: (FragmentScreen) -> Unit) {

@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.domain.log.SurveyState
-import com.p4r4d0x.skintker.presenter.FragmentScreen
-import com.p4r4d0x.skintker.presenter.MainActivity
-import com.p4r4d0x.skintker.presenter.navigate
+import com.p4r4d0x.skintker.presenter.main.FragmentScreen
+import com.p4r4d0x.skintker.presenter.main.MainActivity
+import com.p4r4d0x.skintker.presenter.main.navigate
 import com.p4r4d0x.skintker.presenter.survey.view.compose.LogQuestionScreen
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
 import com.p4r4d0x.skintker.theme.SkintkerTheme

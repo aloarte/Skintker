@@ -143,5 +143,43 @@ object DataParser {
             else -> R.string.card_no_alcohol
         }
 
+//    fun parseDocumentData(data: Map<String, Any>): DailyLogBO {
+////        val firebaseLog = hashMapOf(
+////            "date" to log.date,
+////            "irritation" to log.irritation?.overallValue,
+////            "irritatedZones" to log.irritation?.zoneValues?.joinToString(separator = ","),
+////            "foods" to log.foodList.joinToString(separator = ","),
+////            "beers" to log.additionalData?.beerTypes?.joinToString(separator = ","),
+////            "alcohol" to log.additionalData?.alcoholLevel?.name,
+////            "stress" to log.additionalData?.stressLevel,
+////            "city" to log.additionalData?.travel?.city,
+////            "traveled" to log.additionalData?.travel?.traveled,
+////            "weatherTemperature" to log.additionalData?.weather?.temperature,
+////            "humidityTemperature" to log.additionalData?.weather?.humidity
+////        )
+//
+//        return DailyLogBO(
+//            date = data["date"] as Date,
+//            irritation = IrritationBO(
+//                overallValue = data["irritation"] as Int,
+//                zoneValues = listOf(* (data["irritatedZones"] as String).split(",").toTypedArray())
+//            ),
+//            foodList = listOf(* (data["foods"] as String).split(",").toTypedArray()),
+//            additionalData = AdditionalDataBO(
+//                stressLevel = data["stress"] as Int,
+//                weather = AdditionalDataBO.WeatherBO(
+//                    humidity = data["weatherTemperature"] as Int,
+//                    temperature = data["humidityTemperature"] as Int
+//                ),
+//                travel = AdditionalDataBO.TravelBO(
+//                    traveled = data["traveled"] as Boolean,
+//                    city = data["city"] as String
+//                ),
+//                alcoholLevel = AlcoholLevel.valueOf(data["alcohol"] as String),
+//                beerTypes =  listOf(* (data["beers"] as String).split(",").toTypedArray()),
+//            )
+//        )
+//    }
+
 
 }

@@ -16,9 +16,12 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.presenter.FragmentScreen
-import com.p4r4d0x.skintker.presenter.navigate
+import com.p4r4d0x.skintker.presenter.main.FragmentScreen
+import com.p4r4d0x.skintker.presenter.main.navigate
 import com.p4r4d0x.skintker.presenter.welcome.viewmodel.WelcomeViewModel
 import com.p4r4d0x.skintker.theme.SkintkerTheme
 import org.koin.android.ext.android.inject
@@ -27,10 +30,19 @@ class WelcomeFragment : Fragment() {
 
     private val viewModel: WelcomeViewModel by inject()
 
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+
+
     override fun onResume() {
         super.onResume()
         observeViewModel()
-        viewModel.checkLogReportedToday()
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+
+        viewModel.checkUserLogin(GoogleSignIn.getLastSignedInAccount(requireActivity()))
     }
 
     private fun observeViewModel() {
@@ -39,8 +51,12 @@ class WelcomeFragment : Fragment() {
                 navigate(navigateTo, FragmentScreen.Welcome)
             }
         }
+        viewModel.userAuthenticated.observe(viewLifecycleOwner) { userAuthenticated ->
+            viewModel.handleContinueLogin(userAuthenticated)
+        }
+
         viewModel.logReported.observe(viewLifecycleOwner) { logAlreadyReported ->
-            viewModel.handleContinue(logAlreadyReported)
+            viewModel.handleContinueHome(logAlreadyReported)
         }
     }
 

@@ -3,6 +3,30 @@ package com.p4r4d0x.skintker.domain.usecases
 import androidx.annotation.VisibleForTesting
 import kotlinx.coroutines.*
 
+abstract class BaseUseCaseNoResult {
+    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
+    abstract suspend fun run()
+
+    fun invoke(
+        scope: CoroutineScope = GlobalScope,
+        dispatcher: CoroutineDispatcher = Dispatchers.Default,
+        onResult: (() -> Unit)? = null
+    ) {
+        if (onResult != null) {
+            val job = scope.async(dispatcher) { run() }
+            scope.launch(Dispatchers.Main) {
+                job.await()
+                onResult()
+            }
+        } else {
+            scope.launch(Dispatchers.Main) {
+                run()
+            }
+        }
+    }
+
+}
+
 abstract class BaseUseCaseResult<Result> {
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
     abstract suspend fun run(): Result

@@ -7,6 +7,7 @@ import com.p4r4d0x.skintker.di.*
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.usecases.GetLogsUseCase
 import com.p4r4d0x.skintker.domain.usecases.GetQueriedLogsUseCase
+import com.p4r4d0x.skintker.domain.usecases.UpdateDdbbUseCase
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -36,13 +37,15 @@ class HomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesModul
 
     private val getLogsUseCase: GetLogsUseCase by inject()
     private val getQueriedLogsUseCase: GetQueriedLogsUseCase by inject()
+    private val updateDdbbUseCase: UpdateDdbbUseCase by inject()
+
 
     private lateinit var viewModelSUT: HomeViewModel
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        viewModelSUT = HomeViewModel(getLogsUseCase, getQueriedLogsUseCase)
+        viewModelSUT = HomeViewModel(getLogsUseCase, getQueriedLogsUseCase, updateDdbbUseCase)
     }
 
     @Test

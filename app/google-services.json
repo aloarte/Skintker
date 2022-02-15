@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "935704397059",
+    "project_id": "skintker",
+    "storage_bucket": "skintker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935704397059:android:45d0a6b8e6ea6e07d8d536",
+        "android_client_info": {
+          "package_name": "com.p4r4d0x.skintker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "935704397059-b8e2gpdfm0rmd0fp1hd3u0tq9f5qe13d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPDnOuPsIa5REI4KApc7kmDsqRzpc2aS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "935704397059-b8e2gpdfm0rmd0fp1hd3u0tq9f5qe13d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

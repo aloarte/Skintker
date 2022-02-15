@@ -13,7 +13,6 @@ import com.p4r4d0x.skintker.domain.usecases.ImportLogsDBUseCase
 class SettingsViewModel(
     private val exportLogsUseCase: ExportLogsDBUseCase,
     private val importLogsUseCase: ImportLogsDBUseCase
-
 ) : ViewModel() {
 
 

@@ -108,8 +108,7 @@ fun SettingScreenContent(
                     multiplePermissionsState.allPermissionsGranted -> {
                         CSVButtons(onExportPressed, onImportPressed)
                     }
-                    multiplePermissionsState.shouldShowRationale ||
-                            !multiplePermissionsState.permissionRequested -> {
+                    multiplePermissionsState.shouldShowRationale -> {
                         PermissionsRationale(multiplePermissionsState = multiplePermissionsState) {
 
                         }

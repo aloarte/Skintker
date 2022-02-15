@@ -110,8 +110,7 @@ private fun QuestionBodyPermissions(
                 multiplePermissionsState.allPermissionsGranted -> {
                     QuestionBody(viewModel, question, answer, onAnswer, onAction, modifier)
                 }
-                multiplePermissionsState.shouldShowRationale ||
-                        !multiplePermissionsState.permissionRequested -> {
+                multiplePermissionsState.shouldShowRationale -> {
                     PermissionsRationale(
                         question = question,
                         multiplePermissionsState = multiplePermissionsState,

@@ -2,9 +2,29 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+
+        }
+        debug {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
     compileSdk 31
 
     defaultConfig {
@@ -16,10 +36,16 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
         release {
+            debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -60,10 +86,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$composeViewModel"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
     implementation "androidx.core:core-ktx:$coreKtx"
-    implementation "androidx.appcompat:appcompat:$appCompat"
+    implementation "androidx.appcompat:appcompat:1.4.1"
     implementation "androidx.navigation:navigation-fragment-ktx:2.4.0"
     implementation "androidx.navigation:navigation-ui-ktx:2.4.0"
-
     //Compose
     implementation "androidx.activity:activity-compose:$activityCompose"
     implementation "androidx.compose.material:material:$compose"
@@ -74,16 +99,21 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:$composeNavigation"
     implementation "com.google.android.material:compose-theme-adapter:$composeTheme"
     implementation "com.google.android.material:material:$material"
-    implementation "com.google.accompanist:accompanist-permissions:0.22.0-rc"
+    implementation 'com.google.accompanist:accompanist-permissions:0.24.2-alpha'
     implementation "com.chargemap.compose:numberpicker:0.0.11"
-    implementation "com.github.doyaaaaaken:kotlin-csv-jvm:0.9.0"
+    implementation 'com.github.doyaaaaaken:kotlin-csv-jvm:1.2.0'
     //Room
     implementation "androidx.room:room-ktx:$roomVersion"
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
     kapt "androidx.room:room-compiler:$roomVersion"
     //External
     implementation "com.google.code.gson:gson:$gson"
-//    implementation "com.airbnb.android:lottie:$lottieVersion"
     implementation "com.airbnb.android:lottie-compose:4.2.2"
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:29.0.4')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-auth'
 
     //Test
     testImplementation "io.insert-koin:koin-test:$koinVersion"
@@ -100,7 +130,7 @@ dependencies {
     testImplementation "io.insert-koin:koin-test-junit4:$koinVersion"
     testImplementation "io.insert-koin:koin-test-junit5:$koinVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines"
-    testImplementation "org.robolectric:robolectric:4.6.1"
+    testImplementation 'org.robolectric:robolectric:4.7.3'
     testImplementation "androidx.arch.core:core-testing:2.1.0"
 
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.2"

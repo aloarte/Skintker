@@ -4,10 +4,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
     app:startDestination="@+id/welcome_fragment">
+
+    <fragment
+        android:id="@+id/login_fragment"
+        android:name="com.p4r4d0x.skintker.presenter.login.view.LoginFragment"
+        android:label="Login">
+        <action
+            android:id="@+id/action_loginFragment_to_welcomeFragment"
+            app:destination="@id/welcome_fragment"
+            app:popUpTo="@+id/login_fragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
     <fragment
         android:id="@+id/welcome_fragment"
         android:name="com.p4r4d0x.skintker.presenter.welcome.view.WelcomeFragment"
         android:label="Welcome">
+        <action
+            android:id="@+id/action_welcomeFragment_to_loginFragment"
+            app:destination="@id/login_fragment"
+            app:popUpTo="@+id/welcome_fragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_welcomeFragment_to_surveyFragment"
             app:destination="@id/survey_fragment"

@@ -1,7 +1,5 @@
-package com.p4r4d0x.skintker.presenter.home.view
+package com.p4r4d0x.skintker.presenter.login.view
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,25 +7,31 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.Constants
-import com.p4r4d0x.skintker.presenter.home.view.compose.TabScreen
-import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
+import com.p4r4d0x.skintker.domain.login.LoginLoadingState
+import com.p4r4d0x.skintker.presenter.login.view.compose.LoginScreen
+import com.p4r4d0x.skintker.presenter.login.viewmodel.LoginViewModel
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.main.navigate
 import com.p4r4d0x.skintker.theme.SkintkerTheme
 import org.koin.android.ext.android.inject
 
-class HomeFragment : Fragment() {
+class LoginFragment : Fragment() {
 
-    private val viewModel: HomeViewModel by inject()
-
+    private val viewModel: LoginViewModel by inject()
 
     override fun onResume() {
         super.onResume()
-        val prefs: SharedPreferences? =
-            activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
-        viewModel.getLogs()
-        viewModel.getLogsByIntensityLevel(prefs)
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        viewModel.loadingState.observe(viewLifecycleOwner) { loadingState ->
+            if (loadingState == LoginLoadingState.LOADED) {
+                navigate(FragmentScreen.Welcome, FragmentScreen.Login)
+            }
+        }
+
+
     }
 
     override fun onCreateView(
@@ -36,19 +40,17 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         return ComposeView(requireContext()).apply {
-            id = R.id.survey_fragment
+            id = R.id.settings_fragment
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
             setContent {
                 SkintkerTheme {
-                    TabScreen(viewModel) { fragmentScreenDestination ->
-                        navigate(fragmentScreenDestination, FragmentScreen.Home)
-                    }
+                    LoginScreen(viewModel, requireContext())
+
                 }
             }
         }
     }
-
 }

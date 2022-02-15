@@ -96,3 +96,5 @@ lint/tmp/
 /gradlew.bat
 /libs
 /build.gradle
+/app/skintker.jks
+/keystore.properties

@@ -42,5 +42,5 @@ object Constants {
 
     //Regex
     const val CHARACTER_FILTER_REGEX = "[^\\p{L}\\p{Z}]"
-    const val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+"
+    const val REGEX_UNACCENTED = "\\p{InCombiningDiacriticalMarks}+"
 }
