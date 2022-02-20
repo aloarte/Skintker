@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
         super.onResume()
         val prefs: SharedPreferences? =
             activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
-        viewModel.getLogs()
+        viewModel.getLogs(prefs?.getString(Constants.PREFERENCES_USER_ID, "") ?: "")
         viewModel.getLogsByIntensityLevel(prefs)
     }
 

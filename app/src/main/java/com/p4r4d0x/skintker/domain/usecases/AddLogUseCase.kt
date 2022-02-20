@@ -11,10 +11,10 @@ class AddLogUseCase(private val repository: LogsManagementRepository) :
         return if (logExist) {
             repository.updateDailyLog(params.log)
         } else {
-            repository.addDailyLog(params.log)
+            repository.addDailyLog(params.userId, params.log)
         }
     }
 
-    data class Params(val log: DailyLogBO)
+    data class Params(val userId: String, val log: DailyLogBO)
 
 }

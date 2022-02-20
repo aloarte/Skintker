@@ -29,7 +29,7 @@ fun SettingScreen(
     prefs: SharedPreferences?,
     onBackIconPressed: () -> Unit,
     onExportPressed: () -> Unit,
-    onImportPressed: () -> Unit,
+    onLogoutPressed: () -> Unit,
     settingsCallback: (SettingsStatus) -> Unit
 ) {
     Scaffold(
@@ -37,7 +37,7 @@ fun SettingScreen(
             SettingsTopBar(onBackIconPressed)
         }
     ) {
-        SettingScreenContent(prefs, onExportPressed, onImportPressed, settingsCallback)
+        SettingScreenContent(prefs, onExportPressed, onLogoutPressed, settingsCallback)
     }
 }
 
@@ -87,7 +87,7 @@ fun SettingsTopBar(
 fun SettingScreenContent(
     prefs: SharedPreferences?,
     onExportPressed: () -> Unit,
-    onImportPressed: () -> Unit,
+    onLogoutPressed: () -> Unit,
     settingsCallback: (SettingsStatus) -> Unit
 ) {
 
@@ -96,6 +96,9 @@ fun SettingScreenContent(
             Column(Modifier.fillMaxSize()) {
                 ParametersConfiguration(prefs, settingsCallback)
                 SkintkerDivider()
+                ProfileSection(onLogoutPressed)
+                SkintkerDivider()
+
                 val multiplePermissionsState =
                     rememberMultiplePermissionsState(
                         listOf(
@@ -106,7 +109,7 @@ fun SettingScreenContent(
                 when {
                     // If all permissions are granted, then show the question
                     multiplePermissionsState.allPermissionsGranted -> {
-                        CSVButtons(onExportPressed, onImportPressed)
+                        CSVButtons(onExportPressed)
                     }
                     multiplePermissionsState.shouldShowRationale -> {
                         PermissionsRationale(multiplePermissionsState = multiplePermissionsState) {

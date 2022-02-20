@@ -1,5 +1,7 @@
 package com.p4r4d0x.skintker.presenter.survey.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.p4r4d0x.skintker.R
+import com.p4r4d0x.skintker.data.Constants
 import com.p4r4d0x.skintker.domain.log.SurveyState
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.main.MainActivity
@@ -28,6 +31,10 @@ class SurveyFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        val prefs: SharedPreferences? =
+            activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
+
         return ComposeView(requireContext()).apply {
             id = R.id.survey_fragment
 
@@ -45,7 +52,11 @@ class SurveyFragment : Fragment() {
                                     logQuestions = logState,
                                     onDonePressed = {
                                         viewModel.computeResult(
-                                            logState,
+                                            userId = prefs?.getString(
+                                                Constants.PREFERENCES_USER_ID,
+                                                ""
+                                            ) ?: "",
+                                            surveyQuestions = logState,
                                             resources = resources
                                         )
                                     },

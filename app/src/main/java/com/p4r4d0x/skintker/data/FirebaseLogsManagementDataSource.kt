@@ -4,13 +4,13 @@ import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
+import com.p4r4d0x.skintker.domain.parsers.DataParser.parseDocumentData
 
 class FirebaseLogsManagementDataSource {
 
     private val firebaseDb = Firebase.firestore
 
-    suspend fun addLog(log: DailyLogBO) {
-
+    fun addLog(userId: String, log: DailyLogBO) {
         val logMap = hashMapOf(
             "date" to log.date,
             "irritation" to log.irritation?.overallValue,
@@ -24,32 +24,35 @@ class FirebaseLogsManagementDataSource {
             "weatherTemperature" to log.additionalData?.weather?.temperature,
             "humidityTemperature" to log.additionalData?.weather?.humidity
         )
-        val firebaseLog = hashMapOf("user" to logMap)
+        val firebaseLog = hashMapOf(userId to logMap)
 
 
         firebaseDb.collection("DailyLogs").add(firebaseLog)
             .addOnSuccessListener { documentReference ->
-                Log.d("ALRALR", "DocumentSnapshot added with ID: ${documentReference.id}")
+                Log.d("ALRALR", "14 DocumentSnapshot added with ID: ${documentReference.id}")
             }
             .addOnFailureListener { e ->
-                Log.w("ALRALR", "Error adding document", e)
+                Log.w("ALRALR", "14 Error adding document", e)
             }
     }
 
-    suspend fun getLogs(onLogsObtained: (List<DailyLogBO>) -> Unit) {
+    fun getLogs(userId: String, onLogsObtained: (List<DailyLogBO>) -> Unit) {
+
         firebaseDb.collection("DailyLogs")
             .get()
             .addOnSuccessListener { result ->
                 val firebaseLogsList = mutableListOf<DailyLogBO>()
                 for (document in result) {
-                    Log.d("ALRALR", "${document.id} => ${document.data}")
-//                    firebaseLogsList.add(parseDocumentData(document.data))
+                    if (document.data.keys.first() == userId) {
+                        parseDocumentData(userId, document.data)?.let {
+                            firebaseLogsList.add(it)
+                        }
+                    }
                 }
                 onLogsObtained.invoke(firebaseLogsList)
-
             }
             .addOnFailureListener { exception ->
-                Log.w("ALRALR", "Error getting documents.", exception)
+                Log.w("24ALRALR", "Error getting documents.", exception)
             }
     }
 

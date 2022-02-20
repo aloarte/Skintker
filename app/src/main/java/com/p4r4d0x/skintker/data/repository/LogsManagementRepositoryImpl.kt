@@ -1,5 +1,6 @@
 package com.p4r4d0x.skintker.data.repository
 
+import android.util.Log
 import com.p4r4d0x.skintker.data.FirebaseLogsManagementDataSource
 import com.p4r4d0x.skintker.data.room.LogsDatabase
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
@@ -10,12 +11,13 @@ class LogsManagementRepositoryImpl(
 ) : LogsManagementRepository {
 
 
-    override suspend fun addDailyLog(log: DailyLogBO): Boolean {
-        firebaseDatabase.addLog(log)
+    override suspend fun addDailyLog(userId: String, log: DailyLogBO): Boolean {
+        firebaseDatabase.addLog(userId, log)
         return database.dailyLogDao().insertDailyLog(log)
     }
 
     override suspend fun addAllLogs(logs: List<DailyLogBO>): Boolean {
+        Log.d("ALRALR", "addAllLogs room")
         return database.dailyLogDao().insertAllDailyLogs(logs)
     }
 
@@ -24,6 +26,8 @@ class LogsManagementRepositoryImpl(
     }
 
     override suspend fun getAllLogs(): List<DailyLogBO> {
+        Log.d("ALRALR", "getAllLogs room")
+
         return database.dailyLogDao().getAll().map { dailyLogAndIrritation ->
             dailyLogAndIrritation.toDomain()
         }

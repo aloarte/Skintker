@@ -67,11 +67,18 @@ class SurveyViewModel(
         }
     }
 
-    fun computeResult(surveyQuestions: SurveyState.LogQuestions, resources: Resources) {
+    fun computeResult(
+        userId: String,
+        surveyQuestions: SurveyState.LogQuestions,
+        resources: Resources
+    ) {
         val answers = surveyQuestions.state.mapNotNull { it.answer }
         addLogUseCase.invoke(
             viewModelScope,
-            params = AddLogUseCase.Params(DataParser.createLogFromSurvey(answers, resources))
+            params = AddLogUseCase.Params(
+                userId,
+                DataParser.createLogFromSurvey(answers, resources)
+            )
         )
         _uiState.value = SurveyState.Result
     }

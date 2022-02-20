@@ -27,6 +27,10 @@ import java.util.*
 @Config(application = KoinTestApplication::class, sdk = [Build.VERSION_CODES.P])
 class AddLogUseCaseTest : KoinBaseTest(testRepositoriesModule) {
 
+    companion object {
+        const val USER_ID = "userId"
+    }
+
     @ExperimentalCoroutinesApi
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
@@ -44,19 +48,19 @@ class AddLogUseCaseTest : KoinBaseTest(testRepositoriesModule) {
     fun `test add new log`() {
         val date = Date()
         val logToInsert = DailyLogBO(date, IrritationBO(1, emptyList()), foodList = emptyList())
-        val params = AddLogUseCase.Params(logToInsert)
+        val params = AddLogUseCase.Params(USER_ID, logToInsert)
 
         coEvery {
             logsRepository.getLogByDate(date.time)
         } returns null
         coEvery {
-            logsRepository.addDailyLog(logToInsert)
+            logsRepository.addDailyLog(USER_ID, logToInsert)
         } returns true
 
         val logAdded = runBlocking { useCase.run(params) }
 
         coVerify { logsRepository.getLogByDate(date.time) }
-        coVerify { logsRepository.addDailyLog(logToInsert) }
+        coVerify { logsRepository.addDailyLog(USER_ID, logToInsert) }
         Assertions.assertTrue(logAdded)
     }
 
@@ -67,7 +71,7 @@ class AddLogUseCaseTest : KoinBaseTest(testRepositoriesModule) {
         val alreadyInsertedLog =
             DailyLogBO(date, IrritationBO(2, emptyList()), foodList = emptyList())
 
-        val params = AddLogUseCase.Params(logToInsert)
+        val params = AddLogUseCase.Params(USER_ID, logToInsert)
 
         coEvery {
             logsRepository.getLogByDate(date.time)

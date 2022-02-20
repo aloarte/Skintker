@@ -1,9 +1,11 @@
 package com.p4r4d0x.skintker.presenter.welcome.viewmodel
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.p4r4d0x.skintker.data.Constants
 import com.p4r4d0x.skintker.data.Event
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getCurrentFormattedDate
 import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
@@ -36,11 +38,19 @@ class WelcomeViewModel(private val getLogUseCase: GetLogUseCase) : ViewModel() {
         }
     }
 
-    fun checkUserLogin(mGoogleSignInClient: GoogleSignInAccount?) {
+    fun checkUserLogin(mGoogleSignInClient: GoogleSignInAccount?, prefs: SharedPreferences?) {
+        if (mGoogleSignInClient != null) {
+            val editor: SharedPreferences.Editor? = prefs?.edit()
+            editor?.let {
+                it.putString(Constants.PREFERENCES_USER_ID, mGoogleSignInClient.id)
+                editor.apply()
+            }
+        }
         _userAuthenticated.value = mGoogleSignInClient != null
     }
 
-    private fun checkLogReportedToday() {
+
+    fun checkLogReportedToday() {
         getLogUseCase.invoke(params = GetLogUseCase.Params(date = getCurrentFormattedDate())) { log ->
             _logReported.value = log != null
         }

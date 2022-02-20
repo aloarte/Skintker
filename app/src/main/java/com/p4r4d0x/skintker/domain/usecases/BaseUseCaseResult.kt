@@ -57,4 +57,22 @@ abstract class BaseUseCaseParamsResult<Params, Result> {
     }
 }
 
+abstract class BaseUseCaseParamsNoResult<Params> {
+    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
+    abstract suspend fun run(params: Params)
+
+    fun invoke(
+        scope: CoroutineScope = GlobalScope,
+        dispatcher: CoroutineDispatcher = Dispatchers.Default,
+        params: Params,
+        resultCallback: () -> Unit = {}
+    ) {
+        val job = scope.async(dispatcher) { run(params) }
+        scope.launch(Dispatchers.Main) {
+            job.await()
+            resultCallback()
+        }
+    }
+}
+
 

@@ -2,25 +2,23 @@ package com.p4r4d0x.skintker.presenter.settings.viewmodel
 
 import android.content.Context
 import android.content.res.Resources
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.p4r4d0x.skintker.domain.bo.ProfileBO
 import com.p4r4d0x.skintker.domain.usecases.ExportLogsDBUseCase
-import com.p4r4d0x.skintker.domain.usecases.ImportLogsDBUseCase
 
 class SettingsViewModel(
-    private val exportLogsUseCase: ExportLogsDBUseCase,
-    private val importLogsUseCase: ImportLogsDBUseCase
+    private val exportLogsUseCase: ExportLogsDBUseCase
 ) : ViewModel() {
-
 
     private val _exportStatus = MutableLiveData<Boolean>()
     val exportStatus: LiveData<Boolean> = _exportStatus
 
-    private val _importStatus = MutableLiveData<Boolean>()
-    val importStatus: LiveData<Boolean> = _importStatus
+    private val _profile = MutableLiveData<ProfileBO>()
+    val profile: LiveData<ProfileBO> = _profile
 
     fun launchExportUseCase(context: Context, resources: Resources) {
         exportLogsUseCase.invoke(
@@ -31,16 +29,9 @@ class SettingsViewModel(
         }
     }
 
-    fun launchImportUseCase(context: Context, resources: Resources, uri: Uri?) {
-        uri?.let {
-            importLogsUseCase.invoke(
-                scope = viewModelScope,
-                params = ImportLogsDBUseCase.Params(context, resources, uri)
-            ) {
-                _importStatus.value = it
-            }
-        } ?: run {
-            _importStatus.value = false
+    fun getLoggedUserInfo(lastSignedInAccount: GoogleSignInAccount?) {
+        lastSignedInAccount?.let {
+            _profile.value = ProfileBO(it.email ?: "", it.displayName ?: "", it.id ?: "")
         }
     }
 }

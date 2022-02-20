@@ -2,6 +2,7 @@ package com.p4r4d0x.skintker.di
 
 import android.app.Application
 import androidx.room.Room
+import com.p4r4d0x.skintker.data.FirebaseLogsManagementDataSource
 import com.p4r4d0x.skintker.data.repository.LogsManagementRepository
 import com.p4r4d0x.skintker.data.repository.LogsRepository
 import com.p4r4d0x.skintker.data.room.DailyLogDao
@@ -20,11 +21,12 @@ val testViewModelModule = module {
     viewModel { WelcomeViewModel(get()) }
     viewModel { SurveyViewModel(get(), get()) }
     viewModel { HomeViewModel(get(), get(), get()) }
-    viewModel { SettingsViewModel(get(), get()) }
+    viewModel { SettingsViewModel(get()) }
 }
 val testRepositoriesModule = module {
     factory { mockk<LogsRepository>() }
     factory { mockk<LogsManagementRepository>() }
+    factory { mockk<FirebaseLogsManagementDataSource>() }
 }
 
 val databasesModule = module {
@@ -48,5 +50,5 @@ val testUseCasesModule = module {
     factory { mockk<GetLogsUseCase>() }
     factory { mockk<GetQueriedLogsUseCase>() }
     factory { mockk<ExportLogsDBUseCase>() }
-    factory { mockk<ImportLogsDBUseCase>() }
+    factory { mockk<UpdateLogsUseCase>() }
 }

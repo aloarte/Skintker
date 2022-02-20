@@ -7,7 +7,7 @@ import com.p4r4d0x.skintker.di.*
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.usecases.GetLogsUseCase
 import com.p4r4d0x.skintker.domain.usecases.GetQueriedLogsUseCase
-import com.p4r4d0x.skintker.domain.usecases.UpdateDdbbUseCase
+import com.p4r4d0x.skintker.domain.usecases.UpdateLogsUseCase
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -37,20 +37,27 @@ class HomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesModul
 
     private val getLogsUseCase: GetLogsUseCase by inject()
     private val getQueriedLogsUseCase: GetQueriedLogsUseCase by inject()
-    private val updateDdbbUseCase: UpdateDdbbUseCase by inject()
+    private val updateLogsUseCase: UpdateLogsUseCase by inject()
 
 
     private lateinit var viewModelSUT: HomeViewModel
 
+    companion object {
+        const val USER_ID = "user_id"
+    }
+
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        viewModelSUT = HomeViewModel(getLogsUseCase, getQueriedLogsUseCase, updateDdbbUseCase)
+        viewModelSUT = HomeViewModel(getLogsUseCase, getQueriedLogsUseCase, updateLogsUseCase)
     }
 
     @Test
     fun `test home view model get logs`() = coroutinesTestRule.runBlockingTest {
         val logsResult = slot<(List<DailyLogBO>?) -> Unit>()
+        val firebaseResult = slot<() -> Unit>()
+        val firebaseResult1 = slot<() -> Unit>()
+
         val logs = listOf(DailyLogBO(date = Date(), foodList = emptyList()))
 
         every {
@@ -59,7 +66,18 @@ class HomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesModul
             logsResult.captured(logs)
         }
 
-        viewModelSUT.getLogs()
+        every {
+            updateLogsUseCase.invoke(
+                scope = any(),
+                params = UpdateLogsUseCase.Params(user = USER_ID, capture(firebaseResult)),
+                resultCallback = capture(firebaseResult1)
+            )
+        } answers {
+            firebaseResult.captured()
+            firebaseResult1.captured()
+        }
+
+        viewModelSUT.getLogs(USER_ID)
 
         val logsLoaded = viewModelSUT.logList.getOrAwaitValue()
         Assert.assertEquals(logs, logsLoaded)

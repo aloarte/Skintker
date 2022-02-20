@@ -457,8 +457,7 @@ fun setPreferenceValues(
 
 @Composable
 fun CSVButtons(
-    onExportPressed: () -> Unit,
-    onImportPressed: () -> Unit
+    onExportPressed: () -> Unit
 ) {
 
     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -471,13 +470,21 @@ fun CSVButtons(
         ) {
             Text(text = stringResource(id = R.string.btn_export_data))
         }
-        Description(R.string.settings_export_description)
+    }
+}
+
+@Composable
+fun ProfileSection(
+    onLogoutPressed: () -> Unit
+) {
+    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+//        Description(settingsViewModel.profile.value.name)
         Divider(Modifier.height(10.dp), color = Color.Transparent)
         Button(
             enabled = true,
             modifier = Modifier
                 .height(40.dp),
-            onClick = { onImportPressed() }
+            onClick = { onLogoutPressed() }
         ) {
             Text(text = stringResource(id = R.string.btn_import_data))
         }
