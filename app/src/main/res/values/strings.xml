@@ -8,7 +8,7 @@
     <string name="btn_previous">PREVIOUS</string>
     <string name="btn_done">DONE</string>
     <string name="btn_export_data">EXPORT LOGS DATA</string>
-    <string name="btn_import_data">IMPORT LOGS DATA</string>
+    <string name="btn_logout">LOGOUT</string>
     <string name="btn_save_logs">SAVE PREFERENCES</string>
 
     <!-- question 1 -->
@@ -151,6 +151,8 @@
     <string name="slide_point_2" translatable="false">Medium</string>
     <string name="slide_point_3" translatable="false">High</string>
 
+    <!-- login-->
+    <string name="login_description">In Skintker we use your account to save your reports in our remote database. this way you can be calm, your data won\'t be lost</string>
 
     <!-- survey-->
     <string name="question_count" translatable="false">\u00A0of %d</string>
@@ -177,7 +179,7 @@
     <!-- survey-->
     <string name="settings_parameters_description">The parameters that configure how the possible conclusions are extracted can be modified in order to adjust the system.</string>
     <string name="settings_export_description">You can export all of your loaded logs data into an external file.</string>
-    <string name="settings_import_description">Also any file can be imported to load data saved before.</string>
+    <string name="settings_profile_description">You are logged in with the data below. You can perform a logout anytime.</string>
     <string name="settings_parameters_description_levels">The Irritation Level is the main value to extract possible causes. Any log that had a level below the configured will be ignored. The Minimum Report Number restrict how many logs that exceed the Irritation Level are mandatory to extract information.</string>
     <string name="settings_parameters_description_thresholds">Change the threshold values to adjust the desired proportion of events to count one of them as a possible cause or not.</string>
     <string name="settings_parameters_description_stress">The Stress Level determines if any log with this value could be significant. The threshold adjust the decision process.</string>
@@ -196,6 +198,4 @@
     <string name="settings_toast_preferences_saved">Preferences saved</string>
     <string name="settings_toast_preferences_export_error">Logs couldn\'t be exported</string>
     <string name="settings_toast_preferences_logs_exported">Logs exported successfully from database</string>
-    <string name="settings_toast_preferences_import_error">Logs couldn\'t be imported</string>
-    <string name="settings_toast_preferences_logs_imported">Logs imported successfully from database</string>
 </resources>

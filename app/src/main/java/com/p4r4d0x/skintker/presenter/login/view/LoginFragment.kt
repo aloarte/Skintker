@@ -48,7 +48,6 @@ class LoginFragment : Fragment() {
             setContent {
                 SkintkerTheme {
                     LoginScreen(viewModel, requireContext())
-
                 }
             }
         }

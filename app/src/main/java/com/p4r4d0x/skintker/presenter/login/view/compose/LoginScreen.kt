@@ -14,10 +14,13 @@ import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -58,10 +61,50 @@ fun LoginScreenContent(
     context: Context
 ) {
 
+
+    Surface(
+        color = MaterialTheme.colors.primary,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_logo_background),
+                contentDescription = null,// decorative element
+                modifier = Modifier
+                    .size(400.dp)
+                    .shadow(
+                        elevation = 0.dp
+                    ),
+                tint = Color.Unspecified
+            )
+            Text(
+                stringResource(id = R.string.login_description),
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Normal,
+                style = MaterialTheme.typography.caption,
+                modifier = Modifier
+                    .padding(vertical = 0.dp, horizontal = 30.dp)
+            )
+
+            GoogleSignInRow(launcher = launcher, context = context)
+        }
+    }
+}
+
+@Composable
+fun GoogleSignInRow(
+    launcher: ManagedActivityResultLauncher<Intent, ActivityResult>,
+    context: Context
+) {
+
     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestIdToken(stringResource(R.string.default_web_client_id)).requestEmail().build()
     val googleSignInClient = GoogleSignIn.getClient(context, gso)
-//    val state = viewModel.loadingState.collectAsState()?.value ?: ""
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -80,12 +123,10 @@ fun LoginScreenContent(
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement =/* if (state.value == LOADING) Arrangement.Center else*/ Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-//                if (state.value == LOADING) {
-//                    CircularProgressIndicator()
-//                } else {
+
                 Icon(
                     tint = Color.Unspecified,
                     painter = painterResource(id = R.drawable.googleg_standard_color_18),
@@ -100,24 +141,7 @@ fun LoginScreenContent(
                     tint = Color.Transparent, imageVector = Icons.Default.MailOutline,
                     contentDescription = null
                 )
-//                }
             }
-//            when (state.value.status) {
-//                LoginLoadingState.LoginStatus.Success -> {
-//                    Text("Success")
-//                }
-//                LoginLoadingState.LoginStatus.Failed -> {
-//
-//                    Text(state.value.message ?: "Error")
-//
-//                }
-//                LoginLoadingState.LoginStatus.LoggedIn -> {
-//                    Text("Already logged In")
-//
-//                }
-//                else -> {
-//
-//                }
         }
     }
 }

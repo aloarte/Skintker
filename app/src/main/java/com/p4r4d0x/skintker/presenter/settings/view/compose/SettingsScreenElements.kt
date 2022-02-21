@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,6 +22,7 @@ import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.data.Constants
 import com.p4r4d0x.skintker.data.enums.SettingsStatus
 import com.p4r4d0x.skintker.presenter.common.compose.Description
+import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 
 
 @Composable
@@ -475,20 +477,46 @@ fun CSVButtons(
 
 @Composable
 fun ProfileSection(
+    settingsViewModel: SettingsViewModel,
     onLogoutPressed: () -> Unit
 ) {
-    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-//        Description(settingsViewModel.profile.value.name)
-        Divider(Modifier.height(10.dp), color = Color.Transparent)
-        Button(
-            enabled = true,
-            modifier = Modifier
-                .height(40.dp),
-            onClick = { onLogoutPressed() }
-        ) {
-            Text(text = stringResource(id = R.string.btn_import_data))
+    settingsViewModel.profile.observeAsState().value?.let { profile ->
+        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+
+            Description(R.string.settings_profile_description)
+            Row(
+                Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(0.5f),
+                    text = profile.email,
+                    style = MaterialTheme.typography.caption
+                )
+
+                Text(
+                    modifier = Modifier.fillMaxWidth(0.5f),
+                    text = profile.name,
+                    style = MaterialTheme.typography.caption
+                )
+
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Button(
+                enabled = true,
+                modifier = Modifier
+                    .height(40.dp),
+                onClick = { onLogoutPressed() }
+            ) {
+                Text(text = stringResource(id = R.string.btn_logout))
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+
         }
     }
+
 }
 
 @OptIn(ExperimentalPermissionsApi::class)

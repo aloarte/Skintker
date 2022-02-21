@@ -65,5 +65,12 @@
     <fragment
         android:id="@+id/settings_fragment"
         android:name="com.p4r4d0x.skintker.presenter.settings.view.SettingsFragment"
-        android:label="Settings" />
+        android:label="Settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_welcomeFragment"
+            app:destination="@id/welcome_fragment"
+            app:popUpTo="@+id/settings_fragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
 </navigation>

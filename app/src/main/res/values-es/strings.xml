@@ -8,7 +8,7 @@
     <string name="btn_previous">ANTERIOR</string>
     <string name="btn_done">HECHO</string>
     <string name="btn_export_data">EXPORTAR DATOS DE LOS LOGS</string>
-    <string name="btn_import_data">IMPORTAR DATOS DESDE UN FICHERO</string>
+    <string name="btn_logout">CERRAR SESIÓN</string>
     <string name="btn_save_logs">GUARDAR PREFERENCIAS</string>
 
     <!-- question 1 -->
@@ -133,11 +133,12 @@
     <string name="permissions_rationale">Esta pregunta necesita algunos permisos. Por favor, concedeselos a la aplicación.</string>
     <string name="request_permissions">OK!</string>
     <string name="do_not_ask_permissions">No 🙅</string>
-    <!-- Permissions-->
     <string name="file_rationale">Para poder utilizar esta funcionalidad es necesario que proporciones permisos.</string>
     <string name="file_rationale_title">Permisos de lectura/escrtura de ficheros</string>
     <string name="file_rationale_no_permissions">Estas características están deshabilitadas. Por favor, ve a ajustes del sistema y habilita los permisos para poder activarlas.</string>
 
+    <!-- login-->
+    <string name="login_description">En Skintker usamos tu cuenta para guardar tus reportes diarios en nuestra base de datos remota. De esta forma podrás tener la seguridad de que tus datos no se perderán.</string>
     <!-- Resume  -->
     <string name="resume_title">Causas posibles 📋</string>
     <string name="resume_description">Los datos que pueden estar relacionados como la causa del picor que se han extraído se basan  en aquellos logs que superan el umbral de intensidad configurado</string>
@@ -156,7 +157,7 @@
     <!-- survey-->
     <string name="settings_parameters_description">Se pueden ajustar los parámetros que configuran como se realiza el procesado de los datos con el objetivo de ajustar las posibles conclusiones extraidas.</string>
     <string name="settings_export_description">Puedes exportar todos los datos almacenados en un fichero externo.</string>
-    <string name="settings_import_description">También puedes importar los datos de un fichero existente previo.</string>
+    <string name="settings_profile_description">Estás logueado en el sistema con los datos que puedes ver a continuación. Puedes cerrar la sesión en cualquier momento.</string>
     <string name="settings_parameters_description_levels">El Nivel de Picor es el principal valor que se utiliza para extraer las posibles conclusiones. Todo reporte que tenga un valor inferior al configurado será ignorado. El Número Mínimo de Reportes restringe cuántos logs tienen que superar el Nivel de Picor para poder procesarlos y extraer información de ellos.</string>
     <string name="settings_parameters_description_thresholds">Modifica los valores de los umbrales para ajustar la proporción deseada de los eventos para contabilizarlos como una posible causa.</string>
     <string name="settings_parameters_description_stress">El Nivel de Estrés determina si un reporte con este valor puede ser influyente. Su umbral ajusta el proceso de decisión sobre este valor.</string>
@@ -175,6 +176,4 @@
     <string name="settings_toast_preferences_saved">Preferencias guardadas correctamente</string>
     <string name="settings_toast_preferences_export_error">No se ha podido exportar la base de datos de reportes</string>
     <string name="settings_toast_preferences_logs_exported">La base de datos de los reportes exportada correctamente</string>
-    <string name="settings_toast_preferences_import_error">No se ha podido importar la base de datos de reportes</string>
-    <string name="settings_toast_preferences_logs_imported">La base de datos de los reportes importada correctamente</string>
 </resources>

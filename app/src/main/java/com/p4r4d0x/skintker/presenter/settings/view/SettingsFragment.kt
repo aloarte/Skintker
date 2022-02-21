@@ -10,21 +10,28 @@ import android.widget.Toast
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.data.Constants.SKITNKER_PREFERENCES
 import com.p4r4d0x.skintker.data.enums.SettingsStatus
+import com.p4r4d0x.skintker.presenter.main.FragmentScreen
+import com.p4r4d0x.skintker.presenter.main.navigate
 import com.p4r4d0x.skintker.presenter.settings.view.compose.SettingScreen
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 import com.p4r4d0x.skintker.theme.SkintkerTheme
 import org.koin.android.ext.android.inject
 
+
 class SettingsFragment : Fragment() {
 
     private val viewModel: SettingsViewModel by inject()
 
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+
+
     private fun observeViewModel() {
         with(viewModel) {
-
             exportStatus.observe(viewLifecycleOwner) {
                 launchToast(
                     if (it) {
@@ -39,6 +46,12 @@ class SettingsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+
         observeViewModel()
         viewModel.getLoggedUserInfo(GoogleSignIn.getLastSignedInAccount(requireActivity()))
     }
@@ -59,6 +72,7 @@ class SettingsFragment : Fragment() {
             setContent {
                 SkintkerTheme {
                     SettingScreen(
+                        settingsViewModel = viewModel,
                         prefs = prefs,
                         onBackIconPressed = {
                             activity?.onBackPressed()
@@ -67,6 +81,10 @@ class SettingsFragment : Fragment() {
                             viewModel.launchExportUseCase(requireContext(), resources)
                         },
                         onLogoutPressed = {
+                            // Google sign out
+                            mGoogleSignInClient.signOut().addOnCompleteListener {
+                                navigate(FragmentScreen.Welcome, FragmentScreen.Settings)
+                            }
                         },
                         settingsCallback = {
                             launchToast(it)

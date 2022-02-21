@@ -24,7 +24,7 @@ val LightThemeColors = lightColors(
 
 val DarkThemeColors = darkColors(
     primary = SoftRedPrimary,
-    primaryVariant = SoftRedLight,
+    primaryVariant = SoftRedDark,
     onPrimary = Color.Black,
     secondary = Color.Black,
     onSecondary = Color.White,

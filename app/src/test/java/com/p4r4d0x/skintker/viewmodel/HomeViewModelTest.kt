@@ -55,9 +55,6 @@ class HomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesModul
     @Test
     fun `test home view model get logs`() = coroutinesTestRule.runBlockingTest {
         val logsResult = slot<(List<DailyLogBO>?) -> Unit>()
-        val firebaseResult = slot<() -> Unit>()
-        val firebaseResult1 = slot<() -> Unit>()
-
         val logs = listOf(DailyLogBO(date = Date(), foodList = emptyList()))
 
         every {
@@ -69,13 +66,10 @@ class HomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesModul
         every {
             updateLogsUseCase.invoke(
                 scope = any(),
-                params = UpdateLogsUseCase.Params(user = USER_ID, capture(firebaseResult)),
-                resultCallback = capture(firebaseResult1)
+                params = UpdateLogsUseCase.Params(user = USER_ID, any()),
+                resultCallback = any()
             )
-        } answers {
-            firebaseResult.captured()
-            firebaseResult1.captured()
-        }
+        } returns Unit
 
         viewModelSUT.getLogs(USER_ID)
 

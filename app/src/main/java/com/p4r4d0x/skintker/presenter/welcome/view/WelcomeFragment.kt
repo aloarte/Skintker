@@ -35,7 +35,6 @@ class WelcomeFragment : Fragment() {
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
-
     override fun onResume() {
         super.onResume()
         observeViewModel()
@@ -96,10 +95,7 @@ class WelcomeFragment : Fragment() {
                                 tint = Color.Unspecified
                             )
                         }
-
-
                     }
-
                 }
             }
         }

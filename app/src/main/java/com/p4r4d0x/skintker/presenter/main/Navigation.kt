@@ -37,6 +37,12 @@ fun Fragment.navigate(to: FragmentScreen, from: FragmentScreen) {
                 else -> {}
             }
         }
+        FragmentScreen.Settings -> {
+            when (to) {
+                FragmentScreen.Welcome -> navController.navigate(R.id.action_settingsFragment_to_welcomeFragment)
+                else -> {}
+            }
+        }
         else -> {}
     }
 }

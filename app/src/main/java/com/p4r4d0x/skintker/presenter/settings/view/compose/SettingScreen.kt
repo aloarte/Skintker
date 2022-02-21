@@ -22,10 +22,12 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.data.enums.SettingsStatus
 import com.p4r4d0x.skintker.presenter.common.compose.SkintkerDivider
+import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 
 
 @Composable
 fun SettingScreen(
+    settingsViewModel: SettingsViewModel,
     prefs: SharedPreferences?,
     onBackIconPressed: () -> Unit,
     onExportPressed: () -> Unit,
@@ -37,7 +39,13 @@ fun SettingScreen(
             SettingsTopBar(onBackIconPressed)
         }
     ) {
-        SettingScreenContent(prefs, onExportPressed, onLogoutPressed, settingsCallback)
+        SettingScreenContent(
+            settingsViewModel,
+            prefs,
+            onExportPressed,
+            onLogoutPressed,
+            settingsCallback
+        )
     }
 }
 
@@ -85,18 +93,18 @@ fun SettingsTopBar(
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun SettingScreenContent(
+    settingsViewModel: SettingsViewModel,
     prefs: SharedPreferences?,
     onExportPressed: () -> Unit,
     onLogoutPressed: () -> Unit,
     settingsCallback: (SettingsStatus) -> Unit
 ) {
-
     LazyColumn {
         item {
             Column(Modifier.fillMaxSize()) {
                 ParametersConfiguration(prefs, settingsCallback)
                 SkintkerDivider()
-                ProfileSection(onLogoutPressed)
+                ProfileSection(settingsViewModel, onLogoutPressed)
                 SkintkerDivider()
 
                 val multiplePermissionsState =
@@ -113,7 +121,6 @@ fun SettingScreenContent(
                     }
                     multiplePermissionsState.shouldShowRationale -> {
                         PermissionsRationale(multiplePermissionsState = multiplePermissionsState) {
-
                         }
                     }
                     // If the criteria above hasn't been met, the user denied some permission, but show the question
