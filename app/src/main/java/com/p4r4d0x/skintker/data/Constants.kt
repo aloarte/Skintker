@@ -11,6 +11,7 @@ object Constants {
     const val SEVENTH_QUESTION_NUMBER = 7
     const val EIGHTH_QUESTION_NUMBER = 8
     const val NINTH_QUESTION_NUMBER = 9
+    const val MAX_QUESTION_NUMBER = 9
 
     //Preferences
     const val SKITNKER_PREFERENCES = "preferences_skintker"

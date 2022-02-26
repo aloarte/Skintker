@@ -6,6 +6,7 @@ import com.google.firebase.Timestamp
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.data.Constants
 import com.p4r4d0x.skintker.data.Constants.FIFTH_QUESTION_NUMBER
+import com.p4r4d0x.skintker.data.Constants.MAX_QUESTION_NUMBER
 import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
@@ -19,6 +20,7 @@ import java.util.*
 object DataParser {
 
     fun createLogFromSurvey(answers: List<Answer<*>>, resources: Resources): DailyLogBO {
+        val dontHaveBeerQuestion = answers.size < MAX_QUESTION_NUMBER
         var questionCnt = 1
         var weatherHumidity = 0.0f
         var weatherTemperature = 0.0f
@@ -78,7 +80,7 @@ object DataParser {
                 is Answer.SingleTextInput -> TODO()
 
             }
-            questionCnt++
+            questionCnt += if (dontHaveBeerQuestion && questionCnt == Constants.FOURTH_QUESTION_NUMBER) 2 else 1
         }
 
         return DailyLogBO(

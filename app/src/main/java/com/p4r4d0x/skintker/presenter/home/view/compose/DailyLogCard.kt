@@ -48,7 +48,7 @@ fun DailyLogCard(
         shape = RoundedCornerShape(15.dp),
         elevation = 4.dp,
         border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.primary)
-        ) {
+    ) {
         Column(
             Modifier
                 .fillMaxWidth()
@@ -223,6 +223,7 @@ private fun FoodScheduleList(list: List<String>) {
             .fillMaxWidth()
     ) {
         Text(
+            modifier = Modifier.padding(horizontal = 5.dp),
             fontWeight = FontWeight.Bold,
             text = stringResource(id = R.string.card_dietary_label),
             fontSize = 10.sp,
@@ -244,14 +245,16 @@ fun FoodGrid(foodList: List<String>) {
     val secondColumn = foodList.subList(halfList, foodList.size)
 
     Row(Modifier.fillMaxWidth()) {
+        Divider(Modifier.width(5.dp))
         Column(Modifier.fillMaxWidth(0.5F)) {
             firstColumn.forEach { item ->
-                Text(text = item, fontSize = 10.sp)
+                Text(modifier = Modifier.fillMaxWidth(), text = item, fontSize = 10.sp)
             }
         }
-        Column(Modifier.fillMaxWidth(0.5F)) {
+        Divider(Modifier.width(5.dp))
+        Column(Modifier.fillMaxWidth(1F)) {
             secondColumn.forEach { item ->
-                Text(text = item, fontSize = 10.sp)
+                Text(modifier = Modifier.fillMaxWidth(), text = item, fontSize = 10.sp)
             }
         }
     }
