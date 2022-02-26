@@ -2,6 +2,18 @@ package com.p4r4d0x.skintker.domain.parsers
 
 import android.content.res.Resources
 import com.p4r4d0x.skintker.R
+import com.p4r4d0x.skintker.data.Constants.LABEL_ALCOHOL
+import com.p4r4d0x.skintker.data.Constants.LABEL_BEERS
+import com.p4r4d0x.skintker.data.Constants.LABEL_CITY
+import com.p4r4d0x.skintker.data.Constants.LABEL_DATE
+import com.p4r4d0x.skintker.data.Constants.LABEL_FOODS
+import com.p4r4d0x.skintker.data.Constants.LABEL_ID
+import com.p4r4d0x.skintker.data.Constants.LABEL_IRRITATED_ZONES
+import com.p4r4d0x.skintker.data.Constants.LABEL_IRRITATION
+import com.p4r4d0x.skintker.data.Constants.LABEL_STRESS
+import com.p4r4d0x.skintker.data.Constants.LABEL_TRAVELED
+import com.p4r4d0x.skintker.data.Constants.LABEL_WEATHER_HUMIDITY
+import com.p4r4d0x.skintker.data.Constants.LABEL_WEATHER_TEMPERATURE
 import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
@@ -107,18 +119,18 @@ object CSVParser {
         val beerTypesHeaderList = referenceBeerTypesList.toList().map { it.first }
 
         val headerList = mutableListOf(
-            "Id",
-            "Date",
-            "FoodList",
-            "Irritation",
-            "IrritationZones",
-            "Alcohol",
-            "Beer Type",
-            "Stress",
-            "Humidity",
-            "Temperature",
-            "City",
-            "Traveled"
+            LABEL_ID,
+            LABEL_DATE,
+            LABEL_FOODS,
+            LABEL_IRRITATION,
+            LABEL_IRRITATED_ZONES,
+            LABEL_ALCOHOL,
+            LABEL_BEERS,
+            LABEL_STRESS,
+            LABEL_WEATHER_HUMIDITY,
+            LABEL_WEATHER_TEMPERATURE,
+            LABEL_CITY,
+            LABEL_TRAVELED
         )
         headerList.addAll(zonesHeaderList)
         headerList.addAll(foodHeaderList)

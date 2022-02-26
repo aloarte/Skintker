@@ -3,6 +3,19 @@ package com.p4r4d0x.skintker.data
 import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.p4r4d0x.skintker.data.Constants.LABEL_ALCOHOL
+import com.p4r4d0x.skintker.data.Constants.LABEL_BEERS
+import com.p4r4d0x.skintker.data.Constants.LABEL_CITY
+import com.p4r4d0x.skintker.data.Constants.LABEL_DATABASE_NAME
+import com.p4r4d0x.skintker.data.Constants.LABEL_DATE
+import com.p4r4d0x.skintker.data.Constants.LABEL_FOODS
+import com.p4r4d0x.skintker.data.Constants.LABEL_IRRITATED_ZONES
+import com.p4r4d0x.skintker.data.Constants.LABEL_IRRITATION
+import com.p4r4d0x.skintker.data.Constants.LABEL_STRESS
+import com.p4r4d0x.skintker.data.Constants.LABEL_TRAVELED
+import com.p4r4d0x.skintker.data.Constants.LABEL_WEATHER_HUMIDITY
+import com.p4r4d0x.skintker.data.Constants.LABEL_WEATHER_TEMPERATURE
+import com.p4r4d0x.skintker.data.Constants.TAG_FIREBASE
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.parsers.DataParser.parseDocumentData
 
@@ -12,33 +25,34 @@ class FirebaseLogsManagementDataSource {
 
     fun addLog(userId: String, log: DailyLogBO) {
         val logMap = hashMapOf(
-            "date" to log.date,
-            "irritation" to log.irritation?.overallValue,
-            "irritatedZones" to log.irritation?.zoneValues?.joinToString(separator = ","),
-            "foods" to log.foodList.joinToString(separator = ","),
-            "beers" to log.additionalData?.beerTypes?.joinToString(separator = ","),
-            "alcohol" to log.additionalData?.alcoholLevel?.name,
-            "stress" to log.additionalData?.stressLevel,
-            "city" to log.additionalData?.travel?.city,
-            "traveled" to log.additionalData?.travel?.traveled,
-            "weatherTemperature" to log.additionalData?.weather?.temperature,
-            "humidityTemperature" to log.additionalData?.weather?.humidity
+            LABEL_DATE to log.date,
+            LABEL_IRRITATION to log.irritation?.overallValue,
+            LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            LABEL_FOODS to log.foodList.joinToString(separator = ","),
+            LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            LABEL_ALCOHOL to log.additionalData?.alcoholLevel?.name,
+            LABEL_STRESS to log.additionalData?.stressLevel,
+            LABEL_CITY to log.additionalData?.travel?.city,
+            LABEL_TRAVELED to log.additionalData?.travel?.traveled,
+            LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature,
+            LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity
         )
         val firebaseLog = hashMapOf(userId to logMap)
-
-
-        firebaseDb.collection("DailyLogs").add(firebaseLog)
+        firebaseDb.collection(LABEL_DATABASE_NAME).add(firebaseLog)
             .addOnSuccessListener { documentReference ->
-                Log.d("ALRALR", "14 DocumentSnapshot added with ID: ${documentReference.id}")
+                Log.d(TAG_FIREBASE, "Logs added to FB: ${documentReference.id}")
             }
-            .addOnFailureListener { e ->
-                Log.w("ALRALR", "14 Error adding document", e)
+            .addOnFailureListener { exception ->
+                Log.e(
+                    TAG_FIREBASE,
+                    "Exception occurred while adding logs in FB: ${exception.message}"
+                )
             }
     }
 
     fun getLogs(userId: String, onLogsObtained: (List<DailyLogBO>) -> Unit) {
 
-        firebaseDb.collection("DailyLogs")
+        firebaseDb.collection(LABEL_DATABASE_NAME)
             .get()
             .addOnSuccessListener { result ->
                 val firebaseLogsList = mutableListOf<DailyLogBO>()
@@ -52,9 +66,11 @@ class FirebaseLogsManagementDataSource {
                 onLogsObtained.invoke(firebaseLogsList)
             }
             .addOnFailureListener { exception ->
-                Log.w("24ALRALR", "Error getting documents.", exception)
+                Log.e(
+                    TAG_FIREBASE,
+                    "Exception occurred while retrieving logs from FB: ${exception.message}"
+                )
+                onLogsObtained.invoke(emptyList())
             }
     }
-
-
 }

@@ -1,5 +1,17 @@
 package com.p4r4d0x.skintker.domain
 
+import com.p4r4d0x.skintker.data.Constants.LABEL_ALCOHOL
+import com.p4r4d0x.skintker.data.Constants.LABEL_BEERS
+import com.p4r4d0x.skintker.data.Constants.LABEL_CITY
+import com.p4r4d0x.skintker.data.Constants.LABEL_DATE
+import com.p4r4d0x.skintker.data.Constants.LABEL_FOODS
+import com.p4r4d0x.skintker.data.Constants.LABEL_ID
+import com.p4r4d0x.skintker.data.Constants.LABEL_IRRITATED_ZONES
+import com.p4r4d0x.skintker.data.Constants.LABEL_IRRITATION
+import com.p4r4d0x.skintker.data.Constants.LABEL_STRESS
+import com.p4r4d0x.skintker.data.Constants.LABEL_TRAVELED
+import com.p4r4d0x.skintker.data.Constants.LABEL_WEATHER_HUMIDITY
+import com.p4r4d0x.skintker.data.Constants.LABEL_WEATHER_TEMPERATURE
 import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
@@ -37,18 +49,18 @@ class CSVParserTest {
         val headerList = getHeaderCSVRow(referenceZonesList, referenceFoodList, referenceBeerList)
 
         val expectedList = listOf(
-            "Id",
-            "Date",
-            "FoodList",
-            "Irritation",
-            "IrritationZones",
-            "Alcohol",
-            "Beer Type",
-            "Stress",
-            "Humidity",
-            "Temperature",
-            "City",
-            "Traveled",
+            LABEL_ID,
+            LABEL_DATE,
+            LABEL_FOODS,
+            LABEL_IRRITATION,
+            LABEL_IRRITATED_ZONES,
+            LABEL_ALCOHOL,
+            LABEL_BEERS,
+            LABEL_STRESS,
+            LABEL_WEATHER_HUMIDITY,
+            LABEL_WEATHER_TEMPERATURE,
+            LABEL_CITY,
+            LABEL_TRAVELED,
             ZONE_1, ZONE_2,
             FOOD_1, FOOD_2, FOOD_3,
             BEER_TYPE_1, BEER_TYPE_2

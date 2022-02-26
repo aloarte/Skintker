@@ -6,6 +6,17 @@ import com.google.firebase.Timestamp
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.data.Constants
 import com.p4r4d0x.skintker.data.Constants.FIFTH_QUESTION_NUMBER
+import com.p4r4d0x.skintker.data.Constants.LABEL_ALCOHOL
+import com.p4r4d0x.skintker.data.Constants.LABEL_BEERS
+import com.p4r4d0x.skintker.data.Constants.LABEL_CITY
+import com.p4r4d0x.skintker.data.Constants.LABEL_DATE
+import com.p4r4d0x.skintker.data.Constants.LABEL_FOODS
+import com.p4r4d0x.skintker.data.Constants.LABEL_IRRITATED_ZONES
+import com.p4r4d0x.skintker.data.Constants.LABEL_IRRITATION
+import com.p4r4d0x.skintker.data.Constants.LABEL_STRESS
+import com.p4r4d0x.skintker.data.Constants.LABEL_TRAVELED
+import com.p4r4d0x.skintker.data.Constants.LABEL_WEATHER_HUMIDITY
+import com.p4r4d0x.skintker.data.Constants.LABEL_WEATHER_TEMPERATURE
 import com.p4r4d0x.skintker.data.Constants.MAX_QUESTION_NUMBER
 import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
@@ -148,32 +159,33 @@ object DataParser {
 
     fun parseDocumentData(userId: String, data: MutableMap<String, Any>): DailyLogBO? {
         val userData = data[userId] as? MutableMap<*, *>
-
         return try {
             userData?.let {
                 DailyLogBO(
-                    date = (userData["date"] as? Timestamp)?.toDate() ?: Date(),
+                    date = (userData[LABEL_DATE] as? Timestamp)?.toDate() ?: Date(),
                     irritation = IrritationBO(
-                        overallValue = (userData["irritation"] as Long).toInt(),
+                        overallValue = (userData[LABEL_IRRITATION] as Long).toInt(),
                         zoneValues = listOf(
-                            * (userData["irritatedZones"] as String).split(",").toTypedArray()
+                            * (userData[LABEL_IRRITATED_ZONES] as String).split(",").toTypedArray()
                         )
                     ),
-                    foodList = listOf(* (userData["foods"] as String).split(",").toTypedArray()),
+                    foodList = listOf(
+                        * (userData[LABEL_FOODS] as String).split(",").toTypedArray()
+                    ),
                     additionalData = AdditionalDataBO(
-                        stressLevel = (userData["stress"] as Long).toInt(),
+                        stressLevel = (userData[LABEL_STRESS] as Long).toInt(),
                         weather = AdditionalDataBO.WeatherBO(
-                            humidity = (userData["weatherTemperature"] as Long).toInt(),
-                            temperature = (userData["humidityTemperature"] as Long).toInt()
+                            humidity = (userData[LABEL_WEATHER_HUMIDITY] as Long).toInt(),
+                            temperature = (userData[LABEL_WEATHER_TEMPERATURE] as Long).toInt()
                         ),
                         travel = AdditionalDataBO.TravelBO(
-                            traveled = userData["traveled"] as Boolean,
-                            city = userData["city"] as String
+                            traveled = userData[LABEL_TRAVELED] as Boolean,
+                            city = userData[LABEL_CITY] as String
                         ),
-                        alcoholLevel = AlcoholLevel.valueOf(userData["alcohol"] as String),
+                        alcoholLevel = AlcoholLevel.valueOf(userData[LABEL_ALCOHOL] as String),
                         beerTypes = listOf(
-                            * (userData["beers"] as String).split(",").toTypedArray()
-                        ),
+                            * (userData[LABEL_BEERS] as String).split(",").toTypedArray()
+                        )
                     )
                 )
             } ?: run {
@@ -182,22 +194,6 @@ object DataParser {
         } catch (e: Exception) {
             null
         }
-//        val firebaseLog = hashMapOf(
-//            "date" to log.date,
-//            "irritation" to log.irritation?.overallValue,
-//            "irritatedZones" to log.irritation?.zoneValues?.joinToString(separator = ","),
-//            "foods" to log.foodList.joinToString(separator = ","),
-//            "beers" to log.additionalData?.beerTypes?.joinToString(separator = ","),
-//            "alcohol" to log.additionalData?.alcoholLevel?.name,
-//            "stress" to log.additionalData?.stressLevel,
-//            "city" to log.additionalData?.travel?.city,
-//            "traveled" to log.additionalData?.travel?.traveled,
-//            "weatherTemperature" to log.additionalData?.weather?.temperature,
-//            "humidityTemperature" to log.additionalData?.weather?.humidity
-//        )
-
-
     }
-
 
 }

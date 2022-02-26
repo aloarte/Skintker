@@ -1,6 +1,9 @@
 package com.p4r4d0x.skintker.data
 
 object Constants {
+    //Logs constants
+    const val TAG_FIREBASE = "FirebaseSkintker"
+
     //Question constants
     const val FIRST_QUESTION_NUMBER = 1
     const val SECOND_QUESTION_NUMBER = 2
@@ -45,4 +48,20 @@ object Constants {
     //Regex
     const val CHARACTER_FILTER_REGEX = "[^\\p{L}\\p{Z}]"
     const val REGEX_UNACCENTED = "\\p{InCombiningDiacriticalMarks}+"
+
+    //Labels
+    const val LABEL_ID = "id"
+    const val LABEL_DATE = "date"
+    const val LABEL_IRRITATION = "irritation"
+    const val LABEL_IRRITATED_ZONES = "irritatedZones"
+    const val LABEL_FOODS = "foods"
+    const val LABEL_BEERS = "beers"
+    const val LABEL_ALCOHOL = "alcohol"
+    const val LABEL_STRESS = "stress"
+    const val LABEL_CITY = "city"
+    const val LABEL_TRAVELED = "traveled"
+    const val LABEL_WEATHER_TEMPERATURE = "weatherTemperature"
+    const val LABEL_WEATHER_HUMIDITY = "humidityTemperature"
+    const val LABEL_DATABASE_NAME = "DailyLogs"
+
 }
