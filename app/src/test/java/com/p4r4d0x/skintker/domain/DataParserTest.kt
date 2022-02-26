@@ -14,10 +14,10 @@ import com.p4r4d0x.skintker.domain.parsers.DataParser.getAlcoholLevel
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getHumidityString
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getTemperatureString
 import io.mockk.every
+import io.mockk.mockk
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.BeforeEach
-import org.mockito.Mock
 
 class DataParserTest {
     companion object {
@@ -29,6 +29,7 @@ class DataParserTest {
         private const val FIFTH_QUESTION_ANSWER_SLIDER_1 = 3f
         private const val FIFTH_QUESTION_ANSWER_SLIDER_2 = 7f
         private const val SIXTH_QUESTION_ANSWER_INPUT = "AnswerInput"
+        private const val SIXTH_QUESTION_ANSWER_INPUT_LOWER_CASE = "answerinput"
         private const val SIXTH_QUESTION_ANSWER_SINGLE = R.string.single_answer_2
         private const val SINGLE_ANSWER_1_VALUE = "No alcohol"
         private const val SINGLE_ANSWER_2_VALUE = "Single answer 2"
@@ -40,12 +41,11 @@ class DataParserTest {
         private const val TRAVEL_QUESTION_ANSWER = "Yes, I traveled"
     }
 
-    @Mock
     lateinit var resources: Resources
 
-    @BeforeEach
+    @Before
     fun setup() {
-
+        resources = mockk()
     }
 
     @Test
@@ -91,7 +91,6 @@ class DataParserTest {
 
     @Test
     fun `create log from survey `() {
-
         val answerList = mutableListOf<Answer<*>>()
         answerList.add(Answer.Slider(FIRST_QUESTION_ANSWER_SLIDER))
         answerList.add(Answer.MultipleChoice(SECOND_QUESTION_ANSWER_MULTIPLE))
@@ -136,7 +135,7 @@ class DataParserTest {
                 ),
                 travel = AdditionalDataBO.TravelBO(
                     traveled = false,
-                    city = SIXTH_QUESTION_ANSWER_INPUT
+                    city = SIXTH_QUESTION_ANSWER_INPUT_LOWER_CASE
                 ),
                 alcoholLevel = AlcoholLevel.None
             ),
