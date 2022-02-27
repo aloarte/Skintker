@@ -64,4 +64,6 @@ object Constants {
     const val LABEL_WEATHER_HUMIDITY = "humidityTemperature"
     const val LABEL_DATABASE_NAME = "DailyLogs"
 
+    const val YEAR_DAYS = 365L
+
 }

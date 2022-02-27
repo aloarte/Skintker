@@ -159,5 +159,4 @@ fun CalendarAnimation() {
         LottieAnimation(composition, restartOnPlay = true, iterations = 20)
 
     }
-
 }

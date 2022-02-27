@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
-//    id 'androidx.navigation.safeargs.kotlin'
+    id 'androidx.navigation.safeargs'
 }
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -88,8 +88,11 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
     implementation "androidx.core:core-ktx:$coreKtx"
     implementation "androidx.appcompat:appcompat:1.4.1"
-    implementation "androidx.navigation:navigation-fragment-ktx:2.4.0"
-    implementation "androidx.navigation:navigation-ui-ktx:2.4.0"
+//    implementation "androidx.navigation:navigation-fragment-ktx:2.4.0"
+//    implementation "androidx.navigation:navigation-ui-ktx:2.4.0"
+
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     //Compose
     implementation "androidx.activity:activity-compose:$activityCompose"
     implementation "androidx.compose.material:material:$compose"

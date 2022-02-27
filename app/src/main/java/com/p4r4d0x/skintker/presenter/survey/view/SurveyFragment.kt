@@ -6,16 +6,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.data.Constants
+import com.p4r4d0x.skintker.data.Constants.YEAR_DAYS
 import com.p4r4d0x.skintker.domain.getDateWithoutTime
 import com.p4r4d0x.skintker.domain.log.SurveyActionType
 import com.p4r4d0x.skintker.domain.log.SurveyState
+import com.p4r4d0x.skintker.domain.parsers.DataParser.stringToDateFromPicker
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.main.MainActivity
 import com.p4r4d0x.skintker.presenter.main.navigate
@@ -24,6 +28,7 @@ import com.p4r4d0x.skintker.presenter.survey.view.compose.PickDateScreen
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
 import com.p4r4d0x.skintker.theme.SkintkerTheme
 import org.koin.android.ext.android.inject
+import java.time.LocalDate
 import java.util.*
 
 @ExperimentalPermissionsApi
@@ -31,11 +36,16 @@ class SurveyFragment : Fragment() {
 
     private val viewModel: SurveyViewModel by inject()
 
-//    private val args: SurveyFragmentArgs by navArgs()
+    private val args: SurveyFragmentArgs by navArgs()
 
     override fun onStart() {
         super.onStart()
-        viewModel.loadDate(true/*args.pickDate*/)
+        viewModel.loadDate(args.pickDate)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        observeViewModel()
     }
 
     override fun onCreateView(
@@ -103,6 +113,16 @@ class SurveyFragment : Fragment() {
         }
     }
 
+    private fun observeViewModel() {
+        viewModel.logReported.observe(viewLifecycleOwner) { logAlreadyReported ->
+            if (logAlreadyReported) {
+                activity?.onBackPressedDispatcher?.onBackPressed()
+            } else {
+                navigate(FragmentScreen.Home, FragmentScreen.Survey)
+            }
+        }
+    }
+
     private fun handleActionAction(actionType: SurveyActionType) {
         when (actionType) {
             SurveyActionType.PICK_DATE -> {
@@ -123,25 +143,29 @@ class SurveyFragment : Fragment() {
         activity?.let {
             picker.show(it.supportFragmentManager, picker.toString())
             picker.addOnPositiveButtonClickListener { timePicked ->
-                viewModel.loadQuestions(Date(timePicked).getDateWithoutTime())
+                when {
+                    Date(timePicked) > Date() -> {
+                        Toast.makeText(
+                            activity,
+                            resources.getString(R.string.pick_date_error_future),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    Date(timePicked) < stringToDateFromPicker(
+                        LocalDate.now().minusDays(YEAR_DAYS).toString()
+                    ) -> {
+                        Toast.makeText(
+                            activity,
+                            resources.getString(R.string.pick_date_error_past),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    else -> {
+                        viewModel.loadQuestions(Date(timePicked).getDateWithoutTime())
+
+                    }
+                }
             }
         }
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        observeViewModel()
-    }
-
-    private fun observeViewModel() {
-        viewModel.logReported.observe(viewLifecycleOwner) { logAlreadyReported ->
-            if (logAlreadyReported) {
-                activity?.onBackPressedDispatcher?.onBackPressed()
-            } else {
-                navigate(FragmentScreen.Home, FragmentScreen.Survey)
-            }
-        }
-
     }
 }

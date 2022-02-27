@@ -16,6 +16,8 @@
     <string name="pick_date">Pick date</string>
     <string name="pick_date_title">Pick a date for the daily log</string>
     <string name="pick_date_description">You can update today\'s log or add a new one from a past date.</string>
+    <string name="pick_date_error_future">You must select a date in the past!</string>
+    <string name="pick_date_error_past">This date is too old! Please, select a date within the past year.</string>
 
     <!-- question 1 -->
     <string name="question_1_title">Select overall discomfort level</string>

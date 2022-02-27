@@ -133,6 +133,14 @@ object DataParser {
         return sdf.parse(aDate, pos) ?: Date(aDate)
     }
 
+    @SuppressLint("SimpleDateFormat")
+    fun stringToDateFromPicker(aDate: String): Date {
+        val pos = ParsePosition(0)
+        val sdf = SimpleDateFormat("yyyy-mm-dd")
+        return sdf.parse(aDate, pos) ?: Date(aDate)
+    }
+
+
     fun getHumidityString(value: Int) =
         when (value) {
             0, 1 -> R.string.humidity_1
