@@ -29,7 +29,7 @@ import com.p4r4d0x.skintker.theme.progressIndicatorBackground
 @Composable
 fun LogQuestionScreen(
     viewModel: SurveyViewModel,
-    logQuestions: SurveyState.LogQuestions,
+    questions: SurveyState.Questions,
     shouldAskPermissions: Boolean,
     onDoNotAskForPermissions: () -> Unit,
     onDonePressed: () -> Unit,
@@ -38,8 +38,8 @@ fun LogQuestionScreen(
 
     ) {
 
-    val questionState = remember(logQuestions.currentIndex) {
-        logQuestions.state[logQuestions.currentIndex]
+    val questionState = remember(questions.currentIndex) {
+        questions.state[questions.currentIndex]
     }
 
     Surface {
@@ -75,21 +75,21 @@ fun LogQuestionScreen(
                 SurveyBottomBar(
                     state = questionState,
                     onPreviousPressed = {
-                        if (logQuestions.skipBeerQuestion) {
-                            logQuestions.currentIndex -= 2
+                        if (questions.skipBeerQuestion) {
+                            questions.currentIndex -= 2
                         } else {
-                            logQuestions.currentIndex--
+                            questions.currentIndex--
                         }
                     },
                     onNextPressed = {
-                        logQuestions.skipBeerQuestion =
+                        questions.skipBeerQuestion =
                             questionState.question.id == 4 && ((questionState.answer as? Answer.SingleChoice)?.let {
                                 it.answer != R.string.question_4_answer_2
                             } ?: false)
-                        if (logQuestions.skipBeerQuestion) {
-                            logQuestions.currentIndex += 2
+                        if (questions.skipBeerQuestion) {
+                            questions.currentIndex += 2
                         } else {
-                            logQuestions.currentIndex++
+                            questions.currentIndex++
                         }
                     },
                     onDonePressed = onDonePressed

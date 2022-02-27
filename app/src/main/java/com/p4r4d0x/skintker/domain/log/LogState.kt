@@ -4,6 +4,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import java.util.*
 
 @Stable
 data class LogState(
@@ -18,12 +19,18 @@ data class LogState(
 }
 
 sealed class SurveyState {
-    data class LogQuestions(
-        val state: List<LogState>
+    //Initial state. Prompt the user a date selector or use the current date.
+    object PickDate : SurveyState()
+
+    //State of the survey. Display the complete survey.
+    data class Questions(
+        val state: List<LogState>,
+        val date: Date
     ) : SurveyState() {
         var currentIndex by mutableStateOf(0)
         var skipBeerQuestion by mutableStateOf(false)
     }
 
+    //Final state. Process the survey.
     object Result : SurveyState()
 }

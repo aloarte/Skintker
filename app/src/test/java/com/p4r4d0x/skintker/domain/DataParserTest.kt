@@ -173,7 +173,11 @@ class DataParserTest {
     fun `create log from survey with beer question`() {
         val answerList = getAnswerList(expandBeerQuestion = true)
 
-        val surveyLog = createLogFromSurvey(answers = answerList, resources = resources)
+        val surveyLog = createLogFromSurvey(
+            date = DataParser.getCurrentFormattedDate(),
+            answers = answerList,
+            resources = resources
+        )
 
         val expectedLog = getDailyLog(expandBeerQuestion = true)
         Assert.assertEquals(expectedLog, surveyLog)
@@ -183,7 +187,11 @@ class DataParserTest {
     fun `create log from survey without beer question`() {
         val answerList = getAnswerList(expandBeerQuestion = false)
 
-        val surveyLog = createLogFromSurvey(answers = answerList, resources = resources)
+        val surveyLog = createLogFromSurvey(
+            DataParser.getCurrentFormattedDate(),
+            answers = answerList,
+            resources = resources
+        )
 
         val expectedLog = getDailyLog(expandBeerQuestion = false)
         Assert.assertEquals(expectedLog, surveyLog)

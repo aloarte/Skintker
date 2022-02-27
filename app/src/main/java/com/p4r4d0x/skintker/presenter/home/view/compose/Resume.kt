@@ -311,7 +311,7 @@ fun TumbleweedRolling() {
             .fillMaxWidth()
             .padding(horizontal = 30.dp, vertical = 10.dp)
     ) {
-        LottieAnimation(composition)
+        LottieAnimation(composition, restartOnPlay = true)
 
     }
 

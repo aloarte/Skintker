@@ -30,7 +30,11 @@ import java.util.*
 
 object DataParser {
 
-    fun createLogFromSurvey(answers: List<Answer<*>>, resources: Resources): DailyLogBO {
+    fun createLogFromSurvey(
+        date: Date,
+        answers: List<Answer<*>>,
+        resources: Resources
+    ): DailyLogBO {
         val dontHaveBeerQuestion = answers.size < MAX_QUESTION_NUMBER
         var questionCnt = 1
         var weatherHumidity = 0.0f
@@ -95,7 +99,7 @@ object DataParser {
         }
 
         return DailyLogBO(
-            date = getCurrentFormattedDate(),
+            date = date,
             irritation = IrritationBO(
                 overallValue = irritation.toInt(),
                 zoneValues = irritationZones

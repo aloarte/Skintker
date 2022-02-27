@@ -11,6 +11,12 @@
     <string name="btn_logout">LOGOUT</string>
     <string name="btn_save_logs">SAVE PREFERENCES</string>
 
+    <!-- Pick date -->
+    <string name="pick_date_update">Update today\'s log</string>
+    <string name="pick_date">Pick date</string>
+    <string name="pick_date_title">Pick a date for the daily log</string>
+    <string name="pick_date_description">You can update today\'s log or add a new one from a past date.</string>
+
     <!-- question 1 -->
     <string name="question_1_title">Select overall discomfort level</string>
     <string name="question_1_description">Assess your level of irritation throughout the day.</string>

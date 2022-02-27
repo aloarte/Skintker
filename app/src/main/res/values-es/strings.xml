@@ -11,6 +11,12 @@
     <string name="btn_logout">CERRAR SESIÓN</string>
     <string name="btn_save_logs">GUARDAR PREFERENCIAS</string>
 
+    <!-- Pick date -->
+    <string name="pick_date_update">Actualizar el reporte de hoy</string>
+    <string name="pick_date">Seleccionar una fecha</string>
+    <string name="pick_date_title">Selecciona una fecha para el reporte.</string>
+    <string name="pick_date_description">Puedes actualizar el reporte realizado hoy o añadir uno nuevo en una fecha en el pasado.</string>
+
     <!-- question 1 -->
     <string name="question_1_title">Selecciona el nivel de incomodidad</string>
     <string name="question_1_description">Evalua tu nivel de irritación/picor a lo largo del día.</string>

@@ -16,6 +16,7 @@ import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
 import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.util.*
 
 class SurveyViewModel(
     private val addLogUseCase: AddLogUseCase,
@@ -38,9 +39,32 @@ class SurveyViewModel(
         private set
 
     private val logsRepository = LogsRepository()
-    private lateinit var surveyInitialState: SurveyState
+    private lateinit var surveyState: SurveyState
 
-    init {
+
+    fun checkIfLogIsAlreadyInserted() {
+        getLogUseCase.invoke(params = GetLogUseCase.Params(date = DataParser.getCurrentFormattedDate())) { log ->
+            _logReported.value = log != null
+        }
+    }
+
+    /**
+     * Pick the date.
+     * Change the UI state to SurveyState.PickDate
+     */
+    fun loadDate(pickDate: Boolean) {
+        if (pickDate) {
+            _uiState.value = SurveyState.PickDate
+        } else {
+            loadQuestions()
+        }
+    }
+
+    /**
+     * Load the questions.
+     *  Change the UI state to SurveyState.Questions
+     */
+    fun loadQuestions(date: Date = DataParser.getCurrentFormattedDate()) {
         viewModelScope.launch {
             val survey = logsRepository.getSurvey()
 
@@ -49,6 +73,7 @@ class SurveyViewModel(
                 val showPrevious = index > 0
                 val showDone = index == survey.questions.size - 1
                 LogState(
+
                     question = question,
                     index = index,
                     totalCount = survey.questions.size,
@@ -56,20 +81,18 @@ class SurveyViewModel(
                     showDone = showDone
                 )
             }
-            surveyInitialState = SurveyState.LogQuestions(questions)
-            _uiState.value = surveyInitialState
+            surveyState = SurveyState.Questions(questions, date)
+            _uiState.value = surveyState
         }
     }
 
-    fun checkIfLogIsAlreadyInserted() {
-        getLogUseCase.invoke(params = GetLogUseCase.Params(date = DataParser.getCurrentFormattedDate())) { log ->
-            _logReported.value = log != null
-        }
-    }
-
+    /**
+     * Process the result of the questions parsing the data.
+     * Change the UI state to SurveyState.Result
+     */
     fun computeResult(
         userId: String,
-        surveyQuestions: SurveyState.LogQuestions,
+        surveyQuestions: SurveyState.Questions,
         resources: Resources
     ) {
         val answers = surveyQuestions.state.mapNotNull { it.answer }
@@ -77,7 +100,7 @@ class SurveyViewModel(
             viewModelScope,
             params = AddLogUseCase.Params(
                 userId,
-                DataParser.createLogFromSurvey(answers, resources)
+                DataParser.createLogFromSurvey(surveyQuestions.date, answers, resources)
             )
         )
         _uiState.value = SurveyState.Result
