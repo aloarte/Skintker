@@ -78,7 +78,7 @@ class SettingsFragment : Fragment() {
                             activity?.onBackPressed()
                         },
                         onExportPressed = {
-                            viewModel.launchExportUseCase(requireContext(), resources)
+                            viewModel.launchExportUseCase(resources, requireContext())
                         },
                         onLogoutPressed = {
                             // Google sign out

@@ -20,7 +20,7 @@ class SettingsViewModel(
     private val _profile = MutableLiveData<ProfileBO>()
     val profile: LiveData<ProfileBO> = _profile
 
-    fun launchExportUseCase(context: Context, resources: Resources) {
+    fun launchExportUseCase(resources: Resources, context: Context) {
         exportLogsUseCase.invoke(
             scope = viewModelScope,
             params = ExportLogsDBUseCase.Params(resources, context)

@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker.usecases
+package com.p4r4d0x.skintker.domain.usecases
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -9,7 +9,6 @@ import com.p4r4d0x.skintker.di.KoinTestApplication
 import com.p4r4d0x.skintker.di.testRepositoriesModule
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.bo.IrritationBO
-import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
