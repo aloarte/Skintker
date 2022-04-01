@@ -18,6 +18,8 @@ import com.p4r4d0x.skintker.data.Constants.LABEL_WEATHER_TEMPERATURE
 import com.p4r4d0x.skintker.data.Constants.TAG_FIREBASE
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.parsers.DataParser.parseDocumentData
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class FirebaseLogsManagementDataSource {
 
@@ -49,6 +51,11 @@ class FirebaseLogsManagementDataSource {
                 )
             }
     }
+
+    suspend fun getSyncFirebaseLogs(user: String): List<DailyLogBO> = suspendCoroutine { cont ->
+        getLogs(user) { cont.resume(it) }
+    }
+
 
     fun getLogs(userId: String, onLogsObtained: (List<DailyLogBO>) -> Unit) {
 

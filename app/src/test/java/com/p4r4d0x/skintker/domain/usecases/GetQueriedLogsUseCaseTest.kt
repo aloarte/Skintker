@@ -29,7 +29,6 @@ class GetQueriedLogsUseCaseTest : KoinBaseTest(testRepositoriesModule) {
 
     companion object {
         private const val IRRITATION_LEVEL = 7
-
     }
 
     @ExperimentalCoroutinesApi

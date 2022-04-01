@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.p4r4d0x.skintker.data.FirebaseLogsManagementDataSource
 import com.p4r4d0x.skintker.data.repository.LogsManagementRepository
-import com.p4r4d0x.skintker.data.repository.LogsRepository
+import com.p4r4d0x.skintker.data.repository.SurveyRepository
 import com.p4r4d0x.skintker.data.room.DailyLogDao
 import com.p4r4d0x.skintker.data.room.LogsDatabase
 import com.p4r4d0x.skintker.domain.usecases.*
@@ -19,12 +19,12 @@ import org.koin.dsl.module
 
 val testViewModelModule = module {
     viewModel { WelcomeViewModel(get()) }
-    viewModel { SurveyViewModel(get(), get()) }
-    viewModel { HomeViewModel(get(), get(), get()) }
+    viewModel { SurveyViewModel(get(), get(), get()) }
+    viewModel { HomeViewModel(get(), get()) }
     viewModel { SettingsViewModel(get()) }
 }
 val testRepositoriesModule = module {
-    factory { mockk<LogsRepository>() }
+    factory { mockk<SurveyRepository>() }
     factory { mockk<LogsManagementRepository>() }
     factory { mockk<FirebaseLogsManagementDataSource>() }
 }
@@ -48,7 +48,7 @@ val testUseCasesModule = module {
     factory { mockk<AddLogUseCase>() }
     factory { mockk<GetLogUseCase>() }
     factory { mockk<GetLogsUseCase>() }
+    factory { mockk<GetSurveyUseCase>() }
     factory { mockk<GetQueriedLogsUseCase>() }
     factory { mockk<ExportLogsDBUseCase>() }
-    factory { mockk<UpdateLogsUseCase>() }
 }

@@ -1,16 +1,25 @@
 package com.p4r4d0x.skintker.viewmodel
 
+import android.content.res.Resources
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.p4r4d0x.skintker.R
+import com.p4r4d0x.skintker.data.Constants
+import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.di.*
+import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
+import com.p4r4d0x.skintker.domain.bo.IrritationBO
+import com.p4r4d0x.skintker.domain.log.*
 import com.p4r4d0x.skintker.domain.parsers.DataParser
 import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
 import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
+import com.p4r4d0x.skintker.domain.usecases.GetSurveyUseCase
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.every
+import io.mockk.mockk
 import io.mockk.slot
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -37,14 +46,49 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
 
     private val getLogUseCase: GetLogUseCase by inject()
 
+    private val getSurveyUseCase: GetSurveyUseCase by inject()
+
     private lateinit var viewModelSUT: SurveyViewModel
 
+    lateinit var resources: Resources
+
+    companion object {
+        const val USER_ID = "user_id"
+        private const val ALCOHOL_QUESTION_ANSWER_1 = "No alcohol ingested"
+        private const val ALCOHOL_QUESTION_ANSWER_2 = "Took a few beers"
+        private const val ALCOHOL_QUESTION_ANSWER_3 = "Had some drinks"
+        private const val TRAVEL_QUESTION_ANSWER = "Yes, I traveled"
+    }
+
     private val date = DataParser.getCurrentFormattedDate()
+
+    private val question = Question(
+        id = Constants.FOURTH_QUESTION_NUMBER,
+        questionText = R.string.question_4_title,
+        answer = PossibleAnswer.SingleChoice(
+            listOf(
+                R.string.question_4_answer_1,
+                R.string.question_4_answer_2,
+                R.string.question_4_answer_3
+            )
+        )
+    )
+    private val questionsSurveyState = SurveyState.Questions(
+        listOf(
+            LogState(
+                question = question,
+                index = 0,
+                totalCount = 1,
+                showPrevious = false,
+                showDone = true
+            )
+        ), date
+    )
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        viewModelSUT = SurveyViewModel(addLogsUseCase, getLogUseCase)
+        viewModelSUT = SurveyViewModel(addLogsUseCase, getLogUseCase, getSurveyUseCase)
     }
 
     @Test
@@ -88,4 +132,81 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
             val logReported = viewModelSUT.logReported.getOrAwaitValue()
             Assert.assertFalse(logReported)
         }
+
+    @Test
+    fun `test survey view model compute result`() = coroutinesTestRule.runBlockingTest {
+        val dailyLog = DailyLogBO(
+            date, IrritationBO(0, emptyList()),
+            AdditionalDataBO(
+                0, AdditionalDataBO.WeatherBO(0, 0),
+                AdditionalDataBO.TravelBO(false, ""), AlcoholLevel.None, emptyList()
+            ), emptyList()
+        )
+        resources = mockk()
+        every { resources.getString(R.string.question_4_answer_1) } returns ALCOHOL_QUESTION_ANSWER_1
+        every { resources.getString(R.string.question_4_answer_2) } returns ALCOHOL_QUESTION_ANSWER_2
+        every { resources.getString(R.string.question_4_answer_3) } returns ALCOHOL_QUESTION_ANSWER_3
+        every { resources.getString(R.string.question_7_answer_1) } returns TRAVEL_QUESTION_ANSWER
+
+        val addLogResult = slot<(Boolean?) -> Unit>()
+
+        every {
+            addLogsUseCase.invoke(
+                scope = any(),
+                params = AddLogUseCase.Params(userId = USER_ID, dailyLog),
+                resultCallback = capture(addLogResult)
+            )
+        } answers {
+            addLogResult.captured(true)
+        }
+
+        viewModelSUT.computeResult(USER_ID, questionsSurveyState, resources)
+
+        val logReported = viewModelSUT.uiState.getOrAwaitValue()
+        Assert.assertEquals(SurveyState.Result, logReported)
+    }
+
+    @Test
+    fun `test survey view model load date  pick date`() = coroutinesTestRule.runBlockingTest {
+        viewModelSUT.loadDate(true)
+
+        val surveyState = viewModelSUT.uiState.getOrAwaitValue()
+        Assert.assertEquals(SurveyState.PickDate, surveyState)
+    }
+
+    @Test
+    fun `test survey view model load date dont pick date`() = coroutinesTestRule.runBlockingTest {
+        loadQuestionsArrange()
+
+        viewModelSUT.loadDate(false)
+
+        loadQuestionsAssert()
+    }
+
+    @Test
+    fun `test survey view model load questions`() = coroutinesTestRule.runBlockingTest {
+        loadQuestionsArrange()
+
+        viewModelSUT.loadQuestions(date)
+
+        loadQuestionsAssert()
+    }
+
+    private fun loadQuestionsArrange() {
+        val survey = Survey(mutableListOf(question))
+        val surveyResult = slot<(Survey?) -> Unit>()
+        every {
+            getSurveyUseCase.invoke(
+                scope = any(),
+                resultCallback = capture(surveyResult)
+            )
+        } answers {
+            surveyResult.captured(survey)
+        }
+    }
+
+    private fun loadQuestionsAssert() {
+        val surveyState = viewModelSUT.uiState.getOrAwaitValue()
+        Assert.assertEquals(questionsSurveyState, surveyState)
+    }
 }

@@ -3,10 +3,12 @@ package com.p4r4d0x.skintker.viewmodel
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.p4r4d0x.skintker.data.Event
 import com.p4r4d0x.skintker.di.*
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getCurrentFormattedDate
 import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
+import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.welcome.viewmodel.WelcomeViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -42,7 +44,6 @@ class WelcomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesMo
     fun setUp() {
         MockKAnnotations.init(this)
         viewModelSUT = WelcomeViewModel(getLogUseCase)
-
     }
 
     @Test
@@ -85,4 +86,52 @@ class WelcomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesMo
         val logReported = viewModelSUT.logReported.getOrAwaitValue()
         Assert.assertFalse(logReported)
     }
+
+    @Test
+    fun `test home view model handle continue home log not yet reported`() =
+        coroutinesTestRule.runBlockingTest {
+            viewModelSUT.handleContinueHome(logAlreadyReported = false)
+
+            val navigateToValue = viewModelSUT.navigateTo.getOrAwaitValue()
+            Assert.assertEquals(Event(FragmentScreen.Survey), navigateToValue)
+        }
+
+    @Test
+    fun `test home view model handle continue home log already reported`() =
+        coroutinesTestRule.runBlockingTest {
+            viewModelSUT.handleContinueHome(logAlreadyReported = true)
+
+            val navigateToValue = viewModelSUT.navigateTo.getOrAwaitValue()
+            Assert.assertEquals(Event(FragmentScreen.Home), navigateToValue)
+        }
+
+    @Test
+    fun `test home view model handle continue login user authenticated`() =
+        coroutinesTestRule.runBlockingTest {
+            val logResult = slot<(DailyLogBO?) -> Unit>()
+            every {
+                getLogUseCase.invoke(
+                    scope = any(),
+                    params = GetLogUseCase.Params(date),
+                    resultCallback = capture(logResult)
+                )
+            } answers {
+                logResult.captured(null)
+            }
+
+            viewModelSUT.handleContinueLogin(userAuthenticated = true)
+
+            val logReported = viewModelSUT.logReported.getOrAwaitValue()
+            Assert.assertFalse(logReported)
+        }
+
+    @Test
+    fun `test home view model handle continue login user not authenticated`() =
+        coroutinesTestRule.runBlockingTest {
+            viewModelSUT.handleContinueLogin(userAuthenticated = false)
+
+            val navigateToValue = viewModelSUT.navigateTo.getOrAwaitValue()
+            Assert.assertEquals(Event(FragmentScreen.Login), navigateToValue)
+        }
+
 }

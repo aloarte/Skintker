@@ -1,6 +1,5 @@
 package com.p4r4d0x.skintker.data.room
 
-import android.util.Log
 import androidx.room.*
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.getDateWithoutTime
@@ -43,8 +42,6 @@ interface DailyLogDao {
         logs.forEach { log ->
             if (loadLogByDate(log.date.getDateWithoutTime().time) == null) {
                 allInserted = allInserted && insertDailyLog(log)
-            } else {
-                Log.d("ALRALR", "AlreadyExist")
             }
         }
         return allInserted

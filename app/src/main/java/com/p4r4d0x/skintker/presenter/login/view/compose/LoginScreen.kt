@@ -39,9 +39,6 @@ fun LoginScreen(viewModel: LoginViewModel, context: Context) {
         try {
             val account = task.getResult(ApiException::class.java)!!
             val credential = GoogleAuthProvider.getCredential(account.idToken!!, null)
-
-            Log.e("ALRALR", "rememberLauncherForActivityResult:  $account  $credential")
-
             viewModel.signWithCredential(credential)
         } catch (e: ApiException) {
             Log.e("ALRALR", "Google sign in failed  $e")

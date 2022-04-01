@@ -193,6 +193,6 @@ private val jetpackSurvey = Survey(
     questions = jetpackQuestions
 )
 
-class LogsRepository {
+class SurveyRepository {
     fun getSurvey() = jetpackSurvey
 }

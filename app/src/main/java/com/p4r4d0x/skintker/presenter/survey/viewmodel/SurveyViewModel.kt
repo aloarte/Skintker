@@ -8,19 +8,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.p4r4d0x.skintker.data.repository.LogsRepository
 import com.p4r4d0x.skintker.domain.log.LogState
 import com.p4r4d0x.skintker.domain.log.SurveyState
 import com.p4r4d0x.skintker.domain.parsers.DataParser
 import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
 import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
+import com.p4r4d0x.skintker.domain.usecases.GetSurveyUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 import java.util.*
 
 class SurveyViewModel(
     private val addLogUseCase: AddLogUseCase,
-    private val getLogUseCase: GetLogUseCase
+    private val getLogUseCase: GetLogUseCase,
+    private val getSurveyUseCase: GetSurveyUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableLiveData<SurveyState>()
@@ -38,51 +38,9 @@ class SurveyViewModel(
     var askForPermissions by mutableStateOf(true)
         private set
 
-    private val logsRepository = LogsRepository()
-    private lateinit var surveyState: SurveyState
-
-
     fun checkIfLogIsAlreadyInserted() {
         getLogUseCase.invoke(params = GetLogUseCase.Params(date = DataParser.getCurrentFormattedDate())) { log ->
             _logReported.value = log != null
-        }
-    }
-
-    /**
-     * Pick the date.
-     * Change the UI state to SurveyState.PickDate
-     */
-    fun loadDate(pickDate: Boolean) {
-        if (pickDate) {
-            _uiState.value = SurveyState.PickDate
-        } else {
-            loadQuestions()
-        }
-    }
-
-    /**
-     * Load the questions.
-     *  Change the UI state to SurveyState.Questions
-     */
-    fun loadQuestions(date: Date = DataParser.getCurrentFormattedDate()) {
-        viewModelScope.launch {
-            val survey = logsRepository.getSurvey()
-
-            // Create the default questions state based on the survey questions
-            val questions: List<LogState> = survey.questions.mapIndexed { index, question ->
-                val showPrevious = index > 0
-                val showDone = index == survey.questions.size - 1
-                LogState(
-
-                    question = question,
-                    index = index,
-                    totalCount = survey.questions.size,
-                    showPrevious = showPrevious,
-                    showDone = showDone
-                )
-            }
-            surveyState = SurveyState.Questions(questions, date)
-            _uiState.value = surveyState
         }
     }
 
@@ -104,6 +62,39 @@ class SurveyViewModel(
             )
         )
         _uiState.value = SurveyState.Result
+    }
+
+    /**
+     * Pick the date.
+     * Change the UI state to SurveyState.PickDate
+     */
+    fun loadDate(pickDate: Boolean) {
+        if (pickDate) {
+            _uiState.value = SurveyState.PickDate
+        } else {
+            loadQuestions()
+        }
+    }
+
+    /**
+     * Load the questions.
+     *  Change the UI state to SurveyState.Questions
+     */
+    fun loadQuestions(date: Date = DataParser.getCurrentFormattedDate()) {
+        getSurveyUseCase.invoke { survey ->
+            val questions: List<LogState> = survey.questions.mapIndexed { index, question ->
+                val showPrevious = index > 0
+                val showDone = index == survey.questions.size - 1
+                LogState(
+                    question = question,
+                    index = index,
+                    totalCount = survey.questions.size,
+                    showPrevious = showPrevious,
+                    showDone = showDone
+                )
+            }
+            _uiState.value = SurveyState.Questions(questions, date)
+        }
     }
 
     fun updateCityValue(city: String) {
