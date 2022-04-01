@@ -1,7 +1,6 @@
 # Skintker
 
-<img src="/results/logo.png" width="700" align="left">
-
+<img src="/results/logo.png" width="800" align="left">
 
 Skintker its an app for Android devices developed to help people with skin issues in the process of
 tracking which elements of their daily routine may cause those issues. The user can save a log every
