@@ -39,8 +39,7 @@ which is also used to store the users data in the **Firestore Database**.
 - App configuration panel.
 
 ## ☑️ TODO
-
-- [  ] Notification to remind that the log isn't reported yet.
+- [ ] Notification to remind that the log isn't reported yet.
 
 ## :iphone: Previews
 
