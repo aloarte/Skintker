@@ -402,9 +402,7 @@ fun SingleTextInputSingleChoice(
                 onValueChange = {
                     if (it.length <= possibleAnswer.maxCharacters && it.isNotEmpty()) {
                         viewModel?.updateCityValue(it)
-                        onAnswerSelected(inputText, inputOption)
-
-
+                        onAnswerSelected(it, inputOption)
                     }
                 },
                 shape = RoundedCornerShape(8.dp),
