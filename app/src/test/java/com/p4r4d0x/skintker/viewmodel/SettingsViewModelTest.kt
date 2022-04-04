@@ -36,8 +36,8 @@ class SettingsViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesM
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val exportLogsDBUseCase: ExportLogsDBUseCase by inject()
-    private lateinit var viewModelSUT: SettingsViewModel
 
+    private lateinit var viewModelSUT: SettingsViewModel
 
     companion object {
         const val USER_EMAIL = "user_email"

@@ -95,7 +95,6 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
     fun `test survey view model check log reported today`() = coroutinesTestRule.runBlockingTest {
         val logResult = slot<(DailyLogBO?) -> Unit>()
         val log = DailyLogBO(date = date, foodList = emptyList())
-
         every {
             getLogUseCase.invoke(
                 scope = any(),
@@ -116,7 +115,6 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
     fun `test survey view model check log not reported today`() =
         coroutinesTestRule.runBlockingTest {
             val logResult = slot<(DailyLogBO?) -> Unit>()
-
             every {
                 getLogUseCase.invoke(
                     scope = any(),
@@ -134,63 +132,66 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
         }
 
     @Test
-    fun `test survey view model compute result`() = coroutinesTestRule.runBlockingTest {
-        val dailyLog = DailyLogBO(
-            date, IrritationBO(0, emptyList()),
-            AdditionalDataBO(
-                0, AdditionalDataBO.WeatherBO(0, 0),
-                AdditionalDataBO.TravelBO(false, ""), AlcoholLevel.None, emptyList()
-            ), emptyList()
-        )
-        resources = mockk()
-        every { resources.getString(R.string.question_4_answer_1) } returns ALCOHOL_QUESTION_ANSWER_1
-        every { resources.getString(R.string.question_4_answer_2) } returns ALCOHOL_QUESTION_ANSWER_2
-        every { resources.getString(R.string.question_4_answer_3) } returns ALCOHOL_QUESTION_ANSWER_3
-        every { resources.getString(R.string.question_7_answer_1) } returns TRAVEL_QUESTION_ANSWER
-
-        val addLogResult = slot<(Boolean?) -> Unit>()
-
-        every {
-            addLogsUseCase.invoke(
-                scope = any(),
-                params = AddLogUseCase.Params(userId = USER_ID, dailyLog),
-                resultCallback = capture(addLogResult)
+    fun `test survey view model compute result`() =
+        coroutinesTestRule.runBlockingTest {
+            val dailyLog = DailyLogBO(
+                date, IrritationBO(0, emptyList()),
+                AdditionalDataBO(
+                    0, AdditionalDataBO.WeatherBO(0, 0),
+                    AdditionalDataBO.TravelBO(false, ""), AlcoholLevel.None, emptyList()
+                ), emptyList()
             )
-        } answers {
-            addLogResult.captured(true)
+            resources = mockk()
+            every { resources.getString(R.string.question_4_answer_1) } returns ALCOHOL_QUESTION_ANSWER_1
+            every { resources.getString(R.string.question_4_answer_2) } returns ALCOHOL_QUESTION_ANSWER_2
+            every { resources.getString(R.string.question_4_answer_3) } returns ALCOHOL_QUESTION_ANSWER_3
+            every { resources.getString(R.string.question_7_answer_1) } returns TRAVEL_QUESTION_ANSWER
+            val addLogResult = slot<(Boolean?) -> Unit>()
+            every {
+                addLogsUseCase.invoke(
+                    scope = any(),
+                    params = AddLogUseCase.Params(userId = USER_ID, dailyLog),
+                    resultCallback = capture(addLogResult)
+                )
+            } answers {
+                addLogResult.captured(true)
+            }
+
+            viewModelSUT.computeResult(USER_ID, questionsSurveyState, resources)
+
+            val logReported = viewModelSUT.uiState.getOrAwaitValue()
+            Assert.assertEquals(SurveyState.Result, logReported)
         }
 
-        viewModelSUT.computeResult(USER_ID, questionsSurveyState, resources)
+    @Test
+    fun `test survey view model load date  pick date`() =
+        coroutinesTestRule.runBlockingTest {
+            viewModelSUT.loadDate(true)
 
-        val logReported = viewModelSUT.uiState.getOrAwaitValue()
-        Assert.assertEquals(SurveyState.Result, logReported)
-    }
+            val surveyState = viewModelSUT.uiState.getOrAwaitValue()
+
+            Assert.assertEquals(SurveyState.PickDate, surveyState)
+        }
 
     @Test
-    fun `test survey view model load date  pick date`() = coroutinesTestRule.runBlockingTest {
-        viewModelSUT.loadDate(true)
+    fun `test survey view model load date dont pick date`() =
+        coroutinesTestRule.runBlockingTest {
+            loadQuestionsArrange()
 
-        val surveyState = viewModelSUT.uiState.getOrAwaitValue()
-        Assert.assertEquals(SurveyState.PickDate, surveyState)
-    }
+            viewModelSUT.loadDate(false)
 
-    @Test
-    fun `test survey view model load date dont pick date`() = coroutinesTestRule.runBlockingTest {
-        loadQuestionsArrange()
-
-        viewModelSUT.loadDate(false)
-
-        loadQuestionsAssert()
-    }
+            loadQuestionsAssert()
+        }
 
     @Test
-    fun `test survey view model load questions`() = coroutinesTestRule.runBlockingTest {
-        loadQuestionsArrange()
+    fun `test survey view model load questions`() =
+        coroutinesTestRule.runBlockingTest {
+            loadQuestionsArrange()
 
-        viewModelSUT.loadQuestions(date)
+            viewModelSUT.loadQuestions(date)
 
-        loadQuestionsAssert()
-    }
+            loadQuestionsAssert()
+        }
 
     private fun loadQuestionsArrange() {
         val survey = Survey(mutableListOf(question))

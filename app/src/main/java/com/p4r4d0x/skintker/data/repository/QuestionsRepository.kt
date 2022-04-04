@@ -194,5 +194,5 @@ private val jetpackSurvey = Survey(
 )
 
 class SurveyRepository {
-    fun getSurvey() = jetpackSurvey
+    fun getSurvey(): Survey = jetpackSurvey
 }

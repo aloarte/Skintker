@@ -46,8 +46,6 @@ class WelcomeFragment : Fragment() {
             .build()
 
         mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-
-
         viewModel.checkUserLogin(GoogleSignIn.getLastSignedInAccount(requireActivity()), prefs)
     }
 

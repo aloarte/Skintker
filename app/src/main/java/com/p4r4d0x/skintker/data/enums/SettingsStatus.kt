@@ -6,5 +6,4 @@ enum class SettingsStatus {
     PreferencesSaved,
     ErrorExportingLogs,
     LogsExported
-
 }
