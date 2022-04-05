@@ -25,20 +25,16 @@ val LightThemeColors = lightColors(
 val DarkThemeColors = darkColors(
     primary = SoftRedPrimary,
     primaryVariant = SoftRedDark,
-    onPrimary = Color.Black,
-    secondary = Color.Black,
+    onPrimary = DarkBackground,
+    secondary = DarkBackground,
     onSecondary = Color.White,
-    background = Color.Black,
+    background = DarkBackground,
     onBackground = Color.White,
-    surface = Color.Black,
+    surface = DarkBackground,
     onSurface = Color.White,
     error = SoftRedDark,
-    onError = Color.Black
+    onError = DarkBackground
 )
-
-val Colors.snackbarAction: Color
-    @Composable
-    get() = if (isLight) SoftRedPrimary else SoftRedDark
 
 val Colors.progressIndicatorBackground: Color
     @Composable

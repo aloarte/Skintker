@@ -22,4 +22,5 @@ val SoftRedPrimary = Color(0xFFff8a80)
 val SoftRedLight = Color(0xFFffbcaf)
 val SoftRedDark = Color(0xFFc85a54)
 val SoftRedBackground = Color(0xFFffebee)
+val DarkBackground = Color(0xFF15161D)
 
