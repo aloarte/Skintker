@@ -49,7 +49,9 @@
     <string name="question_4_title">Did you drink any alcohol today?</string>
     <string name="question_4_answer_1">No</string>
     <string name="question_4_answer_2">A few beers</string>
-    <string name="question_4_answer_3">More than some beers</string>
+    <string name="question_4_answer_3">Some cups of wine</string>
+    <string name="question_4_answer_4">Alcoholic drinks</string>
+
     <!-- question 5 -->
     <string name="question_5_title">Choose the beer type that you drank</string>
     <string name="question_5_answer_1">Wheat</string>
@@ -118,7 +120,8 @@
     <string name="card_not_traveled_today">Not traveled today</string>
     <string name="card_slept_in">Slept in </string>
     <string name="card_no_alcohol">No alcohol ingested</string>
-    <string name="card_any_alcohol">Took a few beers</string>
+    <string name="card_any_alcohol_beer">Took a few beers</string>
+    <string name="card_any_alcohol_wine">Took a few wine cups</string>
     <string name="card_quite_alcohol">Had some drinks</string>
     <string name="card_dietary_label">Dietary elements</string>
     <string name="card_irritation_label">Irritation Level</string>

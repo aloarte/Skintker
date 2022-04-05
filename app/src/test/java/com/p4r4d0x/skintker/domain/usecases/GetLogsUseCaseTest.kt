@@ -2,7 +2,6 @@ package com.p4r4d0x.skintker.domain.usecases
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.p4r4d0x.skintker.data.FirebaseLogsManagementDataSource
 import com.p4r4d0x.skintker.data.repository.LogsManagementRepository
 import com.p4r4d0x.skintker.di.CoroutinesTestRule
 import com.p4r4d0x.skintker.di.KoinBaseTest
@@ -37,13 +36,11 @@ class GetLogsUseCaseTest : KoinBaseTest(testRepositoriesModule) {
 
     private val logsRepository: LogsManagementRepository by inject()
 
-    private val firebaseLogsManagementDataSource: FirebaseLogsManagementDataSource by inject()
-
     private lateinit var useCase: GetLogsUseCase
 
     @Before
     fun setUp() {
-        useCase = GetLogsUseCase(logsRepository, firebaseLogsManagementDataSource)
+        useCase = GetLogsUseCase(logsRepository)
     }
 
     @Test
@@ -54,22 +51,12 @@ class GetLogsUseCaseTest : KoinBaseTest(testRepositoriesModule) {
         )
 
         coEvery {
-            firebaseLogsManagementDataSource.getSyncFirebaseLogs(USER_ID)
-        } returns logList
-
-        coEvery {
-            logsRepository.addAllLogs(logList)
-        } returns true
-
-        coEvery {
-            logsRepository.getAllLogs()
+            logsRepository.getAllLogsWithFirebase(USER_ID)
         } returns logList
 
         val logsObtained = runBlocking { useCase.run(GetLogsUseCase.Params(USER_ID)) }
 
-        coVerify { firebaseLogsManagementDataSource.getSyncFirebaseLogs(USER_ID) }
-        coVerify { logsRepository.addAllLogs(logList) }
-        coVerify { logsRepository.getAllLogs() }
+        coVerify { logsRepository.getAllLogsWithFirebase(USER_ID) }
         Assertions.assertEquals(logList, logsObtained)
     }
 }

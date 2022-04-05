@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker.data.room
+package com.p4r4d0x.skintker.data.datasources.room
 
 import androidx.room.*
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO

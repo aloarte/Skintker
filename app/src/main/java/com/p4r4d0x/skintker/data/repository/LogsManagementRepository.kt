@@ -13,6 +13,8 @@ interface LogsManagementRepository {
 
     suspend fun getAllLogs(): List<DailyLogBO>
 
+    suspend fun getAllLogsWithFirebase(userId: String): List<DailyLogBO>
+
     suspend fun getLogByDate(date: Long): DailyLogBO?
 
     suspend fun getLogsByIrritationLevel(irritationLevel: Int): List<DailyLogBO>

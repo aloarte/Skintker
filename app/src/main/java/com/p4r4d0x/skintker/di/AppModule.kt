@@ -2,12 +2,16 @@ package com.p4r4d0x.skintker.di
 
 import android.app.Application
 import androidx.room.Room
-import com.p4r4d0x.skintker.data.FirebaseLogsManagementDataSource
+import com.p4r4d0x.skintker.data.datasources.FirebaseLogsManagementDataSource
+import com.p4r4d0x.skintker.data.datasources.FirebaseLogsManagementDataSourceImpl
+import com.p4r4d0x.skintker.data.datasources.SurveyDataSource
+import com.p4r4d0x.skintker.data.datasources.SurveyDataSourceImpl
+import com.p4r4d0x.skintker.data.datasources.room.DailyLogDao
+import com.p4r4d0x.skintker.data.datasources.room.LogsDatabase
 import com.p4r4d0x.skintker.data.repository.LogsManagementRepository
 import com.p4r4d0x.skintker.data.repository.LogsManagementRepositoryImpl
 import com.p4r4d0x.skintker.data.repository.SurveyRepository
-import com.p4r4d0x.skintker.data.room.DailyLogDao
-import com.p4r4d0x.skintker.data.room.LogsDatabase
+import com.p4r4d0x.skintker.data.repository.SurveyRepositoryImpl
 import com.p4r4d0x.skintker.domain.usecases.*
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
 import com.p4r4d0x.skintker.presenter.login.viewmodel.LoginViewModel
@@ -24,24 +28,22 @@ val vmModule = module {
     viewModel { SurveyViewModel(get(), get(), get()) }
     viewModel { HomeViewModel(get(), get()) }
     viewModel { SettingsViewModel(get()) }
-
 }
 val repositoriesModule = module {
-    factory { SurveyRepository() }
-    factory { FirebaseLogsManagementDataSource() }
+    factory<SurveyRepository> { SurveyRepositoryImpl(get()) }
     factory<LogsManagementRepository> { LogsManagementRepositoryImpl(get(), get()) }
 }
 
 val useCasesModule = module {
     factory { AddLogUseCase(get()) }
     factory { GetLogUseCase(get()) }
-    factory { GetLogsUseCase(get(), get()) }
+    factory { GetLogsUseCase(get()) }
     factory { GetSurveyUseCase(get()) }
     factory { GetQueriedLogsUseCase(get()) }
     factory { ExportLogsDBUseCase(get()) }
 }
 
-val databasesModule = module {
+val dataSourcesModule = module {
     fun provideDataBase(application: Application): LogsDatabase {
         return Room.databaseBuilder(application, LogsDatabase::class.java, "logs_database")
             .fallbackToDestructiveMigration()
@@ -53,28 +55,7 @@ val databasesModule = module {
     }
     single { provideDataBase(androidApplication()) }
     single { provideDao(get()) }
+    factory<SurveyDataSource> { SurveyDataSourceImpl() }
+    factory<FirebaseLogsManagementDataSource> { FirebaseLogsManagementDataSourceImpl() }
 
 }
-
-val networkingModule = module {
-//        single { GsonConverterFactory.create() as Converter.Factory }
-//        single { HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY) as Interceptor }
-//        single {
-//            OkHttpClient.Builder().apply {
-//                if (BuildConfig.DEBUG) addInterceptor(get())
-//                    .callTimeout(10, TimeUnit.SECONDS)
-//            }.build()
-//        }
-//        single {
-//            Retrofit.Builder()
-//                .baseUrl(BuildConfig.HOST)
-//                .client(get())
-//                .addConverterFactory(get())
-//                .build()
-//        }
-
-//        single { get<Retrofit>().create(LoginService::class.java) }
-//        single { get<Retrofit>().create(BlockService::class.java) }
-//        single { get<Retrofit>().create(ForgotPasswordService::class.java) }
-}
-

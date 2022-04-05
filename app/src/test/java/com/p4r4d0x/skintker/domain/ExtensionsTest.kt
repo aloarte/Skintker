@@ -74,20 +74,18 @@ class ExtensionsTest {
 
     @Test
     fun `update value (AlcoholLevel,Int)`() {
-        val map = mutableMapOf(AlcoholLevel.Few to 3)
+        val map = mutableMapOf(AlcoholLevel.FewBeer to 3)
 
-        map.increaseValue(AlcoholLevel.Few)
+        map.increaseValue(AlcoholLevel.FewBeer)
 
-        assertEquals(4, map[AlcoholLevel.Few])
+        assertEquals(4, map[AlcoholLevel.FewBeer])
     }
-
 
     @Test
     fun `clean string`() {
         assertEquals("Pineapple ", "Pineapple \uD83C\uDF4D".cleanString())
         assertEquals("Pineapple ", "Pinéapple ".cleanString())
         assertEquals("Pineapple", "Pineapple".cleanString())
-
     }
 
     @Test
@@ -97,5 +95,3 @@ class ExtensionsTest {
         assertEquals(Date("01/01/2022"), date.getDateWithoutTime())
     }
 }
-
-

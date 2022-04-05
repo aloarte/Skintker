@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker.data
+package com.p4r4d0x.skintker.data.datasources
 
 import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
@@ -21,11 +21,11 @@ import com.p4r4d0x.skintker.domain.parsers.DataParser.parseDocumentData
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class FirebaseLogsManagementDataSource {
+class FirebaseLogsManagementDataSourceImpl : FirebaseLogsManagementDataSource {
 
     private val firebaseDb = Firebase.firestore
 
-    fun addLog(userId: String, log: DailyLogBO) {
+    override suspend fun addLog(userId: String, log: DailyLogBO) {
         val logMap = hashMapOf(
             LABEL_DATE to log.date,
             LABEL_IRRITATION to log.irritation?.overallValue,
@@ -52,12 +52,13 @@ class FirebaseLogsManagementDataSource {
             }
     }
 
-    suspend fun getSyncFirebaseLogs(user: String): List<DailyLogBO> = suspendCoroutine { cont ->
-        getLogs(user) { cont.resume(it) }
-    }
+    override suspend fun getSyncFirebaseLogs(user: String): List<DailyLogBO> =
+        suspendCoroutine { cont ->
+            getLogs(user) { cont.resume(it) }
+        }
 
 
-    fun getLogs(userId: String, onLogsObtained: (List<DailyLogBO>) -> Unit) {
+    private fun getLogs(userId: String, onLogsObtained: (List<DailyLogBO>) -> Unit) {
 
         firebaseDb.collection(LABEL_DATABASE_NAME)
             .get()

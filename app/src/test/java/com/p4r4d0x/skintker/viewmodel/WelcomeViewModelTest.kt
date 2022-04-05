@@ -5,12 +5,12 @@ import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.p4r4d0x.skintker.data.Event
 import com.p4r4d0x.skintker.di.*
 import com.p4r4d0x.skintker.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.domain.parsers.DataParser.getCurrentFormattedDate
 import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
+import com.p4r4d0x.skintker.presenter.welcome.Event
 import com.p4r4d0x.skintker.presenter.welcome.viewmodel.WelcomeViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.every

@@ -164,8 +164,9 @@ object DataParser {
     fun getAlcoholLevel(alcoholLevel: Int): Int =
         when (alcoholLevel) {
             0 -> R.string.card_no_alcohol
-            1 -> R.string.card_any_alcohol
-            2 -> R.string.card_quite_alcohol
+            1 -> R.string.card_any_alcohol_beer
+            2 -> R.string.card_any_alcohol_wine
+            3 -> R.string.card_quite_alcohol
             else -> R.string.card_no_alcohol
         }
 

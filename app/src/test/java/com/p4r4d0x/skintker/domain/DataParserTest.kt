@@ -46,7 +46,8 @@ class DataParserTest {
         private const val MULTIPLE_ANSWER_2_VALUE = "Multiple answer 2"
         private const val ALCOHOL_QUESTION_ANSWER_1 = "No alcohol ingested"
         private const val ALCOHOL_QUESTION_ANSWER_2 = "Took a few beers"
-        private const val ALCOHOL_QUESTION_ANSWER_3 = "Had some drinks"
+        private const val ALCOHOL_QUESTION_ANSWER_3 = "Took a few wine cups"
+        private const val ALCOHOL_QUESTION_ANSWER_4 = "Had some drinks"
         private const val TRAVEL_QUESTION_ANSWER = "Yes, I traveled"
         private const val USER_ID = "UserId"
         private const val BAD_USER_ID = "BadUserId"
@@ -68,6 +69,7 @@ class DataParserTest {
         every { resources.getString(R.string.question_4_answer_1) } returns ALCOHOL_QUESTION_ANSWER_1
         every { resources.getString(R.string.question_4_answer_2) } returns ALCOHOL_QUESTION_ANSWER_2
         every { resources.getString(R.string.question_4_answer_3) } returns ALCOHOL_QUESTION_ANSWER_3
+        every { resources.getString(R.string.question_4_answer_4) } returns ALCOHOL_QUESTION_ANSWER_4
         every { resources.getString(R.string.question_7_answer_1) } returns TRAVEL_QUESTION_ANSWER
     }
 
@@ -165,8 +167,9 @@ class DataParserTest {
     fun `get alcohol level`() {
         Assert.assertEquals(R.string.card_no_alcohol, getAlcoholLevel(-1))
         Assert.assertEquals(R.string.card_no_alcohol, getAlcoholLevel(0))
-        Assert.assertEquals(R.string.card_any_alcohol, getAlcoholLevel(1))
-        Assert.assertEquals(R.string.card_quite_alcohol, getAlcoholLevel(2))
+        Assert.assertEquals(R.string.card_any_alcohol_beer, getAlcoholLevel(1))
+        Assert.assertEquals(R.string.card_any_alcohol_wine, getAlcoholLevel(2))
+        Assert.assertEquals(R.string.card_quite_alcohol, getAlcoholLevel(3))
     }
 
     @Test

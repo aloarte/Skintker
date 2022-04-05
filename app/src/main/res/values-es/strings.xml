@@ -50,7 +50,9 @@
     <string name="question_4_title">¿Has tomado algo de alcohol hoy?</string>
     <string name="question_4_answer_1">No</string>
     <string name="question_4_answer_2">Algunas cervezas</string>
-    <string name="question_4_answer_3">Algunas copas</string>
+    <string name="question_4_answer_3">Algunas copas de vino</string>
+    <string name="question_4_answer_4">Algunas copas</string>
+
     <!-- question 5 -->
     <string name="question_5_title">Choose the beer type that you drank</string>
     <string name="question_5_answer_1">Trigo</string>
@@ -121,7 +123,8 @@
     <string name="card_not_traveled_today">No viajé hoy</string>
     <string name="card_slept_in">Dormí en </string>
     <string name="card_no_alcohol">No ingerí alcohol</string>
-    <string name="card_any_alcohol">Me tomé algunas cervezas</string>
+    <string name="card_any_alcohol_beer">Me tomé algunas cervezas</string>
+    <string name="card_any_alcohol_wine">Me tomé algunas copas de vino</string>
     <string name="card_quite_alcohol">Me tomé algunas copas</string>
     <string name="card_dietary_label">Elementos de la dieta</string>
     <string name="card_irritation_label">Nivel de picor</string>

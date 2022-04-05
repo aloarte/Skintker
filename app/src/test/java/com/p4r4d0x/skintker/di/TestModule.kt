@@ -2,11 +2,12 @@ package com.p4r4d0x.skintker.di
 
 import android.app.Application
 import androidx.room.Room
-import com.p4r4d0x.skintker.data.FirebaseLogsManagementDataSource
+import com.p4r4d0x.skintker.data.datasources.FirebaseLogsManagementDataSource
+import com.p4r4d0x.skintker.data.datasources.SurveyDataSource
+import com.p4r4d0x.skintker.data.datasources.room.DailyLogDao
+import com.p4r4d0x.skintker.data.datasources.room.LogsDatabase
 import com.p4r4d0x.skintker.data.repository.LogsManagementRepository
 import com.p4r4d0x.skintker.data.repository.SurveyRepository
-import com.p4r4d0x.skintker.data.room.DailyLogDao
-import com.p4r4d0x.skintker.data.room.LogsDatabase
 import com.p4r4d0x.skintker.domain.usecases.*
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
@@ -26,10 +27,9 @@ val testViewModelModule = module {
 val testRepositoriesModule = module {
     factory { mockk<SurveyRepository>() }
     factory { mockk<LogsManagementRepository>() }
-    factory { mockk<FirebaseLogsManagementDataSource>() }
 }
 
-val databasesModule = module {
+val datasourcesModule = module {
     fun provideDataBase(application: Application): LogsDatabase {
         return Room.databaseBuilder(application, LogsDatabase::class.java, "logs_database")
             .fallbackToDestructiveMigration()
@@ -41,6 +41,8 @@ val databasesModule = module {
     }
     single { provideDataBase(androidApplication()) }
     single { provideDao(get()) }
+    factory { mockk<SurveyDataSource>() }
+    factory { mockk<FirebaseLogsManagementDataSource>() }
 
 }
 

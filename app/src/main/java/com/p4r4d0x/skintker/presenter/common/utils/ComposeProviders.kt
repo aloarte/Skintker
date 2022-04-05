@@ -30,7 +30,7 @@ class DailyLogProvider : PreviewParameterProvider<DailyLogBO> {
                 ),
                 additionalData = AdditionalDataBO(
                     stressLevel = 7,
-                    alcoholLevel = AlcoholLevel.Few,
+                    alcoholLevel = AlcoholLevel.FewBeer,
                     weather = AdditionalDataBO.WeatherBO(humidity = 2, temperature = 1),
                     travel = AdditionalDataBO.TravelBO(traveled = true, city = "Madrid")
                 )
@@ -61,7 +61,7 @@ class DailyLogProvider : PreviewParameterProvider<DailyLogBO> {
                 ),
                 additionalData = AdditionalDataBO(
                     stressLevel = 7,
-                    alcoholLevel = AlcoholLevel.Few,
+                    alcoholLevel = AlcoholLevel.FewBeer,
                     weather = AdditionalDataBO.WeatherBO(humidity = 2, temperature = 1),
                     travel = AdditionalDataBO.TravelBO(traveled = true, city = "Madrid"),
                     beerTypes = listOf("IPA", "Stout")

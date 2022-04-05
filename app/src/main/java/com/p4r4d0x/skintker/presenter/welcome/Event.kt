@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker.data
+package com.p4r4d0x.skintker.presenter.welcome
 
 /**
  * Used as a wrapper for data that is exposed via a LiveData that represents an event.

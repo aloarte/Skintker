@@ -76,7 +76,7 @@ class CSVParserTest {
 
             foodList = listOf(FOOD_1, FOOD_3),
             additionalData = AdditionalDataBO(
-                alcoholLevel = AlcoholLevel.Few,
+                alcoholLevel = AlcoholLevel.FewBeer,
                 weather = AdditionalDataBO.WeatherBO(temperature = 3, humidity = 4),
                 travel = AdditionalDataBO.TravelBO(city = "Madrid", traveled = true),
                 stressLevel = 10
@@ -98,7 +98,7 @@ class CSVParserTest {
             "$FOOD_1,$FOOD_3",
             "10",
             ZONE_1,
-            "Few",
+            "FewBeer",
             "",
             "10",
             "4",

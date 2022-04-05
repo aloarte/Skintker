@@ -56,7 +56,8 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
         const val USER_ID = "user_id"
         private const val ALCOHOL_QUESTION_ANSWER_1 = "No alcohol ingested"
         private const val ALCOHOL_QUESTION_ANSWER_2 = "Took a few beers"
-        private const val ALCOHOL_QUESTION_ANSWER_3 = "Had some drinks"
+        private const val ALCOHOL_QUESTION_ANSWER_3 = "Took a few wine cups"
+        private const val ALCOHOL_QUESTION_ANSWER_4 = "Had some drinks"
         private const val TRAVEL_QUESTION_ANSWER = "Yes, I traveled"
     }
 
@@ -69,7 +70,8 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
             listOf(
                 R.string.question_4_answer_1,
                 R.string.question_4_answer_2,
-                R.string.question_4_answer_3
+                R.string.question_4_answer_3,
+                R.string.question_4_answer_4
             )
         )
     )
@@ -145,6 +147,7 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
             every { resources.getString(R.string.question_4_answer_1) } returns ALCOHOL_QUESTION_ANSWER_1
             every { resources.getString(R.string.question_4_answer_2) } returns ALCOHOL_QUESTION_ANSWER_2
             every { resources.getString(R.string.question_4_answer_3) } returns ALCOHOL_QUESTION_ANSWER_3
+            every { resources.getString(R.string.question_4_answer_4) } returns ALCOHOL_QUESTION_ANSWER_4
             every { resources.getString(R.string.question_7_answer_1) } returns TRAVEL_QUESTION_ANSWER
             val addLogResult = slot<(Boolean?) -> Unit>()
             every {
