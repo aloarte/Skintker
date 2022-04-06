@@ -4,7 +4,7 @@ import android.content.res.Resources
 import com.p4r4d0x.skintker.R
 
 enum class AlcoholLevel(val value: Int) {
-    None(0), FewBeer(1), FewWine(2), Some(3);
+    None(0), Few(1), FewWine(2), Some(3);
 
     companion object {
         fun fromStringResource(alcoholStr: String, resources: Resources): AlcoholLevel {
@@ -14,7 +14,7 @@ enum class AlcoholLevel(val value: Int) {
             val alcoholSome = resources.getString(R.string.question_4_answer_4)
             return when (alcoholStr) {
                 alcoholNone -> None
-                alcoholFewBeer -> FewBeer
+                alcoholFewBeer -> Few
                 alcoholFewWine -> FewWine
                 alcoholSome -> Some
                 else -> None

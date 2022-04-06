@@ -116,7 +116,7 @@ class CausesParserTest {
     fun `get alcohol cause`() {
         val alcoholMap = mapOf(
             AlcoholLevel.None to 30,
-            AlcoholLevel.FewBeer to 50,
+            AlcoholLevel.Few to 50,
             AlcoholLevel.FewWine to 10,
             AlcoholLevel.Some to 10,
         )

@@ -98,7 +98,7 @@ class DataParserTest {
         return answerList
     }
 
-    private fun getDailyLog(expandBeerQuestion: Boolean) = DailyLogBO(
+    private fun getDailyLog(expandBeerQuestion: Boolean, alcoholLevel: AlcoholLevel) = DailyLogBO(
         date = DataParser.getCurrentFormattedDate(),
         irritation = IrritationBO(
             overallValue = FIRST_QUESTION_ANSWER_SLIDER.toInt(),
@@ -117,7 +117,7 @@ class DataParserTest {
                 traveled = false,
                 city = SEVENTH_QUESTION_ANSWER_INPUT_LOWER_CASE
             ),
-            alcoholLevel = AlcoholLevel.None,
+            alcoholLevel = alcoholLevel,
             beerTypes = if (expandBeerQuestion) listOf(
                 MULTIPLE_ANSWER_1_VALUE,
                 MULTIPLE_ANSWER_2_VALUE
@@ -182,7 +182,7 @@ class DataParserTest {
             resources = resources
         )
 
-        val expectedLog = getDailyLog(expandBeerQuestion = true)
+        val expectedLog = getDailyLog(expandBeerQuestion = true, AlcoholLevel.None)
         Assert.assertEquals(expectedLog, surveyLog)
     }
 
@@ -196,13 +196,13 @@ class DataParserTest {
             resources = resources
         )
 
-        val expectedLog = getDailyLog(expandBeerQuestion = false)
+        val expectedLog = getDailyLog(expandBeerQuestion = false, alcoholLevel = AlcoholLevel.None)
         Assert.assertEquals(expectedLog, surveyLog)
     }
 
     @Test
-    fun `parse document data from fb success data`() {
-        val log = getDailyLog(true)
+    fun `parse document data from fb success data AlcoholLevelNone`() {
+        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date),
@@ -210,7 +210,103 @@ class DataParserTest {
             Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
             Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
             Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
-            Constants.LABEL_ALCOHOL to log.additionalData?.alcoholLevel?.name,
+            Constants.LABEL_ALCOHOL to "None",
+            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
+            Constants.LABEL_CITY to log.additionalData?.travel?.city,
+            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
+            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
+            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+        )
+        data[USER_ID] = userData
+
+        val parsedLog = parseDocumentData(userId = USER_ID, data = data)
+
+        Assert.assertEquals(log, parsedLog)
+    }
+
+    @Test
+    fun `parse document data from fb success data AlcoholLevelNoneFew`() {
+        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.Few)
+        val data = mutableMapOf<String, Any>()
+        val userData = hashMapOf(
+            Constants.LABEL_DATE to Timestamp(log.date),
+            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
+            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
+            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            Constants.LABEL_ALCOHOL to "Few",
+            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
+            Constants.LABEL_CITY to log.additionalData?.travel?.city,
+            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
+            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
+            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+        )
+        data[USER_ID] = userData
+
+        val parsedLog = parseDocumentData(userId = USER_ID, data = data)
+
+        Assert.assertEquals(log, parsedLog)
+    }
+
+    @Test
+    fun `parse document data from fb success data AlcoholLevelNoneFewAlcohol`() {
+        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.FewWine)
+        val data = mutableMapOf<String, Any>()
+        val userData = hashMapOf(
+            Constants.LABEL_DATE to Timestamp(log.date),
+            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
+            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
+            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            Constants.LABEL_ALCOHOL to "FewWine",
+            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
+            Constants.LABEL_CITY to log.additionalData?.travel?.city,
+            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
+            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
+            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+        )
+        data[USER_ID] = userData
+
+        val parsedLog = parseDocumentData(userId = USER_ID, data = data)
+
+        Assert.assertEquals(log, parsedLog)
+    }
+
+    @Test
+    fun `parse document data from fb success data AlcoholLevelSome`() {
+        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.Some)
+        val data = mutableMapOf<String, Any>()
+        val userData = hashMapOf(
+            Constants.LABEL_DATE to Timestamp(log.date),
+            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
+            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
+            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            Constants.LABEL_ALCOHOL to "Some",
+            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
+            Constants.LABEL_CITY to log.additionalData?.travel?.city,
+            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
+            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
+            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+        )
+        data[USER_ID] = userData
+
+        val parsedLog = parseDocumentData(userId = USER_ID, data = data)
+
+        Assert.assertEquals(log, parsedLog)
+    }
+
+    @Test
+    fun `parse document data from fb success data bad alcohol type`() {
+        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
+        val data = mutableMapOf<String, Any>()
+        val userData = hashMapOf(
+            Constants.LABEL_DATE to Timestamp(log.date),
+            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
+            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
+            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            Constants.LABEL_ALCOHOL to "Nonexistantenumvalue",
             Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
             Constants.LABEL_CITY to log.additionalData?.travel?.city,
             Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
@@ -226,7 +322,7 @@ class DataParserTest {
 
     @Test
     fun `parse document data from fb wrong data bad user`() {
-        val log = getDailyLog(true)
+        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date),
@@ -250,7 +346,7 @@ class DataParserTest {
 
     @Test
     fun `parse document data from fb wrong data parse exception`() {
-        val log = getDailyLog(true)
+        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date)

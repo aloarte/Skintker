@@ -195,7 +195,11 @@ object DataParser {
                             traveled = userData[LABEL_TRAVELED] as Boolean,
                             city = userData[LABEL_CITY] as String
                         ),
-                        alcoholLevel = AlcoholLevel.valueOf(userData[LABEL_ALCOHOL] as String),
+                        alcoholLevel = try {
+                            AlcoholLevel.valueOf(userData[LABEL_ALCOHOL] as String)
+                        } catch (e: IllegalArgumentException) {
+                            AlcoholLevel.None
+                        },
                         beerTypes = listOf(
                             * (userData[LABEL_BEERS] as String).split(",").toTypedArray()
                         )
