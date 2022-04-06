@@ -10,7 +10,7 @@ class LogsManagementRepositoryImpl(
 ) : LogsManagementRepository {
 
     override suspend fun addDailyLog(userId: String, log: DailyLogBO): Boolean {
-        firebaseDatabaseImpl.addLog(userId, log)
+        firebaseDatabaseImpl.addSyncLog(userId, log)
         return database.dailyLogDao().insertDailyLog(log)
     }
 

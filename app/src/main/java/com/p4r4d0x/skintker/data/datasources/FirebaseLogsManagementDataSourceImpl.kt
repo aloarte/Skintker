@@ -25,7 +25,12 @@ class FirebaseLogsManagementDataSourceImpl : FirebaseLogsManagementDataSource {
 
     private val firebaseDb = Firebase.firestore
 
-    override suspend fun addLog(userId: String, log: DailyLogBO) {
+    override suspend fun addSyncLog(userId: String, log: DailyLogBO): Boolean =
+        suspendCoroutine { cont ->
+            addLog(userId, log) { cont.resume(it) }
+        }
+
+    private fun addLog(userId: String, log: DailyLogBO, onLogsAdded: (Boolean) -> Unit) {
         val logMap = hashMapOf(
             LABEL_DATE to log.date,
             LABEL_IRRITATION to log.irritation?.overallValue,
@@ -43,12 +48,14 @@ class FirebaseLogsManagementDataSourceImpl : FirebaseLogsManagementDataSource {
         firebaseDb.collection(LABEL_DATABASE_NAME).add(firebaseLog)
             .addOnSuccessListener { documentReference ->
                 Log.d(TAG_FIREBASE, "Logs added to FB: ${documentReference.id}")
+                onLogsAdded.invoke(true)
             }
             .addOnFailureListener { exception ->
                 Log.e(
                     TAG_FIREBASE,
                     "Exception occurred while adding logs in FB: ${exception.message}"
                 )
+                onLogsAdded.invoke(false)
             }
     }
 
