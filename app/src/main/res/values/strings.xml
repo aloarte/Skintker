@@ -209,4 +209,8 @@
     <string name="settings_toast_preferences_saved">Preferences saved</string>
     <string name="settings_toast_preferences_export_error">Logs couldn\'t be exported</string>
     <string name="settings_toast_preferences_logs_exported">Logs exported successfully from database</string>
+    <!-- Notification  -->
+    <string name="notification_title">Perform your daily report</string>
+    <string name="notification_description">You didn\'t perform your daily log yet, …</string>
+    <string name="notification_description_full">You didn\'t perform your daily log yet, tap on the notification to create a log.</string>
 </resources>

@@ -1,8 +1,9 @@
-package com.p4r4d0x.skintker.data
+package com.p4r4d0x.skintker.data.repositories
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.p4r4d0x.skintker.R
+import com.p4r4d0x.skintker.data.Constants
 import com.p4r4d0x.skintker.data.datasources.SurveyDataSource
 import com.p4r4d0x.skintker.data.repository.SurveyRepository
 import com.p4r4d0x.skintker.data.repository.SurveyRepositoryImpl

@@ -116,7 +116,6 @@
     <string name="question_9_answer_12">Salsas 🍯</string>
     <string name="question_9_answer_13">Derivados de la soja 🌱</string>
 
-
     <!--History labels-->
     <string name="history_no_logs">Todavía no has realizado ningún reporte diario.</string>
     <string name="card_traveled_today">Viajé hoy</string>
@@ -187,4 +186,8 @@
     <string name="settings_toast_preferences_saved">Preferencias guardadas correctamente</string>
     <string name="settings_toast_preferences_export_error">No se ha podido exportar la base de datos de reportes</string>
     <string name="settings_toast_preferences_logs_exported">La base de datos de los reportes exportada correctamente</string>
+    <!-- Notification  -->
+    <string name="notification_title">Realiza el reporte diario</string>
+    <string name="notification_description">Hoy todavía no has realizado el reporte diario, …</string>
+    <string name="notification_description_full">Hoy todavía no has realizado el reporte diario, toca en la notificación para acceder.</string>
 </resources>

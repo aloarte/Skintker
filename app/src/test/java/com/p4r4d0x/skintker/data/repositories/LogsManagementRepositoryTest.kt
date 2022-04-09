@@ -1,4 +1,4 @@
-package com.p4r4d0x.skintker.data
+package com.p4r4d0x.skintker.data.repositories
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4

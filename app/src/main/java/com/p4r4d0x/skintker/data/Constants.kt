@@ -63,7 +63,15 @@ object Constants {
     const val LABEL_WEATHER_TEMPERATURE = "weatherTemperature"
     const val LABEL_WEATHER_HUMIDITY = "humidityTemperature"
     const val LABEL_DATABASE_NAME = "DailyLogs"
-
     const val YEAR_DAYS = 365L
+
+    //Intents
+    const val BOOT_INTENT = "android.intent.action.BOOT_COMPLETED"
+
+    //Notifications
+    const val CHANNEL_ID = "NotificationChannelID"
+    const val CHANNEL_NAME = "Skintker notification channel"
+    const val CHANNEL_DESCRIPTION = "Channel to notify Skintker logs reminders"
+    const val NOTIFICATION_ID = 1
 
 }
