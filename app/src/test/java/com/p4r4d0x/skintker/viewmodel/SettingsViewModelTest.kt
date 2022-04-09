@@ -1,11 +1,13 @@
 package com.p4r4d0x.skintker.viewmodel
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.p4r4d0x.skintker.data.Constants
 import com.p4r4d0x.skintker.di.*
 import com.p4r4d0x.skintker.domain.bo.ProfileBO
 import com.p4r4d0x.skintker.domain.usecases.ExportLogsDBUseCase
@@ -15,6 +17,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Before
@@ -86,4 +89,28 @@ class SettingsViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesM
         val profile = viewModelSUT.profile.getOrAwaitValue()
         Assert.assertEquals(expectedProfile, profile)
     }
+
+    @Test
+    fun `test settings view model update reminder time less than 10`() =
+        coroutinesTestRule.runBlockingTest {
+            val preferences: SharedPreferences = mockk()
+            every { preferences.getInt(Constants.PREFERENCES_ALARM_HOUR, -1) } returns 0
+            every { preferences.getInt(Constants.PREFERENCES_ALARM_MINUTES, -1) } returns 0
+
+            viewModelSUT.updateReminderTime(preferences)
+
+            Assert.assertEquals("00:00", viewModelSUT.reminderTime.first())
+        }
+
+    @Test
+    fun `test settings view model update reminder time more than 10`() =
+        coroutinesTestRule.runBlockingTest {
+            val preferences: SharedPreferences = mockk()
+            every { preferences.getInt(Constants.PREFERENCES_ALARM_HOUR, -1) } returns 23
+            every { preferences.getInt(Constants.PREFERENCES_ALARM_MINUTES, -1) } returns 59
+
+            viewModelSUT.updateReminderTime(preferences)
+
+            Assert.assertEquals("23:59", viewModelSUT.reminderTime.first())
+        }
 }
