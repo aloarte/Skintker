@@ -1,5 +1,8 @@
 package com.p4r4d0x.skintker.presenter.common.utils
 
+import android.content.Context
+import android.util.Log
+import com.p4r4d0x.skintker.data.Constants
 import java.util.*
 
 object AlarmUtils {
@@ -13,10 +16,17 @@ object AlarmUtils {
         1000
     )
 
-    fun getTimeForAlarm(): Long {
+    fun getTimeForAlarm(context: Context?): Long {
+        val preferences =
+            context?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
         val calendar = Calendar.getInstance()
-        calendar[Calendar.HOUR_OF_DAY] = 20
-        calendar[Calendar.MINUTE] = 43
+
+        val a = preferences?.getInt(Constants.PREFERENCES_ALARM_HOUR, 0) ?: 0
+        val b = preferences?.getInt(Constants.PREFERENCES_ALARM_MINUTES, 0) ?: 0
+        Log.d("ALRALR", "getTimeForAlarm  $a , $b")
+        calendar[Calendar.HOUR_OF_DAY] =
+            preferences?.getInt(Constants.PREFERENCES_ALARM_HOUR, 0) ?: 0
+        calendar[Calendar.MINUTE] = preferences?.getInt(Constants.PREFERENCES_ALARM_MINUTES, 0) ?: 0
         calendar[Calendar.SECOND] = 0
         calendar[Calendar.MILLISECOND] = 0
         val cur = Calendar.getInstance()

@@ -1,15 +1,13 @@
 package com.p4r4d0x.skintker.presenter.settings.view.compose
 
 import android.content.SharedPreferences
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -21,6 +19,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.data.enums.SettingsStatus
+import com.p4r4d0x.skintker.presenter.common.compose.Description
 import com.p4r4d0x.skintker.presenter.common.compose.SkintkerDivider
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 
@@ -32,6 +31,7 @@ fun SettingScreen(
     onBackIconPressed: () -> Unit,
     onExportPressed: () -> Unit,
     onLogoutPressed: () -> Unit,
+    onAlarmPressed: () -> Unit,
     settingsCallback: (SettingsStatus) -> Unit
 ) {
     Scaffold(
@@ -44,6 +44,7 @@ fun SettingScreen(
             prefs,
             onExportPressed,
             onLogoutPressed,
+            onAlarmPressed,
             settingsCallback
         )
     }
@@ -97,16 +98,18 @@ fun SettingScreenContent(
     prefs: SharedPreferences?,
     onExportPressed: () -> Unit,
     onLogoutPressed: () -> Unit,
+    onAlarmPressed: () -> Unit,
     settingsCallback: (SettingsStatus) -> Unit
 ) {
     LazyColumn {
         item {
             Column(Modifier.fillMaxSize()) {
-                ParametersConfiguration(prefs, settingsCallback)
-                SkintkerDivider()
                 ProfileSection(settingsViewModel, onLogoutPressed)
                 SkintkerDivider()
-
+                AlarmSection(settingsViewModel, onAlarmPressed)
+                SkintkerDivider()
+                ParametersConfiguration(prefs, settingsCallback)
+                SkintkerDivider()
                 val multiplePermissionsState =
                     rememberMultiplePermissionsState(
                         listOf(
@@ -136,5 +139,36 @@ fun SettingScreenContent(
                 }
             }
         }
+    }
+}
+
+@Composable
+fun AlarmSection(viewModel: SettingsViewModel, onAlarmPressed: () -> Unit) {
+    val inputText: String = viewModel.reminderTime.collectAsState().value
+    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        if (inputText != "") {
+            AlarmDescription(inputText)
+        } else {
+            Description(R.string.settings_notification_description)
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+        Button(
+            enabled = true,
+            modifier = Modifier
+                .height(40.dp),
+            onClick = { onAlarmPressed() }
+        ) {
+            Text(
+                text = stringResource(
+                    id = if (inputText != "") {
+                        R.string.btn_notification_update
+                    } else {
+                        R.string.btn_notification_create
+                    }
+                )
+            )
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+
     }
 }

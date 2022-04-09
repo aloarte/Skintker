@@ -10,6 +10,8 @@
     <string name="btn_export_data">EXPORT LOGS DATA</string>
     <string name="btn_logout">LOGOUT</string>
     <string name="btn_save_logs">SAVE PREFERENCES</string>
+    <string name="btn_notification_create">CREATE REMINDER</string>
+    <string name="btn_notification_update">UPDATE REMINDER</string>
 
     <!-- Pick date -->
     <string name="pick_date_update">Update today\'s log</string>
@@ -209,6 +211,11 @@
     <string name="settings_toast_preferences_saved">Preferences saved</string>
     <string name="settings_toast_preferences_export_error">Logs couldn\'t be exported</string>
     <string name="settings_toast_preferences_logs_exported">Logs exported successfully from database</string>
+    <string name="settings_toast_preferences_reminder_created">Reminder created</string>
+    <string name="settings_toast_preferences_reminder_updated">Reminder updated</string>
+    <string name="settings_toast_preferences_reminder_fail">Reminder couldn\'t be created</string>
+    <string name="settings_notification_description">You can schedule a reminder to perform the daily log report.</string>
+    <string name="settings_notification_reminder_description">The reminder is scheduled at %1$s</string>
     <!-- Notification  -->
     <string name="notification_title">Perform your daily report</string>
     <string name="notification_description">You didn\'t perform your daily log yet, …</string>

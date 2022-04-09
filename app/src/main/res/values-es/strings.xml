@@ -10,6 +10,8 @@
     <string name="btn_export_data">EXPORTAR DATOS DE LOS LOGS</string>
     <string name="btn_logout">CERRAR SESIÓN</string>
     <string name="btn_save_logs">GUARDAR PREFERENCIAS</string>
+    <string name="btn_notification_create">CREAR RECORDATORIO</string>
+    <string name="btn_notification_update">ACTUALIZAR RECORDATORIO</string>
 
     <!-- Pick date -->
     <string name="pick_date_update">Actualizar el reporte de hoy</string>
@@ -186,6 +188,11 @@
     <string name="settings_toast_preferences_saved">Preferencias guardadas correctamente</string>
     <string name="settings_toast_preferences_export_error">No se ha podido exportar la base de datos de reportes</string>
     <string name="settings_toast_preferences_logs_exported">La base de datos de los reportes exportada correctamente</string>
+    <string name="settings_toast_preferences_reminder_created">Recordatorio creado</string>
+    <string name="settings_toast_preferences_reminder_updated">Recordatorio actualizado</string>
+    <string name="settings_toast_preferences_reminder_fail">Error al crear el recordatorio</string>
+    <string name="settings_notification_description">Puedes programar una recordatorio a la hora que elijas para realizar el reporte.</string>
+    <string name="settings_notification_reminder_description">El recordatorio está programado a las %1$s </string>
     <!-- Notification  -->
     <string name="notification_title">Realiza el reporte diario</string>
     <string name="notification_description">Hoy todavía no has realizado el reporte diario, …</string>

@@ -11,7 +11,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.data.Constants.CHANNEL_ID
 import com.p4r4d0x.skintker.data.Constants.NOTIFICATION_ID
-import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.vibratePattern
+import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils
 import com.p4r4d0x.skintker.presenter.main.MainActivity
 import com.p4r4d0x.skintker.theme.SoftRedDark
 
@@ -43,6 +43,6 @@ class ReportAlarmReceiver : BroadcastReceiver() {
                     notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT
                 )
             )
-            .setVibrate(vibratePattern)
+            .setVibrate(AlarmUtils.vibratePattern)
     }
 }

@@ -24,7 +24,6 @@ fun Description(descriptionResourceId: Int) {
     )
 }
 
-
 @Composable
 fun SkintkerDivider() {
     Divider(

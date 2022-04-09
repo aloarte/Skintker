@@ -29,6 +29,9 @@ object Constants {
     const val PREFERENCES_WEATHER_TEMPERATURE_THRESHOLD = "prefs_weather_temperature_threshold"
     const val PREFERENCES_WEATHER_HUMIDITY_THRESHOLD = "prefs_weather_humidity_threshold"
     const val PREFERENCES_USER_ID = "prefs_user_id"
+    const val PREFERENCES_ALARM_CREATED = "prefs_alarm_created"
+    const val PREFERENCES_ALARM_HOUR = "prefs_alarm_hour"
+    const val PREFERENCES_ALARM_MINUTES = "prefs_alarm_minutes"
 
     //Thresholds
     const val DEFAULT_IRRITATION_LEVEL_THRESHOLD = 5

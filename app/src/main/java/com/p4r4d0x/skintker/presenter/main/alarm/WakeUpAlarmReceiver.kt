@@ -7,8 +7,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.p4r4d0x.skintker.data.Constants.BOOT_INTENT
-import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.ALARM1_ID
-import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.getTimeForAlarm
+import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils
 
 class WakeUpAlarmReceiver : BroadcastReceiver() {
 
@@ -18,11 +17,11 @@ class WakeUpAlarmReceiver : BroadcastReceiver() {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
-                getTimeForAlarm(),
+                AlarmUtils.getTimeForAlarm(context),
                 AlarmManager.INTERVAL_DAY,
                 PendingIntent.getBroadcast(
                     context,
-                    ALARM1_ID,
+                    AlarmUtils.ALARM1_ID,
                     Intent(context, ReportAlarmReceiver::class.java),
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )

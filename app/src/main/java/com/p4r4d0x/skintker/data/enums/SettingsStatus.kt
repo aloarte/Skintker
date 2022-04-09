@@ -5,5 +5,9 @@ enum class SettingsStatus {
     ErrorSavePreferences,
     PreferencesSaved,
     ErrorExportingLogs,
-    LogsExported
+    LogsExported,
+    ReminderCreated,
+    ReminderUpdated,
+    ReminderFailed
+
 }

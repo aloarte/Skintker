@@ -565,3 +565,18 @@ fun PermissionsRationale(
     }
 
 }
+
+@Composable
+fun AlarmDescription(reminderTime: String) {
+    Text(
+        stringResource(
+            id = R.string.settings_notification_reminder_description, reminderTime
+        ),
+        fontSize = 10.sp,
+        fontWeight = FontWeight.Light,
+        style = MaterialTheme.typography.caption,
+        modifier = Modifier
+            .padding(vertical = 20.dp, horizontal = 30.dp)
+    )
+}
+

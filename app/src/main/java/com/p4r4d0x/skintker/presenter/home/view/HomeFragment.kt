@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.data.Constants
@@ -21,13 +22,17 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by inject()
 
-
     override fun onResume() {
         super.onResume()
         val prefs: SharedPreferences? =
             activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
         viewModel.getLogs(prefs?.getString(Constants.PREFERENCES_USER_ID, "") ?: "")
         viewModel.getLogsByIntensityLevel(prefs)
+        context?.let { ctx ->
+            with(NotificationManagerCompat.from(ctx)) {
+                cancel(Constants.NOTIFICATION_ID)
+            }
+        }
     }
 
     override fun onCreateView(
