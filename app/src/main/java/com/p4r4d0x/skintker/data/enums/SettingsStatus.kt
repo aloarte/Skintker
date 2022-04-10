@@ -8,6 +8,7 @@ enum class SettingsStatus {
     LogsExported,
     ReminderCreated,
     ReminderUpdated,
+    ReminderCleared,
     ReminderFailed
 
 }

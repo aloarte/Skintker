@@ -94,12 +94,12 @@ class SettingsViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesM
     fun `test settings view model update reminder time less than 10`() =
         coroutinesTestRule.runBlockingTest {
             val preferences: SharedPreferences = mockk()
-            every { preferences.getInt(Constants.PREFERENCES_ALARM_HOUR, -1) } returns 0
-            every { preferences.getInt(Constants.PREFERENCES_ALARM_MINUTES, -1) } returns 0
+            every { preferences.getInt(Constants.PREFERENCES_ALARM_HOUR, -1) } returns 1
+            every { preferences.getInt(Constants.PREFERENCES_ALARM_MINUTES, -1) } returns 1
 
             viewModelSUT.updateReminderTime(preferences)
 
-            Assert.assertEquals("00:00", viewModelSUT.reminderTime.first())
+            Assert.assertEquals("01:01", viewModelSUT.reminderTime.first())
         }
 
     @Test
@@ -112,5 +112,17 @@ class SettingsViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesM
             viewModelSUT.updateReminderTime(preferences)
 
             Assert.assertEquals("23:59", viewModelSUT.reminderTime.first())
+        }
+
+    @Test
+    fun `test settings view model update reminder no time`() =
+        coroutinesTestRule.runBlockingTest {
+            val preferences: SharedPreferences = mockk()
+            every { preferences.getInt(Constants.PREFERENCES_ALARM_HOUR, -1) } returns -1
+            every { preferences.getInt(Constants.PREFERENCES_ALARM_MINUTES, -1) } returns -1
+
+            viewModelSUT.updateReminderTime(preferences)
+
+            Assert.assertEquals("", viewModelSUT.reminderTime.first())
         }
 }

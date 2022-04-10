@@ -12,6 +12,7 @@
     <string name="btn_save_logs">SAVE PREFERENCES</string>
     <string name="btn_notification_create">CREATE REMINDER</string>
     <string name="btn_notification_update">UPDATE REMINDER</string>
+    <string name="btn_notification_clear">REMOVE</string>
 
     <!-- Pick date -->
     <string name="pick_date_update">Update today\'s log</string>
@@ -213,6 +214,7 @@
     <string name="settings_toast_preferences_logs_exported">Logs exported successfully from database</string>
     <string name="settings_toast_preferences_reminder_created">Reminder created</string>
     <string name="settings_toast_preferences_reminder_updated">Reminder updated</string>
+    <string name="settings_toast_preferences_reminder_cleared">Reminder cleared</string>
     <string name="settings_toast_preferences_reminder_fail">Reminder couldn\'t be created</string>
     <string name="settings_notification_description">You can schedule a reminder to perform the daily log report.</string>
     <string name="settings_notification_reminder_description">The reminder is scheduled at %1$s</string>

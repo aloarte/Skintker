@@ -1,17 +1,12 @@
 package com.p4r4d0x.skintker.presenter.settings.view
 
-import android.annotation.SuppressLint
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -21,13 +16,12 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.data.Constants
-import com.p4r4d0x.skintker.data.Constants.PREFERENCES_ALARM_HOUR
-import com.p4r4d0x.skintker.data.Constants.PREFERENCES_ALARM_MINUTES
 import com.p4r4d0x.skintker.data.Constants.SKITNKER_PREFERENCES
 import com.p4r4d0x.skintker.data.enums.SettingsStatus
-import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils
+import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.addAlarmPreferences
+import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.cancelAlarm
+import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.setAlarm
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
-import com.p4r4d0x.skintker.presenter.main.alarm.ReportAlarmReceiver
 import com.p4r4d0x.skintker.presenter.main.navigate
 import com.p4r4d0x.skintker.presenter.settings.view.compose.SettingScreen
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
@@ -104,27 +98,20 @@ class SettingsFragment : Fragment() {
                         settingsCallback = {
                             launchToast(it)
                         },
-                        onAlarmPressed = { showTimePicker() })
+                        onAlarmPressed = { addAlarm ->
+                            if (addAlarm) {
+                                showTimePicker()
+                            } else {
+                                activity?.let { fragmentActivity ->
+                                    cancelAlarm(fragmentActivity, prefs)
+                                    viewModel.updateReminderTime(prefs)
+                                    launchToast(SettingsStatus.ReminderCleared)
+                                }
+                            }
+                        })
                 }
             }
         }
-    }
-
-    @SuppressLint("UnspecifiedImmutableFlag")
-    private fun setAlarm() {
-        val alarmManager =
-            activity?.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            AlarmUtils.getTimeForAlarm(context),
-            AlarmManager.INTERVAL_DAY,
-            PendingIntent.getBroadcast(
-                activity,
-                AlarmUtils.ALARM1_ID,
-                Intent(activity, ReportAlarmReceiver::class.java),
-                PendingIntent.FLAG_UPDATE_CURRENT
-            )
-        )
     }
 
     private fun showTimePicker() {
@@ -132,26 +119,18 @@ class SettingsFragment : Fragment() {
             .setTimeFormat(TimeFormat.CLOCK_24H)
             .build()
         materialTimePicker.addOnPositiveButtonClickListener {
-            prefs.edit()?.let {
-                val reminderPreviouslyConfigured =
-                    prefs.getBoolean(Constants.PREFERENCES_ALARM_CREATED, false)
-                it.putInt(PREFERENCES_ALARM_HOUR, materialTimePicker.hour)
-                    ?.putInt(PREFERENCES_ALARM_MINUTES, materialTimePicker.minute)
-                    ?.putBoolean(Constants.PREFERENCES_ALARM_CREATED, true)?.apply()
-                setAlarm()
-                viewModel.updateReminderTime(prefs)
-                launchToast(
-                    if (reminderPreviouslyConfigured) {
-                        SettingsStatus.ReminderUpdated
-                    } else {
-                        SettingsStatus.ReminderCreated
-                    }
-                )
-            } ?: run {
-                launchToast(SettingsStatus.ReminderFailed)
-            }
+            val reminderConfigured = prefs.getBoolean(Constants.PREFERENCES_ALARM_CREATED, false)
+            addAlarmPreferences(materialTimePicker.hour, materialTimePicker.minute, prefs)
+            activity?.let { fragmentActivity -> setAlarm(fragmentActivity) }
+            viewModel.updateReminderTime(prefs)
+            launchToast(
+                if (reminderConfigured) {
+                    SettingsStatus.ReminderUpdated
+                } else {
+                    SettingsStatus.ReminderCreated
+                }
+            )
         }
-
         activity?.let {
             materialTimePicker.show(it.supportFragmentManager, materialTimePicker.toString())
         }
@@ -168,10 +147,10 @@ class SettingsFragment : Fragment() {
                 SettingsStatus.LogsExported -> resources.getString(R.string.settings_toast_preferences_logs_exported)
                 SettingsStatus.ReminderCreated -> resources.getString(R.string.settings_toast_preferences_reminder_created)
                 SettingsStatus.ReminderUpdated -> resources.getString(R.string.settings_toast_preferences_reminder_updated)
+                SettingsStatus.ReminderCleared -> resources.getString(R.string.settings_toast_preferences_reminder_cleared)
                 SettingsStatus.ReminderFailed -> resources.getString(R.string.settings_toast_preferences_reminder_fail)
             },
             Toast.LENGTH_SHORT
         ).show()
-
     }
 }

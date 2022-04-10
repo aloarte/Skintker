@@ -27,7 +27,6 @@ class SettingsViewModel(
     val reminderTime: MutableStateFlow<String>
         get() = _reminderTime
 
-
     fun launchExportUseCase(resources: Resources, context: Context) {
         exportLogsUseCase.invoke(
             scope = viewModelScope,
@@ -46,18 +45,20 @@ class SettingsViewModel(
     fun updateReminderTime(prefs: SharedPreferences?) {
         val alarmHour = prefs?.getInt(Constants.PREFERENCES_ALARM_HOUR, -1) ?: -1
         val alarmMinutes = prefs?.getInt(Constants.PREFERENCES_ALARM_MINUTES, -1) ?: -1
-        val hourStr = if (alarmHour < 10) {
-            "0$alarmHour"
+        _reminderTime.value = if (alarmHour == -1 || alarmMinutes == -1) {
+            ""
         } else {
-            "$alarmHour"
+            val hourStr = if (alarmHour < 10) {
+                "0$alarmHour"
+            } else {
+                "$alarmHour"
+            }
+            val minutesStr = if (alarmMinutes < 10) {
+                "0$alarmMinutes"
+            } else {
+                "$alarmMinutes"
+            }
+            "$hourStr:$minutesStr"
         }
-        val minutesStr = if (alarmMinutes < 10) {
-            "0$alarmMinutes"
-        } else {
-            "$alarmMinutes"
-        }
-
-        _reminderTime.value = "$hourStr:$minutesStr"
-
     }
 }

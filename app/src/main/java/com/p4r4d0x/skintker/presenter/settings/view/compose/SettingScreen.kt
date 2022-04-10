@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -31,7 +32,7 @@ fun SettingScreen(
     onBackIconPressed: () -> Unit,
     onExportPressed: () -> Unit,
     onLogoutPressed: () -> Unit,
-    onAlarmPressed: () -> Unit,
+    onAlarmPressed: (Boolean) -> Unit,
     settingsCallback: (SettingsStatus) -> Unit
 ) {
     Scaffold(
@@ -60,7 +61,6 @@ fun SettingsTopBar(
     ) {
         //TopAppBar Content
         Box(modifier = Modifier.fillMaxSize()) {
-
             Box(
                 Modifier
                     .fillMaxSize()
@@ -98,7 +98,7 @@ fun SettingScreenContent(
     prefs: SharedPreferences?,
     onExportPressed: () -> Unit,
     onLogoutPressed: () -> Unit,
-    onAlarmPressed: () -> Unit,
+    onAlarmPressed: (Boolean) -> Unit,
     settingsCallback: (SettingsStatus) -> Unit
 ) {
     LazyColumn {
@@ -137,13 +137,17 @@ fun SettingScreenContent(
                         )
                     }
                 }
+                Divider(
+                    modifier = Modifier.height(20.dp),
+                    color = Color.Transparent
+                )
             }
         }
     }
 }
 
 @Composable
-fun AlarmSection(viewModel: SettingsViewModel, onAlarmPressed: () -> Unit) {
+fun AlarmSection(viewModel: SettingsViewModel, onAlarmPressed: (Boolean) -> Unit) {
     val inputText: String = viewModel.reminderTime.collectAsState().value
     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         if (inputText != "") {
@@ -152,23 +156,39 @@ fun AlarmSection(viewModel: SettingsViewModel, onAlarmPressed: () -> Unit) {
             Description(R.string.settings_notification_description)
         }
         Spacer(modifier = Modifier.height(20.dp))
-        Button(
-            enabled = true,
-            modifier = Modifier
-                .height(40.dp),
-            onClick = { onAlarmPressed() }
-        ) {
-            Text(
-                text = stringResource(
-                    id = if (inputText != "") {
-                        R.string.btn_notification_update
-                    } else {
-                        R.string.btn_notification_create
-                    }
+        if (inputText != "") {
+            Row {
+                Button(
+                    enabled = true,
+                    modifier = Modifier
+                        .height(40.dp),
+                    onClick = { onAlarmPressed(true) }
+                ) {
+                    Text(text = stringResource(R.string.btn_notification_update))
+                }
+                Divider(
+                    modifier = Modifier.width(20.dp),
+                    color = Color.Transparent
                 )
-            )
+                Button(
+                    enabled = true,
+                    modifier = Modifier
+                        .height(40.dp),
+                    onClick = { onAlarmPressed(false) }
+                ) {
+                    Text(text = stringResource(R.string.btn_notification_clear))
+                }
+            }
+        } else {
+            Button(
+                enabled = true,
+                modifier = Modifier
+                    .height(40.dp),
+                onClick = { onAlarmPressed(true) }
+            ) {
+                Text(text = stringResource(R.string.btn_notification_create))
+            }
         }
         Spacer(modifier = Modifier.height(20.dp))
-
     }
 }
