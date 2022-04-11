@@ -44,13 +44,22 @@ which is also used to store the users data in the **Firestore Database**.
 - A resume with stats and conclusions from the data reported.
 - Export all the logs into a CSV file.
 - App configuration panel.
+- Notification reminder based on Alarm Manager.
 
 ## ☑️ TODO
-- [ ] Notification to remind that the log isn't reported yet.
 
-## :iphone: Previews
+- [x] Notification to remind that the log isn't reported yet.
 
-<img src="/results/questions.gif" width="260"><img src="/results/home_history.jpg" width="260">
+## :iphone: Screenshots & demo
+
+Light and dark mode screenshots:
+
+<img src="/results/homeLightMode.png" width="200"><img src="/results/resumeLightMode.png" width="200"><img src="/results/surveyLightMode.png" width="200">
+<img src="/results/homeDarkMode.png" width="200"><img src="/results/resumeDarkMode.png" width="200"><img src="/results/surveyDarkMode.png" width="200">
+
+Survey demo:
+
+<img src="/results/questions.gif" width="260">
 
 ## MAD Score
 
