@@ -2,7 +2,6 @@
 
 <img src="/results/logo.png" width="800" align="left">
 
-
 <br>
 Skintker its an app for Android devices developed to help people with skin issues in the process of
 tracking which elements of their daily routine may cause those issues. The user can save a log every
@@ -55,13 +54,14 @@ which is also used to store the users data in the **Firestore Database**.
 Light and dark mode screenshots:
 
 <img src="/results/homeLightMode.png" width="200"><img src="/results/resumeLightMode.png" width="200"><img src="/results/surveyLightMode.png" width="200">
-<img src="/results/homeDarkMode.png" width="200"><img src="/results/resumeDarkMode.png" width="200"><img src="/results/surveyDarkMode.png" width="200">
+
+<br><img src="/results/homeDarkMode.png" width="200"><img src="/results/resumeDarkMode.png" width="200"><img src="/results/surveyDarkMode.png" width="200">
 
 Survey demo:
 
 <img src="/results/questions.gif" width="260">
 
-## MAD Score
+## :chart: MAD Score
 
 <img src="/results/summary.png" width="1500">
 
