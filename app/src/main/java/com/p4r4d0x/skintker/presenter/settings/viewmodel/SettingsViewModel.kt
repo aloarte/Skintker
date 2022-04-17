@@ -8,9 +8,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.p4r4d0x.skintker.data.Constants
-import com.p4r4d0x.skintker.domain.bo.ProfileBO
-import com.p4r4d0x.skintker.domain.usecases.ExportLogsDBUseCase
+import com.example.domain.bo.ProfileBO
+import com.p4r4d0x.domain.usecases.ExportLogsDBUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class SettingsViewModel(
@@ -20,8 +19,8 @@ class SettingsViewModel(
     private val _exportStatus = MutableLiveData<Boolean>()
     val exportStatus: LiveData<Boolean> = _exportStatus
 
-    private val _profile = MutableLiveData<ProfileBO>()
-    val profile: LiveData<ProfileBO> = _profile
+    private val _profile = MutableLiveData<com.example.domain.bo.ProfileBO>()
+    val profile: LiveData<com.example.domain.bo.ProfileBO> = _profile
 
     private val _reminderTime = MutableStateFlow("")
     val reminderTime: MutableStateFlow<String>
@@ -38,13 +37,14 @@ class SettingsViewModel(
 
     fun getLoggedUserInfo(lastSignedInAccount: GoogleSignInAccount?) {
         lastSignedInAccount?.let {
-            _profile.value = ProfileBO(it.email ?: "", it.displayName ?: "", it.id ?: "")
+            _profile.value =
+                com.example.domain.bo.ProfileBO(it.email ?: "", it.displayName ?: "", it.id ?: "")
         }
     }
 
     fun updateReminderTime(prefs: SharedPreferences?) {
-        val alarmHour = prefs?.getInt(Constants.PREFERENCES_ALARM_HOUR, -1) ?: -1
-        val alarmMinutes = prefs?.getInt(Constants.PREFERENCES_ALARM_MINUTES, -1) ?: -1
+        val alarmHour = prefs?.getInt(com.p4r4d0x.domain.Constants.PREFERENCES_ALARM_HOUR, -1) ?: -1
+        val alarmMinutes = prefs?.getInt(com.p4r4d0x.domain.Constants.PREFERENCES_ALARM_MINUTES, -1) ?: -1
         _reminderTime.value = if (alarmHour == -1 || alarmMinutes == -1) {
             ""
         } else {

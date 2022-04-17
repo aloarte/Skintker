@@ -6,24 +6,24 @@ plugins {
     id 'androidx.navigation.safeargs'
 }
 
-def keystorePropertiesFile = rootProject.file("keystore.properties")
-def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+//def keystorePropertiesFile = rootProject.file("keystore.properties")
+//def keystoreProperties = new Properties()
+//keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     signingConfigs {
         release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
+//            keyAlias keystoreProperties['keyAlias']
+//            keyPassword keystoreProperties['keyPassword']
+//            storeFile file(keystoreProperties['storeFile'])
+//            storePassword keystoreProperties['storePassword']
 
         }
         debug {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
+//            keyAlias keystoreProperties['keyAlias']
+//            keyPassword keystoreProperties['keyPassword']
+//            storeFile file(keystoreProperties['storeFile'])
+//            storePassword keystoreProperties['storePassword']
         }
     }
     compileSdk 31
@@ -78,6 +78,13 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':domain')
+    implementation project(path: ':data')
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    //Room
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
     //Koin
     implementation "io.insert-koin:koin-core:$koinVersion"
     implementation "io.insert-koin:koin-android:$koinVersion"
@@ -105,13 +112,7 @@ dependencies {
     implementation "com.google.android.material:material:$material"
     implementation 'com.google.accompanist:accompanist-permissions:0.24.2-alpha'
     implementation "com.chargemap.compose:numberpicker:0.0.11"
-    implementation 'com.github.doyaaaaaken:kotlin-csv-jvm:1.2.0'
-    //Room
-    implementation "androidx.room:room-ktx:$roomVersion"
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    kapt "androidx.room:room-compiler:$roomVersion"
     //External
-    implementation "com.google.code.gson:gson:$gson"
     implementation "com.airbnb.android:lottie-compose:4.2.2"
     //Firebase
     implementation platform('com.google.firebase:firebase-bom:29.0.4')
@@ -119,8 +120,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-auth'
 
-    //Test
-    testImplementation "io.insert-koin:koin-test:$koinVersion"
+
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
     testImplementation "androidx.test.ext:junit-ktx:1.1.3"

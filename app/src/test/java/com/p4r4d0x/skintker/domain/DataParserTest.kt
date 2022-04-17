@@ -4,18 +4,18 @@ package com.p4r4d0x.skintker.domain
 import android.content.res.Resources
 import com.google.firebase.Timestamp
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.Constants
-import com.p4r4d0x.skintker.data.enums.AlcoholLevel
-import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
-import com.p4r4d0x.skintker.domain.bo.DailyLogBO
-import com.p4r4d0x.skintker.domain.bo.IrritationBO
+import com.p4r4d0x.domain.Constants
+import com.p4r4d0x.domain.bo.AlcoholLevel
+import com.example.domain.bo.AdditionalDataBO
+import com.example.domain.bo.DailyLogBO
+import com.example.domain.bo.IrritationBO
 import com.p4r4d0x.skintker.domain.log.Answer
-import com.p4r4d0x.skintker.domain.parsers.DataParser
-import com.p4r4d0x.skintker.domain.parsers.DataParser.createLogFromSurvey
-import com.p4r4d0x.skintker.domain.parsers.DataParser.getAlcoholLevel
-import com.p4r4d0x.skintker.domain.parsers.DataParser.getHumidityString
-import com.p4r4d0x.skintker.domain.parsers.DataParser.getTemperatureString
-import com.p4r4d0x.skintker.domain.parsers.DataParser.parseDocumentData
+import com.p4r4d0x.data.parsers.DataParser
+import com.p4r4d0x.data.parsers.DataParser.createLogFromSurvey
+import com.p4r4d0x.data.parsers.DataParser.getAlcoholLevel
+import com.p4r4d0x.data.parsers.DataParser.getHumidityString
+import com.p4r4d0x.data.parsers.DataParser.getTemperatureString
+import com.p4r4d0x.data.parsers.DataParser.parseDocumentData
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Assert
@@ -98,38 +98,39 @@ class DataParserTest {
         return answerList
     }
 
-    private fun getDailyLog(expandBeerQuestion: Boolean, alcoholLevel: AlcoholLevel) = DailyLogBO(
-        date = DataParser.getCurrentFormattedDate(),
-        irritation = IrritationBO(
-            overallValue = FIRST_QUESTION_ANSWER_SLIDER.toInt(),
-            zoneValues = listOf(
+    private fun getDailyLog(expandBeerQuestion: Boolean, alcoholLevel: com.p4r4d0x.domain.bo.AlcoholLevel) =
+        com.example.domain.bo.DailyLogBO(
+            date = com.p4r4d0x.data.parsers.DataParser.getCurrentFormattedDate(),
+            irritation = com.example.domain.bo.IrritationBO(
+                overallValue = FIRST_QUESTION_ANSWER_SLIDER.toInt(),
+                zoneValues = listOf(
+                    MULTIPLE_ANSWER_1_VALUE,
+                    MULTIPLE_ANSWER_2_VALUE
+                )
+            ),
+            additionalData = com.example.domain.bo.AdditionalDataBO(
+                stressLevel = THIRD_QUESTION_ANSWER_SLIDER.toInt(),
+                weather = com.example.domain.bo.AdditionalDataBO.WeatherBO(
+                    humidity = SIXTH_QUESTION_ANSWER_SLIDER_1.toInt(),
+                    temperature = SIXTH_QUESTION_ANSWER_SLIDER_2.toInt()
+                ),
+                travel = com.example.domain.bo.AdditionalDataBO.TravelBO(
+                    traveled = false,
+                    city = SEVENTH_QUESTION_ANSWER_INPUT_LOWER_CASE
+                ),
+                alcoholLevel = alcoholLevel,
+                beerTypes = if (expandBeerQuestion) listOf(
+                    MULTIPLE_ANSWER_1_VALUE,
+                    MULTIPLE_ANSWER_2_VALUE
+                ) else emptyList()
+            ),
+            foodList = listOf(
+                MULTIPLE_ANSWER_1_VALUE,
+                MULTIPLE_ANSWER_2_VALUE,
                 MULTIPLE_ANSWER_1_VALUE,
                 MULTIPLE_ANSWER_2_VALUE
             )
-        ),
-        additionalData = AdditionalDataBO(
-            stressLevel = THIRD_QUESTION_ANSWER_SLIDER.toInt(),
-            weather = AdditionalDataBO.WeatherBO(
-                humidity = SIXTH_QUESTION_ANSWER_SLIDER_1.toInt(),
-                temperature = SIXTH_QUESTION_ANSWER_SLIDER_2.toInt()
-            ),
-            travel = AdditionalDataBO.TravelBO(
-                traveled = false,
-                city = SEVENTH_QUESTION_ANSWER_INPUT_LOWER_CASE
-            ),
-            alcoholLevel = alcoholLevel,
-            beerTypes = if (expandBeerQuestion) listOf(
-                MULTIPLE_ANSWER_1_VALUE,
-                MULTIPLE_ANSWER_2_VALUE
-            ) else emptyList()
-        ),
-        foodList = listOf(
-            MULTIPLE_ANSWER_1_VALUE,
-            MULTIPLE_ANSWER_2_VALUE,
-            MULTIPLE_ANSWER_1_VALUE,
-            MULTIPLE_ANSWER_2_VALUE
         )
-    )
 
     @Test
     fun `get humidity`() {
@@ -177,12 +178,12 @@ class DataParserTest {
         val answerList = getAnswerList(expandBeerQuestion = true)
 
         val surveyLog = createLogFromSurvey(
-            date = DataParser.getCurrentFormattedDate(),
+            date = com.p4r4d0x.data.parsers.DataParser.getCurrentFormattedDate(),
             answers = answerList,
             resources = resources
         )
 
-        val expectedLog = getDailyLog(expandBeerQuestion = true, AlcoholLevel.None)
+        val expectedLog = getDailyLog(expandBeerQuestion = true, com.p4r4d0x.domain.bo.AlcoholLevel.None)
         Assert.assertEquals(expectedLog, surveyLog)
     }
 
@@ -191,31 +192,31 @@ class DataParserTest {
         val answerList = getAnswerList(expandBeerQuestion = false)
 
         val surveyLog = createLogFromSurvey(
-            DataParser.getCurrentFormattedDate(),
+            com.p4r4d0x.data.parsers.DataParser.getCurrentFormattedDate(),
             answers = answerList,
             resources = resources
         )
 
-        val expectedLog = getDailyLog(expandBeerQuestion = false, alcoholLevel = AlcoholLevel.None)
+        val expectedLog = getDailyLog(expandBeerQuestion = false, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.None)
         Assert.assertEquals(expectedLog, surveyLog)
     }
 
     @Test
     fun `parse document data from fb success data AlcoholLevelNone`() {
-        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
+        val log = getDailyLog(true, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.None)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
-            Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
-            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
-            Constants.LABEL_ALCOHOL to "None",
-            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
-            Constants.LABEL_CITY to log.additionalData?.travel?.city,
-            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+            com.p4r4d0x.domain.Constants.LABEL_DATE to Timestamp(log.date),
+            com.p4r4d0x.domain.Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_ALCOHOL to "None",
+            com.p4r4d0x.domain.Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_CITY to log.additionalData?.travel?.city,
+            com.p4r4d0x.domain.Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
+            com.p4r4d0x.domain.Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
         )
         data[USER_ID] = userData
 
@@ -226,20 +227,20 @@ class DataParserTest {
 
     @Test
     fun `parse document data from fb success data AlcoholLevelNoneFew`() {
-        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.Few)
+        val log = getDailyLog(true, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.Few)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
-            Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
-            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
-            Constants.LABEL_ALCOHOL to "Few",
-            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
-            Constants.LABEL_CITY to log.additionalData?.travel?.city,
-            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+            com.p4r4d0x.domain.Constants.LABEL_DATE to Timestamp(log.date),
+            com.p4r4d0x.domain.Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_ALCOHOL to "Few",
+            com.p4r4d0x.domain.Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_CITY to log.additionalData?.travel?.city,
+            com.p4r4d0x.domain.Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
+            com.p4r4d0x.domain.Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
         )
         data[USER_ID] = userData
 
@@ -250,20 +251,20 @@ class DataParserTest {
 
     @Test
     fun `parse document data from fb success data AlcoholLevelNoneFewAlcohol`() {
-        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.FewWine)
+        val log = getDailyLog(true, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.FewWine)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
-            Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
-            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
-            Constants.LABEL_ALCOHOL to "FewWine",
-            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
-            Constants.LABEL_CITY to log.additionalData?.travel?.city,
-            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+            com.p4r4d0x.domain.Constants.LABEL_DATE to Timestamp(log.date),
+            com.p4r4d0x.domain.Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_ALCOHOL to "FewWine",
+            com.p4r4d0x.domain.Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_CITY to log.additionalData?.travel?.city,
+            com.p4r4d0x.domain.Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
+            com.p4r4d0x.domain.Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
         )
         data[USER_ID] = userData
 
@@ -274,20 +275,20 @@ class DataParserTest {
 
     @Test
     fun `parse document data from fb success data AlcoholLevelSome`() {
-        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.Some)
+        val log = getDailyLog(true, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.Some)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
-            Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
-            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
-            Constants.LABEL_ALCOHOL to "Some",
-            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
-            Constants.LABEL_CITY to log.additionalData?.travel?.city,
-            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+            com.p4r4d0x.domain.Constants.LABEL_DATE to Timestamp(log.date),
+            com.p4r4d0x.domain.Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_ALCOHOL to "Some",
+            com.p4r4d0x.domain.Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_CITY to log.additionalData?.travel?.city,
+            com.p4r4d0x.domain.Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
+            com.p4r4d0x.domain.Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
         )
         data[USER_ID] = userData
 
@@ -298,20 +299,20 @@ class DataParserTest {
 
     @Test
     fun `parse document data from fb success data bad alcohol type`() {
-        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
+        val log = getDailyLog(true, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.None)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
-            Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
-            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
-            Constants.LABEL_ALCOHOL to "Nonexistantenumvalue",
-            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
-            Constants.LABEL_CITY to log.additionalData?.travel?.city,
-            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+            com.p4r4d0x.domain.Constants.LABEL_DATE to Timestamp(log.date),
+            com.p4r4d0x.domain.Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_ALCOHOL to "Nonexistantenumvalue",
+            com.p4r4d0x.domain.Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_CITY to log.additionalData?.travel?.city,
+            com.p4r4d0x.domain.Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
+            com.p4r4d0x.domain.Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
         )
         data[USER_ID] = userData
 
@@ -322,20 +323,20 @@ class DataParserTest {
 
     @Test
     fun `parse document data from fb wrong data bad user`() {
-        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
+        val log = getDailyLog(true, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.None)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
-            Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
-            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
-            Constants.LABEL_ALCOHOL to log.additionalData?.alcoholLevel?.name,
-            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
-            Constants.LABEL_CITY to log.additionalData?.travel?.city,
-            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+            com.p4r4d0x.domain.Constants.LABEL_DATE to Timestamp(log.date),
+            com.p4r4d0x.domain.Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            com.p4r4d0x.domain.Constants.LABEL_ALCOHOL to log.additionalData?.alcoholLevel?.name,
+            com.p4r4d0x.domain.Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_CITY to log.additionalData?.travel?.city,
+            com.p4r4d0x.domain.Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
+            com.p4r4d0x.domain.Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
+            com.p4r4d0x.domain.Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
         )
         data[USER_ID] = userData
 
@@ -346,10 +347,10 @@ class DataParserTest {
 
     @Test
     fun `parse document data from fb wrong data parse exception`() {
-        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
+        val log = getDailyLog(true, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.None)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
-            Constants.LABEL_DATE to Timestamp(log.date)
+            com.p4r4d0x.domain.Constants.LABEL_DATE to Timestamp(log.date)
         )
         data[USER_ID] = userData
 

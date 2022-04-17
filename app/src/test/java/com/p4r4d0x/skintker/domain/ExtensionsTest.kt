@@ -1,6 +1,6 @@
 package com.p4r4d0x.skintker.domain
 
-import com.p4r4d0x.skintker.data.enums.AlcoholLevel
+import com.p4r4d0x.domain.bo.AlcoholLevel
 import org.junit.Test
 import java.util.*
 import kotlin.test.assertEquals
@@ -74,11 +74,11 @@ class ExtensionsTest {
 
     @Test
     fun `update value (AlcoholLevel,Int)`() {
-        val map = mutableMapOf(AlcoholLevel.Few to 3)
+        val map = mutableMapOf(com.p4r4d0x.domain.bo.AlcoholLevel.Few to 3)
 
-        map.increaseValue(AlcoholLevel.Few)
+        map.increaseValue(com.p4r4d0x.domain.bo.AlcoholLevel.Few)
 
-        assertEquals(4, map[AlcoholLevel.Few])
+        assertEquals(4, map[com.p4r4d0x.domain.bo.AlcoholLevel.Few])
     }
 
     @Test

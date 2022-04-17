@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.enums.SettingsStatus
+import com.p4r4d0x.skintker.presenter.settings.SettingsStatus
 import com.p4r4d0x.skintker.presenter.common.compose.Description
 import com.p4r4d0x.skintker.presenter.common.compose.SkintkerDivider
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel

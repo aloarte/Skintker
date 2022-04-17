@@ -14,12 +14,12 @@ import androidx.navigation.fragment.navArgs
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.Constants
-import com.p4r4d0x.skintker.data.Constants.YEAR_DAYS
+import com.p4r4d0x.domain.Constants
+import com.p4r4d0x.domain.Constants.YEAR_DAYS
 import com.p4r4d0x.skintker.domain.getDateWithoutTime
 import com.p4r4d0x.skintker.domain.log.SurveyActionType
 import com.p4r4d0x.skintker.domain.log.SurveyState
-import com.p4r4d0x.skintker.domain.parsers.DataParser.stringToDateFromPicker
+import com.p4r4d0x.data.parsers.DataParser.stringToDateFromPicker
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.main.MainActivity
 import com.p4r4d0x.skintker.presenter.main.navigate
@@ -54,7 +54,7 @@ class SurveyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val prefs: SharedPreferences? =
-            activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
+            activity?.getSharedPreferences(com.p4r4d0x.domain.Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
 
         return ComposeView(requireContext()).apply {
             id = R.id.survey_fragment
@@ -87,7 +87,7 @@ class SurveyFragment : Fragment() {
                                     onDonePressed = {
                                         viewModel.computeResult(
                                             userId = prefs?.getString(
-                                                Constants.PREFERENCES_USER_ID,
+                                                com.p4r4d0x.domain.Constants.PREFERENCES_USER_ID,
                                                 ""
                                             ) ?: "",
                                             surveyQuestions = logState,

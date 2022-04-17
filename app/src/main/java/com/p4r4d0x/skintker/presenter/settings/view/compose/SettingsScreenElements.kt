@@ -19,8 +19,7 @@ import com.chargemap.compose.numberpicker.NumberPicker
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.Constants
-import com.p4r4d0x.skintker.data.enums.SettingsStatus
+import com.p4r4d0x.skintker.presenter.settings.SettingsStatus
 import com.p4r4d0x.skintker.presenter.common.compose.Description
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 
@@ -37,80 +36,80 @@ fun ParametersConfiguration(prefs: SharedPreferences?, settingsCallback: (Settin
         var irritationLevelValue by remember {
             mutableStateOf(
                 preference.getInt(
-                    Constants.PREFERENCES_IRRITATION_NUMBER,
-                    Constants.DEFAULT_IRRITATION_LEVEL_THRESHOLD
+                    com.p4r4d0x.domain.Constants.PREFERENCES_IRRITATION_NUMBER,
+                    com.p4r4d0x.domain.Constants.DEFAULT_IRRITATION_LEVEL_THRESHOLD
                 )
             )
         }
         var minLogsValue by remember {
             mutableStateOf(
                 preference.getInt(
-                    Constants.PREFERENCES_MIN_LOGS,
-                    Constants.DEFAULT_MIN_LOGS
+                    com.p4r4d0x.domain.Constants.PREFERENCES_MIN_LOGS,
+                    com.p4r4d0x.domain.Constants.DEFAULT_MIN_LOGS
                 )
             )
         }
         var foodThresholdValue by remember {
             mutableStateOf(
                 (preference.getFloat(
-                    Constants.PREFERENCES_FOOD_THRESHOLD,
-                    Constants.DEFAULT_FOOD_THRESHOLD
+                    com.p4r4d0x.domain.Constants.PREFERENCES_FOOD_THRESHOLD,
+                    com.p4r4d0x.domain.Constants.DEFAULT_FOOD_THRESHOLD
                 ) * 100).toInt()
             )
         }
         var zonesThresholdValue by remember {
             mutableStateOf(
                 (preference.getFloat(
-                    Constants.PREFERENCES_ZONES_THRESHOLD,
-                    Constants.DEFAULT_ZONES_THRESHOLD
+                    com.p4r4d0x.domain.Constants.PREFERENCES_ZONES_THRESHOLD,
+                    com.p4r4d0x.domain.Constants.DEFAULT_ZONES_THRESHOLD
                 ) * 100).toInt()
             )
         }
         var alcoholThresholdValue by remember {
             mutableStateOf(
                 (preference.getFloat(
-                    Constants.PREFERENCES_ALCOHOL_THRESHOLD,
-                    Constants.DEFAULT_ALCOHOL_THRESHOLD
+                    com.p4r4d0x.domain.Constants.PREFERENCES_ALCOHOL_THRESHOLD,
+                    com.p4r4d0x.domain.Constants.DEFAULT_ALCOHOL_THRESHOLD
                 ) * 100).toInt()
             )
         }
         var travelThresholdValue by remember {
             mutableStateOf(
                 (preference.getFloat(
-                    Constants.PREFERENCES_TRAVEL_THRESHOLD,
-                    Constants.DEFAULT_TRAVEL_THRESHOLD
+                    com.p4r4d0x.domain.Constants.PREFERENCES_TRAVEL_THRESHOLD,
+                    com.p4r4d0x.domain.Constants.DEFAULT_TRAVEL_THRESHOLD
                 ) * 100).toInt()
             )
         }
         var temperatureThresholdValue by remember {
             mutableStateOf(
                 (preference.getFloat(
-                    Constants.PREFERENCES_WEATHER_TEMPERATURE_THRESHOLD,
-                    Constants.DEFAULT_WEATHER_TEMPERATURE_THRESHOLD
+                    com.p4r4d0x.domain.Constants.PREFERENCES_WEATHER_TEMPERATURE_THRESHOLD,
+                    com.p4r4d0x.domain.Constants.DEFAULT_WEATHER_TEMPERATURE_THRESHOLD
                 ) * 100).toInt()
             )
         }
         var humidityThresholdValue by remember {
             mutableStateOf(
                 (preference.getFloat(
-                    Constants.PREFERENCES_WEATHER_HUMIDITY_THRESHOLD,
-                    Constants.DEFAULT_WEATHER_HUMIDITY_THRESHOLD
+                    com.p4r4d0x.domain.Constants.PREFERENCES_WEATHER_HUMIDITY_THRESHOLD,
+                    com.p4r4d0x.domain.Constants.DEFAULT_WEATHER_HUMIDITY_THRESHOLD
                 ) * 100).toInt()
             )
         }
         var stressLevelValue by remember {
             mutableStateOf(
                 preference.getInt(
-                    Constants.PREFERENCES_STRESS_VALUE,
-                    Constants.DEFAULT_STRESS_VALUE
+                    com.p4r4d0x.domain.Constants.PREFERENCES_STRESS_VALUE,
+                    com.p4r4d0x.domain.Constants.DEFAULT_STRESS_VALUE
                 )
             )
         }
         var stressThresholdValue by remember {
             mutableStateOf(
                 (preference.getFloat(
-                    Constants.PREFERENCES_STRESS_THRESHOLD,
-                    Constants.DEFAULT_STRESS_THRESHOLD
+                    com.p4r4d0x.domain.Constants.PREFERENCES_STRESS_THRESHOLD,
+                    com.p4r4d0x.domain.Constants.DEFAULT_STRESS_THRESHOLD
                 ) * 100).toInt()
             )
         }
@@ -432,22 +431,22 @@ fun setPreferenceValues(
 ) {
     val editor: SharedPreferences.Editor? = prefs?.edit()
     editor?.let {
-        it.putInt(Constants.PREFERENCES_IRRITATION_NUMBER, irritationLevelValue)
-        it.putInt(Constants.PREFERENCES_MIN_LOGS, minLogsValue)
-        it.putFloat(Constants.PREFERENCES_FOOD_THRESHOLD, foodThresholdValue.toFloat() / 100f)
-        it.putFloat(Constants.PREFERENCES_ZONES_THRESHOLD, zonesThresholdValue.toFloat() / 100f)
-        it.putFloat(Constants.PREFERENCES_ALCOHOL_THRESHOLD, alcoholThresholdValue.toFloat() / 100f)
-        it.putFloat(Constants.PREFERENCES_TRAVEL_THRESHOLD, travelThresholdValue.toFloat() / 100f)
+        it.putInt(com.p4r4d0x.domain.Constants.PREFERENCES_IRRITATION_NUMBER, irritationLevelValue)
+        it.putInt(com.p4r4d0x.domain.Constants.PREFERENCES_MIN_LOGS, minLogsValue)
+        it.putFloat(com.p4r4d0x.domain.Constants.PREFERENCES_FOOD_THRESHOLD, foodThresholdValue.toFloat() / 100f)
+        it.putFloat(com.p4r4d0x.domain.Constants.PREFERENCES_ZONES_THRESHOLD, zonesThresholdValue.toFloat() / 100f)
+        it.putFloat(com.p4r4d0x.domain.Constants.PREFERENCES_ALCOHOL_THRESHOLD, alcoholThresholdValue.toFloat() / 100f)
+        it.putFloat(com.p4r4d0x.domain.Constants.PREFERENCES_TRAVEL_THRESHOLD, travelThresholdValue.toFloat() / 100f)
         it.putFloat(
-            Constants.PREFERENCES_WEATHER_TEMPERATURE_THRESHOLD,
+            com.p4r4d0x.domain.Constants.PREFERENCES_WEATHER_TEMPERATURE_THRESHOLD,
             temperatureThresholdValue.toFloat() / 100f
         )
         it.putFloat(
-            Constants.PREFERENCES_WEATHER_HUMIDITY_THRESHOLD,
+            com.p4r4d0x.domain.Constants.PREFERENCES_WEATHER_HUMIDITY_THRESHOLD,
             humidityThresholdValue.toFloat() / 100f
         )
-        it.putInt(Constants.PREFERENCES_STRESS_VALUE, stressLevelValue)
-        it.putFloat(Constants.PREFERENCES_STRESS_THRESHOLD, stressThresholdValue.toFloat() / 100f)
+        it.putInt(com.p4r4d0x.domain.Constants.PREFERENCES_STRESS_VALUE, stressLevelValue)
+        it.putFloat(com.p4r4d0x.domain.Constants.PREFERENCES_STRESS_THRESHOLD, stressThresholdValue.toFloat() / 100f)
         editor.apply()
         settingsCallback(SettingsStatus.PreferencesSaved)
 

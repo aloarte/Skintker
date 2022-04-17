@@ -1,23 +1,22 @@
 package com.p4r4d0x.skintker.domain
 
-import com.p4r4d0x.skintker.data.Constants.LABEL_ALCOHOL
-import com.p4r4d0x.skintker.data.Constants.LABEL_BEERS
-import com.p4r4d0x.skintker.data.Constants.LABEL_CITY
-import com.p4r4d0x.skintker.data.Constants.LABEL_DATE
-import com.p4r4d0x.skintker.data.Constants.LABEL_FOODS
-import com.p4r4d0x.skintker.data.Constants.LABEL_ID
-import com.p4r4d0x.skintker.data.Constants.LABEL_IRRITATED_ZONES
-import com.p4r4d0x.skintker.data.Constants.LABEL_IRRITATION
-import com.p4r4d0x.skintker.data.Constants.LABEL_STRESS
-import com.p4r4d0x.skintker.data.Constants.LABEL_TRAVELED
-import com.p4r4d0x.skintker.data.Constants.LABEL_WEATHER_HUMIDITY
-import com.p4r4d0x.skintker.data.Constants.LABEL_WEATHER_TEMPERATURE
-import com.p4r4d0x.skintker.data.enums.AlcoholLevel
-import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
-import com.p4r4d0x.skintker.domain.bo.DailyLogBO
-import com.p4r4d0x.skintker.domain.bo.IrritationBO
-import com.p4r4d0x.skintker.domain.parsers.CSVParser.getCSVRowFromData
-import com.p4r4d0x.skintker.domain.parsers.CSVParser.getHeaderCSVRow
+import com.p4r4d0x.domain.Constants.LABEL_ALCOHOL
+import com.p4r4d0x.domain.Constants.LABEL_BEERS
+import com.p4r4d0x.domain.Constants.LABEL_CITY
+import com.p4r4d0x.domain.Constants.LABEL_DATE
+import com.p4r4d0x.domain.Constants.LABEL_FOODS
+import com.p4r4d0x.domain.Constants.LABEL_ID
+import com.p4r4d0x.domain.Constants.LABEL_IRRITATED_ZONES
+import com.p4r4d0x.domain.Constants.LABEL_IRRITATION
+import com.p4r4d0x.domain.Constants.LABEL_STRESS
+import com.p4r4d0x.domain.Constants.LABEL_TRAVELED
+import com.p4r4d0x.domain.Constants.LABEL_WEATHER_HUMIDITY
+import com.p4r4d0x.domain.Constants.LABEL_WEATHER_TEMPERATURE
+import com.example.domain.bo.AdditionalDataBO
+import com.example.domain.bo.DailyLogBO
+import com.example.domain.bo.IrritationBO
+import com.p4r4d0x.domain.CSVParser.getCSVRowFromData
+import com.p4r4d0x.domain.CSVParser.getHeaderCSVRow
 import org.junit.Before
 import org.junit.Test
 import java.util.*
@@ -71,17 +70,26 @@ class CSVParserTest {
 
     @Test
     fun `get data CSV row`() {
-        val dailyLog = DailyLogBO(
+        val dailyLog = com.example.domain.bo.DailyLogBO(
             date = date,
 
             foodList = listOf(FOOD_1, FOOD_3),
-            additionalData = AdditionalDataBO(
-                alcoholLevel = AlcoholLevel.Few,
-                weather = AdditionalDataBO.WeatherBO(temperature = 3, humidity = 4),
-                travel = AdditionalDataBO.TravelBO(city = "Madrid", traveled = true),
+            additionalData = com.example.domain.bo.AdditionalDataBO(
+                alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.Few,
+                weather = com.example.domain.bo.AdditionalDataBO.WeatherBO(
+                    temperature = 3,
+                    humidity = 4
+                ),
+                travel = com.example.domain.bo.AdditionalDataBO.TravelBO(
+                    city = "Madrid",
+                    traveled = true
+                ),
                 stressLevel = 10
             ),
-            irritation = IrritationBO(overallValue = 10, zoneValues = listOf(ZONE_1))
+            irritation = com.example.domain.bo.IrritationBO(
+                overallValue = 10,
+                zoneValues = listOf(ZONE_1)
+            )
         )
 
         val dataRow = getCSVRowFromData(

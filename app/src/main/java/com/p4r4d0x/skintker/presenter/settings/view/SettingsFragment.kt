@@ -15,9 +15,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.Constants
-import com.p4r4d0x.skintker.data.Constants.SKITNKER_PREFERENCES
-import com.p4r4d0x.skintker.data.enums.SettingsStatus
+import com.p4r4d0x.domain.Constants.SKITNKER_PREFERENCES
+import com.p4r4d0x.skintker.presenter.settings.SettingsStatus
 import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.addAlarmPreferences
 import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.cancelAlarm
 import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.setAlarm
@@ -119,7 +118,7 @@ class SettingsFragment : Fragment() {
             .setTimeFormat(TimeFormat.CLOCK_24H)
             .build()
         materialTimePicker.addOnPositiveButtonClickListener {
-            val reminderConfigured = prefs.getBoolean(Constants.PREFERENCES_ALARM_CREATED, false)
+            val reminderConfigured = prefs.getBoolean(com.p4r4d0x.domain.Constants.PREFERENCES_ALARM_CREATED, false)
             addAlarmPreferences(materialTimePicker.hour, materialTimePicker.minute, prefs)
             activity?.let { fragmentActivity -> setAlarm(fragmentActivity) }
             viewModel.updateReminderTime(prefs)

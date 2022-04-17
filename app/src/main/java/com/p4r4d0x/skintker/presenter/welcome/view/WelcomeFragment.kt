@@ -22,7 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.Constants
+import com.p4r4d0x.domain.Constants
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.main.navigate
 import com.p4r4d0x.skintker.presenter.welcome.viewmodel.WelcomeViewModel
@@ -39,7 +39,7 @@ class WelcomeFragment : Fragment() {
         super.onResume()
         observeViewModel()
         val prefs: SharedPreferences? =
-            activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
+            activity?.getSharedPreferences(com.p4r4d0x.domain.Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
@@ -47,6 +47,7 @@ class WelcomeFragment : Fragment() {
 
         mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         viewModel.checkUserLogin(GoogleSignIn.getLastSignedInAccount(requireActivity()), prefs)
+        viewModel.userLogin()
     }
 
     private fun observeViewModel() {

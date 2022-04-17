@@ -6,9 +6,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.p4r4d0x.skintker.di.*
-import com.p4r4d0x.skintker.domain.bo.DailyLogBO
-import com.p4r4d0x.skintker.domain.parsers.DataParser.getCurrentFormattedDate
-import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
+import com.example.domain.bo.DailyLogBO
+import com.p4r4d0x.data.parsers.DataParser.getCurrentFormattedDate
+import com.p4r4d0x.domain.usecases.GetLogUseCase
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.welcome.Event
 import com.p4r4d0x.skintker.presenter.welcome.viewmodel.WelcomeViewModel
@@ -52,8 +52,8 @@ class WelcomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesMo
     @Test
     fun `test home view model check log reported today`() =
         coroutinesTestRule.runBlockingTest {
-            val logResult = slot<(DailyLogBO?) -> Unit>()
-            val log = DailyLogBO(date = date, foodList = emptyList())
+            val logResult = slot<(com.example.domain.bo.DailyLogBO?) -> Unit>()
+            val log = com.example.domain.bo.DailyLogBO(date = date, foodList = emptyList())
 
             every {
                 getLogUseCase.invoke(
@@ -74,7 +74,7 @@ class WelcomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesMo
     @Test
     fun `test home view model check log not reported today`() =
         coroutinesTestRule.runBlockingTest {
-            val logResult = slot<(DailyLogBO?) -> Unit>()
+            val logResult = slot<(com.example.domain.bo.DailyLogBO?) -> Unit>()
 
             every {
                 getLogUseCase.invoke(
@@ -137,7 +137,7 @@ class WelcomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesMo
     @Test
     fun `test home view model handle continue login user authenticated`() =
         coroutinesTestRule.runBlockingTest {
-            val logResult = slot<(DailyLogBO?) -> Unit>()
+            val logResult = slot<(com.example.domain.bo.DailyLogBO?) -> Unit>()
             every {
                 getLogUseCase.invoke(
                     scope = any(),

@@ -4,25 +4,24 @@ import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.p4r4d0x.skintker.data.Constants
-import com.p4r4d0x.skintker.data.Constants.DEFAULT_TRAVEL_THRESHOLD
-import com.p4r4d0x.skintker.data.Constants.PREFERENCES_TRAVEL_THRESHOLD
-import com.p4r4d0x.skintker.domain.bo.DailyLogBO
-import com.p4r4d0x.skintker.domain.bo.PossibleCausesBO
-import com.p4r4d0x.skintker.domain.usecases.GetLogsUseCase
-import com.p4r4d0x.skintker.domain.usecases.GetQueriedLogsUseCase
+import com.p4r4d0x.domain.Constants.DEFAULT_TRAVEL_THRESHOLD
+import com.p4r4d0x.domain.Constants.PREFERENCES_TRAVEL_THRESHOLD
+import com.example.domain.bo.DailyLogBO
+import com.example.domain.bo.PossibleCausesBO
+import com.p4r4d0x.domain.usecases.GetLogsUseCase
+import com.p4r4d0x.domain.usecases.GetQueriedLogsUseCase
 
 class HomeViewModel(
     private val getLogsUseCase: GetLogsUseCase,
     private val getQueriedLogsUseCase: GetQueriedLogsUseCase
 ) : ViewModel() {
 
-    private val _logList = MutableLiveData<List<DailyLogBO>>()
-    val logList: MutableLiveData<List<DailyLogBO>>
+    private val _logList = MutableLiveData<List<com.example.domain.bo.DailyLogBO>>()
+    val logList: MutableLiveData<List<com.example.domain.bo.DailyLogBO>>
         get() = _logList
 
-    private val _possibleCauses = MutableLiveData<PossibleCausesBO>()
-    val possibleCauses: MutableLiveData<PossibleCausesBO>
+    private val _possibleCauses = MutableLiveData<com.example.domain.bo.PossibleCausesBO>()
+    val possibleCauses: MutableLiveData<com.example.domain.bo.PossibleCausesBO>
         get() = _possibleCauses
 
     fun getLogs(user: String) {
@@ -37,45 +36,45 @@ class HomeViewModel(
                 viewModelScope,
                 params = GetQueriedLogsUseCase.Params(
                     irritationLevel = preference.getInt(
-                        Constants.PREFERENCES_IRRITATION_NUMBER,
-                        Constants.DEFAULT_IRRITATION_LEVEL_THRESHOLD
+                        com.p4r4d0x.domain.Constants.PREFERENCES_IRRITATION_NUMBER,
+                        com.p4r4d0x.domain.Constants.DEFAULT_IRRITATION_LEVEL_THRESHOLD
                     ),
                     minLogs = preference.getInt(
-                        Constants.PREFERENCES_MIN_LOGS,
-                        Constants.DEFAULT_MIN_LOGS
+                        com.p4r4d0x.domain.Constants.PREFERENCES_MIN_LOGS,
+                        com.p4r4d0x.domain.Constants.DEFAULT_MIN_LOGS
                     ),
                     foodThreshold = preference.getFloat(
-                        Constants.PREFERENCES_FOOD_THRESHOLD,
-                        Constants.DEFAULT_FOOD_THRESHOLD
+                        com.p4r4d0x.domain.Constants.PREFERENCES_FOOD_THRESHOLD,
+                        com.p4r4d0x.domain.Constants.DEFAULT_FOOD_THRESHOLD
                     ),
                     zonesThreshold = preference.getFloat(
-                        Constants.PREFERENCES_ZONES_THRESHOLD,
-                        Constants.DEFAULT_ZONES_THRESHOLD
+                        com.p4r4d0x.domain.Constants.PREFERENCES_ZONES_THRESHOLD,
+                        com.p4r4d0x.domain.Constants.DEFAULT_ZONES_THRESHOLD
                     ),
                     travelThreshold = preference.getFloat(
                         PREFERENCES_TRAVEL_THRESHOLD,
                         DEFAULT_TRAVEL_THRESHOLD
                     ),
                     alcoholThreshold = preference.getFloat(
-                        Constants.PREFERENCES_ALCOHOL_THRESHOLD,
-                        Constants.DEFAULT_ALCOHOL_THRESHOLD
+                        com.p4r4d0x.domain.Constants.PREFERENCES_ALCOHOL_THRESHOLD,
+                        com.p4r4d0x.domain.Constants.DEFAULT_ALCOHOL_THRESHOLD
                     ),
                     stressThresholds = Pair(
                         preference.getInt(
-                            Constants.PREFERENCES_STRESS_VALUE,
-                            Constants.DEFAULT_STRESS_VALUE
+                            com.p4r4d0x.domain.Constants.PREFERENCES_STRESS_VALUE,
+                            com.p4r4d0x.domain.Constants.DEFAULT_STRESS_VALUE
                         ), preference.getFloat(
-                            Constants.PREFERENCES_STRESS_THRESHOLD,
-                            Constants.DEFAULT_STRESS_THRESHOLD
+                            com.p4r4d0x.domain.Constants.PREFERENCES_STRESS_THRESHOLD,
+                            com.p4r4d0x.domain.Constants.DEFAULT_STRESS_THRESHOLD
                         )
                     ),
                     weatherThresholds = Pair(
                         preference.getFloat(
-                            Constants.PREFERENCES_WEATHER_TEMPERATURE_THRESHOLD,
-                            Constants.DEFAULT_WEATHER_TEMPERATURE_THRESHOLD
+                            com.p4r4d0x.domain.Constants.PREFERENCES_WEATHER_TEMPERATURE_THRESHOLD,
+                            com.p4r4d0x.domain.Constants.DEFAULT_WEATHER_TEMPERATURE_THRESHOLD
                         ), preference.getFloat(
-                            Constants.PREFERENCES_WEATHER_HUMIDITY_THRESHOLD,
-                            Constants.DEFAULT_WEATHER_HUMIDITY_THRESHOLD
+                            com.p4r4d0x.domain.Constants.PREFERENCES_WEATHER_HUMIDITY_THRESHOLD,
+                            com.p4r4d0x.domain.Constants.DEFAULT_WEATHER_HUMIDITY_THRESHOLD
                         )
                     )
                 )

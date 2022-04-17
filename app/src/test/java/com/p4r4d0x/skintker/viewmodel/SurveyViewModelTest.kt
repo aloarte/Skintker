@@ -5,17 +5,14 @@ import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.Constants
-import com.p4r4d0x.skintker.data.enums.AlcoholLevel
 import com.p4r4d0x.skintker.di.*
-import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
-import com.p4r4d0x.skintker.domain.bo.DailyLogBO
-import com.p4r4d0x.skintker.domain.bo.IrritationBO
+import com.example.domain.bo.AdditionalDataBO
+import com.example.domain.bo.DailyLogBO
+import com.example.domain.bo.IrritationBO
 import com.p4r4d0x.skintker.domain.log.*
-import com.p4r4d0x.skintker.domain.parsers.DataParser
-import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
-import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
-import com.p4r4d0x.skintker.domain.usecases.GetSurveyUseCase
+import com.p4r4d0x.domain.usecases.AddLogUseCase
+import com.p4r4d0x.domain.usecases.GetLogUseCase
+import com.p4r4d0x.domain.usecases.GetSurveyUseCase
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -61,10 +58,10 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
         private const val TRAVEL_QUESTION_ANSWER = "Yes, I traveled"
     }
 
-    private val date = DataParser.getCurrentFormattedDate()
+    private val date = com.p4r4d0x.data.parsers.DataParser.getCurrentFormattedDate()
 
     private val question = Question(
-        id = Constants.FOURTH_QUESTION_NUMBER,
+        id = com.p4r4d0x.domain.Constants.FOURTH_QUESTION_NUMBER,
         questionText = R.string.question_4_title,
         answer = PossibleAnswer.SingleChoice(
             listOf(
@@ -95,8 +92,8 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
 
     @Test
     fun `test survey view model check log reported today`() = coroutinesTestRule.runBlockingTest {
-        val logResult = slot<(DailyLogBO?) -> Unit>()
-        val log = DailyLogBO(date = date, foodList = emptyList())
+        val logResult = slot<(com.example.domain.bo.DailyLogBO?) -> Unit>()
+        val log = com.example.domain.bo.DailyLogBO(date = date, foodList = emptyList())
         every {
             getLogUseCase.invoke(
                 scope = any(),
@@ -116,7 +113,7 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
     @Test
     fun `test survey view model check log not reported today`() =
         coroutinesTestRule.runBlockingTest {
-            val logResult = slot<(DailyLogBO?) -> Unit>()
+            val logResult = slot<(com.example.domain.bo.DailyLogBO?) -> Unit>()
             every {
                 getLogUseCase.invoke(
                     scope = any(),
@@ -136,11 +133,14 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
     @Test
     fun `test survey view model compute result`() =
         coroutinesTestRule.runBlockingTest {
-            val dailyLog = DailyLogBO(
-                date, IrritationBO(0, emptyList()),
-                AdditionalDataBO(
-                    0, AdditionalDataBO.WeatherBO(0, 0),
-                    AdditionalDataBO.TravelBO(false, ""), AlcoholLevel.None, emptyList()
+            val dailyLog = com.example.domain.bo.DailyLogBO(
+                date, com.example.domain.bo.IrritationBO(0, emptyList()),
+                com.example.domain.bo.AdditionalDataBO(
+                    0,
+                    com.example.domain.bo.AdditionalDataBO.WeatherBO(0, 0),
+                    com.example.domain.bo.AdditionalDataBO.TravelBO(false, ""),
+                    com.p4r4d0x.domain.bo.AlcoholLevel.None,
+                    emptyList()
                 ), emptyList()
             )
             resources = mockk()
