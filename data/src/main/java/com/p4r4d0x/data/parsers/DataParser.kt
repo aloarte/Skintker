@@ -2,6 +2,7 @@ package com.p4r4d0x.data.parsers
 
 import android.annotation.SuppressLint
 import android.content.res.Resources
+import com.example.data.R
 import com.google.firebase.Timestamp
 import com.p4r4d0x.domain.Constants
 import com.p4r4d0x.domain.Constants.FIFTH_QUESTION_NUMBER
@@ -17,7 +18,6 @@ import com.p4r4d0x.domain.Constants.LABEL_TRAVELED
 import com.p4r4d0x.domain.Constants.LABEL_WEATHER_HUMIDITY
 import com.p4r4d0x.domain.Constants.LABEL_WEATHER_TEMPERATURE
 import com.p4r4d0x.domain.Constants.MAX_QUESTION_NUMBER
-import com.example.data.R
 import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.skintker.domain.getDateWithoutTime
 import java.text.ParsePosition
@@ -46,9 +46,9 @@ object DataParser {
         answers.forEach { answer ->
             when (answer) {
                 is Answer.Slider -> {
-                    if (questionCnt == com.p4r4d0x.domain.Constants.FIRST_QUESTION_NUMBER) {
+                    if (questionCnt == Constants.FIRST_QUESTION_NUMBER) {
                         irritation = answer.answerValue
-                    } else if (questionCnt == com.p4r4d0x.domain.Constants.THIRD_QUESTION_NUMBER) {
+                    } else if (questionCnt == Constants.THIRD_QUESTION_NUMBER) {
                         stress = answer.answerValue
                     }
                 }

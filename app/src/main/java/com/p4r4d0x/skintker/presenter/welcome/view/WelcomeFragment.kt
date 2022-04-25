@@ -22,7 +22,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.domain.Constants
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.main.navigate
 import com.p4r4d0x.skintker.presenter.welcome.viewmodel.WelcomeViewModel
@@ -47,7 +46,6 @@ class WelcomeFragment : Fragment() {
 
         mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         viewModel.checkUserLogin(GoogleSignIn.getLastSignedInAccount(requireActivity()), prefs)
-        viewModel.userLogin()
     }
 
     private fun observeViewModel() {

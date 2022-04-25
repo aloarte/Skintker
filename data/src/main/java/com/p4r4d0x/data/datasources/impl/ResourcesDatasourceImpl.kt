@@ -75,6 +75,6 @@ class ResourcesDatasourceImpl:ResourcesDatasource {
     }
 
     override fun getBeerTypesReferenceMap(): Map<Int, Int> {
-        TODO("Not yet implemented")
+        return beerTypesReferenceMap
     }
 }

@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.example.domain.bo.ProfileBO
+import com.p4r4d0x.domain.bo.ProfileBO
 import com.p4r4d0x.domain.usecases.ExportLogsDBUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -19,8 +19,8 @@ class SettingsViewModel(
     private val _exportStatus = MutableLiveData<Boolean>()
     val exportStatus: LiveData<Boolean> = _exportStatus
 
-    private val _profile = MutableLiveData<com.example.domain.bo.ProfileBO>()
-    val profile: LiveData<com.example.domain.bo.ProfileBO> = _profile
+    private val _profile = MutableLiveData<ProfileBO>()
+    val profile: LiveData<ProfileBO> = _profile
 
     private val _reminderTime = MutableStateFlow("")
     val reminderTime: MutableStateFlow<String>
@@ -38,7 +38,7 @@ class SettingsViewModel(
     fun getLoggedUserInfo(lastSignedInAccount: GoogleSignInAccount?) {
         lastSignedInAccount?.let {
             _profile.value =
-                com.example.domain.bo.ProfileBO(it.email ?: "", it.displayName ?: "", it.id ?: "")
+                ProfileBO(it.email ?: "", it.displayName ?: "", it.id ?: "")
         }
     }
 

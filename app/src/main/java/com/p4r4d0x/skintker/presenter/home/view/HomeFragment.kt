@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
-import com.p4r4d0x.skintker.R
 import com.p4r4d0x.domain.Constants
+import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.presenter.home.view.compose.TabScreen
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
@@ -25,12 +25,12 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val prefs: SharedPreferences? =
-            activity?.getSharedPreferences(com.p4r4d0x.domain.Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
-        viewModel.getLogs(prefs?.getString(com.p4r4d0x.domain.Constants.PREFERENCES_USER_ID, "") ?: "")
+            activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
+        viewModel.getLogs(prefs?.getString(Constants.PREFERENCES_USER_ID, "") ?: "")
         viewModel.getLogsByIntensityLevel(prefs)
         context?.let { ctx ->
             with(NotificationManagerCompat.from(ctx)) {
-                cancel(com.p4r4d0x.domain.Constants.NOTIFICATION_ID)
+                cancel(Constants.NOTIFICATION_ID)
             }
         }
     }

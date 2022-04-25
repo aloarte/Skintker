@@ -25,13 +25,11 @@ class LoginFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-//        viewModel.loadingState.observe(viewLifecycleOwner) { loadingState ->
-//            if (loadingState == LoginLoadingState.LOADED) {
-//                navigate(FragmentScreen.Welcome, FragmentScreen.Login)
-//            }
-//        }
-        navigate(FragmentScreen.Welcome, FragmentScreen.Login)
-
+        viewModel.loadingState.observe(viewLifecycleOwner) { loadingState ->
+            if (loadingState == LoginLoadingState.LOADED) {
+                navigate(FragmentScreen.Welcome, FragmentScreen.Login)
+            }
+        }
     }
 
     override fun onCreateView(

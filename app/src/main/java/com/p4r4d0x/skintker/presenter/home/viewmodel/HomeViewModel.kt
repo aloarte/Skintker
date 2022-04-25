@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.p4r4d0x.domain.Constants.DEFAULT_TRAVEL_THRESHOLD
 import com.p4r4d0x.domain.Constants.PREFERENCES_TRAVEL_THRESHOLD
-import com.example.domain.bo.DailyLogBO
-import com.example.domain.bo.PossibleCausesBO
+import com.p4r4d0x.domain.bo.DailyLogBO
+import com.p4r4d0x.domain.bo.PossibleCausesBO
 import com.p4r4d0x.domain.usecases.GetLogsUseCase
 import com.p4r4d0x.domain.usecases.GetQueriedLogsUseCase
 
@@ -16,12 +16,12 @@ class HomeViewModel(
     private val getQueriedLogsUseCase: GetQueriedLogsUseCase
 ) : ViewModel() {
 
-    private val _logList = MutableLiveData<List<com.example.domain.bo.DailyLogBO>>()
-    val logList: MutableLiveData<List<com.example.domain.bo.DailyLogBO>>
+    private val _logList = MutableLiveData<List<DailyLogBO>>()
+    val logList: MutableLiveData<List<DailyLogBO>>
         get() = _logList
 
-    private val _possibleCauses = MutableLiveData<com.example.domain.bo.PossibleCausesBO>()
-    val possibleCauses: MutableLiveData<com.example.domain.bo.PossibleCausesBO>
+    private val _possibleCauses = MutableLiveData<PossibleCausesBO>()
+    val possibleCauses: MutableLiveData<PossibleCausesBO>
         get() = _possibleCauses
 
     fun getLogs(user: String) {

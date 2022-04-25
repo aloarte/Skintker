@@ -17,11 +17,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.p4r4d0x.domain.bo.Answer
+import com.p4r4d0x.domain.bo.SurveyActionType
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.domain.log.Answer
-import com.p4r4d0x.skintker.domain.log.LogState
-import com.p4r4d0x.skintker.domain.log.SurveyActionType
-import com.p4r4d0x.skintker.domain.log.SurveyState
+import com.p4r4d0x.skintker.presenter.survey.LogState
+import com.p4r4d0x.skintker.presenter.survey.SurveyState
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
 import com.p4r4d0x.skintker.theme.progressIndicatorBackground
 
