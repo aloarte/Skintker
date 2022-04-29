@@ -9,18 +9,15 @@ import com.p4r4d0x.domain.testRepositoriesModule
 import com.p4r4d0x.test.CoroutinesTestRule
 import com.p4r4d0x.test.KoinBaseTest
 import com.p4r4d0x.test.KoinTestApplication
-
 import io.mockk.coEvery
 import io.mockk.coVerify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.Assertions
 import org.junit.runner.RunWith
-import org.koin.core.context.stopKoin
 import org.koin.test.inject
 import org.robolectric.annotation.Config
 import java.util.*
@@ -44,13 +41,7 @@ class AddLogUseCaseTest : KoinBaseTest(testRepositoriesModule) {
 
     @Before
     fun setUp() {
-        stopKoin()
         useCase = AddLogUseCase(logsRepository)
-    }
-
-    @After
-    fun tearDown() {
-        stopKoin()
     }
 
     @Test
