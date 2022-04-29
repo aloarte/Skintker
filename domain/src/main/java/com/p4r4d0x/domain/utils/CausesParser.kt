@@ -1,8 +1,6 @@
-package com.p4r4d0x.domain
+package com.p4r4d0x.domain.utils
 
 import com.p4r4d0x.domain.bo.PossibleCausesBO
-import com.p4r4d0x.skintker.domain.getKeyOfMaxValue
-import com.p4r4d0x.skintker.domain.getMaxValue
 
 object CausesParser {
 

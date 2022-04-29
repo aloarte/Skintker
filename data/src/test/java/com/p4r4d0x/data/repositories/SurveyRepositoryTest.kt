@@ -6,11 +6,11 @@ import com.example.data.R
 import com.p4r4d0x.data.datasources.SurveyDataSource
 import com.p4r4d0x.data.testDatasourcesModule
 import com.p4r4d0x.data.testRepositoriesModule
-import com.p4r4d0x.domain.Constants
 import com.p4r4d0x.domain.bo.PossibleAnswer
 import com.p4r4d0x.domain.bo.Question
 import com.p4r4d0x.domain.bo.Survey
 import com.p4r4d0x.domain.repository.SurveyRepository
+import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.test.KoinBaseTest
 import com.p4r4d0x.test.KoinTestApplication
 import io.mockk.every

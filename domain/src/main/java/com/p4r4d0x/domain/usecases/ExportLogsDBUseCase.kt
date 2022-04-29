@@ -3,14 +3,14 @@ package com.p4r4d0x.domain.usecases
 import android.content.Context
 import android.content.res.Resources
 import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
-import com.p4r4d0x.domain.Constants.EXPORT_FILE_NAME
 import com.p4r4d0x.data.generateFile
-import com.p4r4d0x.domain.CSVParser.getCSVRowFromData
-import com.p4r4d0x.domain.CSVParser.getHeaderCSVRow
-import com.p4r4d0x.domain.CSVParser.getReferenceMap
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.repository.LogsManagementRepository
 import com.p4r4d0x.domain.repository.ResourcesRepository
+import com.p4r4d0x.domain.utils.CSVParser.getCSVRowFromData
+import com.p4r4d0x.domain.utils.CSVParser.getHeaderCSVRow
+import com.p4r4d0x.domain.utils.CSVParser.getReferenceMap
+import com.p4r4d0x.domain.utils.Constants.EXPORT_FILE_NAME
 
 class ExportLogsDBUseCase(private val logsRepository: LogsManagementRepository, private val resourcesRepository: ResourcesRepository) :
     BaseUseCaseParamsResult<ExportLogsDBUseCase.Params, Boolean>() {

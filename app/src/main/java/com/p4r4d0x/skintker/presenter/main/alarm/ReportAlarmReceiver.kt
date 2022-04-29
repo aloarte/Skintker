@@ -8,9 +8,9 @@ import android.content.Intent
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.p4r4d0x.domain.utils.Constants.CHANNEL_ID
+import com.p4r4d0x.domain.utils.Constants.NOTIFICATION_ID
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.domain.Constants.CHANNEL_ID
-import com.p4r4d0x.domain.Constants.NOTIFICATION_ID
 import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils
 import com.p4r4d0x.skintker.presenter.main.MainActivity
 import com.p4r4d0x.skintker.theme.SoftRedDark

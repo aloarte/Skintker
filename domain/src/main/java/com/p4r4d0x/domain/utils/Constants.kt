@@ -1,4 +1,4 @@
-package com.p4r4d0x.domain
+package com.p4r4d0x.domain.utils
 
 object Constants {
     //Logs constants

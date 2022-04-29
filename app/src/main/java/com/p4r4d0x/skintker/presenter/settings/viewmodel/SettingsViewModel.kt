@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.p4r4d0x.domain.bo.ProfileBO
 import com.p4r4d0x.domain.usecases.ExportLogsDBUseCase
+import com.p4r4d0x.domain.utils.Constants
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class SettingsViewModel(
@@ -43,8 +44,8 @@ class SettingsViewModel(
     }
 
     fun updateReminderTime(prefs: SharedPreferences?) {
-        val alarmHour = prefs?.getInt(com.p4r4d0x.domain.Constants.PREFERENCES_ALARM_HOUR, -1) ?: -1
-        val alarmMinutes = prefs?.getInt(com.p4r4d0x.domain.Constants.PREFERENCES_ALARM_MINUTES, -1) ?: -1
+        val alarmHour = prefs?.getInt(Constants.PREFERENCES_ALARM_HOUR, -1) ?: -1
+        val alarmMinutes = prefs?.getInt(Constants.PREFERENCES_ALARM_MINUTES, -1) ?: -1
         _reminderTime.value = if (alarmHour == -1 || alarmMinutes == -1) {
             ""
         } else {

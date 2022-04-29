@@ -9,7 +9,6 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 31
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -38,6 +37,20 @@ android {
 
 dependencies {
 
+//    //Koin
+//    testImplementation "io.insert-koin:koin-core:$koinVersion"
+//    testImplementation "io.insert-koin:koin-android:$koinVersion"
+//    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines"
+//
+//    //Test
+//    testImplementation "io.insert-koin:koin-test-junit4:$koinVersion"
+//    testImplementation "io.insert-koin:koin-test-junit5:$koinVersion"
+//    testImplementation "androidx.test:runner:1.4.0"
+//    testImplementation "androidx.test:core-ktx:1.4.0"
+//    testImplementation "androidx.test.ext:junit-ktx:1.1.3"
+//
+//
+//
     //Koin
     implementation "io.insert-koin:koin-core:$koinVersion"
     implementation "io.insert-koin:koin-android:$koinVersion"
@@ -49,16 +62,5 @@ dependencies {
     implementation "androidx.test:runner:1.4.0"
     implementation "androidx.test:core-ktx:1.4.0"
     implementation "androidx.test.ext:junit-ktx:1.1.3"
-//    testImplementation "androidx.test:rules:1.4.0"
-//    testImplementation "androidx.test.espresso:espresso-core:3.4.0"
-//    testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.2"
-//    testImplementation "org.junit.jupiter:junit-jupiter-engine:5.8.2"
-//    testImplementation "org.junit.platform:junit-platform-launcher:1.8.2"
-//    testImplementation 'org.robolectric:robolectric:4.7.3'
-//    testImplementation "androidx.arch.core:core-testing:2.1.0"
-//    testImplementation "org.junit.platform:junit-platform-launcher:1.8.2"
-//    testImplementation "org.junit.vintage:junit-vintage-engine:5.8.2"
-//    testImplementation "junit:junit:$junit"
-//    testImplementation "io.mockk:mockk:$mockk"
 
 }

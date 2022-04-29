@@ -1,14 +1,14 @@
 package com.p4r4d0x.domain.usecases
 
-import com.p4r4d0x.skintker.domain.increaseValue
-import com.p4r4d0x.domain.CausesParser.getAlcoholCause
-import com.p4r4d0x.domain.CausesParser.getPossibleCausesItemList
-import com.p4r4d0x.domain.CausesParser.getPossibleStressCauses
-import com.p4r4d0x.domain.CausesParser.getPossibleTravelCauses
-import com.p4r4d0x.domain.CausesParser.getPossibleWeatherCauses
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.bo.PossibleCausesBO
 import com.p4r4d0x.domain.repository.LogsManagementRepository
+import com.p4r4d0x.domain.utils.CausesParser.getAlcoholCause
+import com.p4r4d0x.domain.utils.CausesParser.getPossibleCausesItemList
+import com.p4r4d0x.domain.utils.CausesParser.getPossibleStressCauses
+import com.p4r4d0x.domain.utils.CausesParser.getPossibleTravelCauses
+import com.p4r4d0x.domain.utils.CausesParser.getPossibleWeatherCauses
+import com.p4r4d0x.domain.utils.increaseValue
 
 class GetQueriedLogsUseCase(private val repository: LogsManagementRepository) :
     BaseUseCaseParamsResult<GetQueriedLogsUseCase.Params, PossibleCausesBO>() {

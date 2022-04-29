@@ -24,8 +24,9 @@ import androidx.compose.ui.unit.sp
 import com.p4r4d0x.domain.bo.AdditionalDataBO
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.bo.IrritationBO
+import com.p4r4d0x.domain.utils.getDDMMYYYYDate
+import com.p4r4d0x.domain.utils.getDayDate
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.domain.*
 import com.p4r4d0x.skintker.getAlcoholLevel
 import com.p4r4d0x.skintker.getHumidityString
 import com.p4r4d0x.skintker.getTemperatureString

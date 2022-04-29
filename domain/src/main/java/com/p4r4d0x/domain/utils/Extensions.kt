@@ -1,10 +1,7 @@
-package com.p4r4d0x.skintker.domain
+package com.p4r4d0x.domain.utils
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
-import com.p4r4d0x.domain.Constants
-import com.p4r4d0x.domain.Constants.REGEX_UNACCENTED
-import com.p4r4d0x.domain.bo.AlcoholLevel
+import com.p4r4d0x.domain.utils.Constants.REGEX_UNACCENTED
 import java.text.Normalizer
 import java.text.SimpleDateFormat
 import java.util.*
@@ -40,7 +37,7 @@ fun MutableMap<com.p4r4d0x.domain.bo.AlcoholLevel, Int>.increaseValue(key: com.p
 fun String.cleanString(): String {
     val normalized = Normalizer.normalize(this, Normalizer.Form.NFD)
     return REGEX_UNACCENTED.toRegex().replace(normalized, "").replace(
-        com.p4r4d0x.domain.Constants.CHARACTER_FILTER_REGEX.toRegex(),
+        Constants.CHARACTER_FILTER_REGEX.toRegex(),
         ""
     )
 }

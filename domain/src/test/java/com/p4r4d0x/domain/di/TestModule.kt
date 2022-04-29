@@ -1,4 +1,4 @@
-package com.p4r4d0x.domain
+package com.p4r4d0x.domain.di
 
 import com.p4r4d0x.domain.repository.LogsManagementRepository
 import com.p4r4d0x.domain.repository.ResourcesRepository

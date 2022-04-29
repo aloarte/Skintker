@@ -7,10 +7,14 @@ import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.p4r4d0x.skintker.di.*
-import com.example.domain.bo.ProfileBO
+import com.p4r4d0x.domain.bo.ProfileBO
 import com.p4r4d0x.domain.usecases.ExportLogsDBUseCase
+import com.p4r4d0x.domain.utils.Constants
+import com.p4r4d0x.skintker.di.*
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
+import com.p4r4d0x.test.CoroutinesTestRule
+import com.p4r4d0x.test.KoinBaseTest
+import com.p4r4d0x.test.KoinTestApplication
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.mockk
@@ -29,7 +33,7 @@ import org.robolectric.annotation.Config
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @Config(application = KoinTestApplication::class, sdk = [Build.VERSION_CODES.P])
-class SettingsViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesModule) {
+class SettingsViewModelTest : KoinBaseTest(testUseCasesModule) {
 
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
@@ -81,7 +85,7 @@ class SettingsViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesM
         every { lastSignedInAccount.displayName } returns USER_NAME
         every { lastSignedInAccount.id } returns USER_ID
 
-        val expectedProfile = com.example.domain.bo.ProfileBO(USER_EMAIL, USER_NAME, USER_ID)
+        val expectedProfile = ProfileBO(USER_EMAIL, USER_NAME, USER_ID)
 
         viewModelSUT.getLoggedUserInfo(lastSignedInAccount)
 
@@ -93,8 +97,8 @@ class SettingsViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesM
     fun `test settings view model update reminder time less than 10`() =
         coroutinesTestRule.runBlockingTest {
             val preferences: SharedPreferences = mockk()
-            every { preferences.getInt(com.p4r4d0x.domain.Constants.PREFERENCES_ALARM_HOUR, -1) } returns 1
-            every { preferences.getInt(com.p4r4d0x.domain.Constants.PREFERENCES_ALARM_MINUTES, -1) } returns 1
+            every { preferences.getInt(Constants.PREFERENCES_ALARM_HOUR, -1) } returns 1
+            every { preferences.getInt(Constants.PREFERENCES_ALARM_MINUTES, -1) } returns 1
 
             viewModelSUT.updateReminderTime(preferences)
 
@@ -105,8 +109,8 @@ class SettingsViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesM
     fun `test settings view model update reminder time more than 10`() =
         coroutinesTestRule.runBlockingTest {
             val preferences: SharedPreferences = mockk()
-            every { preferences.getInt(com.p4r4d0x.domain.Constants.PREFERENCES_ALARM_HOUR, -1) } returns 23
-            every { preferences.getInt(com.p4r4d0x.domain.Constants.PREFERENCES_ALARM_MINUTES, -1) } returns 59
+            every { preferences.getInt(Constants.PREFERENCES_ALARM_HOUR, -1) } returns 23
+            every { preferences.getInt(Constants.PREFERENCES_ALARM_MINUTES, -1) } returns 59
 
             viewModelSUT.updateReminderTime(preferences)
 
@@ -117,8 +121,8 @@ class SettingsViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesM
     fun `test settings view model update reminder no time`() =
         coroutinesTestRule.runBlockingTest {
             val preferences: SharedPreferences = mockk()
-            every { preferences.getInt(com.p4r4d0x.domain.Constants.PREFERENCES_ALARM_HOUR, -1) } returns -1
-            every { preferences.getInt(com.p4r4d0x.domain.Constants.PREFERENCES_ALARM_MINUTES, -1) } returns -1
+            every { preferences.getInt(Constants.PREFERENCES_ALARM_HOUR, -1) } returns -1
+            every { preferences.getInt(Constants.PREFERENCES_ALARM_MINUTES, -1) } returns -1
 
             viewModelSUT.updateReminderTime(preferences)
 

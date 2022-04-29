@@ -53,23 +53,6 @@
     <string name="request_permissions">OK!</string>
     <string name="do_not_ask_permissions">Nope 🙅</string>
 
-    <!-- Test questions  -->
-    <string name="multiple_answer_title" translatable="false">Multiple answer title</string>
-    <string name="multiple_description" translatable="false">Pick one or more</string>
-    <string name="multiple_answer_1" translatable="false">Multiple answer 1</string>
-    <string name="multiple_answer_2" translatable="false">Multiple answer 2</string>
-    <string name="multiple_answer_3" translatable="false">Multiple answer 3</string>
-    <string name="single_answer_title" translatable="false">Single answer title</string>
-    <string name="single_description" translatable="false">Pick one</string>
-    <string name="single_answer_1" translatable="false">Single answer 1</string>
-    <string name="single_answer_2" translatable="false">Single answer 2</string>
-    <string name="single_answer_3" translatable="false">Single answer 3</string>
-    <string name="slide_answer_title" translatable="false">Slide answer title</string>
-    <string name="slide_description" translatable="false">Slide to pick your answer</string>
-    <string name="slide_point_1" translatable="false">Low</string>
-    <string name="slide_point_2" translatable="false">Medium</string>
-    <string name="slide_point_3" translatable="false">High</string>
-
     <!-- login-->
     <string name="login_description">In Skintker we use your account to save your reports in our remote database. this way you can be calm, your data won\'t be lost</string>
 

@@ -2,7 +2,7 @@ package com.p4r4d0x.data.room
 
 import androidx.room.*
 import com.p4r4d0x.domain.bo.DailyLogBO
-import com.p4r4d0x.skintker.domain.getDateWithoutTime
+import com.p4r4d0x.domain.utils.getDateWithoutTime
 
 @Dao
 interface DailyLogDao {

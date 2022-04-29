@@ -4,22 +4,22 @@ import android.annotation.SuppressLint
 import android.content.res.Resources
 import com.example.data.R
 import com.google.firebase.Timestamp
-import com.p4r4d0x.domain.Constants
-import com.p4r4d0x.domain.Constants.FIFTH_QUESTION_NUMBER
-import com.p4r4d0x.domain.Constants.LABEL_ALCOHOL
-import com.p4r4d0x.domain.Constants.LABEL_BEERS
-import com.p4r4d0x.domain.Constants.LABEL_CITY
-import com.p4r4d0x.domain.Constants.LABEL_DATE
-import com.p4r4d0x.domain.Constants.LABEL_FOODS
-import com.p4r4d0x.domain.Constants.LABEL_IRRITATED_ZONES
-import com.p4r4d0x.domain.Constants.LABEL_IRRITATION
-import com.p4r4d0x.domain.Constants.LABEL_STRESS
-import com.p4r4d0x.domain.Constants.LABEL_TRAVELED
-import com.p4r4d0x.domain.Constants.LABEL_WEATHER_HUMIDITY
-import com.p4r4d0x.domain.Constants.LABEL_WEATHER_TEMPERATURE
-import com.p4r4d0x.domain.Constants.MAX_QUESTION_NUMBER
 import com.p4r4d0x.domain.bo.*
-import com.p4r4d0x.skintker.domain.getDateWithoutTime
+import com.p4r4d0x.domain.utils.Constants
+import com.p4r4d0x.domain.utils.Constants.FIFTH_QUESTION_NUMBER
+import com.p4r4d0x.domain.utils.Constants.LABEL_ALCOHOL
+import com.p4r4d0x.domain.utils.Constants.LABEL_BEERS
+import com.p4r4d0x.domain.utils.Constants.LABEL_CITY
+import com.p4r4d0x.domain.utils.Constants.LABEL_DATE
+import com.p4r4d0x.domain.utils.Constants.LABEL_FOODS
+import com.p4r4d0x.domain.utils.Constants.LABEL_IRRITATED_ZONES
+import com.p4r4d0x.domain.utils.Constants.LABEL_IRRITATION
+import com.p4r4d0x.domain.utils.Constants.LABEL_STRESS
+import com.p4r4d0x.domain.utils.Constants.LABEL_TRAVELED
+import com.p4r4d0x.domain.utils.Constants.LABEL_WEATHER_HUMIDITY
+import com.p4r4d0x.domain.utils.Constants.LABEL_WEATHER_TEMPERATURE
+import com.p4r4d0x.domain.utils.Constants.MAX_QUESTION_NUMBER
+import com.p4r4d0x.domain.utils.getDateWithoutTime
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
 import java.util.*
@@ -53,11 +53,11 @@ object DataParser {
                     }
                 }
                 is Answer.MultipleChoice -> {
-                    if (questionCnt == com.p4r4d0x.domain.Constants.SECOND_QUESTION_NUMBER) {
+                    if (questionCnt == Constants.SECOND_QUESTION_NUMBER) {
                         answer.answersStringRes.forEach {
                             irritationZones.add(resources.getString(it))
                         }
-                    } else if (questionCnt == com.p4r4d0x.domain.Constants.NINTH_QUESTION_NUMBER || questionCnt == com.p4r4d0x.domain.Constants.EIGHTH_QUESTION_NUMBER) {
+                    } else if (questionCnt == Constants.NINTH_QUESTION_NUMBER || questionCnt == Constants.EIGHTH_QUESTION_NUMBER) {
                         answer.answersStringRes.forEach {
                             foodList.add(
                                 resources.getString(it)
@@ -72,18 +72,18 @@ object DataParser {
                     }
                 }
                 is Answer.SingleChoice -> {
-                    if (questionCnt == com.p4r4d0x.domain.Constants.FOURTH_QUESTION_NUMBER) {
+                    if (questionCnt == Constants.FOURTH_QUESTION_NUMBER) {
                         alcohol = resources.getString(answer.answer)
                     }
                 }
                 is Answer.DoubleSlider -> {
-                    if (questionCnt == com.p4r4d0x.domain.Constants.SIXTH_QUESTION_NUMBER) {
+                    if (questionCnt == Constants.SIXTH_QUESTION_NUMBER) {
                         weatherHumidity = answer.answerValueFirstSlider
                         weatherTemperature = answer.answerValueSecondSlider
                     }
                 }
                 is Answer.SingleTextInputSingleChoice -> {
-                    if (questionCnt == com.p4r4d0x.domain.Constants.SEVENTH_QUESTION_NUMBER) {
+                    if (questionCnt == Constants.SEVENTH_QUESTION_NUMBER) {
                         traveled = resources.getString(answer.answer)
                         city = answer.input
                     }
@@ -91,7 +91,7 @@ object DataParser {
                 is Answer.SingleTextInput -> TODO()
 
             }
-            questionCnt += if (dontHaveBeerQuestion && questionCnt == com.p4r4d0x.domain.Constants.FOURTH_QUESTION_NUMBER) 2 else 1
+            questionCnt += if (dontHaveBeerQuestion && questionCnt == Constants.FOURTH_QUESTION_NUMBER) 2 else 1
         }
 
         return DailyLogBO(

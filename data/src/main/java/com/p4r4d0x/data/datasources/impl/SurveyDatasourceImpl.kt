@@ -2,18 +2,18 @@ package com.p4r4d0x.data.datasources.impl
 
 import com.example.data.R
 import com.p4r4d0x.data.datasources.SurveyDataSource
-import com.p4r4d0x.domain.Constants.EIGHTH_QUESTION_NUMBER
-import com.p4r4d0x.domain.Constants.FIFTH_QUESTION_NUMBER
-import com.p4r4d0x.domain.Constants.FIRST_QUESTION_NUMBER
-import com.p4r4d0x.domain.Constants.FOURTH_QUESTION_NUMBER
-import com.p4r4d0x.domain.Constants.NINTH_QUESTION_NUMBER
-import com.p4r4d0x.domain.Constants.SECOND_QUESTION_NUMBER
-import com.p4r4d0x.domain.Constants.SEVENTH_QUESTION_NUMBER
-import com.p4r4d0x.domain.Constants.SIXTH_QUESTION_NUMBER
-import com.p4r4d0x.domain.Constants.THIRD_QUESTION_NUMBER
 import com.p4r4d0x.domain.bo.PossibleAnswer
 import com.p4r4d0x.domain.bo.Question
 import com.p4r4d0x.domain.bo.Survey
+import com.p4r4d0x.domain.utils.Constants.EIGHTH_QUESTION_NUMBER
+import com.p4r4d0x.domain.utils.Constants.FIFTH_QUESTION_NUMBER
+import com.p4r4d0x.domain.utils.Constants.FIRST_QUESTION_NUMBER
+import com.p4r4d0x.domain.utils.Constants.FOURTH_QUESTION_NUMBER
+import com.p4r4d0x.domain.utils.Constants.NINTH_QUESTION_NUMBER
+import com.p4r4d0x.domain.utils.Constants.SECOND_QUESTION_NUMBER
+import com.p4r4d0x.domain.utils.Constants.SEVENTH_QUESTION_NUMBER
+import com.p4r4d0x.domain.utils.Constants.SIXTH_QUESTION_NUMBER
+import com.p4r4d0x.domain.utils.Constants.THIRD_QUESTION_NUMBER
 
 class SurveyDataSourceImpl : SurveyDataSource {
     override fun getSurvey(): Survey = jetpackSurvey

@@ -4,16 +4,20 @@ import android.content.res.Resources
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.di.*
-import com.example.domain.bo.AdditionalDataBO
-import com.example.domain.bo.DailyLogBO
-import com.example.domain.bo.IrritationBO
-import com.p4r4d0x.skintker.domain.log.*
+import com.p4r4d0x.data.parsers.DataParser
+import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.domain.usecases.AddLogUseCase
 import com.p4r4d0x.domain.usecases.GetLogUseCase
 import com.p4r4d0x.domain.usecases.GetSurveyUseCase
+import com.p4r4d0x.domain.utils.Constants
+import com.p4r4d0x.skintker.R
+import com.p4r4d0x.skintker.di.*
+import com.p4r4d0x.skintker.presenter.survey.LogState
+import com.p4r4d0x.skintker.presenter.survey.SurveyState
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
+import com.p4r4d0x.test.CoroutinesTestRule
+import com.p4r4d0x.test.KoinBaseTest
+import com.p4r4d0x.test.KoinTestApplication
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.mockk
@@ -58,10 +62,10 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
         private const val TRAVEL_QUESTION_ANSWER = "Yes, I traveled"
     }
 
-    private val date = com.p4r4d0x.data.parsers.DataParser.getCurrentFormattedDate()
+    private val date = DataParser.getCurrentFormattedDate()
 
     private val question = Question(
-        id = com.p4r4d0x.domain.Constants.FOURTH_QUESTION_NUMBER,
+        id = Constants.FOURTH_QUESTION_NUMBER,
         questionText = R.string.question_4_title,
         answer = PossibleAnswer.SingleChoice(
             listOf(
@@ -92,8 +96,8 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
 
     @Test
     fun `test survey view model check log reported today`() = coroutinesTestRule.runBlockingTest {
-        val logResult = slot<(com.example.domain.bo.DailyLogBO?) -> Unit>()
-        val log = com.example.domain.bo.DailyLogBO(date = date, foodList = emptyList())
+        val logResult = slot<(DailyLogBO?) -> Unit>()
+        val log = DailyLogBO(date = date, foodList = emptyList())
         every {
             getLogUseCase.invoke(
                 scope = any(),
@@ -113,7 +117,7 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
     @Test
     fun `test survey view model check log not reported today`() =
         coroutinesTestRule.runBlockingTest {
-            val logResult = slot<(com.example.domain.bo.DailyLogBO?) -> Unit>()
+            val logResult = slot<(DailyLogBO?) -> Unit>()
             every {
                 getLogUseCase.invoke(
                     scope = any(),
@@ -133,13 +137,13 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
     @Test
     fun `test survey view model compute result`() =
         coroutinesTestRule.runBlockingTest {
-            val dailyLog = com.example.domain.bo.DailyLogBO(
-                date, com.example.domain.bo.IrritationBO(0, emptyList()),
-                com.example.domain.bo.AdditionalDataBO(
+            val dailyLog = DailyLogBO(
+                date, IrritationBO(0, emptyList()),
+                AdditionalDataBO(
                     0,
-                    com.example.domain.bo.AdditionalDataBO.WeatherBO(0, 0),
-                    com.example.domain.bo.AdditionalDataBO.TravelBO(false, ""),
-                    com.p4r4d0x.domain.bo.AlcoholLevel.None,
+                    AdditionalDataBO.WeatherBO(0, 0),
+                    AdditionalDataBO.TravelBO(false, ""),
+                    AlcoholLevel.None,
                     emptyList()
                 ), emptyList()
             )

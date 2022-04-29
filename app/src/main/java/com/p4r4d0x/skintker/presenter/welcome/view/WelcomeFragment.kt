@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.main.navigate
@@ -38,7 +39,7 @@ class WelcomeFragment : Fragment() {
         super.onResume()
         observeViewModel()
         val prefs: SharedPreferences? =
-            activity?.getSharedPreferences(com.p4r4d0x.domain.Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
+            activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()

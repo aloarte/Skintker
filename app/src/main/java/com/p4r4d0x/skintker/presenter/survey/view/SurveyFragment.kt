@@ -14,11 +14,11 @@ import androidx.navigation.fragment.navArgs
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.p4r4d0x.data.parsers.DataParser.stringToDateFromPicker
-import com.p4r4d0x.domain.Constants
-import com.p4r4d0x.domain.Constants.YEAR_DAYS
 import com.p4r4d0x.domain.bo.SurveyActionType
+import com.p4r4d0x.domain.utils.Constants
+import com.p4r4d0x.domain.utils.Constants.YEAR_DAYS
+import com.p4r4d0x.domain.utils.getDateWithoutTime
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.domain.getDateWithoutTime
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.main.MainActivity
 import com.p4r4d0x.skintker.presenter.main.navigate
@@ -87,7 +87,7 @@ class SurveyFragment : Fragment() {
                                     onDonePressed = {
                                         viewModel.computeResult(
                                             userId = prefs?.getString(
-                                                com.p4r4d0x.domain.Constants.PREFERENCES_USER_ID,
+                                                Constants.PREFERENCES_USER_ID,
                                                 ""
                                             ) ?: "",
                                             surveyQuestions = logState,

@@ -1,11 +1,11 @@
-package com.p4r4d0x.skintker.domain
+package com.p4r4d0x.domain.utils
 
-import com.example.domain.bo.PossibleCausesBO
-import com.p4r4d0x.domain.CausesParser.getAlcoholCause
-import com.p4r4d0x.domain.CausesParser.getPossibleCausesItemList
-import com.p4r4d0x.domain.CausesParser.getPossibleStressCauses
-import com.p4r4d0x.domain.CausesParser.getPossibleTravelCauses
-import com.p4r4d0x.domain.CausesParser.getPossibleWeatherCauses
+import com.p4r4d0x.domain.bo.PossibleCausesBO
+import com.p4r4d0x.domain.utils.CausesParser.getAlcoholCause
+import com.p4r4d0x.domain.utils.CausesParser.getPossibleCausesItemList
+import com.p4r4d0x.domain.utils.CausesParser.getPossibleStressCauses
+import com.p4r4d0x.domain.utils.CausesParser.getPossibleTravelCauses
+import com.p4r4d0x.domain.utils.CausesParser.getPossibleWeatherCauses
 import org.junit.Assert
 import org.junit.Test
 
@@ -45,7 +45,7 @@ class CausesParserTest {
 
         val causes = getPossibleStressCauses(stressMap = map, stressThresholds = Pair(6, 0.6f))
 
-        val expectedValue = com.example.domain.bo.PossibleCausesBO.StressCauseBO(false, 6)
+        val expectedValue = PossibleCausesBO.StressCauseBO(false, 6)
         Assert.assertEquals(expectedValue, causes)
     }
 
@@ -67,9 +67,8 @@ class CausesParserTest {
             thresholds = 0.6f
         )
 
-        val expectedValue = com.example.domain.bo.PossibleCausesBO.TravelCauseBO(false, "Madrid")
+        val expectedValue = PossibleCausesBO.TravelCauseBO(false, "Madrid")
         Assert.assertEquals(expectedValue, causes)
-
     }
 
     @Test
@@ -96,19 +95,17 @@ class CausesParserTest {
         )
 
         val expectedValue = Pair(
-            com.example.domain.bo.PossibleCausesBO.WeatherCauseBO(
-                weatherType = com.example.domain.bo.PossibleCausesBO.WeatherCauseBO.WeatherType.HUMIDITY,
+            PossibleCausesBO.WeatherCauseBO(
+                weatherType = PossibleCausesBO.WeatherCauseBO.WeatherType.HUMIDITY,
                 possibleCause = true,
                 averageValue = 2
-            ), com.example.domain.bo.PossibleCausesBO.WeatherCauseBO(
-                weatherType = com.example.domain.bo.PossibleCausesBO.WeatherCauseBO.WeatherType.TEMPERATURE,
+            ), PossibleCausesBO.WeatherCauseBO(
+                weatherType = PossibleCausesBO.WeatherCauseBO.WeatherType.TEMPERATURE,
                 possibleCause = true,
                 averageValue = 5
             )
         )
         Assert.assertEquals(expectedValue, causes)
-
-
     }
 
     @Test
@@ -123,9 +120,6 @@ class CausesParserTest {
         val cause = getAlcoholCause(alcoholLevelMap = alcoholMap, alcoholThreshold = 0.7f)
 
         Assert.assertEquals(true, cause)
-
-
     }
-
 
 }

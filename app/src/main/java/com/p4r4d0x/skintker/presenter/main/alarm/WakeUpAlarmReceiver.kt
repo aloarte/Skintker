@@ -6,7 +6,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.p4r4d0x.domain.Constants.BOOT_INTENT
+import com.p4r4d0x.domain.utils.Constants.BOOT_INTENT
 import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils
 
 class WakeUpAlarmReceiver : BroadcastReceiver() {

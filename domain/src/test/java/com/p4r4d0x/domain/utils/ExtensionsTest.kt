@@ -1,6 +1,5 @@
-package com.p4r4d0x.skintker.domain
+package com.p4r4d0x.domain.utils
 
-import com.p4r4d0x.domain.bo.AlcoholLevel
 import org.junit.Test
 import java.util.*
 import kotlin.test.assertEquals

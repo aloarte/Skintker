@@ -4,8 +4,8 @@ import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.bo.IrritationBO
+import com.p4r4d0x.domain.di.testRepositoriesModule
 import com.p4r4d0x.domain.repository.LogsManagementRepository
-import com.p4r4d0x.domain.testRepositoriesModule
 import com.p4r4d0x.test.CoroutinesTestRule
 import com.p4r4d0x.test.KoinBaseTest
 import com.p4r4d0x.test.KoinTestApplication

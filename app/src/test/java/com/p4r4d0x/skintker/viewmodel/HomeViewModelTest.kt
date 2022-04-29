@@ -4,10 +4,16 @@ import android.content.SharedPreferences
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.p4r4d0x.skintker.di.*
+import com.p4r4d0x.domain.bo.DailyLogBO
+import com.p4r4d0x.domain.bo.PossibleCausesBO
 import com.p4r4d0x.domain.usecases.GetLogsUseCase
 import com.p4r4d0x.domain.usecases.GetQueriedLogsUseCase
+import com.p4r4d0x.domain.utils.Constants
+import com.p4r4d0x.skintker.di.*
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
+import com.p4r4d0x.test.CoroutinesTestRule
+import com.p4r4d0x.test.KoinBaseTest
+import com.p4r4d0x.test.KoinTestApplication
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.mockk
@@ -27,7 +33,7 @@ import java.util.*
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @Config(application = KoinTestApplication::class, sdk = [Build.VERSION_CODES.P])
-class HomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesModule) {
+class HomeViewModelTest : KoinBaseTest(testUseCasesModule) {
 
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
@@ -63,9 +69,9 @@ class HomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesModul
     @Test
     fun `test home view model get logs`() =
         coroutinesTestRule.runBlockingTest {
-            val logsResult = slot<(List<com.example.domain.bo.DailyLogBO>?) -> Unit>()
+            val logsResult = slot<(List<DailyLogBO>?) -> Unit>()
             val logs = listOf(
-                com.example.domain.bo.DailyLogBO(
+                DailyLogBO(
                     date = Date(),
                     foodList = emptyList()
                 )
@@ -92,7 +98,7 @@ class HomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesModul
         coroutinesTestRule.runBlockingTest {
             val causes = generateCauses()
             val preferences = mockPreferences()
-            val causesResult = slot<(com.example.domain.bo.PossibleCausesBO) -> Unit>()
+            val causesResult = slot<(PossibleCausesBO) -> Unit>()
             val useCaseParams = GetQueriedLogsUseCase.Params(
                 PREFERENCE_IRRITATION,
                 PREFERENCE_LOGS,
@@ -119,18 +125,18 @@ class HomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesModul
             Assert.assertEquals(causes, possibleCauses)
         }
 
-    private fun generateCauses() = com.example.domain.bo.PossibleCausesBO(
+    private fun generateCauses() = PossibleCausesBO(
         true, emptyList(), true, emptyList(),
-        com.example.domain.bo.PossibleCausesBO.StressCauseBO(true, 5),
-        com.example.domain.bo.PossibleCausesBO.TravelCauseBO(true, ""),
+        PossibleCausesBO.StressCauseBO(true, 5),
+        PossibleCausesBO.TravelCauseBO(true, ""),
         Pair(
-            com.example.domain.bo.PossibleCausesBO.WeatherCauseBO(
-                com.example.domain.bo.PossibleCausesBO.WeatherCauseBO.WeatherType.TEMPERATURE,
+            PossibleCausesBO.WeatherCauseBO(
+                PossibleCausesBO.WeatherCauseBO.WeatherType.TEMPERATURE,
                 true,
                 2
             ),
-            com.example.domain.bo.PossibleCausesBO.WeatherCauseBO(
-                com.example.domain.bo.PossibleCausesBO.WeatherCauseBO.WeatherType.HUMIDITY,
+            PossibleCausesBO.WeatherCauseBO(
+                PossibleCausesBO.WeatherCauseBO.WeatherType.HUMIDITY,
                 true,
                 2
             )
@@ -142,62 +148,62 @@ class HomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesModul
 
         every {
             preferences.getInt(
-                com.p4r4d0x.domain.Constants.PREFERENCES_IRRITATION_NUMBER,
-                com.p4r4d0x.domain.Constants.DEFAULT_IRRITATION_LEVEL_THRESHOLD
+                Constants.PREFERENCES_IRRITATION_NUMBER,
+                Constants.DEFAULT_IRRITATION_LEVEL_THRESHOLD
             )
         } returns PREFERENCE_IRRITATION
         every {
             preferences.getInt(
-                com.p4r4d0x.domain.Constants.PREFERENCES_MIN_LOGS,
-                com.p4r4d0x.domain.Constants.DEFAULT_MIN_LOGS
+                Constants.PREFERENCES_MIN_LOGS,
+                Constants.DEFAULT_MIN_LOGS
             )
         } returns PREFERENCE_LOGS
         every {
             preferences.getFloat(
-                com.p4r4d0x.domain.Constants.PREFERENCES_FOOD_THRESHOLD,
-                com.p4r4d0x.domain.Constants.DEFAULT_FOOD_THRESHOLD
+                Constants.PREFERENCES_FOOD_THRESHOLD,
+                Constants.DEFAULT_FOOD_THRESHOLD
             )
         } returns PREFERENCE_FOOD
         every {
             preferences.getFloat(
-                com.p4r4d0x.domain.Constants.PREFERENCES_ZONES_THRESHOLD,
-                com.p4r4d0x.domain.Constants.DEFAULT_ZONES_THRESHOLD
+                Constants.PREFERENCES_ZONES_THRESHOLD,
+                Constants.DEFAULT_ZONES_THRESHOLD
             )
         } returns PREFERENCE_ZONES
         every {
             preferences.getFloat(
-                com.p4r4d0x.domain.Constants.PREFERENCES_TRAVEL_THRESHOLD,
-                com.p4r4d0x.domain.Constants.DEFAULT_TRAVEL_THRESHOLD
+                Constants.PREFERENCES_TRAVEL_THRESHOLD,
+                Constants.DEFAULT_TRAVEL_THRESHOLD
             )
         } returns PREFERENCE_TRAVEL
         every {
             preferences.getFloat(
-                com.p4r4d0x.domain.Constants.PREFERENCES_ALCOHOL_THRESHOLD,
-                com.p4r4d0x.domain.Constants.DEFAULT_ALCOHOL_THRESHOLD
+                Constants.PREFERENCES_ALCOHOL_THRESHOLD,
+                Constants.DEFAULT_ALCOHOL_THRESHOLD
             )
         } returns PREFERENCE_ALCOHOL
         every {
             preferences.getInt(
-                com.p4r4d0x.domain.Constants.PREFERENCES_STRESS_VALUE,
-                com.p4r4d0x.domain.Constants.DEFAULT_STRESS_VALUE
+                Constants.PREFERENCES_STRESS_VALUE,
+                Constants.DEFAULT_STRESS_VALUE
             )
         } returns PREFERENCE_STRESS_VALUE
         every {
             preferences.getFloat(
-                com.p4r4d0x.domain.Constants.PREFERENCES_STRESS_THRESHOLD,
-                com.p4r4d0x.domain.Constants.DEFAULT_STRESS_THRESHOLD
+                Constants.PREFERENCES_STRESS_THRESHOLD,
+                Constants.DEFAULT_STRESS_THRESHOLD
             )
         } returns PREFERENCE_STRESS_TH
         every {
             preferences.getFloat(
-                com.p4r4d0x.domain.Constants.PREFERENCES_WEATHER_TEMPERATURE_THRESHOLD,
-                com.p4r4d0x.domain.Constants.DEFAULT_WEATHER_TEMPERATURE_THRESHOLD
+                Constants.PREFERENCES_WEATHER_TEMPERATURE_THRESHOLD,
+                Constants.DEFAULT_WEATHER_TEMPERATURE_THRESHOLD
             )
         } returns PREFERENCE_TEMPERATURE_TH
         every {
             preferences.getFloat(
-                com.p4r4d0x.domain.Constants.PREFERENCES_WEATHER_HUMIDITY_THRESHOLD,
-                com.p4r4d0x.domain.Constants.DEFAULT_WEATHER_HUMIDITY_THRESHOLD
+                Constants.PREFERENCES_WEATHER_HUMIDITY_THRESHOLD,
+                Constants.DEFAULT_WEATHER_HUMIDITY_THRESHOLD
             )
         } returns PREFERENCE_HUMIDITY_TH
 

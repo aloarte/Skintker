@@ -1,21 +1,19 @@
-package com.p4r4d0x.domain
+package com.p4r4d0x.domain.utils
 
 import android.content.res.Resources
-import com.p4r4d0x.domain.Constants.LABEL_ALCOHOL
-import com.p4r4d0x.domain.Constants.LABEL_BEERS
-import com.p4r4d0x.domain.Constants.LABEL_CITY
-import com.p4r4d0x.domain.Constants.LABEL_DATE
-import com.p4r4d0x.domain.Constants.LABEL_FOODS
-import com.p4r4d0x.domain.Constants.LABEL_ID
-import com.p4r4d0x.domain.Constants.LABEL_IRRITATED_ZONES
-import com.p4r4d0x.domain.Constants.LABEL_IRRITATION
-import com.p4r4d0x.domain.Constants.LABEL_STRESS
-import com.p4r4d0x.domain.Constants.LABEL_TRAVELED
-import com.p4r4d0x.domain.Constants.LABEL_WEATHER_HUMIDITY
-import com.p4r4d0x.domain.Constants.LABEL_WEATHER_TEMPERATURE
-import com.p4r4d0x.skintker.domain.cleanString
 import com.p4r4d0x.domain.bo.DailyLogBO
-import com.p4r4d0x.skintker.domain.getDDMMYYYYDate
+import com.p4r4d0x.domain.utils.Constants.LABEL_ALCOHOL
+import com.p4r4d0x.domain.utils.Constants.LABEL_BEERS
+import com.p4r4d0x.domain.utils.Constants.LABEL_CITY
+import com.p4r4d0x.domain.utils.Constants.LABEL_DATE
+import com.p4r4d0x.domain.utils.Constants.LABEL_FOODS
+import com.p4r4d0x.domain.utils.Constants.LABEL_ID
+import com.p4r4d0x.domain.utils.Constants.LABEL_IRRITATED_ZONES
+import com.p4r4d0x.domain.utils.Constants.LABEL_IRRITATION
+import com.p4r4d0x.domain.utils.Constants.LABEL_STRESS
+import com.p4r4d0x.domain.utils.Constants.LABEL_TRAVELED
+import com.p4r4d0x.domain.utils.Constants.LABEL_WEATHER_HUMIDITY
+import com.p4r4d0x.domain.utils.Constants.LABEL_WEATHER_TEMPERATURE
 
 object CSVParser {
 

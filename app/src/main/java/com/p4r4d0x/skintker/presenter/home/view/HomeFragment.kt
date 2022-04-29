@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
-import com.p4r4d0x.domain.Constants
+import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.presenter.home.view.compose.TabScreen
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel

@@ -4,12 +4,13 @@ import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.p4r4d0x.domain.Constants.DEFAULT_TRAVEL_THRESHOLD
-import com.p4r4d0x.domain.Constants.PREFERENCES_TRAVEL_THRESHOLD
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.bo.PossibleCausesBO
 import com.p4r4d0x.domain.usecases.GetLogsUseCase
 import com.p4r4d0x.domain.usecases.GetQueriedLogsUseCase
+import com.p4r4d0x.domain.utils.Constants
+import com.p4r4d0x.domain.utils.Constants.DEFAULT_TRAVEL_THRESHOLD
+import com.p4r4d0x.domain.utils.Constants.PREFERENCES_TRAVEL_THRESHOLD
 
 class HomeViewModel(
     private val getLogsUseCase: GetLogsUseCase,
@@ -36,45 +37,45 @@ class HomeViewModel(
                 viewModelScope,
                 params = GetQueriedLogsUseCase.Params(
                     irritationLevel = preference.getInt(
-                        com.p4r4d0x.domain.Constants.PREFERENCES_IRRITATION_NUMBER,
-                        com.p4r4d0x.domain.Constants.DEFAULT_IRRITATION_LEVEL_THRESHOLD
+                        Constants.PREFERENCES_IRRITATION_NUMBER,
+                        Constants.DEFAULT_IRRITATION_LEVEL_THRESHOLD
                     ),
                     minLogs = preference.getInt(
-                        com.p4r4d0x.domain.Constants.PREFERENCES_MIN_LOGS,
-                        com.p4r4d0x.domain.Constants.DEFAULT_MIN_LOGS
+                        Constants.PREFERENCES_MIN_LOGS,
+                        Constants.DEFAULT_MIN_LOGS
                     ),
                     foodThreshold = preference.getFloat(
-                        com.p4r4d0x.domain.Constants.PREFERENCES_FOOD_THRESHOLD,
-                        com.p4r4d0x.domain.Constants.DEFAULT_FOOD_THRESHOLD
+                        Constants.PREFERENCES_FOOD_THRESHOLD,
+                        Constants.DEFAULT_FOOD_THRESHOLD
                     ),
                     zonesThreshold = preference.getFloat(
-                        com.p4r4d0x.domain.Constants.PREFERENCES_ZONES_THRESHOLD,
-                        com.p4r4d0x.domain.Constants.DEFAULT_ZONES_THRESHOLD
+                        Constants.PREFERENCES_ZONES_THRESHOLD,
+                        Constants.DEFAULT_ZONES_THRESHOLD
                     ),
                     travelThreshold = preference.getFloat(
                         PREFERENCES_TRAVEL_THRESHOLD,
                         DEFAULT_TRAVEL_THRESHOLD
                     ),
                     alcoholThreshold = preference.getFloat(
-                        com.p4r4d0x.domain.Constants.PREFERENCES_ALCOHOL_THRESHOLD,
-                        com.p4r4d0x.domain.Constants.DEFAULT_ALCOHOL_THRESHOLD
+                        Constants.PREFERENCES_ALCOHOL_THRESHOLD,
+                        Constants.DEFAULT_ALCOHOL_THRESHOLD
                     ),
                     stressThresholds = Pair(
                         preference.getInt(
-                            com.p4r4d0x.domain.Constants.PREFERENCES_STRESS_VALUE,
-                            com.p4r4d0x.domain.Constants.DEFAULT_STRESS_VALUE
+                            Constants.PREFERENCES_STRESS_VALUE,
+                            Constants.DEFAULT_STRESS_VALUE
                         ), preference.getFloat(
-                            com.p4r4d0x.domain.Constants.PREFERENCES_STRESS_THRESHOLD,
-                            com.p4r4d0x.domain.Constants.DEFAULT_STRESS_THRESHOLD
+                            Constants.PREFERENCES_STRESS_THRESHOLD,
+                            Constants.DEFAULT_STRESS_THRESHOLD
                         )
                     ),
                     weatherThresholds = Pair(
                         preference.getFloat(
-                            com.p4r4d0x.domain.Constants.PREFERENCES_WEATHER_TEMPERATURE_THRESHOLD,
-                            com.p4r4d0x.domain.Constants.DEFAULT_WEATHER_TEMPERATURE_THRESHOLD
+                            Constants.PREFERENCES_WEATHER_TEMPERATURE_THRESHOLD,
+                            Constants.DEFAULT_WEATHER_TEMPERATURE_THRESHOLD
                         ), preference.getFloat(
-                            com.p4r4d0x.domain.Constants.PREFERENCES_WEATHER_HUMIDITY_THRESHOLD,
-                            com.p4r4d0x.domain.Constants.DEFAULT_WEATHER_HUMIDITY_THRESHOLD
+                            Constants.PREFERENCES_WEATHER_HUMIDITY_THRESHOLD,
+                            Constants.DEFAULT_WEATHER_HUMIDITY_THRESHOLD
                         )
                     )
                 )
