@@ -11,6 +11,7 @@ import com.p4r4d0x.domain.utils.CSVParser.getCSVRowFromData
 import com.p4r4d0x.domain.utils.CSVParser.getHeaderCSVRow
 import com.p4r4d0x.domain.utils.CSVParser.getReferenceMap
 import com.p4r4d0x.domain.utils.Constants.EXPORT_FILE_NAME
+import java.io.FileNotFoundException
 
 class ExportLogsDBUseCase(private val logsRepository: LogsManagementRepository, private val resourcesRepository: ResourcesRepository) :
     BaseUseCaseParamsResult<ExportLogsDBUseCase.Params, Boolean>() {
@@ -21,7 +22,11 @@ class ExportLogsDBUseCase(private val logsRepository: LogsManagementRepository, 
 
     override suspend fun run(params: Params): Boolean {
         val logList = logsRepository.getAllLogs()
-        return exportDatabaseToCSVFile(params.context, params.resources, logList)
+        return try {
+            exportDatabaseToCSVFile(params.context, params.resources, logList)
+        } catch (foe: FileNotFoundException) {
+            false
+        }
     }
 
     private fun exportDatabaseToCSVFile(
