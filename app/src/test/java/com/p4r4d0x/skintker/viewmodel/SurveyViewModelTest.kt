@@ -10,12 +10,13 @@ import com.p4r4d0x.domain.usecases.AddLogUseCase
 import com.p4r4d0x.domain.usecases.GetLogUseCase
 import com.p4r4d0x.domain.usecases.GetSurveyUseCase
 import com.p4r4d0x.domain.utils.Constants
+import com.p4r4d0x.skintker.CoroutinesTestRule
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.di.*
+import com.p4r4d0x.skintker.di.testUseCasesModule
+import com.p4r4d0x.skintker.di.testViewModelModule
 import com.p4r4d0x.skintker.presenter.survey.LogState
 import com.p4r4d0x.skintker.presenter.survey.SurveyState
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
-import com.p4r4d0x.test.CoroutinesTestRule
 import com.p4r4d0x.test.KoinBaseTest
 import com.p4r4d0x.test.KoinTestApplication
 import io.mockk.MockKAnnotations

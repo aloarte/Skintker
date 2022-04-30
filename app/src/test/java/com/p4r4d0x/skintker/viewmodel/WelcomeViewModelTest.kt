@@ -8,11 +8,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.p4r4d0x.data.parsers.DataParser.getCurrentFormattedDate
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.usecases.GetLogUseCase
-import com.p4r4d0x.skintker.di.*
+import com.p4r4d0x.skintker.CoroutinesTestRule
+import com.p4r4d0x.skintker.di.testUseCasesModule
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.welcome.Event
 import com.p4r4d0x.skintker.presenter.welcome.viewmodel.WelcomeViewModel
-import com.p4r4d0x.test.CoroutinesTestRule
 import com.p4r4d0x.test.KoinBaseTest
 import com.p4r4d0x.test.KoinTestApplication
 import io.mockk.MockKAnnotations

@@ -9,9 +9,9 @@ import com.p4r4d0x.domain.bo.PossibleCausesBO
 import com.p4r4d0x.domain.usecases.GetLogsUseCase
 import com.p4r4d0x.domain.usecases.GetQueriedLogsUseCase
 import com.p4r4d0x.domain.utils.Constants
-import com.p4r4d0x.skintker.di.*
+import com.p4r4d0x.skintker.CoroutinesTestRule
+import com.p4r4d0x.skintker.di.testUseCasesModule
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
-import com.p4r4d0x.test.CoroutinesTestRule
 import com.p4r4d0x.test.KoinBaseTest
 import com.p4r4d0x.test.KoinTestApplication
 import io.mockk.MockKAnnotations

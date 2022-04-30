@@ -10,9 +10,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.p4r4d0x.domain.bo.ProfileBO
 import com.p4r4d0x.domain.usecases.ExportLogsDBUseCase
 import com.p4r4d0x.domain.utils.Constants
-import com.p4r4d0x.skintker.di.*
+import com.p4r4d0x.skintker.CoroutinesTestRule
+import com.p4r4d0x.skintker.di.testUseCasesModule
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
-import com.p4r4d0x.test.CoroutinesTestRule
 import com.p4r4d0x.test.KoinBaseTest
 import com.p4r4d0x.test.KoinTestApplication
 import io.mockk.MockKAnnotations

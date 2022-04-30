@@ -2,13 +2,13 @@ package com.p4r4d0x.domain.usecases
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.p4r4d0x.domain.CoroutinesTestRule
 import com.p4r4d0x.domain.bo.PossibleAnswer
 import com.p4r4d0x.domain.bo.Question
 import com.p4r4d0x.domain.bo.Survey
 import com.p4r4d0x.domain.di.testRepositoriesModule
 import com.p4r4d0x.domain.repository.SurveyRepository
 import com.p4r4d0x.domain.utils.Constants
-import com.p4r4d0x.test.CoroutinesTestRule
 import com.p4r4d0x.test.KoinBaseTest
 import com.p4r4d0x.test.KoinTestApplication
 import io.mockk.coEvery

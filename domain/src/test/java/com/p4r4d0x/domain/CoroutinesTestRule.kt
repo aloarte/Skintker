@@ -1,4 +1,4 @@
-package com.p4r4d0x.test
+package com.p4r4d0x.domain
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
