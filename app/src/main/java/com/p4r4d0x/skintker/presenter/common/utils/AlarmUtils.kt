@@ -8,7 +8,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
-import com.p4r4d0x.skintker.data.Constants
+import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.skintker.presenter.main.alarm.ReportAlarmReceiver
 import java.util.*
 

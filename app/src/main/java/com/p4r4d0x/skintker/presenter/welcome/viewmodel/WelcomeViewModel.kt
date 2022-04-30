@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.p4r4d0x.skintker.data.Constants
-import com.p4r4d0x.skintker.domain.parsers.DataParser.getCurrentFormattedDate
-import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
+import com.p4r4d0x.data.parsers.DataParser.getCurrentFormattedDate
+import com.p4r4d0x.domain.usecases.GetLogUseCase
+import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.welcome.Event
 

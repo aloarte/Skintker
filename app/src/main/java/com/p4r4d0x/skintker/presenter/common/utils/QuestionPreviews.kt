@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.p4r4d0x.domain.bo.PossibleAnswer
+import com.p4r4d0x.domain.bo.Question
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.domain.log.PossibleAnswer
-import com.p4r4d0x.skintker.domain.log.Question
 import com.p4r4d0x.skintker.presenter.survey.view.compose.QuestionContent
 import com.p4r4d0x.skintker.theme.SkintkerTheme
 

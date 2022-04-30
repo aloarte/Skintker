@@ -1,11 +1,8 @@
 package com.p4r4d0x.skintker.presenter.common.utils
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.p4r4d0x.skintker.data.enums.AlcoholLevel
-import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
-import com.p4r4d0x.skintker.domain.bo.DailyLogBO
-import com.p4r4d0x.skintker.domain.bo.IrritationBO
-import com.p4r4d0x.skintker.domain.bo.PossibleCausesBO
+import com.p4r4d0x.domain.bo.*
+
 import java.util.*
 
 class DailyLogProvider : PreviewParameterProvider<DailyLogBO> {
@@ -31,8 +28,14 @@ class DailyLogProvider : PreviewParameterProvider<DailyLogBO> {
                 additionalData = AdditionalDataBO(
                     stressLevel = 7,
                     alcoholLevel = AlcoholLevel.Few,
-                    weather = AdditionalDataBO.WeatherBO(humidity = 2, temperature = 1),
-                    travel = AdditionalDataBO.TravelBO(traveled = true, city = "Madrid")
+                    weather = AdditionalDataBO.WeatherBO(
+                        humidity = 2,
+                        temperature = 1
+                    ),
+                    travel = AdditionalDataBO.TravelBO(
+                        traveled = true,
+                        city = "Madrid"
+                    )
                 )
             ),
             DailyLogBO(
@@ -62,8 +65,14 @@ class DailyLogProvider : PreviewParameterProvider<DailyLogBO> {
                 additionalData = AdditionalDataBO(
                     stressLevel = 7,
                     alcoholLevel = AlcoholLevel.Few,
-                    weather = AdditionalDataBO.WeatherBO(humidity = 2, temperature = 1),
-                    travel = AdditionalDataBO.TravelBO(traveled = true, city = "Madrid"),
+                    weather = AdditionalDataBO.WeatherBO(
+                        humidity = 2,
+                        temperature = 1
+                    ),
+                    travel = AdditionalDataBO.TravelBO(
+                        traveled = true,
+                        city = "Madrid"
+                    ),
                     beerTypes = listOf("IPA", "Stout")
                 )
             )

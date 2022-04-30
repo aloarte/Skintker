@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.domain.login.LoginLoadingState
+import com.p4r4d0x.skintker.presenter.login.LoginLoadingState
 import com.p4r4d0x.skintker.presenter.login.view.compose.LoginScreen
 import com.p4r4d0x.skintker.presenter.login.viewmodel.LoginViewModel
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
@@ -30,8 +30,6 @@ class LoginFragment : Fragment() {
                 navigate(FragmentScreen.Welcome, FragmentScreen.Login)
             }
         }
-
-
     }
 
     override fun onCreateView(

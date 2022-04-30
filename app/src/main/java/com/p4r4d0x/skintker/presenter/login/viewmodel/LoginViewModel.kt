@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
-import com.p4r4d0x.skintker.domain.login.LoginLoadingState
+import com.p4r4d0x.skintker.presenter.login.LoginLoadingState
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {

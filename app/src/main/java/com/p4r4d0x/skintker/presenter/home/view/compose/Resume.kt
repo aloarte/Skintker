@@ -20,10 +20,10 @@ import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.p4r4d0x.domain.bo.PossibleCausesBO
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.domain.bo.PossibleCausesBO
-import com.p4r4d0x.skintker.domain.parsers.DataParser.getHumidityString
-import com.p4r4d0x.skintker.domain.parsers.DataParser.getTemperatureString
+import com.p4r4d0x.skintker.getHumidityString
+import com.p4r4d0x.skintker.getTemperatureString
 import com.p4r4d0x.skintker.presenter.common.compose.Description
 import com.p4r4d0x.skintker.presenter.common.compose.SkintkerDivider
 import com.p4r4d0x.skintker.presenter.common.utils.PossibleCausesProvider

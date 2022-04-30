@@ -21,8 +21,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.Constants
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.main.navigate
 import com.p4r4d0x.skintker.presenter.welcome.viewmodel.WelcomeViewModel

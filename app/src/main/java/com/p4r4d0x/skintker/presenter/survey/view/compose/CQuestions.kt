@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.domain.log.*
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
 
 @ExperimentalPermissionsApi
@@ -138,13 +138,13 @@ private fun QuestionBody(
 ) {
     when (question.answer) {
         is PossibleAnswer.SingleChoice -> SingleChoiceQuestion(
-            possibleAnswer = question.answer,
+            possibleAnswer = question.answer as PossibleAnswer.SingleChoice,
             answer = answer as Answer.SingleChoice?,
             onAnswerSelected = { answerValue -> onAnswer(Answer.SingleChoice(answerValue)) },
             modifier = modifier
         )
         is PossibleAnswer.MultipleChoice -> MultipleChoiceQuestion(
-            possibleAnswer = question.answer,
+            possibleAnswer = question.answer as PossibleAnswer.MultipleChoice,
             answer = answer as Answer.MultipleChoice?,
             onAnswerSelected = { newAnswer, selected ->
                 if (answer == null) {
@@ -156,13 +156,13 @@ private fun QuestionBody(
             modifier = modifier
         )
         is PossibleAnswer.Slider -> SliderQuestion(
-            possibleAnswer = question.answer,
+            possibleAnswer = question.answer as PossibleAnswer.Slider,
             answer = answer as Answer.Slider?,
             onAnswerSelected = { onAnswer(Answer.Slider(it)) },
             modifier = modifier
         )
         is PossibleAnswer.DoubleSlider -> DoubleSliderQuestion(
-            possibleAnswer = question.answer,
+            possibleAnswer = question.answer as PossibleAnswer.DoubleSlider,
             answer = answer as Answer.DoubleSlider?,
             onAnswerSelected = { firstSlideValue, secondSlideValue ->
                 onAnswer(
@@ -175,7 +175,7 @@ private fun QuestionBody(
             modifier = modifier
         )
         is PossibleAnswer.SingleTextInput -> SingleTextInput(
-            possibleAnswer = question.answer,
+            possibleAnswer = question.answer as PossibleAnswer.SingleTextInput,
             answer = answer as Answer.SingleTextInput?,
             onAnswerSelected = {
                 onAnswer(
@@ -186,7 +186,7 @@ private fun QuestionBody(
         )
         is PossibleAnswer.SingleTextInputSingleChoice -> SingleTextInputSingleChoice(
             viewModel = viewModel,
-            possibleAnswer = question.answer,
+            possibleAnswer = question.answer as PossibleAnswer.SingleTextInputSingleChoice,
             answer = answer as Answer.SingleTextInputSingleChoice?,
             onAnswerSelected = { values, hint ->
                 onAnswer(

@@ -4,19 +4,21 @@ import android.content.res.Resources
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.p4r4d0x.data.parsers.DataParser
+import com.p4r4d0x.domain.bo.*
+import com.p4r4d0x.domain.usecases.AddLogUseCase
+import com.p4r4d0x.domain.usecases.GetLogUseCase
+import com.p4r4d0x.domain.usecases.GetSurveyUseCase
+import com.p4r4d0x.domain.utils.Constants
+import com.p4r4d0x.skintker.CoroutinesTestRule
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.Constants
-import com.p4r4d0x.skintker.data.enums.AlcoholLevel
-import com.p4r4d0x.skintker.di.*
-import com.p4r4d0x.skintker.domain.bo.AdditionalDataBO
-import com.p4r4d0x.skintker.domain.bo.DailyLogBO
-import com.p4r4d0x.skintker.domain.bo.IrritationBO
-import com.p4r4d0x.skintker.domain.log.*
-import com.p4r4d0x.skintker.domain.parsers.DataParser
-import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
-import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
-import com.p4r4d0x.skintker.domain.usecases.GetSurveyUseCase
+import com.p4r4d0x.skintker.di.testUseCasesModule
+import com.p4r4d0x.skintker.di.testViewModelModule
+import com.p4r4d0x.skintker.presenter.survey.LogState
+import com.p4r4d0x.skintker.presenter.survey.SurveyState
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
+import com.p4r4d0x.test.KoinBaseTest
+import com.p4r4d0x.test.KoinTestApplication
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.mockk
@@ -139,8 +141,11 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
             val dailyLog = DailyLogBO(
                 date, IrritationBO(0, emptyList()),
                 AdditionalDataBO(
-                    0, AdditionalDataBO.WeatherBO(0, 0),
-                    AdditionalDataBO.TravelBO(false, ""), AlcoholLevel.None, emptyList()
+                    0,
+                    AdditionalDataBO.WeatherBO(0, 0),
+                    AdditionalDataBO.TravelBO(false, ""),
+                    AlcoholLevel.None,
+                    emptyList()
                 ), emptyList()
             )
             resources = mockk()

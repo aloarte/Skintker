@@ -9,10 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import com.p4r4d0x.domain.utils.Constants.CHANNEL_DESCRIPTION
+import com.p4r4d0x.domain.utils.Constants.CHANNEL_ID
+import com.p4r4d0x.domain.utils.Constants.CHANNEL_NAME
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.Constants.CHANNEL_DESCRIPTION
-import com.p4r4d0x.skintker.data.Constants.CHANNEL_ID
-import com.p4r4d0x.skintker.data.Constants.CHANNEL_NAME
 import java.util.*
 
 class MainActivity : AppCompatActivity() {

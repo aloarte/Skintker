@@ -23,9 +23,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.p4r4d0x.skintker.domain.log.Answer
-import com.p4r4d0x.skintker.domain.log.PossibleAnswer
-import com.p4r4d0x.skintker.domain.log.SurveyActionType
+import com.p4r4d0x.domain.bo.Answer
+import com.p4r4d0x.domain.bo.PossibleAnswer
+import com.p4r4d0x.domain.bo.SurveyActionType
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
 
 @Composable

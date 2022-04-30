@@ -18,10 +18,19 @@ import androidx.compose.ui.unit.sp
 import com.chargemap.compose.numberpicker.NumberPicker
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
+import com.p4r4d0x.domain.utils.Constants
+import com.p4r4d0x.domain.utils.Constants.DEFAULT_ALCOHOL_THRESHOLD
+import com.p4r4d0x.domain.utils.Constants.DEFAULT_STRESS_THRESHOLD
+import com.p4r4d0x.domain.utils.Constants.PREFERENCES_ALCOHOL_THRESHOLD
+import com.p4r4d0x.domain.utils.Constants.PREFERENCES_FOOD_THRESHOLD
+import com.p4r4d0x.domain.utils.Constants.PREFERENCES_IRRITATION_NUMBER
+import com.p4r4d0x.domain.utils.Constants.PREFERENCES_MIN_LOGS
+import com.p4r4d0x.domain.utils.Constants.PREFERENCES_STRESS_THRESHOLD
+import com.p4r4d0x.domain.utils.Constants.PREFERENCES_TRAVEL_THRESHOLD
+import com.p4r4d0x.domain.utils.Constants.PREFERENCES_ZONES_THRESHOLD
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.data.Constants
-import com.p4r4d0x.skintker.data.enums.SettingsStatus
 import com.p4r4d0x.skintker.presenter.common.compose.Description
+import com.p4r4d0x.skintker.presenter.settings.SettingsStatus
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 
 
@@ -69,8 +78,8 @@ fun ParametersConfiguration(prefs: SharedPreferences?, settingsCallback: (Settin
         var alcoholThresholdValue by remember {
             mutableStateOf(
                 (preference.getFloat(
-                    Constants.PREFERENCES_ALCOHOL_THRESHOLD,
-                    Constants.DEFAULT_ALCOHOL_THRESHOLD
+                    PREFERENCES_ALCOHOL_THRESHOLD,
+                    DEFAULT_ALCOHOL_THRESHOLD
                 ) * 100).toInt()
             )
         }
@@ -109,8 +118,8 @@ fun ParametersConfiguration(prefs: SharedPreferences?, settingsCallback: (Settin
         var stressThresholdValue by remember {
             mutableStateOf(
                 (preference.getFloat(
-                    Constants.PREFERENCES_STRESS_THRESHOLD,
-                    Constants.DEFAULT_STRESS_THRESHOLD
+                    PREFERENCES_STRESS_THRESHOLD,
+                    DEFAULT_STRESS_THRESHOLD
                 ) * 100).toInt()
             )
         }
@@ -432,12 +441,12 @@ fun setPreferenceValues(
 ) {
     val editor: SharedPreferences.Editor? = prefs?.edit()
     editor?.let {
-        it.putInt(Constants.PREFERENCES_IRRITATION_NUMBER, irritationLevelValue)
-        it.putInt(Constants.PREFERENCES_MIN_LOGS, minLogsValue)
-        it.putFloat(Constants.PREFERENCES_FOOD_THRESHOLD, foodThresholdValue.toFloat() / 100f)
-        it.putFloat(Constants.PREFERENCES_ZONES_THRESHOLD, zonesThresholdValue.toFloat() / 100f)
-        it.putFloat(Constants.PREFERENCES_ALCOHOL_THRESHOLD, alcoholThresholdValue.toFloat() / 100f)
-        it.putFloat(Constants.PREFERENCES_TRAVEL_THRESHOLD, travelThresholdValue.toFloat() / 100f)
+        it.putInt(PREFERENCES_IRRITATION_NUMBER, irritationLevelValue)
+        it.putInt(PREFERENCES_MIN_LOGS, minLogsValue)
+        it.putFloat(PREFERENCES_FOOD_THRESHOLD, foodThresholdValue.toFloat() / 100f)
+        it.putFloat(PREFERENCES_ZONES_THRESHOLD, zonesThresholdValue.toFloat() / 100f)
+        it.putFloat(PREFERENCES_ALCOHOL_THRESHOLD, alcoholThresholdValue.toFloat() / 100f)
+        it.putFloat(PREFERENCES_TRAVEL_THRESHOLD, travelThresholdValue.toFloat() / 100f)
         it.putFloat(
             Constants.PREFERENCES_WEATHER_TEMPERATURE_THRESHOLD,
             temperatureThresholdValue.toFloat() / 100f

@@ -15,8 +15,8 @@ import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.p4r4d0x.domain.bo.SurveyActionType
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.domain.log.SurveyActionType
 import com.p4r4d0x.skintker.presenter.common.compose.Description
 
 @Composable

@@ -4,13 +4,16 @@ import android.content.SharedPreferences
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.p4r4d0x.skintker.data.Constants
-import com.p4r4d0x.skintker.di.*
-import com.p4r4d0x.skintker.domain.bo.DailyLogBO
-import com.p4r4d0x.skintker.domain.bo.PossibleCausesBO
-import com.p4r4d0x.skintker.domain.usecases.GetLogsUseCase
-import com.p4r4d0x.skintker.domain.usecases.GetQueriedLogsUseCase
+import com.p4r4d0x.domain.bo.DailyLogBO
+import com.p4r4d0x.domain.bo.PossibleCausesBO
+import com.p4r4d0x.domain.usecases.GetLogsUseCase
+import com.p4r4d0x.domain.usecases.GetQueriedLogsUseCase
+import com.p4r4d0x.domain.utils.Constants
+import com.p4r4d0x.skintker.CoroutinesTestRule
+import com.p4r4d0x.skintker.di.testUseCasesModule
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
+import com.p4r4d0x.test.KoinBaseTest
+import com.p4r4d0x.test.KoinTestApplication
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.mockk
@@ -30,7 +33,7 @@ import java.util.*
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @Config(application = KoinTestApplication::class, sdk = [Build.VERSION_CODES.P])
-class HomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesModule) {
+class HomeViewModelTest : KoinBaseTest(testUseCasesModule) {
 
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
@@ -67,7 +70,12 @@ class HomeViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesModul
     fun `test home view model get logs`() =
         coroutinesTestRule.runBlockingTest {
             val logsResult = slot<(List<DailyLogBO>?) -> Unit>()
-            val logs = listOf(DailyLogBO(date = Date(), foodList = emptyList()))
+            val logs = listOf(
+                DailyLogBO(
+                    date = Date(),
+                    foodList = emptyList()
+                )
+            )
             every {
                 getLogsUseCase.invoke(
                     scope = any(),

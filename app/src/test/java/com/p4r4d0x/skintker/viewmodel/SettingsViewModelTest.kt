@@ -7,11 +7,14 @@ import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.p4r4d0x.skintker.data.Constants
-import com.p4r4d0x.skintker.di.*
-import com.p4r4d0x.skintker.domain.bo.ProfileBO
-import com.p4r4d0x.skintker.domain.usecases.ExportLogsDBUseCase
+import com.p4r4d0x.domain.bo.ProfileBO
+import com.p4r4d0x.domain.usecases.ExportLogsDBUseCase
+import com.p4r4d0x.domain.utils.Constants
+import com.p4r4d0x.skintker.CoroutinesTestRule
+import com.p4r4d0x.skintker.di.testUseCasesModule
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
+import com.p4r4d0x.test.KoinBaseTest
+import com.p4r4d0x.test.KoinTestApplication
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.mockk
@@ -30,7 +33,7 @@ import org.robolectric.annotation.Config
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @Config(application = KoinTestApplication::class, sdk = [Build.VERSION_CODES.P])
-class SettingsViewModelTest : KoinBaseTest(testRepositoriesModule, testUseCasesModule) {
+class SettingsViewModelTest : KoinBaseTest(testUseCasesModule) {
 
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()

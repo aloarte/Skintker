@@ -22,101 +22,6 @@
     <string name="pick_date_error_future">You must select a date in the past!</string>
     <string name="pick_date_error_past">This date is too old! Please, select a date within the past year.</string>
 
-    <!-- question 1 -->
-    <string name="question_1_title">Select overall discomfort level</string>
-    <string name="question_1_description">Assess your level of irritation throughout the day.</string>
-    <string name="question_1_slide_start">None</string>
-    <string name="question_1_slide_mid">Moderate</string>
-    <string name="question_1_slide_end">Unbearable</string>
-    <!-- question 2 -->
-    <string name="question_2_title">The area of the body that bothers me is …</string>
-    <string name="question_2_answer_1">Ears</string>
-    <string name="question_2_answer_2">Eyelid</string>
-    <string name="question_2_answer_3">Cheeks</string>
-    <string name="question_2_answer_4">Lips</string>
-    <string name="question_2_answer_5">Neck</string>
-    <string name="question_2_answer_6">Shoulders</string>
-    <string name="question_2_answer_7">Arms</string>
-    <string name="question_2_answer_8">Wrists</string>
-    <string name="question_2_answer_9">Hands</string>
-    <string name="question_2_answer_10">Legs</string>
-    <string name="question_2_answer_11">Chest</string>
-    <string name="question_2_answer_12">Back</string>
-    <!-- question 3 -->
-    <string name="question_3_title">Stress level</string>
-    <string name="question_3_description">Have you had many stressful or worrying situations today?</string>
-    <string name="question_3_slide_start">None</string>
-    <string name="question_3_slide_mid">Moderate</string>
-    <string name="question_3_slide_end">Stressful </string>
-    <!-- question 4 -->
-    <string name="question_4_title">Did you drink any alcohol today?</string>
-    <string name="question_4_answer_1">No</string>
-    <string name="question_4_answer_2">A few beers</string>
-    <string name="question_4_answer_3">Some cups of wine</string>
-    <string name="question_4_answer_4">Alcoholic drinks</string>
-
-    <!-- question 5 -->
-    <string name="question_5_title">Choose the beer type that you drank</string>
-    <string name="question_5_answer_1">Wheat</string>
-    <string name="question_5_answer_2">Stout</string>
-    <string name="question_5_answer_3">Porter</string>
-    <string name="question_5_answer_4">Lager/Pilsner</string>
-    <string name="question_5_answer_5">Dark Lager</string>
-    <string name="question_5_answer_6">Brown Ale</string>
-    <string name="question_5_answer_7">Pale Ale/IPA</string>
-    <string name="question_5_answer_8">Belgian-Style Ale</string>
-    <string name="question_5_answer_9">Wild &amp; Sour Ale</string>
-    <!-- question 6 -->
-    <string name="question_6_title">What was the weather like?</string>
-    <string name="question_6_description">Describe today\'s weather based on humidity and temperature.</string>
-    <string name="question_6_slide_1_start">Dry</string>
-    <string name="question_6_slide_1_end">Wet </string>
-    <string name="question_6_slide_2_start">Warm</string>
-    <string name="question_6_slide_2_end">Cold</string>
-    <!-- question 7 -->
-    <string name="question_7_title">Which city have you been in today?</string>
-    <string name="question_7_description">Answer also if your traveled. If you traveled between cities, pick the city were you slept last night</string>
-    <string name="question_7_hint">City</string>
-    <string name="question_7_answer_1">Yes, I traveled</string>
-    <string name="question_7_answer_2">No, I didn\'t traveled today</string>
-    <!-- question 8 -->
-    <string name="question_8_title">Today I ate one of this aliments …</string>
-    <string name="question_8_description">Fresh foods</string>
-    <string name="question_8_answer_1">Meat 🥩</string>
-    <string name="question_8_answer_2">Seafood 🦐</string>
-    <string name="question_8_answer_3">Blue fish 🐟</string>
-    <string name="question_8_answer_4">White fish 🐟</string>
-    <string name="question_8_answer_5">Pineapple 🍍</string>
-    <string name="question_8_answer_6">Strawberries 🍓</string>
-    <string name="question_8_answer_7">Bananas 🍌</string>
-    <string name="question_8_answer_8">Citrus 🍊</string>
-    <string name="question_8_answer_9">Tomato 🍅</string>
-    <string name="question_8_answer_10">Avocado 🥑</string>
-    <string name="question_8_answer_11">Eggplant 🍆</string>
-    <string name="question_8_answer_12">Zucchini 🍆</string>
-    <string name="question_8_answer_13">Pumpkin 🎃</string>
-    <string name="question_8_answer_14">Peas 🌿</string>
-    <string name="question_8_answer_15">Mushrooms 🍄</string>
-    <string name="question_8_answer_16">Eggs 🥚</string>
-    <string name="question_8_answer_17">Hot spices 🌶️</string>
-    <string name="question_8_answer_18">Nuts 🥜</string>
-    <!-- question 8 -->
-    <string name="question_9_title">Today I ate one of this aliments …</string>
-    <string name="question_9_description">Processed foods</string>
-    <string name="question_9_answer_1">Chocolate 🍫</string>
-    <string name="question_9_answer_2">Sweets 🍮</string>
-    <string name="question_9_answer_3">Dairy products 🥛</string>
-    <string name="question_9_answer_4">Fermented dairy 🧀</string>
-    <string name="question_9_answer_5">Bread 🍞</string>
-    <string name="question_9_answer_6">Pasta 🍝</string>
-    <string name="question_9_answer_7">Pickles 🥒</string>
-    <string name="question_9_answer_8">Canned legumes 🥫</string>
-    <string name="question_9_answer_9">Canned vegetables 🥫</string>
-    <string name="question_9_answer_10">Canned fish 🥫</string>
-    <string name="question_9_answer_11">Inlay 🥪</string>
-    <string name="question_9_answer_12">Sauces 🍯</string>
-    <string name="question_9_answer_13">Soy derivatives 🌱</string>
-
     <!--History labels-->
     <string name="history_no_logs">You don\'t have any reported log yet.</string>
     <string name="card_traveled_today">Traveled today</string>
@@ -147,23 +52,6 @@
     <string name="permissions_rationale">This question requires some permissions. Please grant them.</string>
     <string name="request_permissions">OK!</string>
     <string name="do_not_ask_permissions">Nope 🙅</string>
-
-    <!-- Test questions  -->
-    <string name="multiple_answer_title" translatable="false">Multiple answer title</string>
-    <string name="multiple_description" translatable="false">Pick one or more</string>
-    <string name="multiple_answer_1" translatable="false">Multiple answer 1</string>
-    <string name="multiple_answer_2" translatable="false">Multiple answer 2</string>
-    <string name="multiple_answer_3" translatable="false">Multiple answer 3</string>
-    <string name="single_answer_title" translatable="false">Single answer title</string>
-    <string name="single_description" translatable="false">Pick one</string>
-    <string name="single_answer_1" translatable="false">Single answer 1</string>
-    <string name="single_answer_2" translatable="false">Single answer 2</string>
-    <string name="single_answer_3" translatable="false">Single answer 3</string>
-    <string name="slide_answer_title" translatable="false">Slide answer title</string>
-    <string name="slide_description" translatable="false">Slide to pick your answer</string>
-    <string name="slide_point_1" translatable="false">Low</string>
-    <string name="slide_point_2" translatable="false">Medium</string>
-    <string name="slide_point_3" translatable="false">High</string>
 
     <!-- login-->
     <string name="login_description">In Skintker we use your account to save your reports in our remote database. this way you can be calm, your data won\'t be lost</string>

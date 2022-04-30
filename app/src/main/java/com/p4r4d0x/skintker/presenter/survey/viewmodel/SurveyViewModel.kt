@@ -8,12 +8,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.p4r4d0x.skintker.domain.log.LogState
-import com.p4r4d0x.skintker.domain.log.SurveyState
-import com.p4r4d0x.skintker.domain.parsers.DataParser
-import com.p4r4d0x.skintker.domain.usecases.AddLogUseCase
-import com.p4r4d0x.skintker.domain.usecases.GetLogUseCase
-import com.p4r4d0x.skintker.domain.usecases.GetSurveyUseCase
+import com.p4r4d0x.data.parsers.DataParser
+import com.p4r4d0x.domain.usecases.AddLogUseCase
+import com.p4r4d0x.domain.usecases.GetLogUseCase
+import com.p4r4d0x.domain.usecases.GetSurveyUseCase
+import com.p4r4d0x.skintker.presenter.survey.LogState
+import com.p4r4d0x.skintker.presenter.survey.SurveyState
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.util.*
 

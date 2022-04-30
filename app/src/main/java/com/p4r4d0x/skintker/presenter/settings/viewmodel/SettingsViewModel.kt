@@ -8,9 +8,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.p4r4d0x.skintker.data.Constants
-import com.p4r4d0x.skintker.domain.bo.ProfileBO
-import com.p4r4d0x.skintker.domain.usecases.ExportLogsDBUseCase
+import com.p4r4d0x.domain.bo.ProfileBO
+import com.p4r4d0x.domain.usecases.ExportLogsDBUseCase
+import com.p4r4d0x.domain.utils.Constants
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class SettingsViewModel(
@@ -38,7 +38,8 @@ class SettingsViewModel(
 
     fun getLoggedUserInfo(lastSignedInAccount: GoogleSignInAccount?) {
         lastSignedInAccount?.let {
-            _profile.value = ProfileBO(it.email ?: "", it.displayName ?: "", it.id ?: "")
+            _profile.value =
+                ProfileBO(it.email ?: "", it.displayName ?: "", it.id ?: "")
         }
     }
 
