@@ -6,10 +6,7 @@ import com.google.firebase.Timestamp
 import com.p4r4d0x.data.parsers.DataParser
 import com.p4r4d0x.data.parsers.DataParser.createLogFromSurvey
 import com.p4r4d0x.data.parsers.DataParser.parseDocumentData
-import com.p4r4d0x.domain.bo.AdditionalDataBO
-import com.p4r4d0x.domain.bo.Answer
-import com.p4r4d0x.domain.bo.DailyLogBO
-import com.p4r4d0x.domain.bo.IrritationBO
+import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.domain.utils.Constants
 import io.mockk.every
 import io.mockk.mockk
@@ -93,7 +90,7 @@ class DataParserTest {
         return answerList
     }
 
-    private fun getDailyLog(expandBeerQuestion: Boolean, alcoholLevel: com.p4r4d0x.domain.bo.AlcoholLevel) =
+    private fun getDailyLog(expandBeerQuestion: Boolean, alcoholLevel: AlcoholLevel) =
         DailyLogBO(
             date = DataParser.getCurrentFormattedDate(),
             irritation = IrritationBO(
@@ -137,7 +134,7 @@ class DataParserTest {
             resources = resources
         )
 
-        val expectedLog = getDailyLog(expandBeerQuestion = true, com.p4r4d0x.domain.bo.AlcoholLevel.None)
+        val expectedLog = getDailyLog(expandBeerQuestion = true, AlcoholLevel.None)
         Assert.assertEquals(expectedLog, surveyLog)
     }
 
@@ -151,13 +148,13 @@ class DataParserTest {
             resources = resources
         )
 
-        val expectedLog = getDailyLog(expandBeerQuestion = false, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.None)
+        val expectedLog = getDailyLog(expandBeerQuestion = false, alcoholLevel = AlcoholLevel.None)
         Assert.assertEquals(expectedLog, surveyLog)
     }
 
     @Test
     fun `parse document data from fb success data AlcoholLevelNone`() {
-        val log = getDailyLog(true, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.None)
+        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date),
@@ -181,7 +178,7 @@ class DataParserTest {
 
     @Test
     fun `parse document data from fb success data AlcoholLevelNoneFew`() {
-        val log = getDailyLog(true, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.Few)
+        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.Few)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date),
@@ -205,7 +202,7 @@ class DataParserTest {
 
     @Test
     fun `parse document data from fb success data AlcoholLevelNoneFewAlcohol`() {
-        val log = getDailyLog(true, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.FewWine)
+        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.FewWine)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date),
@@ -229,7 +226,7 @@ class DataParserTest {
 
     @Test
     fun `parse document data from fb success data AlcoholLevelSome`() {
-        val log = getDailyLog(true, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.Some)
+        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.Some)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date),
@@ -253,7 +250,7 @@ class DataParserTest {
 
     @Test
     fun `parse document data from fb success data bad alcohol type`() {
-        val log = getDailyLog(true, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.None)
+        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date),
@@ -277,7 +274,7 @@ class DataParserTest {
 
     @Test
     fun `parse document data from fb wrong data bad user`() {
-        val log = getDailyLog(true, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.None)
+        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date),
@@ -301,7 +298,7 @@ class DataParserTest {
 
     @Test
     fun `parse document data from fb wrong data parse exception`() {
-        val log = getDailyLog(true, alcoholLevel = com.p4r4d0x.domain.bo.AlcoholLevel.None)
+        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date)

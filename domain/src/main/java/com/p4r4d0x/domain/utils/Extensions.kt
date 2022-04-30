@@ -1,6 +1,7 @@
 package com.p4r4d0x.domain.utils
 
 import android.annotation.SuppressLint
+import com.p4r4d0x.domain.bo.AlcoholLevel
 import com.p4r4d0x.domain.utils.Constants.REGEX_UNACCENTED
 import java.text.Normalizer
 import java.text.SimpleDateFormat
@@ -30,7 +31,7 @@ fun MutableMap<Boolean, Int>.increaseValue(key: Boolean) {
     this[key] = (this[key] ?: 0) + 1
 }
 
-fun MutableMap<com.p4r4d0x.domain.bo.AlcoholLevel, Int>.increaseValue(key: com.p4r4d0x.domain.bo.AlcoholLevel) {
+fun MutableMap<AlcoholLevel, Int>.increaseValue(key: AlcoholLevel) {
     this[key] = (this[key] ?: 0) + 1
 }
 

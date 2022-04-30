@@ -1,5 +1,6 @@
 package com.p4r4d0x.domain.usecases
 
+import com.p4r4d0x.domain.bo.AlcoholLevel
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.bo.PossibleCausesBO
 import com.p4r4d0x.domain.repository.LogsManagementRepository
@@ -26,7 +27,7 @@ class GetQueriedLogsUseCase(private val repository: LogsManagementRepository) :
         val traveledCityMap = mutableMapOf<String, Int>()
         val temperatureMap = mutableMapOf<Int, Int>()
         val humidityCityMap = mutableMapOf<Int, Int>()
-        val alcoholLevelMap = mutableMapOf<com.p4r4d0x.domain.bo.AlcoholLevel, Int>()
+        val alcoholLevelMap = mutableMapOf<AlcoholLevel, Int>()
 
         logs.forEach { log ->
             log.foodList.forEach { food ->

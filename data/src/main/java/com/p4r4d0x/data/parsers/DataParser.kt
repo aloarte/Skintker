@@ -176,9 +176,9 @@ object DataParser {
                             city = userData[LABEL_CITY] as String
                         ),
                         alcoholLevel = try {
-                            com.p4r4d0x.domain.bo.AlcoholLevel.valueOf(userData[LABEL_ALCOHOL] as String)
+                            AlcoholLevel.valueOf(userData[LABEL_ALCOHOL] as String)
                         } catch (e: IllegalArgumentException) {
-                            com.p4r4d0x.domain.bo.AlcoholLevel.None
+                            AlcoholLevel.None
                         },
                         beerTypes = listOf(
                             * (userData[LABEL_BEERS] as String).split(",").toTypedArray()

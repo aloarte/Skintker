@@ -1,5 +1,6 @@
 package com.p4r4d0x.domain.utils
 
+import com.p4r4d0x.domain.bo.AlcoholLevel
 import com.p4r4d0x.domain.bo.PossibleCausesBO
 import com.p4r4d0x.domain.utils.CausesParser.getAlcoholCause
 import com.p4r4d0x.domain.utils.CausesParser.getPossibleCausesItemList
@@ -111,10 +112,10 @@ class CausesParserTest {
     @Test
     fun `get alcohol cause`() {
         val alcoholMap = mapOf(
-            com.p4r4d0x.domain.bo.AlcoholLevel.None to 30,
-            com.p4r4d0x.domain.bo.AlcoholLevel.Few to 50,
-            com.p4r4d0x.domain.bo.AlcoholLevel.FewWine to 10,
-            com.p4r4d0x.domain.bo.AlcoholLevel.Some to 10,
+            AlcoholLevel.None to 30,
+            AlcoholLevel.Few to 50,
+            AlcoholLevel.FewWine to 10,
+            AlcoholLevel.Some to 10,
         )
 
         val cause = getAlcoholCause(alcoholLevelMap = alcoholMap, alcoholThreshold = 0.7f)

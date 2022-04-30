@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.p4r4d0x.data.parsers.DataParser
 import com.p4r4d0x.domain.usecases.AddLogUseCase
 import com.p4r4d0x.domain.usecases.GetLogUseCase
 import com.p4r4d0x.domain.usecases.GetSurveyUseCase
@@ -38,7 +39,7 @@ class SurveyViewModel(
         private set
 
     fun checkIfLogIsAlreadyInserted() {
-        getLogUseCase.invoke(params = GetLogUseCase.Params(date = com.p4r4d0x.data.parsers.DataParser.getCurrentFormattedDate())) { log ->
+        getLogUseCase.invoke(params = GetLogUseCase.Params(date = DataParser.getCurrentFormattedDate())) { log ->
             _logReported.value = log != null
         }
     }
@@ -57,7 +58,7 @@ class SurveyViewModel(
             viewModelScope,
             params = AddLogUseCase.Params(
                 userId,
-                com.p4r4d0x.data.parsers.DataParser.createLogFromSurvey(surveyQuestions.date, answers, resources)
+                DataParser.createLogFromSurvey(surveyQuestions.date, answers, resources)
             )
         )
         _uiState.value = SurveyState.Result
@@ -79,7 +80,7 @@ class SurveyViewModel(
      * Load the questions.
      *  Change the UI state to SurveyState.Questions
      */
-    fun loadQuestions(date: Date = com.p4r4d0x.data.parsers.DataParser.getCurrentFormattedDate()) {
+    fun loadQuestions(date: Date = DataParser.getCurrentFormattedDate()) {
         getSurveyUseCase.invoke { survey ->
             val questions: List<LogState> = survey.questions.mapIndexed { index, question ->
                 val showPrevious = index > 0

@@ -1,5 +1,6 @@
 package com.p4r4d0x.domain.utils
 
+import com.p4r4d0x.domain.bo.AlcoholLevel
 import com.p4r4d0x.domain.bo.PossibleCausesBO
 
 object CausesParser {
@@ -122,7 +123,7 @@ object CausesParser {
     }
 
 
-    fun getAlcoholCause(alcoholLevelMap: Map<com.p4r4d0x.domain.bo.AlcoholLevel, Int>, alcoholThreshold: Float): Boolean {
+    fun getAlcoholCause(alcoholLevelMap: Map<AlcoholLevel, Int>, alcoholThreshold: Float): Boolean {
         if (alcoholLevelMap.isEmpty()) {
             return false
         }
@@ -130,7 +131,7 @@ object CausesParser {
         var totalRepetitions = 0
 
         alcoholLevelMap.forEach { (alcoholLevel, times) ->
-            if (alcoholLevel != com.p4r4d0x.domain.bo.AlcoholLevel.None) {
+            if (alcoholLevel != AlcoholLevel.None) {
                 alcoholRepetitions += times
             }
             totalRepetitions += times
