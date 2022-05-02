@@ -2,7 +2,6 @@ package com.p4r4d0x.skintker.presenter.login.view.compose
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
@@ -12,6 +11,8 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -26,12 +27,20 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.presenter.login.viewmodel.LoginViewModel
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun LoginScreen(viewModel: LoginViewModel, context: Context) {
+
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val loginError = stringResource(id = R.string.google_sso_error)
+
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) {
@@ -41,24 +50,54 @@ fun LoginScreen(viewModel: LoginViewModel, context: Context) {
             val credential = GoogleAuthProvider.getCredential(account.idToken!!, null)
             viewModel.signWithCredential(credential)
         } catch (e: ApiException) {
-            Log.e("ALRALR", "Google sign in failed  $e")
+            Firebase.crashlytics.recordException(e)
+            Firebase.crashlytics.log("Google SSO failed. Status: ${e.status}, Code: ${e.statusCode}, Message: ${e.message}")
+            scope.launch {
+                snackbarHostState.showSnackbar(loginError)
+            }
         }
     }
 
     Scaffold {
-        LoginScreenContent(viewModel, launcher, context)
+        Box {
+            LoginScreenContent(launcher, context)
+            SnackbarHost(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                hostState = snackbarHostState
+            ) {
+                Snackbar(
+                    backgroundColor = MaterialTheme.colors.background,
+                    contentColor = MaterialTheme.colors.onSurface,
+                    snackbarData = SkintkerSnackbarData(
+                        duration = SnackbarDuration.Long,
+                        message = loginError,
+                        actionLabel = null
+                    )
+                )
+            }
+        }
     }
 }
+
+class SkintkerSnackbarData(
+    override val actionLabel: String?,
+    override val duration: SnackbarDuration,
+    override val message: String
+) : SnackbarData {
+    override fun dismiss() {
+    }
+
+    override fun performAction() {
+    }
+}
+
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun LoginScreenContent(
-    viewModel: LoginViewModel,
     launcher: ManagedActivityResultLauncher<Intent, ActivityResult>,
     context: Context
 ) {
-
-
     Surface(
         color = MaterialTheme.colors.primary,
         modifier = Modifier.fillMaxWidth()
@@ -119,7 +158,8 @@ fun GoogleSignInRow(
                 .height(50.dp)
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -132,7 +172,7 @@ fun GoogleSignInRow(
                 Text(
                     style = MaterialTheme.typography.button,
                     color = MaterialTheme.colors.onSurface,
-                    text = "Sign in with Google"
+                    text = stringResource(id = R.string.btn_sign_in)
                 )
                 Icon(
                     tint = Color.Transparent, imageVector = Icons.Default.MailOutline,
@@ -142,4 +182,3 @@ fun GoogleSignInRow(
         }
     }
 }
-

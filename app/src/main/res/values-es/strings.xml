@@ -13,6 +13,7 @@
     <string name="btn_notification_create">CREAR RECORDATORIO</string>
     <string name="btn_notification_update">ACTUALIZAR RECORDATORIO</string>
     <string name="btn_notification_clear">ELIMINAR</string>
+    <string name="btn_sign_in">Login con Google"</string>
 
     <!-- Pick date -->
     <string name="pick_date_update">Actualizar el reporte de hoy</string>
@@ -55,6 +56,8 @@
 
     <!-- login-->
     <string name="login_description">En Skintker usamos tu cuenta para guardar tus reportes diarios en nuestra base de datos remota. De esta forma podrás tener la seguridad de que tus datos no se perderán.</string>
+    <string name="google_sso_error">Algo salió mal al hacer login con tu cuenta de Google. Por favor, sigue intentándolo y si el error persiste contacta con nosotros.</string>
+
     <!-- Resume  -->
     <string name="resume_title">Causas posibles 📋</string>
     <string name="resume_description">Los datos que pueden estar relacionados como la causa del picor que se han extraído se basan  en aquellos logs que superan el umbral de intensidad configurado</string>
