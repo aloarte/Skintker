@@ -212,4 +212,22 @@ class LogsManagementRepositoryTest : KoinBaseTest(testRepositoriesModule, testDa
         coVerify { database.dailyLogDao().getLogsWithIrritationLevel(IRRITATION_LEVEL) }
         Assertions.assertEquals(logsRetrievedFromDatabase, logsRetrieved)
     }
+
+    @Test
+    fun `test remove all logs`() {
+        coEvery {
+            firebaseDatabase.removeSyncLogs(USER_ID)
+        } returns true
+        coEvery {
+            database.dailyLogDao().deleteAllLogs()
+        } returns Unit
+
+        val logsRemoved = runBlocking {
+            repository.removeAllLogs(USER_ID)
+        }
+
+        coVerify { firebaseDatabase.removeSyncLogs(USER_ID) }
+        coVerify { database.dailyLogDao().deleteAllLogs() }
+        Assertions.assertTrue(logsRemoved)
+    }
 }

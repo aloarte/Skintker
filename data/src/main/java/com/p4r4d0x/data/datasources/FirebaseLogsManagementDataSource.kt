@@ -6,6 +6,8 @@ interface FirebaseLogsManagementDataSource {
 
     suspend fun addSyncLog(userId: String, log: DailyLogBO): Boolean
 
+    suspend fun removeSyncLogs(userId: String): Boolean
+
     suspend fun getSyncFirebaseLogs(user: String): List<DailyLogBO>
 
 }

@@ -19,11 +19,10 @@ import androidx.compose.ui.unit.sp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.presenter.settings.SettingsStatus
 import com.p4r4d0x.skintker.presenter.common.compose.Description
 import com.p4r4d0x.skintker.presenter.common.compose.SkintkerDivider
+import com.p4r4d0x.skintker.presenter.settings.SettingsStatus
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
-
 
 @Composable
 fun SettingScreen(
@@ -32,6 +31,7 @@ fun SettingScreen(
     onBackIconPressed: () -> Unit,
     onExportPressed: () -> Unit,
     onLogoutPressed: () -> Unit,
+    onRemoveLogsPressed: () -> Unit,
     onAlarmPressed: (Boolean) -> Unit,
     settingsCallback: (SettingsStatus) -> Unit
 ) {
@@ -45,6 +45,7 @@ fun SettingScreen(
             prefs,
             onExportPressed,
             onLogoutPressed,
+            onRemoveLogsPressed,
             onAlarmPressed,
             settingsCallback
         )
@@ -98,6 +99,7 @@ fun SettingScreenContent(
     prefs: SharedPreferences?,
     onExportPressed: () -> Unit,
     onLogoutPressed: () -> Unit,
+    onRemoveLogsPressed: () -> Unit,
     onAlarmPressed: (Boolean) -> Unit,
     settingsCallback: (SettingsStatus) -> Unit
 ) {
@@ -105,6 +107,8 @@ fun SettingScreenContent(
         item {
             Column(Modifier.fillMaxSize()) {
                 ProfileSection(settingsViewModel, onLogoutPressed)
+                SkintkerDivider()
+                RemoveLogsSection(settingsViewModel, onRemoveLogsPressed)
                 SkintkerDivider()
                 AlarmSection(settingsViewModel, onAlarmPressed)
                 SkintkerDivider()
@@ -144,6 +148,11 @@ fun SettingScreenContent(
             }
         }
     }
+}
+
+@Composable
+fun RemoveLogsSection(settingsViewModel: SettingsViewModel, onRemoveLogsPressed: () -> Unit) {
+
 }
 
 @Composable

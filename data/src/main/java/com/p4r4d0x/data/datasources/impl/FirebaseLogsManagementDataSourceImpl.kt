@@ -1,6 +1,7 @@
 package com.p4r4d0x.data.datasources.impl
 
 import android.util.Log
+import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.p4r4d0x.data.datasources.FirebaseLogsManagementDataSource
@@ -52,12 +53,24 @@ class FirebaseLogsManagementDataSourceImpl : FirebaseLogsManagementDataSource {
                 onLogsAdded.invoke(true)
             }
             .addOnFailureListener { exception ->
+                Firebase.crashlytics.recordException(exception)
                 Log.e(
                     TAG_FIREBASE,
                     "Exception occurred while adding logs in FB: ${exception.message}"
                 )
                 onLogsAdded.invoke(false)
             }
+    }
+
+    override suspend fun removeSyncLogs(userId: String): Boolean =
+        suspendCoroutine { cont ->
+            removeLogs(userId) { cont.resume(it) }
+        }
+
+    private fun removeLogs(userId: String, onLogsRemoved: (Boolean) -> Unit) {
+        firebaseDb.collection(LABEL_DATABASE_NAME).document(userId).delete().addOnCompleteListener {
+            onLogsRemoved.invoke(false)
+        }
     }
 
     override suspend fun getSyncFirebaseLogs(user: String): List<DailyLogBO> =

@@ -9,6 +9,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.p4r4d0x.domain.bo.ProfileBO
 import com.p4r4d0x.domain.usecases.ExportLogsDBUseCase
+import com.p4r4d0x.domain.usecases.RemoveLogsUseCase
 import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.skintker.CoroutinesTestRule
 import com.p4r4d0x.skintker.di.testUseCasesModule
@@ -42,6 +43,8 @@ class SettingsViewModelTest : KoinBaseTest(testUseCasesModule) {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val exportLogsDBUseCase: ExportLogsDBUseCase by inject()
+    private val removeLogsUseCase: RemoveLogsUseCase by inject()
+
 
     private lateinit var viewModelSUT: SettingsViewModel
 
@@ -54,7 +57,7 @@ class SettingsViewModelTest : KoinBaseTest(testUseCasesModule) {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        viewModelSUT = SettingsViewModel(exportLogsDBUseCase)
+        viewModelSUT = SettingsViewModel(exportLogsDBUseCase, removeLogsUseCase)
     }
 
     @Test
@@ -127,5 +130,24 @@ class SettingsViewModelTest : KoinBaseTest(testUseCasesModule) {
             viewModelSUT.updateReminderTime(preferences)
 
             Assert.assertEquals("", viewModelSUT.reminderTime.first())
+        }
+
+    @Test
+    fun `test settings view model remove logs`() =
+        coroutinesTestRule.runBlockingTest {
+            val removeResult = slot<(Boolean?) -> Unit>()
+            every {
+                removeLogsUseCase.invoke(
+                    scope = any(),
+                    params = RemoveLogsUseCase.Params(userId = USER_ID),
+                    resultCallback = capture(removeResult)
+                )
+            } answers {
+                removeResult.captured(true)
+            }
+
+            viewModelSUT.removeUserData(USER_ID)
+
+            Assert.assertTrue(viewModelSUT.removeStatus.getOrAwaitValue())
         }
 }

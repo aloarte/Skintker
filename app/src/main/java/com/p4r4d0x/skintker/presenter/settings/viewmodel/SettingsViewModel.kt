@@ -10,15 +10,21 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.p4r4d0x.domain.bo.ProfileBO
 import com.p4r4d0x.domain.usecases.ExportLogsDBUseCase
+import com.p4r4d0x.domain.usecases.RemoveLogsUseCase
 import com.p4r4d0x.domain.utils.Constants
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class SettingsViewModel(
-    private val exportLogsUseCase: ExportLogsDBUseCase
+    private val exportLogsUseCase: ExportLogsDBUseCase,
+    private val removeLogsUseCase: RemoveLogsUseCase
+
 ) : ViewModel() {
 
     private val _exportStatus = MutableLiveData<Boolean>()
     val exportStatus: LiveData<Boolean> = _exportStatus
+
+    private val _removeStatus = MutableLiveData<Boolean>()
+    val removeStatus: LiveData<Boolean> = _removeStatus
 
     private val _profile = MutableLiveData<ProfileBO>()
     val profile: LiveData<ProfileBO> = _profile
@@ -60,6 +66,12 @@ class SettingsViewModel(
                 "$alarmMinutes"
             }
             "$hourStr:$minutesStr"
+        }
+    }
+
+    fun removeUserData(userId: String) {
+        removeLogsUseCase.invoke(viewModelScope, params = RemoveLogsUseCase.Params(userId)) {
+            _removeStatus.value = it
         }
     }
 }

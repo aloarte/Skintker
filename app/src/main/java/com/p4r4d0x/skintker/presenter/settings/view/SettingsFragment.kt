@@ -108,7 +108,13 @@ class SettingsFragment : Fragment() {
                                     launchToast(SettingsStatus.ReminderCleared)
                                 }
                             }
-                        })
+                        },
+                        onRemoveLogsPressed = {
+                            viewModel.removeUserData(
+                                prefs.getString(Constants.PREFERENCES_USER_ID, "") ?: ""
+                            )
+                        }
+                    )
                 }
             }
         }
