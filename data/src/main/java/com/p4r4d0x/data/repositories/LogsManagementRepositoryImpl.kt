@@ -46,7 +46,7 @@ class LogsManagementRepositoryImpl(
 
     override suspend fun removeAllLogs(userId: String): Boolean {
         val firebaseRemoved = firebaseDatabaseImpl.removeSyncLogs(userId)
-        database.dailyLogDao().deleteAllLogs()
+        database.dailyLogDao().deleteAll()
         return firebaseRemoved
     }
 

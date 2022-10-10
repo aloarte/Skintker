@@ -69,7 +69,7 @@ class FirebaseLogsManagementDataSourceImpl : FirebaseLogsManagementDataSource {
 
     private fun removeLogs(userId: String, onLogsRemoved: (Boolean) -> Unit) {
         firebaseDb.collection(LABEL_DATABASE_NAME).document(userId).delete().addOnCompleteListener {
-            onLogsRemoved.invoke(false)
+            onLogsRemoved.invoke(true)
         }
     }
 

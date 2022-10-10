@@ -16,6 +16,21 @@ interface DailyLogDao {
     suspend fun deleteAllLogs()
 
     @Transaction
+    @Query("DELETE FROM additional_data_table")
+    suspend fun deleteAllAdditionalData()
+
+    @Transaction
+    @Query("DELETE FROM irritation_table")
+    suspend fun deleteAllIrritationTable()
+
+    @Transaction
+    suspend fun deleteAll() {
+        deleteAllAdditionalData()
+        deleteAllIrritationTable()
+        deleteAllLogs()
+    }
+
+    @Transaction
     @Query("SELECT * FROM logs_table WHERE date = :givenDateInLong")
     suspend fun loadLogByDate(givenDateInLong: Long): DailyLogDetails?
 

@@ -108,7 +108,7 @@ fun SettingScreenContent(
             Column(Modifier.fillMaxSize()) {
                 ProfileSection(settingsViewModel, onLogoutPressed)
                 SkintkerDivider()
-                RemoveLogsSection(settingsViewModel, onRemoveLogsPressed)
+                RemoveLogsSection(onRemoveLogsPressed)
                 SkintkerDivider()
                 AlarmSection(settingsViewModel, onAlarmPressed)
                 SkintkerDivider()
@@ -151,7 +151,37 @@ fun SettingScreenContent(
 }
 
 @Composable
-fun RemoveLogsSection(settingsViewModel: SettingsViewModel, onRemoveLogsPressed: () -> Unit) {
+fun RemoveLogsSection(onRemoveLogsPressed: () -> Unit) {
+    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+
+        Description(R.string.settings_notification_description)
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Row {
+            Button(
+                enabled = true,
+                modifier = Modifier
+                    .height(40.dp),
+                onClick = { onRemoveLogsPressed() }
+            ) {
+                Text(text = "BORRAR"/* stringResource(R.string.btn_notification_update)*/)
+            }
+            Divider(
+                modifier = Modifier.width(20.dp),
+                color = Color.Transparent
+            )
+//            Icon(
+//                enabled = true,
+//                modifier = Modifier
+//                    .height(40.dp),
+//                onClick = { onAlarmPressed(false) }
+//            ) {
+//                Text(text = stringResource(R.string.btn_notification_clear))
+//            }
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+    }
 
 }
 

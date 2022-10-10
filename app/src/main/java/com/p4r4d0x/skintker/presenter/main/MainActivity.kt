@@ -44,9 +44,9 @@ class MainActivity : AppCompatActivity() {
                     LocationListener {
                     override fun onLocationChanged(location: Location) {
                         val gcd = Geocoder(this@MainActivity, Locale.getDefault())
-                        val addresses: List<Address> =
-                            gcd.getFromLocation(location.latitude, location.longitude, 1)
-                        if (addresses.isNotEmpty()) {
+                        val addresses: List<Address>? =
+                            gcd.getFromLocation(location.latitude, location.longitude, 1)?.toList()
+                        if (addresses?.isNotEmpty() == false) {
                             cityObtained.invoke(addresses[0].locality)
                         }
                     }
