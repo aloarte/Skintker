@@ -1,7 +1,7 @@
 ext {
     //Koin
     activityCompose = "1.6.0"
-    appCompat = "1.4.1"
+    appCompat = "1.5.1"
     compose = "1.2.1"
     composeNavigation = '2.6.0-alpha02'
     composeTheme = "1.1.20"
