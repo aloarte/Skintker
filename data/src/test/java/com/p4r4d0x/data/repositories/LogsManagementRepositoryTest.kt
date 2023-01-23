@@ -219,7 +219,7 @@ class LogsManagementRepositoryTest : KoinBaseTest(testRepositoriesModule, testDa
             firebaseDatabase.removeSyncLogs(USER_ID)
         } returns true
         coEvery {
-            database.dailyLogDao().deleteAllLogs()
+            database.dailyLogDao().deleteAll()
         } returns Unit
 
         val logsRemoved = runBlocking {
@@ -227,7 +227,7 @@ class LogsManagementRepositoryTest : KoinBaseTest(testRepositoriesModule, testDa
         }
 
         coVerify { firebaseDatabase.removeSyncLogs(USER_ID) }
-        coVerify { database.dailyLogDao().deleteAllLogs() }
+        coVerify { database.dailyLogDao().deleteAll() }
         Assertions.assertTrue(logsRemoved)
     }
 }
