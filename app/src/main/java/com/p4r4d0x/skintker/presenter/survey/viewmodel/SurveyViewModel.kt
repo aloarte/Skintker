@@ -39,7 +39,10 @@ class SurveyViewModel(
         private set
 
     fun checkIfLogIsAlreadyInserted() {
-        getLogUseCase.invoke(params = GetLogUseCase.Params(date = DataParser.getCurrentFormattedDate())) { log ->
+        getLogUseCase.invoke(
+            scope = viewModelScope,
+            params = GetLogUseCase.Params(date = DataParser.getCurrentFormattedDate())
+        ) { log ->
             _logReported.value = log != null
         }
     }
@@ -55,7 +58,7 @@ class SurveyViewModel(
     ) {
         val answers = surveyQuestions.state.mapNotNull { it.answer }
         addLogUseCase.invoke(
-            viewModelScope,
+            scope = viewModelScope,
             params = AddLogUseCase.Params(
                 userId,
                 DataParser.createLogFromSurvey(surveyQuestions.date, answers, resources)
@@ -81,7 +84,7 @@ class SurveyViewModel(
      *  Change the UI state to SurveyState.Questions
      */
     fun loadQuestions(date: Date = DataParser.getCurrentFormattedDate()) {
-        getSurveyUseCase.invoke { survey ->
+        getSurveyUseCase.invoke(scope = viewModelScope) { survey ->
             val questions: List<LogState> = survey.questions.mapIndexed { index, question ->
                 val showPrevious = index > 0
                 val showDone = index == survey.questions.size - 1

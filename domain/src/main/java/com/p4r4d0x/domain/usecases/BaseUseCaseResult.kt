@@ -8,7 +8,7 @@ abstract class BaseUseCaseNoResult {
     abstract suspend fun run()
 
     fun invoke(
-        scope: CoroutineScope = GlobalScope,
+        scope: CoroutineScope,
         dispatcher: CoroutineDispatcher = Dispatchers.Default,
         onResult: (() -> Unit)? = null
     ) {
@@ -32,7 +32,7 @@ abstract class BaseUseCaseResult<Result> {
     abstract suspend fun run(): Result
 
     fun invoke(
-        scope: CoroutineScope = GlobalScope,
+        scope: CoroutineScope,
         dispatcher: CoroutineDispatcher = Dispatchers.Default,
         resultCallback: (Result) -> Unit = {}
     ) {
@@ -47,31 +47,13 @@ abstract class BaseUseCaseParamsResult<Params, Result> {
     abstract suspend fun run(params: Params): Result
 
     fun invoke(
-        scope: CoroutineScope = GlobalScope,
+        scope: CoroutineScope,
         dispatcher: CoroutineDispatcher = Dispatchers.Default,
         params: Params,
         resultCallback: (Result) -> Unit = {}
     ) {
         val job = scope.async(dispatcher) { run(params) }
         scope.launch(Dispatchers.Main) { resultCallback(job.await()) }
-    }
-}
-
-abstract class BaseUseCaseParamsNoResult<Params> {
-    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
-    abstract suspend fun run(params: Params)
-
-    fun invoke(
-        scope: CoroutineScope = GlobalScope,
-        dispatcher: CoroutineDispatcher = Dispatchers.Default,
-        params: Params,
-        resultCallback: () -> Unit = {}
-    ) {
-        val job = scope.async(dispatcher) { run(params) }
-        scope.launch(Dispatchers.Main) {
-            job.await()
-            resultCallback()
-        }
     }
 }
 

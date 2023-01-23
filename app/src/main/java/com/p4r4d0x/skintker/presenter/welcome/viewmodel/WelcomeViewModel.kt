@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.p4r4d0x.data.parsers.DataParser.getCurrentFormattedDate
 import com.p4r4d0x.domain.usecases.GetLogUseCase
@@ -23,7 +24,10 @@ class WelcomeViewModel(private val getLogUseCase: GetLogUseCase) : ViewModel() {
     val userAuthenticated: LiveData<Boolean> = _userAuthenticated
 
     fun checkLogReportedToday() {
-        getLogUseCase.invoke(params = GetLogUseCase.Params(date = getCurrentFormattedDate())) { log ->
+        getLogUseCase.invoke(
+            scope = viewModelScope,
+            params = GetLogUseCase.Params(date = getCurrentFormattedDate())
+        ) { log ->
             _logReported.value = log != null
         }
     }
