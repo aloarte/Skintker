@@ -98,3 +98,4 @@ lint/tmp/
 /build.gradle
 /app/skintker.jks
 /keystore.properties
+/keystoreReal.properties
