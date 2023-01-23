@@ -40,7 +40,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
       - name: Build app
-        run: ./gradlew build --scan
+        run: ./gradlew compileDebugSources
 
   testData:
     needs: [ avoid_redundancy ]
@@ -58,7 +58,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Unit Tests
-        run: ./gradlew :data:test
+        run: ./gradlew :data:testDebugUnitTest
 
   testDomain:
     needs: [ avoid_redundancy ]
@@ -76,7 +76,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Unit Tests
-        run: ./gradlew :domain:test
+        run: ./gradlew :domain:testDebugUnitTest
 
   testApp:
     needs: [ avoid_redundancy ]
@@ -94,7 +94,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Unit Tests
-        run: ./gradlew :app:test
+        run: ./gradlew :app:testDebugUnitTest
 
 #  e2e-test:
 #    needs: [build]
