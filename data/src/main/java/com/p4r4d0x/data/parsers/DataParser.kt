@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.res.Resources
 import com.example.data.R
 import com.google.firebase.Timestamp
+import com.p4r4d0x.data.dto.*
 import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.domain.utils.Constants.FIFTH_QUESTION_NUMBER
@@ -192,5 +193,74 @@ object DataParser {
             null
         }
     }
+
+}
+
+fun DailyLogBO.toDto() = ReportDto(
+    date = this.date.toString(),
+    foodList = this.foodList,
+    irritation = this.irritation.toDto(),
+    additionalData = this.additionalData.toDto()
+)
+
+fun IrritationBO.toDto() = IrritationDto(
+    overallValue = this.overallValue,
+    zoneValues = this.zoneValues
+)
+
+fun AdditionalDataBO.toDto() = AdditionalDataDto(
+    stressLevel = this.stressLevel,
+    weather = this.weather.toDto(),
+    travel = this.travel.toDto(),
+    alcoholLevel = this.alcoholLevel,
+    beerTypes = this.beerTypes
+)
+
+fun AdditionalDataBO.WeatherBO.toDto() = WeatherDto(
+    humidity = this.humidity,
+    temperature = this.temperature
+)
+
+fun AdditionalDataBO.TravelBO.toDto() = TravelDto(
+    traveled = this.traveled,
+    city = this.city
+)
+
+
+fun ReportDto.toBo() = DailyLogBO(
+    date = Date(this.date),
+    foodList = this.foodList,
+    irritation = this.irritation.toBo(),
+    additionalData = this.additionalData.toBo()
+)
+
+fun IrritationDto.toBo() = IrritationBO(
+    overallValue = this.overallValue,
+    zoneValues = this.zoneValues
+)
+
+fun AdditionalDataDto.toBo() = AdditionalDataBO(
+    stressLevel = this.stressLevel,
+    weather = this.weather.toBo(),
+    travel = this.travel.toBo(),
+    alcoholLevel = this.alcoholLevel,
+    beerTypes = this.beerTypes
+)
+
+fun WeatherDto.toBo() = AdditionalDataBO.WeatherBO(
+    humidity = this.humidity,
+    temperature = this.temperature
+)
+
+fun TravelDto.toBo() = AdditionalDataBO.TravelBO(
+    traveled = this.traveled,
+    city = this.city
+)
+
+
+fun SkintkvaultResponse.toDailyLogContents(): DailyLogContentsBO {
+    return (this.content as? LogListResponse)?.let { logListResponse ->
+        DailyLogContentsBO(logListResponse.count, logListResponse.logList.map { it.toBo() })
+    } ?: DailyLogContentsBO()
 
 }

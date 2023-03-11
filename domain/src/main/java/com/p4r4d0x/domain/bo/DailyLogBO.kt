@@ -4,7 +4,7 @@ import java.util.*
 
 data class DailyLogBO(
     val date: Date,
-    val irritation: IrritationBO? = null,
-    val additionalData: AdditionalDataBO? = null,
+    val irritation: IrritationBO,
+    val additionalData: AdditionalDataBO,
     val foodList: List<String>
 )

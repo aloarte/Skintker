@@ -1,6 +1,7 @@
-package com.p4r4d0x.data
+package com.p4r4d0x.data.api
 
 import com.p4r4d0x.data.dto.ReportDto
+import com.p4r4d0x.data.dto.SkintkvaultResponse
 import retrofit2.http.*
 
 
@@ -9,7 +10,7 @@ interface SkintkvaultApi {
     /* /report */
 
     @PUT("report/{userId}")
-    suspend fun addReports(
+    suspend fun addReport(
         @Path("userId") id: String,
         @Body report: ReportDto
     ): SkintkvaultResponse

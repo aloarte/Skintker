@@ -1,6 +1,6 @@
 package com.p4r4d0x.skintker.di
 
-import com.p4r4d0x.data.SkintkvaultApi
+import com.p4r4d0x.data.api.SkintkvaultApi
 import com.p4r4d0x.skintker.BuildConfig
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
