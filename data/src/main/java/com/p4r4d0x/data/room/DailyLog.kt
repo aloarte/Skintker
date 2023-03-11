@@ -16,10 +16,10 @@ data class DailyLog(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 ) {
-    fun toDomain() = DailyLogBO(
-        date = date,
-        foodList = foodList
-    )
+//    fun toDomain() = DailyLogBO(
+//        date = date,
+//        foodList = foodList
+//    )
 }
 
 fun fromDomain(logBO: DailyLogBO): DailyLog {

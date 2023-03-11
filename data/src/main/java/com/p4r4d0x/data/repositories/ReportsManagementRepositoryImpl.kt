@@ -33,11 +33,17 @@ class ReportsManagementRepositoryImpl(
     }
 
     override suspend fun deleteReport(userId: String, logDate: String): Boolean {
-        TODO("Not yet implemented")
+        return when (val result = dataSource.deleteReport(userId, logDate)) {
+            is ApiResult.Success -> result.data
+            is ApiResult.Error -> false
+        }
     }
 
     override suspend fun deleteReports(userId: String): Boolean {
-        TODO("Not yet implemented")
+        return when (val result = dataSource.deleteReports(userId)) {
+            is ApiResult.Success -> result.data
+            is ApiResult.Error -> false
+        }
     }
 
 
