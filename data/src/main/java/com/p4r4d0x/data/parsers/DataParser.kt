@@ -5,6 +5,8 @@ import android.content.res.Resources
 import com.example.data.R
 import com.google.firebase.Timestamp
 import com.p4r4d0x.data.dto.*
+import com.p4r4d0x.data.parsers.DataParser.backendDateToString
+import com.p4r4d0x.data.parsers.DataParser.backendStringToDate
 import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.domain.utils.Constants.FIFTH_QUESTION_NUMBER
@@ -26,6 +28,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object DataParser {
+
+    @SuppressLint("SimpleDateFormat")
+    private val backendSDF = SimpleDateFormat("dd-MM-yyyy")
 
     fun createLogFromSurvey(
         date: Date,
@@ -145,6 +150,16 @@ object DataParser {
     }
 
     @SuppressLint("SimpleDateFormat")
+    fun backendDateToString(aDate: Date): String {
+        return backendSDF.format(aDate)
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun backendStringToDate(aDate: String): Date {
+        return backendSDF.parse(aDate) ?: Date()
+    }
+
+    @SuppressLint("SimpleDateFormat")
     fun stringToDateFromPicker(aDate: String): Date {
         val pos = ParsePosition(0)
         val sdf = SimpleDateFormat("yyyy-mm-dd")
@@ -197,7 +212,7 @@ object DataParser {
 }
 
 fun DailyLogBO.toDto() = ReportDto(
-    date = this.date.toString(),
+    date = backendDateToString(this.date),
     foodList = this.foodList,
     irritation = this.irritation.toDto(),
     additionalData = this.additionalData.toDto()
@@ -227,12 +242,15 @@ fun AdditionalDataBO.TravelBO.toDto() = TravelDto(
 )
 
 
-fun ReportDto.toBo() = DailyLogBO(
-    date = Date(this.date),
-    foodList = this.foodList,
-    irritation = this.irritation.toBo(),
-    additionalData = this.additionalData.toBo()
-)
+@SuppressLint("SimpleDateFormat")
+fun ReportDto.toBo(): DailyLogBO {
+    return DailyLogBO(
+        date = backendStringToDate(this.date),
+        foodList = this.foodList,
+        irritation = this.irritation.toBo(),
+        additionalData = this.additionalData.toBo()
+    )
+}
 
 fun IrritationDto.toBo() = IrritationBO(
     overallValue = this.overallValue,
@@ -258,8 +276,8 @@ fun TravelDto.toBo() = AdditionalDataBO.TravelBO(
 )
 
 
-fun SkintkvaultResponse.toDailyLogContents(): DailyLogContentsBO {
-    return (this.content as? LogListResponse)?.let { logListResponse ->
+fun SkintkvaultResponseLogs.toDailyLogContents(): DailyLogContentsBO {
+    return this.content?.let { logListResponse ->
         DailyLogContentsBO(logListResponse.count, logListResponse.logList.map { it.toBo() })
     } ?: DailyLogContentsBO()
 
