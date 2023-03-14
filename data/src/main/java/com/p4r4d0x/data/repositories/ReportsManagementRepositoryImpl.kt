@@ -8,12 +8,16 @@ import com.p4r4d0x.domain.bo.ReportStatus
 import com.p4r4d0x.domain.repository.ReportsManagementRepository
 
 class ReportsManagementRepositoryImpl(
+//    private val database: LogsDatabase,
     private val dataSource: ReportsManagementDataSource
 ) : ReportsManagementRepository {
 
     override suspend fun addReport(userId: String, log: DailyLogBO): ReportStatus {
         return when (val result = dataSource.addReport(userId, log)) {
-            is ApiResult.Success -> result.data
+            is ApiResult.Success -> {
+//                database.dailyLogDao().insertDailyLog(log)
+                result.data
+            }
             is ApiResult.Error -> ReportStatus.Error
         }
     }

@@ -19,8 +19,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
@@ -33,20 +35,24 @@ class WelcomeFragment : Fragment() {
 
     private val viewModel: WelcomeViewModel by inject()
 
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
-
     override fun onResume() {
         super.onResume()
         observeViewModel()
         val prefs: SharedPreferences? =
             activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
 
+        viewModel.checkUserLogin(firebaseSignIn(), prefs)
+    }
+
+    private fun firebaseSignIn(): FirebaseUser? {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
-
-        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-        viewModel.checkUserLogin(GoogleSignIn.getLastSignedInAccount(requireActivity()), prefs)
+        GoogleSignIn.getClient(requireActivity(), gso)
+        val googleSignIn = GoogleSignIn.getLastSignedInAccount(requireActivity())
+        FirebaseAuth.getInstance()
+            .signInWithCredential(GoogleAuthProvider.getCredential(googleSignIn?.idToken, null))
+        return FirebaseAuth.getInstance().currentUser
     }
 
     private fun observeViewModel() {

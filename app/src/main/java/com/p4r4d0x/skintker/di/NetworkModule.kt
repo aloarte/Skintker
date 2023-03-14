@@ -3,6 +3,7 @@ package com.p4r4d0x.skintker.di
 import com.p4r4d0x.data.api.SkintkvaultApi
 import com.p4r4d0x.skintker.BuildConfig
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -23,10 +24,12 @@ fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         .build()
 
 
-fun provideOkHttpClient(/*interceptor*/): OkHttpClient =
+fun provideOkHttpClient(): OkHttpClient =
     OkHttpClient()
         .newBuilder()
-//        .addInterceptor(interceptor)
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
         .build()
 
 
