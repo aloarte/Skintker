@@ -3,10 +3,11 @@ package com.p4r4d0x.domain.usecases
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.p4r4d0x.domain.CoroutinesTestRule
-import com.p4r4d0x.domain.bo.DailyLogBO
-import com.p4r4d0x.domain.bo.IrritationBO
+import com.p4r4d0x.domain.TestData.date
+import com.p4r4d0x.domain.TestData.log
+import com.p4r4d0x.domain.bo.ReportStatus
 import com.p4r4d0x.domain.di.testRepositoriesModule
-import com.p4r4d0x.domain.repository.LogsManagementRepository
+import com.p4r4d0x.domain.repository.ReportsManagementRepository
 import com.p4r4d0x.test.KoinBaseTest
 import com.p4r4d0x.test.KoinTestApplication
 import io.mockk.coEvery
@@ -35,67 +36,64 @@ class AddLogUseCaseTest : KoinBaseTest(testRepositoriesModule) {
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
 
-    private val logsRepository: LogsManagementRepository by inject()
+    private val reportsRepository: ReportsManagementRepository by inject()
 
     private lateinit var useCase: AddLogUseCase
 
     @Before
     fun setUp() {
-        useCase = AddLogUseCase(logsRepository)
+        useCase = AddLogUseCase(reportsRepository)
     }
 
     @Test
-    fun `test add new log`() {
-        val date = Date()
-        val logToInsert = DailyLogBO(
-            date,
-            IrritationBO(1, emptyList()),
-            foodList = emptyList()
-        )
-        val params = AddLogUseCase.Params(USER_ID, logToInsert)
-
-        coEvery {
-            logsRepository.getLogByDate(date.time)
-        } returns null
-        coEvery {
-            logsRepository.addDailyLog(USER_ID, logToInsert)
-        } returns true
+    fun `test add new log success`() {
+        val params = AddLogUseCase.Params(USER_ID, log)
+        coEvery { reportsRepository.getReport(date) } returns null
+        coEvery { reportsRepository.addReport(USER_ID, log) } returns ReportStatus.Created
 
         val logAdded = runBlocking { useCase.run(params) }
 
-        coVerify { logsRepository.getLogByDate(date.time) }
-        coVerify { logsRepository.addDailyLog(USER_ID, logToInsert) }
+        coVerify { reportsRepository.getReport(date) }
+        coVerify { reportsRepository.addReport(USER_ID, log) }
         Assertions.assertTrue(logAdded)
     }
 
     @Test
-    fun `test update log`() {
-        val date = Date()
-        val logToInsert = DailyLogBO(
-            date,
-            IrritationBO(1, emptyList()),
-            foodList = emptyList()
-        )
-        val alreadyInsertedLog =
-            DailyLogBO(
-                date,
-                IrritationBO(2, emptyList()),
-                foodList = emptyList()
-            )
+    fun `test add new log failed`() {
+        val params = AddLogUseCase.Params(USER_ID, log)
+        coEvery { reportsRepository.getReport(date) } returns null
+        coEvery { reportsRepository.addReport(USER_ID, log) } returns ReportStatus.Error
 
-        val params = AddLogUseCase.Params(USER_ID, logToInsert)
+        val logAdded = runBlocking { useCase.run(params) }
 
-        coEvery {
-            logsRepository.getLogByDate(date.time)
-        } returns alreadyInsertedLog
-        coEvery {
-            logsRepository.updateDailyLog(logToInsert)
-        } returns true
+        coVerify { reportsRepository.getReport(date) }
+        coVerify { reportsRepository.addReport(USER_ID, log) }
+        Assertions.assertFalse(logAdded)
+    }
+
+    @Test
+    fun `test edit log success`() {
+        val params = AddLogUseCase.Params(USER_ID, log)
+        coEvery { reportsRepository.getReport(date) } returns log
+        coEvery { reportsRepository.editReport(USER_ID, log) } returns ReportStatus.Edited
 
         val logUpdated = runBlocking { useCase.run(params) }
 
-        coVerify { logsRepository.getLogByDate(date.time) }
-        coVerify { logsRepository.updateDailyLog(logToInsert) }
+        coVerify { reportsRepository.getReport(date) }
+        coVerify { reportsRepository.editReport(USER_ID, log) }
         Assertions.assertTrue(logUpdated)
+    }
+
+    @Test
+    fun `test edit log failed`() {
+        val params = AddLogUseCase.Params(USER_ID, log)
+        coEvery { reportsRepository.getReport(date) } returns log
+        coEvery { reportsRepository.editReport(USER_ID, log) } returns ReportStatus.Error
+
+        val logUpdated = runBlocking { useCase.run(params) }
+
+        coVerify { reportsRepository.getReport(date) }
+        coVerify { reportsRepository.editReport(USER_ID, log) }
+        Assertions.assertFalse(logUpdated)
     }
 }

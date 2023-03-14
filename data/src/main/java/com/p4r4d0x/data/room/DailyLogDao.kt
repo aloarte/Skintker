@@ -12,6 +12,10 @@ interface DailyLogDao {
     suspend fun getAll(): List<DailyLogDetails>
 
     @Transaction
+    @Query("SELECT * FROM logs_table ORDER BY date DESC LIMIT :limit OFFSET :offset")
+    suspend fun getLogListPaginated(limit: Int, offset: Int): List<DailyLogDetails>
+
+    @Transaction
     @Query("DELETE FROM logs_table")
     suspend fun deleteAllLogs()
 
@@ -68,17 +72,17 @@ interface DailyLogDao {
 
     suspend fun insertDailyLog(log: DailyLogBO): Boolean {
         val logId = insertLog(fromDomain(log))
-        val irritationId = log.irritation?.let { irritation ->
+        val irritationId = log.irritation.let { irritation ->
             insertIrritation(
                 fromDomainObject(irritationBo = irritation, logId = logId)
             )
-        } ?: -1L
+        }
 
-        val additionalId = log.additionalData?.let { additionalData ->
+        val additionalId = log.additionalData.let { additionalData ->
             insertAdditionalData(
                 fromDomainObject(additionalDataBO = additionalData, logId = logId)
             )
-        } ?: -1L
+        }
         return logId != -1L && irritationId != -1L && additionalId != -1L
     }
 
@@ -92,27 +96,29 @@ interface DailyLogDao {
                     foodList = log.foodList
                 )
             )
-            val irritationId = log.irritation?.let { irritation ->
+            val irritationId = log.irritation.let { irritation ->
                 updateIrritation(
                     fromDomainObject(
                         irritationBo = irritation,
                         logId = insertedLog.irritation.logId
                     ).copy(irritationId = insertedLog.irritation.irritationId)
                 )
-            } ?: -1
-            val additionalId = log.additionalData?.let { additionalData ->
+            }
+            val additionalId = log.additionalData.let { additionalData ->
                 updateAdditionalData(
                     fromDomainObject(
                         additionalDataBO = additionalData,
                         logId = insertedLog.additionalData.logId
                     ).copy(additionalDataId = insertedLog.additionalData.additionalDataId)
                 )
-            } ?: -1
+            }
             return irritationId > 0 && additionalId > 0 && updateLog > 0
         } else false
     }
 
-    @Delete
-    suspend fun delete(user: DailyLog)
+
+    @Transaction
+    @Query("DELETE FROM logs_table WHERE date = :givenDateInLong")
+    suspend fun delete(givenDateInLong: Long)
 
 }

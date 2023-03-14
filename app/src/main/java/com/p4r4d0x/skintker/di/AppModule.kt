@@ -48,7 +48,7 @@ val repositoriesModule = module {
     factory<SurveyRepository> { SurveyRepositoryImpl(get()) }
     factory<ResourcesRepository> { ResourcesRepositoryImpl(get()) }
     factory<LogsManagementRepository> { LogsManagementRepositoryImpl(get(), get()) }
-    factory<ReportsManagementRepository> { ReportsManagementRepositoryImpl(get()) }
+    factory<ReportsManagementRepository> { ReportsManagementRepositoryImpl(get(), get()) }
 
 }
 

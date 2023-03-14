@@ -1,12 +1,13 @@
 package com.p4r4d0x.domain.usecases
 
-import com.p4r4d0x.domain.repository.LogsManagementRepository
+import com.p4r4d0x.domain.repository.ReportsManagementRepository
 
-class RemoveLogsUseCase(private val repository: LogsManagementRepository) :
-    BaseUseCaseParamsResult<RemoveLogsUseCase.Params, Boolean>() {
+class RemoveLogsUseCase(
+    private val reportsMgmtRepository: ReportsManagementRepository
+) : BaseUseCaseParamsResult<RemoveLogsUseCase.Params, Boolean>() {
 
     override suspend fun run(params: Params): Boolean {
-        return repository.removeAllLogs(params.userId)
+        return reportsMgmtRepository.deleteReports(params.userId)
     }
 
     data class Params(val userId: String)

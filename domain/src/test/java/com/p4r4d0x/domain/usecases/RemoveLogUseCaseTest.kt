@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.p4r4d0x.domain.CoroutinesTestRule
 import com.p4r4d0x.domain.TestData.USER_ID
+import com.p4r4d0x.domain.TestData.date
 import com.p4r4d0x.domain.di.testRepositoriesModule
 import com.p4r4d0x.domain.repository.ReportsManagementRepository
 import com.p4r4d0x.test.KoinBaseTest
@@ -23,7 +24,7 @@ import org.robolectric.annotation.Config
 @kotlin.time.ExperimentalTime
 @RunWith(AndroidJUnit4::class)
 @Config(application = KoinTestApplication::class, sdk = [Build.VERSION_CODES.P])
-class RemoveLogsUseCaseTest : KoinBaseTest(testRepositoriesModule) {
+class RemoveLogUseCaseTest : KoinBaseTest(testRepositoriesModule) {
 
     @ExperimentalCoroutinesApi
     @get:Rule
@@ -31,20 +32,20 @@ class RemoveLogsUseCaseTest : KoinBaseTest(testRepositoriesModule) {
 
     private val reportsRepository: ReportsManagementRepository by inject()
 
-    private lateinit var useCase: RemoveLogsUseCase
+    private lateinit var useCase: RemoveLogUseCase
 
     @Before
     fun setUp() {
-        useCase = RemoveLogsUseCase(reportsRepository)
+        useCase = RemoveLogUseCase(reportsRepository)
     }
 
     @Test
-    fun `test remove all logs`() {
-        coEvery { reportsRepository.deleteReports(USER_ID) } returns true
+    fun `test remove log`() {
+        coEvery { reportsRepository.deleteReport(USER_ID, date) } returns true
 
-        val logAdded = runBlocking { useCase.run(RemoveLogsUseCase.Params(USER_ID)) }
+        val logAdded = runBlocking { useCase.run(RemoveLogUseCase.Params(USER_ID, date)) }
 
-        coVerify { reportsRepository.deleteReports(USER_ID) }
+        coVerify { reportsRepository.deleteReport(USER_ID, date) }
         Assertions.assertTrue(logAdded)
     }
 }

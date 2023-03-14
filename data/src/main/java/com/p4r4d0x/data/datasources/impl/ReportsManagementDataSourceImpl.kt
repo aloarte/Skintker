@@ -18,7 +18,7 @@ import com.p4r4d0x.data.wasInsertSuccessful
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.bo.DailyLogContentsBO
 import com.p4r4d0x.domain.bo.ReportStatus
-import com.squareup.okhttp.ResponseBody
+import okhttp3.ResponseBody
 
 class ReportsManagementDataSourceImpl(
     private val api: SkintkvaultApi,
@@ -26,6 +26,7 @@ class ReportsManagementDataSourceImpl(
 ) : ReportsManagementDataSource {
 
     private fun parseSkintkvaultResponse(body: ResponseBody?): SkintkvaultResponseLogs = try {
+
         body?.string()?.let {
             if (it.isEmpty()) SkintkvaultResponseLogs(
                 statusCode = JSON_PARSE_EMPTY_BODY_CODE,
@@ -55,9 +56,9 @@ class ReportsManagementDataSourceImpl(
             }
         } catch (e: Exception) {
             ApiResult.Error(
-                Constants.API_CALL_EXCEPTION_CODE,
-                Constants.API_CALL_EXCEPTION_MESSAGE,
-                e
+                errorCode = Constants.API_CALL_EXCEPTION_CODE,
+                errorMessage = Constants.API_CALL_EXCEPTION_MESSAGE,
+                exception = e
             )
         }
     }
@@ -75,9 +76,9 @@ class ReportsManagementDataSourceImpl(
             }
         } catch (e: Exception) {
             ApiResult.Error(
-                Constants.API_CALL_EXCEPTION_CODE,
-                Constants.API_CALL_EXCEPTION_MESSAGE,
-                e
+                errorCode = Constants.API_CALL_EXCEPTION_CODE,
+                errorMessage = Constants.API_CALL_EXCEPTION_MESSAGE,
+                exception = e
             )
         }
     }
@@ -99,9 +100,9 @@ class ReportsManagementDataSourceImpl(
             }
         } catch (e: Exception) {
             ApiResult.Error(
-                Constants.API_CALL_EXCEPTION_CODE,
-                Constants.API_CALL_EXCEPTION_MESSAGE,
-                e
+                errorCode = Constants.API_CALL_EXCEPTION_CODE,
+                errorMessage = Constants.API_CALL_EXCEPTION_MESSAGE,
+                exception = e
             )
         }
     }
@@ -116,9 +117,9 @@ class ReportsManagementDataSourceImpl(
             }
         } catch (e: Exception) {
             ApiResult.Error(
-                Constants.API_CALL_EXCEPTION_CODE,
-                Constants.API_CALL_EXCEPTION_MESSAGE,
-                e
+                errorCode = Constants.API_CALL_EXCEPTION_CODE,
+                errorMessage = Constants.API_CALL_EXCEPTION_MESSAGE,
+                exception = e
             )
         }
     }
@@ -133,9 +134,9 @@ class ReportsManagementDataSourceImpl(
             }
         } catch (e: Exception) {
             ApiResult.Error(
-                Constants.API_CALL_EXCEPTION_CODE,
-                Constants.API_CALL_EXCEPTION_MESSAGE,
-                e
+                errorCode = Constants.API_CALL_EXCEPTION_CODE,
+                errorMessage = Constants.API_CALL_EXCEPTION_MESSAGE,
+                exception = e
             )
         }
     }

@@ -1,7 +1,8 @@
 package com.p4r4d0x.data.api
 
 import com.p4r4d0x.data.dto.ReportDto
-import com.squareup.okhttp.Response
+import okhttp3.ResponseBody
+import retrofit2.Response
 import retrofit2.http.*
 
 
@@ -13,37 +14,37 @@ interface SkintkvaultApi {
     suspend fun addReport(
         @Path("userId") id: String,
         @Body report: ReportDto
-    ): Response
+    ): Response<ResponseBody>
 
     @DELETE("report/{userId}")
     suspend fun deleteReport(
         @Path("userId") id: String,
         @Query("logDate") logDate: String
-    ): Response
+    ): Response<ResponseBody>
 
     /* /reports */
 
     @GET("reports/{userId}")
     suspend fun getReports(
         @Path("userId") id: String
-    ): Response
+    ): Response<ResponseBody>
 
     @GET("reports/{userId}")
     suspend fun getReportsPaginated(
         @Path("userId") id: String,
         @Query("limit") limit: Int,
         @Query("limit") offset: Int
-    ): Response
+    ): Response<ResponseBody>
 
     @DELETE("reports/{userId}")
     suspend fun deleteAllReports(
         @Path("userId") id: String
-    ): Response
+    ): Response<ResponseBody>
 
     /* /stats */
 
     @GET("stats/{userId}")
     suspend fun getStats(
         @Path("userId") id: String
-    ): Response
+    ): Response<ResponseBody>
 }
