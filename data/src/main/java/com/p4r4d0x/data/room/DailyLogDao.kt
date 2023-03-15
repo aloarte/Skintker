@@ -55,7 +55,7 @@ interface DailyLogDao {
     suspend fun updateIrritation(irritation: Irritation): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAdditionalData(additionalData: AdditionalData)
+    suspend fun insertAdditionalData(additionalData: AdditionalData): Long
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateAdditionalData(additionalData: AdditionalData): Int
@@ -72,17 +72,13 @@ interface DailyLogDao {
 
     suspend fun insertDailyLog(log: DailyLogBO): Boolean {
         val logId = insertLog(fromDomain(log))
-        val irritationId = log.irritation.let { irritation ->
-            insertIrritation(
-                fromDomainObject(irritationBo = irritation, logId = logId)
-            )
-        }
+        val irritationId = insertIrritation(
+            fromDomainObject(irritationBo = log.irritation, logId = logId)
+        )
+        val additionalId = insertAdditionalData(
+            fromDomainObject(additionalDataBO = log.additionalData, logId = logId)
+        )
 
-        val additionalId = log.additionalData.let { additionalData ->
-            insertAdditionalData(
-                fromDomainObject(additionalDataBO = additionalData, logId = logId)
-            )
-        }
         return logId != -1L && irritationId != -1L && additionalId != -1L
     }
 

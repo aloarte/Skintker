@@ -11,7 +11,9 @@ import com.p4r4d0x.domain.utils.CausesParser.getPossibleTravelCauses
 import com.p4r4d0x.domain.utils.CausesParser.getPossibleWeatherCauses
 import com.p4r4d0x.domain.utils.increaseValue
 
-class GetQueriedLogsUseCase(private val repository: LogsManagementRepository) :
+class GetQueriedLogsUseCase(
+    private val repository: LogsManagementRepository
+) :
     BaseUseCaseParamsResult<GetQueriedLogsUseCase.Params, PossibleCausesBO>() {
 
     override suspend fun run(params: Params): PossibleCausesBO {
@@ -33,10 +35,10 @@ class GetQueriedLogsUseCase(private val repository: LogsManagementRepository) :
             log.foodList.forEach { food ->
                 foodMap.increaseValue(food)
             }
-            log.irritation?.zoneValues?.forEach { irritatedZone ->
+            log.irritation.zoneValues?.forEach { irritatedZone ->
                 zonesMap.increaseValue(irritatedZone)
             }
-            log.additionalData?.let { additionalData ->
+            log.additionalData.let { additionalData ->
                 stressMap.increaseValue(additionalData.stressLevel)
                 traveledMap.increaseValue(additionalData.travel.traveled)
                 traveledCityMap.increaseValue(additionalData.travel.city)

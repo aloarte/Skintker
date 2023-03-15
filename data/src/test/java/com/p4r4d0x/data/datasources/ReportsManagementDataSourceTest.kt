@@ -16,16 +16,19 @@ import com.p4r4d0x.data.testRepositoriesModule
 import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.test.KoinBaseTest
 import com.p4r4d0x.test.KoinTestApplication
-import com.squareup.okhttp.*
 import io.mockk.coEvery
 import io.mockk.coVerify
 import kotlinx.coroutines.runBlocking
+import okhttp3.MediaType
+import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.Assertions
 import org.junit.runner.RunWith
 import org.koin.core.component.inject
 import org.robolectric.annotation.Config
+import retrofit2.Response
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
@@ -41,7 +44,6 @@ class ReportsManagementDataSourceTest :
         const val ecInvalidDate = -2
         const val errorInvalidDate =
             "Invalid log data, the date is invalid. Follow the pattern mm-dd-yyyy"
-        const val errorInvalidInput = "Invalid input. Verify that your input is not malformed"
         private const val JSON_BAD_FORMED = "" +
                 "    \"statusCode\": 0,\n" +
                 "    \"status" +
@@ -133,6 +135,8 @@ class ReportsManagementDataSourceTest :
 
     private val api: SkintkvaultApi by inject()
 
+    private val mediaType: MediaType by inject()
+
     private lateinit var datasource: ReportsManagementDataSource
 
     private var gson: Gson = Gson()
@@ -168,13 +172,12 @@ class ReportsManagementDataSourceTest :
 
     @Test
     fun `test add report error backend bad input`() {
-        coEvery { api.addReport(USER_ID, logDto) } returns
-                buildResponse(resultCode = 400, message = errorInvalidInput)
+        coEvery { api.addReport(USER_ID, logDto) } returns buildResponse(resultCode = 400)
 
         val logInserted = runBlocking { datasource.addReport(USER_ID, logBo) }
 
         coVerify { api.addReport(USER_ID, logDto) }
-        val expected = ApiResult.Error<ReportStatus>(400, errorInvalidInput)
+        val expected = ApiResult.Error<ReportStatus>(400, "Response.error()")
         Assertions.assertEquals(expected, logInserted)
     }
 
@@ -236,7 +239,8 @@ class ReportsManagementDataSourceTest :
         val logList = runBlocking { datasource.getReports(USER_ID) }
 
         coVerify { api.getReports(USER_ID) }
-        val expected = ApiResult.Error<LogListResponse>(errorCode = 404, errorMessage = "")
+        val expected =
+            ApiResult.Error<LogListResponse>(errorCode = 404, errorMessage = "Response.error()")
         Assertions.assertEquals(expected, logList)
     }
 
@@ -260,7 +264,8 @@ class ReportsManagementDataSourceTest :
         val logList = runBlocking { datasource.getReports(USER_ID, LIMIT, OFFSET) }
 
         coVerify { api.getReportsPaginated(USER_ID, LIMIT, OFFSET) }
-        val expected = ApiResult.Error<LogListResponse>(errorCode = 404, errorMessage = "")
+        val expected =
+            ApiResult.Error<LogListResponse>(errorCode = 404, errorMessage = "Response.error()")
         Assertions.assertEquals(expected, logList)
     }
 
@@ -286,18 +291,15 @@ class ReportsManagementDataSourceTest :
         Assertions.assertEquals(ApiResult.Success(true), logList)
     }
 
-    private fun buildResponse(
-        resultCode: Int,
-        message: String = "",
-        json: String? = ""
-    ): Response = Response.Builder()
-        .request(Request.Builder().url("https://some-url.com").build())
-        .protocol(Protocol.HTTP_2)
-        .code(resultCode)
-        .message(message)
-        .body(
-            ResponseBody.create(MediaType.parse("application/json; charset=utf-8"), json)
-        )
-        .build()
+    private fun buildResponse(resultCode: Int, json: String = "{}"): Response<ResponseBody> {
+        val responseBody = json.toResponseBody(mediaType)
+
+        return if (resultCode in 200..299) {
+            Response.success(resultCode, responseBody)
+        } else {
+            Response.error(resultCode, responseBody)
+        }
+
+    }
 
 }
