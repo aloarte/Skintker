@@ -21,7 +21,7 @@ val testUseCasesModule = module {
     factory { mockk<GetLogUseCase>() }
     factory { mockk<GetLogsUseCase>() }
     factory { mockk<GetSurveyUseCase>() }
-    factory { mockk<GetQueriedLogsUseCase>() }
+    factory { mockk<GetStatsUseCase>() }
     factory { mockk<ExportLogsDBUseCase>() }
     factory { mockk<RemoveLogsUseCase>() }
 

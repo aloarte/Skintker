@@ -17,6 +17,7 @@ import com.google.android.material.timepicker.TimeFormat
 import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.domain.utils.Constants.SKITNKER_PREFERENCES
 import com.p4r4d0x.skintker.R
+import com.p4r4d0x.skintker.getUserId
 import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.addAlarmPreferences
 import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.cancelAlarm
 import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.setAlarm
@@ -30,6 +31,8 @@ import org.koin.android.ext.android.inject
 
 
 class SettingsFragment : Fragment() {
+
+    private val userId: String = getUserId(activity)
 
     private val viewModel: SettingsViewModel by inject()
 
@@ -87,7 +90,7 @@ class SettingsFragment : Fragment() {
                             activity?.onBackPressed()
                         },
                         onExportPressed = {
-                            viewModel.launchExportUseCase(resources, requireContext())
+                            viewModel.launchExportUseCase(resources, requireContext(), userId)
                         },
                         onLogoutPressed = {
                             // Google sign out

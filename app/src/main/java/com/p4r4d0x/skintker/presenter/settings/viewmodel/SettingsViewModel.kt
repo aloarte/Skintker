@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 class SettingsViewModel(
     private val exportLogsUseCase: ExportLogsDBUseCase,
     private val removeLogsUseCase: RemoveLogsUseCase
-
 ) : ViewModel() {
 
     private val _exportStatus = MutableLiveData<Boolean>()
@@ -33,10 +32,10 @@ class SettingsViewModel(
     val reminderTime: MutableStateFlow<String>
         get() = _reminderTime
 
-    fun launchExportUseCase(resources: Resources, context: Context) {
+    fun launchExportUseCase(resources: Resources, context: Context, userId: String) {
         exportLogsUseCase.invoke(
             scope = viewModelScope,
-            params = ExportLogsDBUseCase.Params(resources, context)
+            params = ExportLogsDBUseCase.Params(resources, context, userId)
         ) {
             _exportStatus.value = it
         }

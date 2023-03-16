@@ -1,5 +1,10 @@
 package com.p4r4d0x.skintker
 
+import android.app.Activity
+import android.content.Context
+import android.content.SharedPreferences
+import com.p4r4d0x.domain.utils.Constants
+
 fun getHumidityString(value: Int) =
     when (value) {
         0, 1 -> R.string.humidity_1
@@ -28,3 +33,9 @@ fun getAlcoholLevel(alcoholLevel: Int): Int =
         3 -> R.string.card_quite_alcohol
         else -> R.string.card_no_alcohol
     }
+
+fun getUserId(activity: Activity?): String {
+    val prefs: SharedPreferences? =
+        activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
+    return prefs?.getString(Constants.PREFERENCES_USER_ID, "") ?: ""
+}

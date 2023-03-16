@@ -12,7 +12,9 @@ import com.p4r4d0x.domain.usecases.ExportLogsDBUseCase
 import com.p4r4d0x.domain.usecases.RemoveLogsUseCase
 import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.skintker.CoroutinesTestRule
+import com.p4r4d0x.skintker.TestData.USER_ID
 import com.p4r4d0x.skintker.di.testUseCasesModule
+import com.p4r4d0x.skintker.getOrAwaitValue
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 import com.p4r4d0x.test.KoinBaseTest
 import com.p4r4d0x.test.KoinTestApplication
@@ -51,7 +53,6 @@ class SettingsViewModelTest : KoinBaseTest(testUseCasesModule) {
     companion object {
         const val USER_EMAIL = "user_email"
         const val USER_NAME = "user_name"
-        const val USER_ID = "user_id"
     }
 
     @Before
@@ -68,14 +69,14 @@ class SettingsViewModelTest : KoinBaseTest(testUseCasesModule) {
         every {
             exportLogsDBUseCase.invoke(
                 scope = any(),
-                params = ExportLogsDBUseCase.Params(resources, context),
+                params = ExportLogsDBUseCase.Params(resources, context, USER_ID),
                 resultCallback = capture(exportResult)
             )
         } answers {
             exportResult.captured(true)
         }
 
-        viewModelSUT.launchExportUseCase(resources, context)
+        viewModelSUT.launchExportUseCase(resources, context, USER_ID)
 
         val exportProcess = viewModelSUT.exportStatus.getOrAwaitValue()
         Assert.assertTrue(exportProcess)

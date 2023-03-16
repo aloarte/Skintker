@@ -4,12 +4,14 @@ import android.content.SharedPreferences
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.FirebaseUser
 import com.p4r4d0x.data.parsers.DataParser.getCurrentFormattedDate
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.usecases.GetLogUseCase
 import com.p4r4d0x.skintker.CoroutinesTestRule
+import com.p4r4d0x.skintker.TestData.dailyLog
 import com.p4r4d0x.skintker.di.testUseCasesModule
+import com.p4r4d0x.skintker.getOrAwaitValue
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.welcome.Event
 import com.p4r4d0x.skintker.presenter.welcome.viewmodel.WelcomeViewModel
@@ -56,8 +58,6 @@ class WelcomeViewModelTest : KoinBaseTest(testUseCasesModule) {
     fun `test home view model check log reported today`() =
         coroutinesTestRule.runBlockingTest {
             val logResult = slot<(DailyLogBO?) -> Unit>()
-            val log = DailyLogBO(date = date, foodList = emptyList())
-
             every {
                 getLogUseCase.invoke(
                     scope = any(),
@@ -65,14 +65,14 @@ class WelcomeViewModelTest : KoinBaseTest(testUseCasesModule) {
                     resultCallback = capture(logResult)
                 )
             } answers {
-            logResult.captured(log)
+                logResult.captured(dailyLog)
+            }
+
+            viewModelSUT.checkLogReportedToday()
+
+            val logReported = viewModelSUT.logReported.getOrAwaitValue()
+            Assert.assertTrue(logReported)
         }
-
-        viewModelSUT.checkLogReportedToday()
-
-        val logReported = viewModelSUT.logReported.getOrAwaitValue()
-        Assert.assertTrue(logReported)
-    }
 
     @Test
     fun `test home view model check log not reported today`() =
@@ -98,11 +98,11 @@ class WelcomeViewModelTest : KoinBaseTest(testUseCasesModule) {
     @Test
     fun `test home view model checkuser login user authenticated`() =
         coroutinesTestRule.runBlockingTest {
-            val googleSignIn: GoogleSignInAccount = mockk()
+            val firebaseUser: FirebaseUser = mockk()
             val preferences: SharedPreferences = mockk()
             every { preferences.edit() } returns null
 
-            viewModelSUT.checkUserLogin(googleSignIn, preferences)
+            viewModelSUT.checkUserLogin(firebaseUser, preferences)
 
             val userAuthenticated = viewModelSUT.userAuthenticated.getOrAwaitValue()
             Assert.assertTrue(userAuthenticated)

@@ -4,7 +4,6 @@ import android.content.res.Resources
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.p4r4d0x.data.parsers.DataParser
 import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.domain.usecases.AddLogUseCase
 import com.p4r4d0x.domain.usecases.GetLogUseCase
@@ -12,8 +11,12 @@ import com.p4r4d0x.domain.usecases.GetSurveyUseCase
 import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.skintker.CoroutinesTestRule
 import com.p4r4d0x.skintker.R
+import com.p4r4d0x.skintker.TestData.USER_ID
+import com.p4r4d0x.skintker.TestData.dailyLog
+import com.p4r4d0x.skintker.TestData.date
 import com.p4r4d0x.skintker.di.testUseCasesModule
 import com.p4r4d0x.skintker.di.testViewModelModule
+import com.p4r4d0x.skintker.getOrAwaitValue
 import com.p4r4d0x.skintker.presenter.survey.LogState
 import com.p4r4d0x.skintker.presenter.survey.SurveyState
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
@@ -55,7 +58,6 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
     lateinit var resources: Resources
 
     companion object {
-        const val USER_ID = "user_id"
         private const val ALCOHOL_QUESTION_ANSWER_1 = "No alcohol ingested"
         private const val ALCOHOL_QUESTION_ANSWER_2 = "Took a few beers"
         private const val ALCOHOL_QUESTION_ANSWER_3 = "Took a few wine cups"
@@ -63,7 +65,6 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
         private const val TRAVEL_QUESTION_ANSWER = "Yes, I traveled"
     }
 
-    private val date = DataParser.getCurrentFormattedDate()
 
     private val question = Question(
         id = Constants.FOURTH_QUESTION_NUMBER,
@@ -78,7 +79,7 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
         )
     )
     private val questionsSurveyState = SurveyState.Questions(
-        listOf(
+        state = listOf(
             LogState(
                 question = question,
                 index = 0,
@@ -86,7 +87,8 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
                 showPrevious = false,
                 showDone = true
             )
-        ), date
+        ),
+        date = date
     )
 
     @Before
@@ -98,7 +100,6 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
     @Test
     fun `test survey view model check log reported today`() = coroutinesTestRule.runBlockingTest {
         val logResult = slot<(DailyLogBO?) -> Unit>()
-        val log = DailyLogBO(date = date, foodList = emptyList())
         every {
             getLogUseCase.invoke(
                 scope = any(),
@@ -106,7 +107,7 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
                 resultCallback = capture(logResult)
             )
         } answers {
-            logResult.captured(log)
+            logResult.captured(dailyLog)
         }
 
         viewModelSUT.checkIfLogIsAlreadyInserted()
@@ -138,16 +139,6 @@ class SurveyViewModelTest : KoinBaseTest(testViewModelModule, testUseCasesModule
     @Test
     fun `test survey view model compute result`() =
         coroutinesTestRule.runBlockingTest {
-            val dailyLog = DailyLogBO(
-                date, IrritationBO(0, emptyList()),
-                AdditionalDataBO(
-                    0,
-                    AdditionalDataBO.WeatherBO(0, 0),
-                    AdditionalDataBO.TravelBO(false, ""),
-                    AlcoholLevel.None,
-                    emptyList()
-                ), emptyList()
-            )
             resources = mockk()
             every { resources.getString(R.string.question_4_answer_1) } returns ALCOHOL_QUESTION_ANSWER_1
             every { resources.getString(R.string.question_4_answer_2) } returns ALCOHOL_QUESTION_ANSWER_2

@@ -39,7 +39,7 @@ val useCasesModule = module {
     factory { GetLogUseCase(get()) }
     factory { GetLogsUseCase(get()) }
     factory { GetSurveyUseCase(get()) }
-    factory { GetQueriedLogsUseCase(get()) }
+    factory { GetStatsUseCase(get()) }
     factory { ExportLogsDBUseCase(get(), get()) }
     factory { RemoveLogsUseCase(get()) }
 }

@@ -5,7 +5,6 @@ import com.p4r4d0x.domain.bo.DailyLogContentsBO
 import com.p4r4d0x.domain.bo.ReportStatus
 import java.util.*
 
-
 interface ReportsManagementRepository {
 
     suspend fun addReport(userId: String, log: DailyLogBO): ReportStatus
