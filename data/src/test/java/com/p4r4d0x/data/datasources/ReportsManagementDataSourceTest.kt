@@ -8,8 +8,9 @@ import com.p4r4d0x.data.api.SkintkvaultApi
 import com.p4r4d0x.data.apiModule
 import com.p4r4d0x.data.datasources.impl.ReportsManagementDataSourceImpl
 import com.p4r4d0x.data.dto.*
+import com.p4r4d0x.data.dto.logs.LogListResponse
+import com.p4r4d0x.data.dto.logs.toDto
 import com.p4r4d0x.data.parsers.DataParser.backendStringToDate
-import com.p4r4d0x.data.parsers.toDto
 import com.p4r4d0x.data.room.*
 import com.p4r4d0x.data.testDatasourcesModule
 import com.p4r4d0x.data.testRepositoriesModule

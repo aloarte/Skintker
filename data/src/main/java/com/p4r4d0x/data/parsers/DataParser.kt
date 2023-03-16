@@ -5,7 +5,7 @@ import android.content.res.Resources
 import com.example.data.R
 import com.google.firebase.Timestamp
 import com.p4r4d0x.data.dto.*
-import com.p4r4d0x.data.parsers.DataParser.backendDateToString
+import com.p4r4d0x.data.dto.logs.*
 import com.p4r4d0x.data.parsers.DataParser.backendStringToDate
 import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.domain.utils.Constants
@@ -211,36 +211,6 @@ object DataParser {
 
 }
 
-fun DailyLogBO.toDto() = ReportDto(
-    date = backendDateToString(this.date),
-    foodList = this.foodList,
-    irritation = this.irritation.toDto(),
-    additionalData = this.additionalData.toDto()
-)
-
-fun IrritationBO.toDto() = IrritationDto(
-    overallValue = this.overallValue,
-    zoneValues = this.zoneValues
-)
-
-fun AdditionalDataBO.toDto() = AdditionalDataDto(
-    stressLevel = this.stressLevel,
-    weather = this.weather.toDto(),
-    travel = this.travel.toDto(),
-    alcoholLevel = this.alcoholLevel,
-    beerTypes = this.beerTypes
-)
-
-fun AdditionalDataBO.WeatherBO.toDto() = WeatherDto(
-    humidity = this.humidity,
-    temperature = this.temperature
-)
-
-fun AdditionalDataBO.TravelBO.toDto() = TravelDto(
-    traveled = this.traveled,
-    city = this.city
-)
-
 
 @SuppressLint("SimpleDateFormat")
 fun ReportDto.toBo(): DailyLogBO {
@@ -252,29 +222,6 @@ fun ReportDto.toBo(): DailyLogBO {
     )
 }
 
-fun IrritationDto.toBo() = IrritationBO(
-    overallValue = this.overallValue,
-    zoneValues = this.zoneValues
-)
-
-fun AdditionalDataDto.toBo() = AdditionalDataBO(
-    stressLevel = this.stressLevel,
-    weather = this.weather.toBo(),
-    travel = this.travel.toBo(),
-    alcoholLevel = this.alcoholLevel,
-    beerTypes = this.beerTypes
-)
-
-fun WeatherDto.toBo() = AdditionalDataBO.WeatherBO(
-    humidity = this.humidity,
-    temperature = this.temperature
-)
-
-fun TravelDto.toBo() = AdditionalDataBO.TravelBO(
-    traveled = this.traveled,
-    city = this.city
-)
-
 
 fun SkintkvaultResponseLogs.toDailyLogContents(): DailyLogContentsBO {
     return this.content?.let { logListResponse ->
@@ -282,3 +229,8 @@ fun SkintkvaultResponseLogs.toDailyLogContents(): DailyLogContentsBO {
     } ?: DailyLogContentsBO()
 
 }
+
+fun SkintkvaultResponseStats.toPossibleCauses(): PossibleCausesBO? {
+    return this.content?.stats?.toPossibleCauses()
+}
+

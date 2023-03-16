@@ -1,6 +1,6 @@
 package com.p4r4d0x.data.api
 
-import com.p4r4d0x.data.dto.ReportDto
+import com.p4r4d0x.data.dto.logs.ReportDto
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
