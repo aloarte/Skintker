@@ -17,7 +17,6 @@ import com.google.android.material.timepicker.TimeFormat
 import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.domain.utils.Constants.SKITNKER_PREFERENCES
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.getUserId
 import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.addAlarmPreferences
 import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.cancelAlarm
 import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.setAlarm
@@ -29,10 +28,13 @@ import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 import com.p4r4d0x.skintker.theme.SkintkerTheme
 import org.koin.android.ext.android.inject
 
-
 class SettingsFragment : Fragment() {
 
-    private val userId: String = getUserId(activity)
+    private fun getPreferences() =
+        activity?.getSharedPreferences(SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
+
+    private val userId: String =
+        getPreferences()?.getString(Constants.PREFERENCES_USER_ID, "") ?: ""
 
     private val viewModel: SettingsViewModel by inject()
 

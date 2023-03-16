@@ -1,5 +1,6 @@
 package com.p4r4d0x.skintker.presenter.home.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,6 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.getUserId
 import com.p4r4d0x.skintker.presenter.home.view.compose.TabScreen
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
@@ -21,12 +21,16 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by inject()
 
-    private val userId: String = getUserId(activity)
+    private fun getPreferences() =
+        activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
 
     override fun onResume() {
         super.onResume()
-        viewModel.getLogs(userId)
-        viewModel.getUserStats(userId)
+        with(getPreferences()?.getString(Constants.PREFERENCES_USER_ID, "") ?: "") {
+            viewModel.getLogs(this)
+            viewModel.getUserStats(this)
+        }
+
         context?.let { ctx ->
             with(NotificationManagerCompat.from(ctx)) {
                 cancel(Constants.NOTIFICATION_ID)
