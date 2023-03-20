@@ -92,22 +92,18 @@ interface DailyLogDao {
                     foodList = log.foodList
                 )
             )
-            val irritationId = log.irritation.let { irritation ->
-                updateIrritation(
-                    fromDomainObject(
-                        irritationBo = irritation,
-                        logId = insertedLog.irritation.logId
-                    ).copy(irritationId = insertedLog.irritation.irritationId)
-                )
-            }
-            val additionalId = log.additionalData.let { additionalData ->
-                updateAdditionalData(
-                    fromDomainObject(
-                        additionalDataBO = additionalData,
-                        logId = insertedLog.additionalData.logId
-                    ).copy(additionalDataId = insertedLog.additionalData.additionalDataId)
-                )
-            }
+            val irritationId = updateIrritation(
+                fromDomainObject(
+                    irritationBo = log.irritation,
+                    logId = insertedLog.irritation.logId
+                ).copy(irritationId = insertedLog.irritation.irritationId)
+            )
+            val additionalId = updateAdditionalData(
+                fromDomainObject(
+                    additionalDataBO = log.additionalData,
+                    logId = insertedLog.additionalData.logId
+                ).copy(additionalDataId = insertedLog.additionalData.additionalDataId)
+            )
             return irritationId > 0 && additionalId > 0 && updateLog > 0
         } else false
     }

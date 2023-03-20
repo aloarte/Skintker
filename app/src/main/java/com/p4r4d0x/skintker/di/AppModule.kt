@@ -30,7 +30,7 @@ val vmModule = module {
     viewModel { WelcomeViewModel(get()) }
     viewModel { LoginViewModel() }
     viewModel { SurveyViewModel(get(), get(), get()) }
-    viewModel { HomeViewModel(get(), get()) }
+    viewModel { HomeViewModel(get(), get(), get()) }
     viewModel { SettingsViewModel(get(), get()) }
 }
 
@@ -41,7 +41,9 @@ val useCasesModule = module {
     factory { GetSurveyUseCase(get()) }
     factory { GetStatsUseCase(get()) }
     factory { ExportLogsDBUseCase(get(), get()) }
+    factory { RemoveLogUseCase(get()) }
     factory { RemoveLogsUseCase(get()) }
+
 }
 
 val repositoriesModule = module {

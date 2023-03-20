@@ -22,7 +22,6 @@ order to preserve the tracked logs if the user uninstall the app or clear the da
 - Room
 - Firebase
   - Auth: user authentication
-  - Firestore: database storage
 - Clean architecture
 - Unit tests + mocks
 

@@ -13,7 +13,8 @@ import com.p4r4d0x.domain.bo.IrritationBO
         ForeignKey(
             entity = DailyLog::class,
             parentColumns = ["id"],
-            childColumns = ["log_id"]
+            childColumns = ["log_id"],
+            onDelete = ForeignKey.CASCADE
         )
     ]
 )

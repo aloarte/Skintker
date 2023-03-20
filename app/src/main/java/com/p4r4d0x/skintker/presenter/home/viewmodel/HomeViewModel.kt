@@ -7,10 +7,14 @@ import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.bo.PossibleCausesBO
 import com.p4r4d0x.domain.usecases.GetLogsUseCase
 import com.p4r4d0x.domain.usecases.GetStatsUseCase
+import com.p4r4d0x.domain.usecases.RemoveLogUseCase
+import java.util.*
 
 class HomeViewModel(
     private val getLogsUseCase: GetLogsUseCase,
-    private val getStatsUseCase: GetStatsUseCase
+    private val getStatsUseCase: GetStatsUseCase,
+    private val removeLogUseCase: RemoveLogUseCase
+
 ) : ViewModel() {
 
     private val _logList = MutableLiveData<List<DailyLogBO>>()
@@ -21,6 +25,10 @@ class HomeViewModel(
     val possibleCauses: MutableLiveData<PossibleCausesBO>
         get() = _possibleCauses
 
+    private val _logDeleted = MutableLiveData<Boolean>()
+    val logDeleted: MutableLiveData<Boolean>
+        get() = _logDeleted
+
     fun getLogs(userId: String) {
         getLogsUseCase.invoke(viewModelScope, params = GetLogsUseCase.Params(userId)) {
             _logList.value = it
@@ -28,12 +36,18 @@ class HomeViewModel(
     }
 
     fun getUserStats(userId: String) {
-        getStatsUseCase.invoke(
-            viewModelScope,
-            params = GetStatsUseCase.Params(userId)
-
-        ) {
+        getStatsUseCase.invoke(viewModelScope, params = GetStatsUseCase.Params(userId)) {
             _possibleCauses.value = it
+        }
+    }
+
+    fun removeLog(userId: String, logDate: Date) {
+        removeLogUseCase.invoke(viewModelScope, params = RemoveLogUseCase.Params(userId, logDate)) {
+            logDeleted.value = it
+            //Update the visible log list
+            if (it) {
+                getLogs(userId)
+            }
         }
     }
 }

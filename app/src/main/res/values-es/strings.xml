@@ -45,6 +45,8 @@
     <string name="temperature_3">Neutral</string>
     <string name="temperature_4">Frío</string>
     <string name="temperature_5">Muy frío</string>
+    <string name="log_removed">Reporte borrado correctamente 👍</string>
+    <string name="log_not_removed">Reporte borrado correctamente 🙁</string>
 
     <!-- Permissions-->
     <string name="permissions_rationale">Esta pregunta necesita algunos permisos. Por favor, concedeselos a la aplicación.</string>

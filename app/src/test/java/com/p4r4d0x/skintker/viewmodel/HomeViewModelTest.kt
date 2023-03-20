@@ -7,6 +7,7 @@ import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.bo.PossibleCausesBO
 import com.p4r4d0x.domain.usecases.GetLogsUseCase
 import com.p4r4d0x.domain.usecases.GetStatsUseCase
+import com.p4r4d0x.domain.usecases.RemoveLogUseCase
 import com.p4r4d0x.skintker.CoroutinesTestRule
 import com.p4r4d0x.skintker.TestData.dailyLog
 import com.p4r4d0x.skintker.di.testUseCasesModule
@@ -28,7 +29,6 @@ import org.koin.test.inject
 import org.robolectric.annotation.Config
 import java.util.*
 
-
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @Config(application = KoinTestApplication::class, sdk = [Build.VERSION_CODES.P])
@@ -42,17 +42,19 @@ class HomeViewModelTest : KoinBaseTest(testUseCasesModule) {
 
     private val getLogsUseCase: GetLogsUseCase by inject()
     private val getStatsUseCase: GetStatsUseCase by inject()
+    private val removeLogUseCase: RemoveLogUseCase by inject()
 
     private lateinit var viewModelSUT: HomeViewModel
 
     companion object {
         const val USER_ID = "user_id"
+        val logDate = Date()
     }
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        viewModelSUT = HomeViewModel(getLogsUseCase, getStatsUseCase)
+        viewModelSUT = HomeViewModel(getLogsUseCase, getStatsUseCase, removeLogUseCase)
     }
 
     @Test
@@ -78,7 +80,7 @@ class HomeViewModelTest : KoinBaseTest(testUseCasesModule) {
         }
 
     @Test
-    fun `test home view model get logs by intensity level`() =
+    fun `test home view model get user stats`() =
         coroutinesTestRule.runBlockingTest {
             val causes = generateCauses()
             val causesResult = slot<(PossibleCausesBO?) -> Unit>()
@@ -97,6 +99,27 @@ class HomeViewModelTest : KoinBaseTest(testUseCasesModule) {
 
             val possibleCauses = viewModelSUT.possibleCauses.getOrAwaitValue()
             Assert.assertEquals(causes, possibleCauses)
+        }
+
+    @Test
+    fun `test home view model delete logs`() =
+        coroutinesTestRule.runBlockingTest {
+            val removeResult = slot<(Boolean?) -> Unit>()
+            val useCaseParams = RemoveLogUseCase.Params(USER_ID, logDate)
+            every {
+                removeLogUseCase.invoke(
+                    scope = any(),
+                    resultCallback = capture(removeResult),
+                    params = useCaseParams
+                )
+            } answers {
+                removeResult.captured(true)
+            }
+
+            viewModelSUT.removeLog(USER_ID, logDate)
+
+            val result = viewModelSUT.logDeleted.getOrAwaitValue()
+            Assert.assertTrue(result)
         }
 
     private fun generateCauses() = PossibleCausesBO(

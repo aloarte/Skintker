@@ -81,7 +81,11 @@ class ReportsManagementRepositoryImpl(
         return when (val result = dataSource.deleteReport(userId, backendDateToString(date))) {
             is ApiResult.Success -> {
                 if (result.data) {
-                    dao.delete(date.time)
+                    try {
+                        dao.delete(date.time)
+                    } catch (exception: Exception) {
+                        return false
+                    }
                 }
                 result.data
             }
@@ -93,7 +97,11 @@ class ReportsManagementRepositoryImpl(
         return when (val result = dataSource.deleteReports(userId)) {
             is ApiResult.Success -> {
                 if (result.data) {
-                    dao.deleteAll()
+                    try {
+                        dao.deleteAll()
+                    } catch (exception: Exception) {
+                        return false
+                    }
                 }
                 result.data
             }

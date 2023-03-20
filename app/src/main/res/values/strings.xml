@@ -45,7 +45,8 @@
     <string name="temperature_3">Neutral</string>
     <string name="temperature_4">Cold</string>
     <string name="temperature_5">Very cold</string>
-
+    <string name="log_removed">Log removed successfully 👍</string>
+    <string name="log_not_removed">Something went wrong and we couldn\'t remove the log 🙁</string>
     <!-- Permissions-->
     <string name="file_rationale">To perform this action its required to grant write files permission. Please grant it.</string>
     <string name="file_rationale_title">File read/write permissions</string>
