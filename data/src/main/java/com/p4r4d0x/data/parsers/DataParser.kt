@@ -59,21 +59,25 @@ object DataParser {
                     }
                 }
                 is Answer.MultipleChoice -> {
-                    if (questionCnt == Constants.SECOND_QUESTION_NUMBER) {
-                        answer.answersStringRes.forEach {
-                            irritationZones.add(resources.getString(it))
+                    when (questionCnt) {
+                        Constants.SECOND_QUESTION_NUMBER -> {
+                            answer.answersStringRes.forEach {
+                                irritationZones.add(resources.getString(it))
+                            }
                         }
-                    } else if (questionCnt == Constants.NINTH_QUESTION_NUMBER || questionCnt == Constants.EIGHTH_QUESTION_NUMBER) {
-                        answer.answersStringRes.forEach {
-                            foodList.add(
-                                resources.getString(it)
-                            )
+                        Constants.NINTH_QUESTION_NUMBER, Constants.EIGHTH_QUESTION_NUMBER -> {
+                            answer.answersStringRes.forEach {
+                                foodList.add(
+                                    resources.getString(it)
+                                )
+                            }
                         }
-                    } else if (questionCnt == FIFTH_QUESTION_NUMBER) {
-                        answer.answersStringRes.forEach {
-                            beerType.add(
-                                resources.getString(it)
-                            )
+                        FIFTH_QUESTION_NUMBER -> {
+                            answer.answersStringRes.forEach {
+                                beerType.add(
+                                    resources.getString(it)
+                                )
+                            }
                         }
                     }
                 }
@@ -123,16 +127,12 @@ object DataParser {
         )
     }
 
-    fun fromStringResource(alcoholStr: String, resources: Resources): AlcoholLevel {
-        val alcoholNone = resources.getString(R.string.question_4_answer_1)
-        val alcoholFewBeer = resources.getString(R.string.question_4_answer_2)
-        val alcoholFewWine = resources.getString(R.string.question_4_answer_3)
-        val alcoholSome = resources.getString(R.string.question_4_answer_4)
+    private fun fromStringResource(alcoholStr: String, resources: Resources): AlcoholLevel {
         return when (alcoholStr) {
-            alcoholNone -> AlcoholLevel.None
-            alcoholFewBeer -> AlcoholLevel.Few
-            alcoholFewWine -> AlcoholLevel.FewWine
-            alcoholSome -> AlcoholLevel.Some
+            resources.getString(R.string.question_4_answer_1) -> AlcoholLevel.None
+            resources.getString(R.string.question_4_answer_2) -> AlcoholLevel.Few
+            resources.getString(R.string.question_4_answer_3) -> AlcoholLevel.FewWine
+            resources.getString(R.string.question_4_answer_4) -> AlcoholLevel.Some
             else -> AlcoholLevel.None
         }
     }

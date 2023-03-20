@@ -1,11 +1,10 @@
 package com.p4r4d0x.skintker.presenter.settings
 
 enum class SettingsStatus {
-    ErrorLoadPreferences,
-    ErrorSavePreferences,
-    PreferencesSaved,
     ErrorExportingLogs,
     LogsExported,
+    LogsRemoved,
+    ErrorRemovingLogs,
     ReminderCreated,
     ReminderUpdated,
     ReminderCleared,

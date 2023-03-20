@@ -53,6 +53,15 @@ class SettingsFragment : Fragment() {
                     }
                 )
             }
+            removeStatus.observe(viewLifecycleOwner) {
+                launchToast(
+                    if (it) {
+                        SettingsStatus.LogsRemoved
+                    } else {
+                        SettingsStatus.ErrorRemovingLogs
+                    }
+                )
+            }
             updateReminderTime(prefs)
         }
     }
@@ -87,7 +96,6 @@ class SettingsFragment : Fragment() {
                 SkintkerTheme {
                     SettingScreen(
                         settingsViewModel = viewModel,
-                        prefs = prefs,
                         onBackIconPressed = {
                             activity?.onBackPressed()
                         },
@@ -99,9 +107,6 @@ class SettingsFragment : Fragment() {
                             mGoogleSignInClient.signOut().addOnCompleteListener {
                                 navigate(FragmentScreen.Welcome, FragmentScreen.Settings)
                             }
-                        },
-                        settingsCallback = {
-                            launchToast(it)
                         },
                         onAlarmPressed = { addAlarm ->
                             if (addAlarm) {
@@ -150,17 +155,18 @@ class SettingsFragment : Fragment() {
     private fun launchToast(status: SettingsStatus) {
         Toast.makeText(
             activity,
-            when (status) {
-                SettingsStatus.ErrorLoadPreferences -> resources.getString(R.string.settings_toast_preferences_load_error)
-                SettingsStatus.ErrorSavePreferences -> resources.getString(R.string.settings_toast_preferences_save_error)
-                SettingsStatus.PreferencesSaved -> resources.getString(R.string.settings_toast_preferences_saved)
-                SettingsStatus.ErrorExportingLogs -> resources.getString(R.string.settings_toast_preferences_export_error)
-                SettingsStatus.LogsExported -> resources.getString(R.string.settings_toast_preferences_logs_exported)
-                SettingsStatus.ReminderCreated -> resources.getString(R.string.settings_toast_preferences_reminder_created)
-                SettingsStatus.ReminderUpdated -> resources.getString(R.string.settings_toast_preferences_reminder_updated)
-                SettingsStatus.ReminderCleared -> resources.getString(R.string.settings_toast_preferences_reminder_cleared)
-                SettingsStatus.ReminderFailed -> resources.getString(R.string.settings_toast_preferences_reminder_fail)
-            },
+            resources.getString(
+                when (status) {
+                    SettingsStatus.ErrorExportingLogs -> R.string.settings_toast_preferences_export_error
+                    SettingsStatus.LogsExported -> R.string.settings_toast_preferences_logs_exported
+                    SettingsStatus.ReminderCreated -> R.string.settings_toast_preferences_reminder_created
+                    SettingsStatus.ReminderUpdated -> R.string.settings_toast_preferences_reminder_updated
+                    SettingsStatus.ReminderCleared -> R.string.settings_toast_preferences_reminder_cleared
+                    SettingsStatus.ReminderFailed -> R.string.settings_toast_preferences_reminder_fail
+                    SettingsStatus.LogsRemoved -> R.string.settings_toast_remove_logs
+                    SettingsStatus.ErrorRemovingLogs -> R.string.settings_toast_remove_logs_error
+                }
+            ),
             Toast.LENGTH_SHORT
         ).show()
     }

@@ -43,6 +43,5 @@ fun Fragment.navigate(to: FragmentScreen, from: FragmentScreen) {
                 else -> {}
             }
         }
-        else -> {}
     }
 }

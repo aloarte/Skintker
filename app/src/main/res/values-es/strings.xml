@@ -13,6 +13,7 @@
     <string name="btn_notification_create">CREAR RECORDATORIO</string>
     <string name="btn_notification_update">ACTUALIZAR RECORDATORIO</string>
     <string name="btn_notification_clear">ELIMINAR</string>
+    <string name="btn_wipe_data">BORRAR DATOS</string>
     <string name="btn_sign_in">Login con Google"</string>
 
     <!-- Pick date -->
@@ -76,25 +77,11 @@
     <string name="resume_no_causes_title">No hay información suficiente 😓</string>
     <string name="resume_no_causes">No se pueden extrar conclusiones con el número de reportes diarios almacenado. Por favor, vuelve a esta sección cuando aportes más datos para poder extraer posibles causas.</string>
     <!-- survey-->
-    <string name="settings_parameters_description">Se pueden ajustar los parámetros que configuran como se realiza el procesado de los datos con el objetivo de ajustar las posibles conclusiones extraidas.</string>
     <string name="settings_export_description">Puedes exportar todos los datos almacenados en un fichero externo.</string>
     <string name="settings_profile_description">Estás logueado en el sistema con los datos que puedes ver a continuación. Puedes cerrar la sesión en cualquier momento.</string>
-    <string name="settings_parameters_description_levels">El Nivel de Picor es el principal valor que se utiliza para extraer las posibles conclusiones. Todo reporte que tenga un valor inferior al configurado será ignorado. El Número Mínimo de Reportes restringe cuántos logs tienen que superar el Nivel de Picor para poder procesarlos y extraer información de ellos.</string>
-    <string name="settings_parameters_description_thresholds">Modifica los valores de los umbrales para ajustar la proporción deseada de los eventos para contabilizarlos como una posible causa.</string>
-    <string name="settings_parameters_description_stress">El Nivel de Estrés determina si un reporte con este valor puede ser influyente. Su umbral ajusta el proceso de decisión sobre este valor.</string>
-    <string name="settings_param_irritation">Nivel de picor</string>
-    <string name="settings_param_min_logs">Numero mínimo de reportes</string>
-    <string name="settings_param_food_threshold">Umbral de alimentos</string>
-    <string name="settings_param_zones_threshold">Umbral en zonas irritadas</string>
-    <string name="settings_param_alcohol_threshold">Umbral de alcohol consumido</string>
-    <string name="settings_param_travel_threshold">Umbral de viajes realizados</string>
-    <string name="settings_param_weather_temperature_threshold">Umbral de temperatura</string>
-    <string name="settings_param_weather_humidity_threshold">Umbral de humedad</string>
-    <string name="settings_param_stress_threshold">Umbral de estrés</string>
-    <string name="settings_param_stress_value">Nivel de estrés</string>
-    <string name="settings_toast_preferences_load_error">No se han podido guardar las preferencias</string>
-    <string name="settings_toast_preferences_save_error">No se han podido cargar las preferencias</string>
-    <string name="settings_toast_preferences_saved">Preferencias guardadas correctamente</string>
+    <string name="settings_wipe_data_description">Borra todos los datos almacenados.</string>
+    <string name="settings_toast_remove_logs_error">No se pudieron borrar todos los datos</string>
+    <string name="settings_toast_remove_logs">Todos los datos borrados</string>
     <string name="settings_toast_preferences_export_error">No se ha podido exportar la base de datos de reportes</string>
     <string name="settings_toast_preferences_logs_exported">La base de datos de los reportes exportada correctamente</string>
     <string name="settings_toast_preferences_reminder_created">Recordatorio creado</string>

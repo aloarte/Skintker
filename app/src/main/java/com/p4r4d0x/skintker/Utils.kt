@@ -2,21 +2,21 @@ package com.p4r4d0x.skintker
 
 fun getHumidityString(value: Int) =
     when (value) {
-        0, 1 -> R.string.humidity_1
-        2, 3 -> R.string.humidity_2
-        4, 5, 6 -> R.string.humidity_3
-        7, 8 -> R.string.humidity_4
-        9, 10 -> R.string.humidity_5
+        1 -> R.string.humidity_1
+        2 -> R.string.humidity_2
+        3 -> R.string.humidity_3
+        4 -> R.string.humidity_4
+        5 -> R.string.humidity_5
         else -> R.string.humidity_3
     }
 
 fun getTemperatureString(value: Int) =
     when (value) {
-        0, 1 -> R.string.temperature_1
-        2, 3 -> R.string.temperature_2
-        4, 5, 6 -> R.string.temperature_3
-        7, 8 -> R.string.temperature_4
-        9, 10 -> R.string.temperature_5
+        1 -> R.string.temperature_1
+        2 -> R.string.temperature_2
+        3 -> R.string.temperature_3
+        4 -> R.string.temperature_4
+        5 -> R.string.temperature_5
         else -> R.string.temperature_3
     }
 

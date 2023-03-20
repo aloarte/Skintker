@@ -49,6 +49,7 @@ class HomeViewModelTest : KoinBaseTest(testUseCasesModule) {
     companion object {
         const val USER_ID = "user_id"
         val logDate = Date()
+        val logs = listOf(dailyLog)
     }
 
     @Before
@@ -60,17 +61,7 @@ class HomeViewModelTest : KoinBaseTest(testUseCasesModule) {
     @Test
     fun `test home view model get logs`() =
         coroutinesTestRule.runBlockingTest {
-            val logsResult = slot<(List<DailyLogBO>?) -> Unit>()
-            val logs = listOf(dailyLog)
-            every {
-                getLogsUseCase.invoke(
-                    scope = any(),
-                    resultCallback = capture(logsResult),
-                    params = GetLogsUseCase.Params(USER_ID)
-                )
-            } answers {
-                logsResult.captured(logs)
-            }
+            mockGetAllLogs()
 
             viewModelSUT.getLogs(USER_ID)
 
@@ -115,12 +106,26 @@ class HomeViewModelTest : KoinBaseTest(testUseCasesModule) {
             } answers {
                 removeResult.captured(true)
             }
+            mockGetAllLogs()
 
             viewModelSUT.removeLog(USER_ID, logDate)
 
             val result = viewModelSUT.logDeleted.getOrAwaitValue()
             Assert.assertTrue(result)
         }
+
+    private fun mockGetAllLogs() {
+        val logsResult = slot<(List<DailyLogBO>?) -> Unit>()
+        every {
+            getLogsUseCase.invoke(
+                scope = any(),
+                resultCallback = capture(logsResult),
+                params = GetLogsUseCase.Params(USER_ID)
+            )
+        } answers {
+            logsResult.captured(logs)
+        }
+    }
 
     private fun generateCauses() = PossibleCausesBO(
         true, emptyList(), true, emptyList(),
