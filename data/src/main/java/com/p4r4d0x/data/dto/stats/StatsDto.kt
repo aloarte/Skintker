@@ -5,10 +5,10 @@ import com.p4r4d0x.domain.utils.Constants.DEFAULT_MIN_LOGS
 
 data class StatsDto(
     val relevantLogs: Int,
-    val alcoholStats: AlcoholStatsDto,
-    val stressStats: StressStatsDto,
-    val travelStats: TravelStatsDto,
-    val weatherStats: WeatherStatsBo
+    val alcohol: AlcoholStatsDto,
+    val stress: StressStatsDto,
+    val travel: TravelStatsDto,
+    val weather: WeatherStatsBo
 ) {
     data class AlcoholStatsDto(val isPossible: Boolean = false, val beerType: String)
 
@@ -17,8 +17,8 @@ data class StatsDto(
     data class TravelStatsDto(val isPossible: Boolean = false, val city: String)
 
     data class WeatherStatsBo(
-        val temperatureStats: TemperatureStatsBo,
-        val humidityStats: HumidityStatsBo
+        val temperature: TemperatureStatsBo,
+        val humidity: HumidityStatsBo
     )
 
     data class TemperatureStatsBo(val isPossible: Boolean = false, val level: Int)
@@ -28,19 +28,19 @@ data class StatsDto(
     fun toPossibleCauses() = PossibleCausesBO(
         enoughData = relevantLogs > DEFAULT_MIN_LOGS,
         dietaryCauses = emptyList(),
-        alcoholCause = alcoholStats.isPossible,
+        alcoholCause = alcohol.isPossible,
         mostAffectedZones = listOf(),
-        stressCause = PossibleCausesBO.StressCauseBO(stressStats.isPossible, stressStats.level),
-        travelCause = PossibleCausesBO.TravelCauseBO(travelStats.isPossible, travelStats.city),
+        stressCause = PossibleCausesBO.StressCauseBO(stress.isPossible, stress.level),
+        travelCause = PossibleCausesBO.TravelCauseBO(travel.isPossible, travel.city),
         weatherCause = Pair(
             PossibleCausesBO.WeatherCauseBO(
                 PossibleCausesBO.WeatherCauseBO.WeatherType.TEMPERATURE,
-                weatherStats.temperatureStats.isPossible,
-                weatherStats.temperatureStats.level
+                weather.temperature.isPossible,
+                weather.temperature.level
             ), PossibleCausesBO.WeatherCauseBO(
                 PossibleCausesBO.WeatherCauseBO.WeatherType.HUMIDITY,
-                weatherStats.humidityStats.isPossible,
-                weatherStats.humidityStats.level
+                weather.humidity.isPossible,
+                weather.humidity.level
             )
         )
 
