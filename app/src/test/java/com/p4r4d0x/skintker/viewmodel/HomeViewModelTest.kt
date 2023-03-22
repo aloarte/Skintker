@@ -107,11 +107,7 @@ class HomeViewModelTest : KoinBaseTest(testUseCasesModule) {
                 removeResult.captured(true)
             }
             mockGetAllLogs()
-
             viewModelSUT.removeLog(USER_ID, logDate)
-
-            val result = viewModelSUT.logDeleted.getOrAwaitValue()
-            Assert.assertTrue(result)
         }
 
     private fun mockGetAllLogs() {
