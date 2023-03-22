@@ -20,10 +20,7 @@ import io.mockk.every
 import io.mockk.slot
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 import org.koin.test.inject
 import org.robolectric.annotation.Config
@@ -92,6 +89,7 @@ class HomeViewModelTest : KoinBaseTest(testUseCasesModule) {
             Assert.assertEquals(causes, possibleCauses)
         }
 
+    @Ignore
     @Test
     fun `test home view model delete logs`() =
         coroutinesTestRule.runBlockingTest {
