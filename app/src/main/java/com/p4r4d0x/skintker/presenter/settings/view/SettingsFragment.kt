@@ -15,7 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.p4r4d0x.domain.utils.Constants
-import com.p4r4d0x.domain.utils.Constants.SKITNKER_PREFERENCES
+import com.p4r4d0x.domain.utils.Constants.SKINTKER_PREFERENCES
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.addAlarmPreferences
 import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.cancelAlarm
@@ -28,8 +28,13 @@ import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 import com.p4r4d0x.skintker.theme.SkintkerTheme
 import org.koin.android.ext.android.inject
 
-
 class SettingsFragment : Fragment() {
+
+    private fun getPreferences() =
+        activity?.getSharedPreferences(SKINTKER_PREFERENCES, Context.MODE_PRIVATE)
+
+    private val userId: String =
+        getPreferences()?.getString(Constants.PREFERENCES_USER_ID, "") ?: ""
 
     private val viewModel: SettingsViewModel by inject()
 
@@ -45,6 +50,15 @@ class SettingsFragment : Fragment() {
                         SettingsStatus.LogsExported
                     } else {
                         SettingsStatus.ErrorExportingLogs
+                    }
+                )
+            }
+            removeStatus.observe(viewLifecycleOwner) {
+                launchToast(
+                    if (it) {
+                        SettingsStatus.LogsRemoved
+                    } else {
+                        SettingsStatus.ErrorRemovingLogs
                     }
                 )
             }
@@ -76,27 +90,23 @@ class SettingsFragment : Fragment() {
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
             activity?.let {
-                prefs = it.getSharedPreferences(SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
+                prefs = it.getSharedPreferences(SKINTKER_PREFERENCES, Context.MODE_PRIVATE)
             }
             setContent {
                 SkintkerTheme {
                     SettingScreen(
                         settingsViewModel = viewModel,
-                        prefs = prefs,
                         onBackIconPressed = {
                             activity?.onBackPressed()
                         },
                         onExportPressed = {
-                            viewModel.launchExportUseCase(resources, requireContext())
+                            viewModel.launchExportUseCase(resources, requireContext(), userId)
                         },
                         onLogoutPressed = {
                             // Google sign out
                             mGoogleSignInClient.signOut().addOnCompleteListener {
                                 navigate(FragmentScreen.Welcome, FragmentScreen.Settings)
                             }
-                        },
-                        settingsCallback = {
-                            launchToast(it)
                         },
                         onAlarmPressed = { addAlarm ->
                             if (addAlarm) {
@@ -145,17 +155,18 @@ class SettingsFragment : Fragment() {
     private fun launchToast(status: SettingsStatus) {
         Toast.makeText(
             activity,
-            when (status) {
-                SettingsStatus.ErrorLoadPreferences -> resources.getString(R.string.settings_toast_preferences_load_error)
-                SettingsStatus.ErrorSavePreferences -> resources.getString(R.string.settings_toast_preferences_save_error)
-                SettingsStatus.PreferencesSaved -> resources.getString(R.string.settings_toast_preferences_saved)
-                SettingsStatus.ErrorExportingLogs -> resources.getString(R.string.settings_toast_preferences_export_error)
-                SettingsStatus.LogsExported -> resources.getString(R.string.settings_toast_preferences_logs_exported)
-                SettingsStatus.ReminderCreated -> resources.getString(R.string.settings_toast_preferences_reminder_created)
-                SettingsStatus.ReminderUpdated -> resources.getString(R.string.settings_toast_preferences_reminder_updated)
-                SettingsStatus.ReminderCleared -> resources.getString(R.string.settings_toast_preferences_reminder_cleared)
-                SettingsStatus.ReminderFailed -> resources.getString(R.string.settings_toast_preferences_reminder_fail)
-            },
+            resources.getString(
+                when (status) {
+                    SettingsStatus.ErrorExportingLogs -> R.string.settings_toast_preferences_export_error
+                    SettingsStatus.LogsExported -> R.string.settings_toast_preferences_logs_exported
+                    SettingsStatus.ReminderCreated -> R.string.settings_toast_preferences_reminder_created
+                    SettingsStatus.ReminderUpdated -> R.string.settings_toast_preferences_reminder_updated
+                    SettingsStatus.ReminderCleared -> R.string.settings_toast_preferences_reminder_cleared
+                    SettingsStatus.ReminderFailed -> R.string.settings_toast_preferences_reminder_fail
+                    SettingsStatus.LogsRemoved -> R.string.settings_toast_remove_logs
+                    SettingsStatus.ErrorRemovingLogs -> R.string.settings_toast_remove_logs_error
+                }
+            ),
             Toast.LENGTH_SHORT
         ).show()
     }

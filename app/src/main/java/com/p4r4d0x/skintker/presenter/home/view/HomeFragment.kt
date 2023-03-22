@@ -1,11 +1,13 @@
+@file:OptIn(DelicateCoroutinesApi::class)
+
 package com.p4r4d0x.skintker.presenter.home.view
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
@@ -16,23 +18,32 @@ import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.main.navigate
 import com.p4r4d0x.skintker.theme.SkintkerTheme
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import java.util.*
 
 class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by inject()
 
+    private fun getPreferences() =
+        activity?.getSharedPreferences(Constants.SKINTKER_PREFERENCES, Context.MODE_PRIVATE)
+
+    private lateinit var userId: String
     override fun onResume() {
         super.onResume()
-        val prefs: SharedPreferences? =
-            activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
-        viewModel.getLogs(prefs?.getString(Constants.PREFERENCES_USER_ID, "") ?: "")
-        viewModel.getLogsByIntensityLevel(prefs)
+        userId = getPreferences()?.getString(Constants.PREFERENCES_USER_ID, "") ?: ""
+        viewModel.getLogs(userId)
+        viewModel.getUserStats(userId)
         context?.let { ctx ->
             with(NotificationManagerCompat.from(ctx)) {
                 cancel(Constants.NOTIFICATION_ID)
             }
         }
+        observeViewModel()
     }
 
     override fun onCreateView(
@@ -48,12 +59,37 @@ class HomeFragment : Fragment() {
             )
             setContent {
                 SkintkerTheme {
-                    TabScreen(viewModel) { fragmentScreenDestination ->
-                        navigate(fragmentScreenDestination, FragmentScreen.Home)
+                    val deleteCallback = { logDate: Date ->
+                        viewModel.removeLog(userId, logDate)
                     }
+                    val navigateCallback = { screenDestination: FragmentScreen ->
+                        navigate(screenDestination, FragmentScreen.Home)
+                    }
+                    TabScreen(viewModel, navigateCallback, deleteCallback)
                 }
             }
         }
+    }
+
+    private fun observeViewModel() {
+        GlobalScope.launch {
+            viewModel.logDeleted.collect { logDeleted ->
+                showToast(logDeleted)
+            }
+        }
+
+    }
+
+    private fun showToast(logDeleted: Boolean) = GlobalScope.launch(Dispatchers.Main) {
+        Toast.makeText(
+            activity, getString(
+                if (logDeleted) {
+                    R.string.log_removed
+                } else {
+                    R.string.log_not_removed
+                }
+            ), Toast.LENGTH_SHORT
+        ).show()
     }
 
 }

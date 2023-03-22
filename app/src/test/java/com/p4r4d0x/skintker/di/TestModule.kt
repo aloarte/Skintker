@@ -12,7 +12,7 @@ import org.koin.dsl.module
 val testViewModelModule = module {
     viewModel { WelcomeViewModel(get()) }
     viewModel { SurveyViewModel(get(), get(), get()) }
-    viewModel { HomeViewModel(get(), get()) }
+    viewModel { HomeViewModel(get(), get(), get()) }
     viewModel { SettingsViewModel(get(), get()) }
 }
 
@@ -21,8 +21,9 @@ val testUseCasesModule = module {
     factory { mockk<GetLogUseCase>() }
     factory { mockk<GetLogsUseCase>() }
     factory { mockk<GetSurveyUseCase>() }
-    factory { mockk<GetQueriedLogsUseCase>() }
+    factory { mockk<GetStatsUseCase>() }
     factory { mockk<ExportLogsDBUseCase>() }
     factory { mockk<RemoveLogsUseCase>() }
+    factory { mockk<RemoveLogUseCase>() }
 
 }

@@ -1,6 +1,5 @@
 package com.p4r4d0x.skintker.presenter.settings.view.compose
 
-import android.content.SharedPreferences
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -21,19 +20,16 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.presenter.common.compose.Description
 import com.p4r4d0x.skintker.presenter.common.compose.SkintkerDivider
-import com.p4r4d0x.skintker.presenter.settings.SettingsStatus
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 
 @Composable
 fun SettingScreen(
     settingsViewModel: SettingsViewModel,
-    prefs: SharedPreferences?,
     onBackIconPressed: () -> Unit,
     onExportPressed: () -> Unit,
     onLogoutPressed: () -> Unit,
     onRemoveLogsPressed: () -> Unit,
-    onAlarmPressed: (Boolean) -> Unit,
-    settingsCallback: (SettingsStatus) -> Unit
+    onAlarmPressed: (Boolean) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -42,12 +38,11 @@ fun SettingScreen(
     ) {
         SettingScreenContent(
             settingsViewModel,
-            prefs,
             onExportPressed,
             onLogoutPressed,
             onRemoveLogsPressed,
-            onAlarmPressed,
-            settingsCallback
+            onAlarmPressed
+
         )
     }
 }
@@ -96,12 +91,10 @@ fun SettingsTopBar(
 @Composable
 fun SettingScreenContent(
     settingsViewModel: SettingsViewModel,
-    prefs: SharedPreferences?,
     onExportPressed: () -> Unit,
     onLogoutPressed: () -> Unit,
     onRemoveLogsPressed: () -> Unit,
-    onAlarmPressed: (Boolean) -> Unit,
-    settingsCallback: (SettingsStatus) -> Unit
+    onAlarmPressed: (Boolean) -> Unit
 ) {
     LazyColumn {
         item {
@@ -112,7 +105,6 @@ fun SettingScreenContent(
                 SkintkerDivider()
                 AlarmSection(settingsViewModel, onAlarmPressed)
                 SkintkerDivider()
-                ParametersConfiguration(prefs, settingsCallback)
                 SkintkerDivider()
                 val multiplePermissionsState =
                     rememberMultiplePermissionsState(
@@ -154,7 +146,7 @@ fun SettingScreenContent(
 fun RemoveLogsSection(onRemoveLogsPressed: () -> Unit) {
     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
 
-        Description(R.string.settings_notification_description)
+        Description(R.string.settings_wipe_data_description)
         Spacer(modifier = Modifier.height(20.dp))
 
         Row {
@@ -164,20 +156,12 @@ fun RemoveLogsSection(onRemoveLogsPressed: () -> Unit) {
                     .height(40.dp),
                 onClick = { onRemoveLogsPressed() }
             ) {
-                Text(text = "BORRAR"/* stringResource(R.string.btn_notification_update)*/)
+                Text(text = stringResource(R.string.btn_wipe_data))
             }
             Divider(
                 modifier = Modifier.width(20.dp),
                 color = Color.Transparent
             )
-//            Icon(
-//                enabled = true,
-//                modifier = Modifier
-//                    .height(40.dp),
-//                onClick = { onAlarmPressed(false) }
-//            ) {
-//                Text(text = stringResource(R.string.btn_notification_clear))
-//            }
         }
 
         Spacer(modifier = Modifier.height(20.dp))

@@ -1,20 +1,21 @@
 package com.p4r4d0x.skintker.di
 
-import android.app.Application
-import androidx.room.Room
-import com.p4r4d0x.data.datasources.FirebaseLogsManagementDataSource
+import com.google.gson.Gson
+import com.p4r4d0x.data.datasources.ReportsManagementDataSource
 import com.p4r4d0x.data.datasources.ResourcesDatasource
+import com.p4r4d0x.data.datasources.StatsDatasource
 import com.p4r4d0x.data.datasources.SurveyDataSource
-import com.p4r4d0x.data.datasources.impl.FirebaseLogsManagementDataSourceImpl
+import com.p4r4d0x.data.datasources.impl.ReportsManagementDataSourceImpl
 import com.p4r4d0x.data.datasources.impl.ResourcesDatasourceImpl
+import com.p4r4d0x.data.datasources.impl.StatsDataSourceImpl
 import com.p4r4d0x.data.datasources.impl.SurveyDataSourceImpl
-import com.p4r4d0x.data.repositories.LogsManagementRepositoryImpl
+import com.p4r4d0x.data.repositories.ReportsManagementRepositoryImpl
 import com.p4r4d0x.data.repositories.ResourcesRepositoryImpl
+import com.p4r4d0x.data.repositories.StatsRepositoryImpl
 import com.p4r4d0x.data.repositories.SurveyRepositoryImpl
-import com.p4r4d0x.data.room.DailyLogDao
-import com.p4r4d0x.data.room.LogsDatabase
-import com.p4r4d0x.domain.repository.LogsManagementRepository
+import com.p4r4d0x.domain.repository.ReportsManagementRepository
 import com.p4r4d0x.domain.repository.ResourcesRepository
+import com.p4r4d0x.domain.repository.StatsRepository
 import com.p4r4d0x.domain.repository.SurveyRepository
 import com.p4r4d0x.domain.usecases.*
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
@@ -22,7 +23,6 @@ import com.p4r4d0x.skintker.presenter.login.viewmodel.LoginViewModel
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
 import com.p4r4d0x.skintker.presenter.welcome.viewmodel.WelcomeViewModel
-import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -30,18 +30,8 @@ val vmModule = module {
     viewModel { WelcomeViewModel(get()) }
     viewModel { LoginViewModel() }
     viewModel { SurveyViewModel(get(), get(), get()) }
-    viewModel { HomeViewModel(get(), get()) }
+    viewModel { HomeViewModel(get(), get(), get()) }
     viewModel { SettingsViewModel(get(), get()) }
-}
-val repositoriesModule = module {
-    factory<SurveyRepository> { SurveyRepositoryImpl(get()) }
-    factory<ResourcesRepository> { ResourcesRepositoryImpl(get()) }
-    factory<LogsManagementRepository> {
-        LogsManagementRepositoryImpl(
-            get(),
-            get()
-        )
-    }
 }
 
 val useCasesModule = module {
@@ -49,25 +39,29 @@ val useCasesModule = module {
     factory { GetLogUseCase(get()) }
     factory { GetLogsUseCase(get()) }
     factory { GetSurveyUseCase(get()) }
-    factory { GetQueriedLogsUseCase(get()) }
+    factory { GetStatsUseCase(get()) }
     factory { ExportLogsDBUseCase(get(), get()) }
+    factory { RemoveLogUseCase(get()) }
     factory { RemoveLogsUseCase(get()) }
+
 }
 
-val dataSourcesModule = module {
-    fun provideDataBase(application: Application): LogsDatabase {
-        return Room.databaseBuilder(application, LogsDatabase::class.java, "logs_database")
-            .fallbackToDestructiveMigration()
-            .build()
-    }
+val repositoriesModule = module {
+    factory<SurveyRepository> { SurveyRepositoryImpl(get()) }
+    factory<ResourcesRepository> { ResourcesRepositoryImpl(get()) }
+    factory<StatsRepository> { StatsRepositoryImpl(get()) }
+    factory<ReportsManagementRepository> { ReportsManagementRepositoryImpl(get(), get()) }
 
-    fun provideDao(dataBase: LogsDatabase): DailyLogDao {
-        return dataBase.dailyLogDao()
-    }
-    single { provideDataBase(androidApplication()) }
-    single { provideDao(get()) }
+}
+
+val datasourcesModule = module {
     factory<SurveyDataSource> { SurveyDataSourceImpl() }
     factory<ResourcesDatasource> { ResourcesDatasourceImpl() }
-    factory<FirebaseLogsManagementDataSource> { FirebaseLogsManagementDataSourceImpl() }
+    factory<StatsDatasource> { StatsDataSourceImpl(get(), get()) }
+    factory<ReportsManagementDataSource> { ReportsManagementDataSourceImpl(get(), get()) }
 
+}
+
+val externalModule = module {
+    factory { Gson() }
 }

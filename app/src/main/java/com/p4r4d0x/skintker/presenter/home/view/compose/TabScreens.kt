@@ -30,9 +30,14 @@ import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.presenter.home.view.Screen
 import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
+import java.util.*
 
 @Composable
-fun TabScreen(viewModel: HomeViewModel, navPressed: (FragmentScreen) -> Unit) {
+fun TabScreen(
+    viewModel: HomeViewModel,
+    navPressed: (FragmentScreen) -> Unit,
+    removeLog: (Date) -> Unit
+) {
     val fabShape = RoundedCornerShape(50)
     val navController = rememberNavController()
 
@@ -56,7 +61,7 @@ fun TabScreen(viewModel: HomeViewModel, navPressed: (FragmentScreen) -> Unit) {
         ) {
 
             composable(Screen.History.route) {
-                HistoryScreen(viewModel)
+                HistoryScreen(viewModel, removeLog)
             }
             composable(Screen.Resume.route) {
                 ResumeScreen(viewModel)
@@ -69,11 +74,13 @@ fun TabScreen(viewModel: HomeViewModel, navPressed: (FragmentScreen) -> Unit) {
 fun ResumeScreen(viewModel: HomeViewModel) {
     viewModel.possibleCauses.observeAsState().value?.let { causes ->
         ResumeBody(causes = causes)
+    } ?: run {
+        StandaloneEmptyUserStats()
     }
 }
 
 @Composable
-fun HistoryScreen(viewModel: HomeViewModel) {
+fun HistoryScreen(viewModel: HomeViewModel, removeLog: (Date) -> Unit) {
     viewModel.logList.observeAsState().value?.let { logs ->
         if (logs.isEmpty()) {
             Column(Modifier.background(MaterialTheme.colors.background)) {
@@ -114,7 +121,7 @@ fun HistoryScreen(viewModel: HomeViewModel) {
             ) {
                 item {
                     logs.forEach { log ->
-                        DailyLogCard(log = log)
+                        DailyLogCard(log = log, removeLog)
                         Spacer(modifier = Modifier.height(5.dp))
 
                     }

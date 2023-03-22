@@ -3,10 +3,11 @@ package com.p4r4d0x.domain.usecases
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.p4r4d0x.domain.CoroutinesTestRule
-import com.p4r4d0x.domain.bo.DailyLogBO
-import com.p4r4d0x.domain.bo.IrritationBO
+import com.p4r4d0x.domain.TestData.USER_ID
+import com.p4r4d0x.domain.TestData.log
+import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.domain.di.testRepositoriesModule
-import com.p4r4d0x.domain.repository.LogsManagementRepository
+import com.p4r4d0x.domain.repository.ReportsManagementRepository
 import com.p4r4d0x.test.KoinBaseTest
 import com.p4r4d0x.test.KoinTestApplication
 import io.mockk.coEvery
@@ -26,45 +27,28 @@ import java.util.*
 @Config(application = KoinTestApplication::class, sdk = [Build.VERSION_CODES.P])
 class GetLogsUseCaseTest : KoinBaseTest(testRepositoriesModule) {
 
-    companion object {
-        const val USER_ID = "user_id"
-    }
-
     @ExperimentalCoroutinesApi
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
 
-    private val logsRepository: LogsManagementRepository by inject()
+    private val reportsRepository: ReportsManagementRepository by inject()
 
     private lateinit var useCase: GetLogsUseCase
 
     @Before
     fun setUp() {
-        useCase = GetLogsUseCase(logsRepository)
+        useCase = GetLogsUseCase(reportsRepository)
     }
 
     @Test
-    fun `test get logs`() {
-        val logList = listOf(
-            DailyLogBO(
-                Date(),
-                IrritationBO(1, emptyList()),
-                foodList = emptyList()
-            ),
-            DailyLogBO(
-                Date(),
-                IrritationBO(2, emptyList()),
-                foodList = emptyList()
-            )
-        )
-
-        coEvery {
-            logsRepository.getAllLogsWithFirebase(USER_ID)
-        } returns logList
+    fun `test get logs success`() {
+        val logContents = DailyLogContentsBO(1, listOf(log))
+        coEvery { reportsRepository.getReports(USER_ID) } returns logContents
 
         val logsObtained = runBlocking { useCase.run(GetLogsUseCase.Params(USER_ID)) }
 
-        coVerify { logsRepository.getAllLogsWithFirebase(USER_ID) }
-        Assertions.assertEquals(logList, logsObtained)
+        coVerify { reportsRepository.getReports(USER_ID) }
+        Assertions.assertEquals(logContents.logList, logsObtained)
     }
+
 }

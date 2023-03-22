@@ -13,6 +13,7 @@
     <string name="btn_notification_create">CREATE REMINDER</string>
     <string name="btn_notification_update">UPDATE REMINDER</string>
     <string name="btn_notification_clear">REMOVE</string>
+    <string name="btn_wipe_data">WIPE DATA</string>
     <string name="btn_sign_in">"Sign in with Google"</string>
 
     <!-- Pick date -->
@@ -45,7 +46,8 @@
     <string name="temperature_3">Neutral</string>
     <string name="temperature_4">Cold</string>
     <string name="temperature_5">Very cold</string>
-
+    <string name="log_removed">Log removed successfully 👍</string>
+    <string name="log_not_removed">Something went wrong and we couldn\'t remove the log 🙁</string>
     <!-- Permissions-->
     <string name="file_rationale">To perform this action its required to grant write files permission. Please grant it.</string>
     <string name="file_rationale_title">File read/write permissions</string>
@@ -63,6 +65,7 @@
     <string name="survey" translatable="false">n</string>
     <string name="survey_result" translatable="false">n %s</string>
     <string name="survey_result_description" translatable="false">n</string>
+    <string name="survey_log_create_error">	⚠️Daily log coudln\'t be created. Please, try again.</string>
 
     <!-- Resume  -->
     <string name="resume_title">Possible causes 📋</string>
@@ -80,26 +83,12 @@
     <string name="resume_no_causes_title">Not enough data 😓</string>
     <string name="resume_no_causes">Can\'t extract any conclusions with the number of logs reported. Please, come back to this section when you log a few days more.</string>
 
-    <!-- survey-->
-    <string name="settings_parameters_description">The parameters that configure how the possible conclusions are extracted can be modified in order to adjust the system.</string>
+    <!-- settings-->
     <string name="settings_export_description">You can export all of your loaded logs data into an external file.</string>
     <string name="settings_profile_description">You are logged in with the data below. You can perform a logout anytime.</string>
-    <string name="settings_parameters_description_levels">The Irritation Level is the main value to extract possible causes. Any log that had a level below the configured will be ignored. The Minimum Report Number restrict how many logs that exceed the Irritation Level are mandatory to extract information.</string>
-    <string name="settings_parameters_description_thresholds">Change the threshold values to adjust the desired proportion of events to count one of them as a possible cause or not.</string>
-    <string name="settings_parameters_description_stress">The Stress Level determines if any log with this value could be significant. The threshold adjust the decision process.</string>
-    <string name="settings_param_irritation">Irritation level number</string>
-    <string name="settings_param_min_logs">Min logs number</string>
-    <string name="settings_param_food_threshold">Food threshold</string>
-    <string name="settings_param_zones_threshold">Zones threshold</string>
-    <string name="settings_param_alcohol_threshold">Alcohol threshold</string>
-    <string name="settings_param_travel_threshold">Travel threshold</string>
-    <string name="settings_param_weather_temperature_threshold">Temperature threshold</string>
-    <string name="settings_param_weather_humidity_threshold">Humidity threshold</string>
-    <string name="settings_param_stress_threshold">Stress threshold</string>
-    <string name="settings_param_stress_value">Stress level</string>
-    <string name="settings_toast_preferences_load_error">Preferences couldn\'t be saved</string>
-    <string name="settings_toast_preferences_save_error">Preferences couldn\'t be saved</string>
-    <string name="settings_toast_preferences_saved">Preferences saved</string>
+    <string name="settings_wipe_data_description">Erase all the data registered.</string>
+    <string name="settings_toast_remove_logs_error">Data couldn\'t be removed</string>
+    <string name="settings_toast_remove_logs">Data erased</string>
     <string name="settings_toast_preferences_export_error">Logs couldn\'t be exported</string>
     <string name="settings_toast_preferences_logs_exported">Logs exported successfully from database</string>
     <string name="settings_toast_preferences_reminder_created">Reminder created</string>
@@ -108,6 +97,7 @@
     <string name="settings_toast_preferences_reminder_fail">Reminder couldn\'t be created</string>
     <string name="settings_notification_description">You can schedule a reminder to perform the daily log report.</string>
     <string name="settings_notification_reminder_description">The reminder is scheduled at %1$s</string>
+
     <!-- Notification  -->
     <string name="notification_title">Perform your daily report</string>
     <string name="notification_description">You didn\'t perform your daily log yet, …</string>

@@ -3,6 +3,7 @@ package com.p4r4d0x.skintker.presenter.home.view.compose
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,11 +15,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.p4r4d0x.domain.bo.AdditionalDataBO
@@ -30,15 +30,15 @@ import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.getAlcoholLevel
 import com.p4r4d0x.skintker.getHumidityString
 import com.p4r4d0x.skintker.getTemperatureString
-import com.p4r4d0x.skintker.presenter.common.utils.DailyLogProvider
 import java.util.*
 
 @OptIn(ExperimentalFoundationApi::class)
 @SuppressLint("SimpleDateFormat")
-@Preview
+//@Preview
 @Composable
 fun DailyLogCard(
-    @PreviewParameter(DailyLogProvider::class) log: DailyLogBO
+    /*@PreviewParameter(DailyLogProvider::class) */log: DailyLogBO,
+                                                   removeLog: (Date) -> Unit
 ) {
     var collapseView by remember { mutableStateOf(true) }
     Card(
@@ -56,8 +56,7 @@ fun DailyLogCard(
         ) {
 
             Row(
-                Modifier
-                    .fillMaxWidth(),
+                Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
@@ -72,28 +71,38 @@ fun DailyLogCard(
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.subtitle1,
-                    modifier = Modifier
-                        .fillMaxWidth(
-                            if (collapseView) {
-                                0.8f
-                            } else {
-                                1f
-                            }
-                        )
+                    modifier = Modifier.fillMaxWidth(
+                        if (collapseView) {
+                            0.8f
+                        } else {
+                            0.9f
+                        }
+                    )
                 )
 
                 if (collapseView) {
                     Text(
-                        log.irritation?.overallValue.toString(),
+                        log.irritation.overallValue.toString(),
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.body1,
                         color = MaterialTheme.colors.primaryVariant,
+                        modifier = Modifier.fillMaxWidth(0.2f)
+                    )
+                } else {
+                    Image(
+                        painter = painterResource(id = R.drawable.icon_close),
+                        contentDescription = "",
                         modifier = Modifier
+                            .size(20.dp)
                             .fillMaxWidth(0.2f)
+                            .height(20.dp)
+                            .clickable {
+                                removeLog(log.date)
+                                collapseView = !collapseView
+                            }
                     )
                 }
-
             }
 
             if (!collapseView) {
@@ -126,18 +135,14 @@ private fun DailyLogCardItemBody(log: DailyLogBO) {
             .padding(vertical = 4.dp, horizontal = 4.dp)
     ) {
         Row(Modifier.fillMaxWidth()) {
-            log.irritation?.let { irritation ->
-                IrritationItem(
-                    irritationBO = irritation, modifier = Modifier
-                        .fillMaxWidth(0.5f)
-                )
-            }
-            log.additionalData?.let { additionalData ->
-                AdditionalData(
-                    additionalDataBO = additionalData, modifier = Modifier
-                        .fillMaxWidth(1f)
-                )
-            }
+            IrritationItem(
+                irritationBO = log.irritation, modifier = Modifier
+                    .fillMaxWidth(0.5f)
+            )
+            AdditionalData(
+                additionalDataBO = log.additionalData, modifier = Modifier
+                    .fillMaxWidth(1f)
+            )
         }
         if (log.foodList.isNotEmpty()) {
             FoodScheduleList(log.foodList)
@@ -233,7 +238,6 @@ private fun FoodScheduleList(list: List<String>) {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FoodGrid(foodList: List<String>) {
     val halfList = if (foodList.size % 2 == 0) {

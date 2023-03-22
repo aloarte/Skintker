@@ -19,7 +19,6 @@ android {
             keyPassword keystoreProperties['keyPassword']
             storeFile file(keystoreProperties['storeFile'])
             storePassword keystoreProperties['storePassword']
-
         }
 //        debug {
 //            keyAlias keystoreProperties['keyAlias']
@@ -41,9 +40,14 @@ android {
 
     buildTypes {
         debug {
+            buildConfigField "String", "API_URL", '"https://skintkvault.herokuapp.com"'
+            buildConfigField "String", "DATABASE_NAME", '"logs_database"'
+
             signingConfig signingConfigs.debug
         }
         release {
+            buildConfigField "String", "API_URL", '"https://skintkvault.herokuapp.com"'
+            buildConfigField "String", "DATABASE_NAME", '"logs_database"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
@@ -121,6 +125,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-perf-ktx'
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
 
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "io.insert-koin:koin-test-junit4:$koinVersion"

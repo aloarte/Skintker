@@ -54,7 +54,7 @@ class SurveyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val prefs: SharedPreferences? =
-            activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
+            activity?.getSharedPreferences(Constants.SKINTKER_PREFERENCES, Context.MODE_PRIVATE)
 
         return ComposeView(requireContext()).apply {
             id = R.id.survey_fragment
@@ -104,6 +104,14 @@ class SurveyFragment : Fragment() {
                                     })
                             }
                             is SurveyState.Result -> {
+                                navigate(FragmentScreen.Home, FragmentScreen.Survey)
+                            }
+                            is SurveyState.ResultError -> {
+                                Toast.makeText(
+                                    activity,
+                                    getString(R.string.survey_log_create_error),
+                                    Toast.LENGTH_SHORT
+                                ).show()
                                 navigate(FragmentScreen.Home, FragmentScreen.Survey)
                             }
                         }

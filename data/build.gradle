@@ -58,6 +58,12 @@ dependencies {
     implementation "com.google.android.material:material:$material"
 
 
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.1'
+
+
     //Test
     testImplementation "io.insert-koin:koin-test-junit4:$koinVersion"
     testImplementation "io.insert-koin:koin-test-junit5:$koinVersion"

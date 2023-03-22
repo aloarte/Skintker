@@ -4,8 +4,8 @@ import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.data.R
 import com.p4r4d0x.data.datasources.SurveyDataSource
-import com.p4r4d0x.data.testDatasourcesModule
-import com.p4r4d0x.data.testRepositoriesModule
+import com.p4r4d0x.data.testutils.testDatasourcesModule
+import com.p4r4d0x.data.testutils.testRepositoriesModule
 import com.p4r4d0x.domain.bo.PossibleAnswer
 import com.p4r4d0x.domain.bo.Question
 import com.p4r4d0x.domain.bo.Survey

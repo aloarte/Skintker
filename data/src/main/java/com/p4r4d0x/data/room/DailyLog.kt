@@ -15,12 +15,7 @@ data class DailyLog(
     var foodList: List<String>,
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
-) {
-    fun toDomain() = DailyLogBO(
-        date = date,
-        foodList = foodList
-    )
-}
+)
 
 fun fromDomain(logBO: DailyLogBO): DailyLog {
     return DailyLog(date = Date(logBO.date.time), foodList = logBO.foodList)

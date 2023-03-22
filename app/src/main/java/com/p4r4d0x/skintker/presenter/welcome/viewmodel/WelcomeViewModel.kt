@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.FirebaseUser
 import com.p4r4d0x.data.parsers.DataParser.getCurrentFormattedDate
 import com.p4r4d0x.domain.usecases.GetLogUseCase
 import com.p4r4d0x.domain.utils.Constants
@@ -32,15 +32,15 @@ class WelcomeViewModel(private val getLogUseCase: GetLogUseCase) : ViewModel() {
         }
     }
 
-    fun checkUserLogin(mGoogleSignInClient: GoogleSignInAccount?, prefs: SharedPreferences?) {
-        if (mGoogleSignInClient != null) {
+    fun checkUserLogin(firebaseUser: FirebaseUser?, prefs: SharedPreferences?) {
+        if (firebaseUser != null) {
             val editor: SharedPreferences.Editor? = prefs?.edit()
             editor?.let {
-                it.putString(Constants.PREFERENCES_USER_ID, mGoogleSignInClient.id)
+                it.putString(Constants.PREFERENCES_USER_ID, firebaseUser.uid)
                 editor.apply()
             }
         }
-        _userAuthenticated.value = mGoogleSignInClient != null
+        _userAuthenticated.value = firebaseUser != null
     }
 
     fun handleContinueHome(logAlreadyReported: Boolean) {

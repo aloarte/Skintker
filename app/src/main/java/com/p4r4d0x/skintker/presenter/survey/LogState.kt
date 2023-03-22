@@ -35,4 +35,5 @@ sealed class SurveyState {
 
     //Final state. Process the survey.
     object Result : SurveyState()
+    object ResultError : SurveyState()
 }

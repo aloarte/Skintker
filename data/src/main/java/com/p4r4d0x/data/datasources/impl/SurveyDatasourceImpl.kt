@@ -102,12 +102,12 @@ private val jetpackQuestions = mutableListOf(
         questionText = R.string.question_6_title,
         description = R.string.question_6_description,
         answer = PossibleAnswer.DoubleSlider(
-            range = 1f..10f,
+            range = 1f..5f,
             steps = 3,
-            defaultValueFirstSlider = 5.5f,
+            defaultValueFirstSlider = 3f,
             startTextFirstSlider = R.string.question_6_slide_1_start,
             endTextFirstSlider = R.string.question_6_slide_1_end,
-            defaultValueSecondSlider = 5.5f,
+            defaultValueSecondSlider = 3f,
             startTextSecondSlider = R.string.question_6_slide_2_start,
             endTextSecondSlider = R.string.question_6_slide_2_end
         )

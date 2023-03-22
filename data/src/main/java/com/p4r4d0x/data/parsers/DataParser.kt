@@ -4,6 +4,9 @@ import android.annotation.SuppressLint
 import android.content.res.Resources
 import com.example.data.R
 import com.google.firebase.Timestamp
+import com.p4r4d0x.data.dto.*
+import com.p4r4d0x.data.dto.logs.*
+import com.p4r4d0x.data.parsers.DataParser.backendStringToDate
 import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.domain.utils.Constants.FIFTH_QUESTION_NUMBER
@@ -25,6 +28,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object DataParser {
+
+    @SuppressLint("SimpleDateFormat")
+    private val backendSDF = SimpleDateFormat("dd-MM-yyyy")
 
     fun createLogFromSurvey(
         date: Date,
@@ -53,21 +59,25 @@ object DataParser {
                     }
                 }
                 is Answer.MultipleChoice -> {
-                    if (questionCnt == Constants.SECOND_QUESTION_NUMBER) {
-                        answer.answersStringRes.forEach {
-                            irritationZones.add(resources.getString(it))
+                    when (questionCnt) {
+                        Constants.SECOND_QUESTION_NUMBER -> {
+                            answer.answersStringRes.forEach {
+                                irritationZones.add(resources.getString(it))
+                            }
                         }
-                    } else if (questionCnt == Constants.NINTH_QUESTION_NUMBER || questionCnt == Constants.EIGHTH_QUESTION_NUMBER) {
-                        answer.answersStringRes.forEach {
-                            foodList.add(
-                                resources.getString(it)
-                            )
+                        Constants.NINTH_QUESTION_NUMBER, Constants.EIGHTH_QUESTION_NUMBER -> {
+                            answer.answersStringRes.forEach {
+                                foodList.add(
+                                    resources.getString(it)
+                                )
+                            }
                         }
-                    } else if (questionCnt == FIFTH_QUESTION_NUMBER) {
-                        answer.answersStringRes.forEach {
-                            beerType.add(
-                                resources.getString(it)
-                            )
+                        FIFTH_QUESTION_NUMBER -> {
+                            answer.answersStringRes.forEach {
+                                beerType.add(
+                                    resources.getString(it)
+                                )
+                            }
                         }
                     }
                 }
@@ -117,16 +127,12 @@ object DataParser {
         )
     }
 
-    fun fromStringResource(alcoholStr: String, resources: Resources): AlcoholLevel {
-        val alcoholNone = resources.getString(R.string.question_4_answer_1)
-        val alcoholFewBeer = resources.getString(R.string.question_4_answer_2)
-        val alcoholFewWine = resources.getString(R.string.question_4_answer_3)
-        val alcoholSome = resources.getString(R.string.question_4_answer_4)
+    private fun fromStringResource(alcoholStr: String, resources: Resources): AlcoholLevel {
         return when (alcoholStr) {
-            alcoholNone -> AlcoholLevel.None
-            alcoholFewBeer -> AlcoholLevel.Few
-            alcoholFewWine -> AlcoholLevel.FewWine
-            alcoholSome -> AlcoholLevel.Some
+            resources.getString(R.string.question_4_answer_1) -> AlcoholLevel.None
+            resources.getString(R.string.question_4_answer_2) -> AlcoholLevel.Few
+            resources.getString(R.string.question_4_answer_3) -> AlcoholLevel.FewWine
+            resources.getString(R.string.question_4_answer_4) -> AlcoholLevel.Some
             else -> AlcoholLevel.None
         }
     }
@@ -141,6 +147,16 @@ object DataParser {
         val pos = ParsePosition(0)
         val sdf = SimpleDateFormat("dd/mm/yyyy")
         return sdf.parse(aDate, pos) ?: Date(aDate)
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun backendDateToString(aDate: Date): String {
+        return backendSDF.format(aDate)
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun backendStringToDate(aDate: String): Date {
+        return backendSDF.parse(aDate) ?: Date()
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -194,3 +210,32 @@ object DataParser {
     }
 
 }
+
+
+@SuppressLint("SimpleDateFormat")
+fun ReportDto.toBo(): DailyLogBO {
+    return DailyLogBO(
+        date = backendStringToDate(this.date),
+        foodList = this.foodList,
+        irritation = this.irritation.toBo(),
+        additionalData = this.additionalData.toBo()
+    )
+}
+
+
+fun SkintkvaultResponseLogs.toDailyLogContents(): DailyLogContentsBO {
+    return this.content?.let { logListResponse ->
+        DailyLogContentsBO(logListResponse.count, logListResponse.logList.map { it.toBo() })
+    } ?: DailyLogContentsBO()
+
+}
+
+fun SkintkvaultResponseStats.toPossibleCauses(): PossibleCausesBO? {
+    return this.content?.stats?.let {
+        if (it.relevantLogs > 0) {
+            it.toPossibleCauses()
+        } else null
+    }
+
+}
+
