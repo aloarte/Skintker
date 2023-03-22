@@ -24,7 +24,7 @@ object AlarmUtils {
     )
 
     fun getTimeForAlarm(context: Context?): Long {
-        with(context?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)) {
+        with(context?.getSharedPreferences(Constants.SKINTKER_PREFERENCES, Context.MODE_PRIVATE)) {
             val calendar = Calendar.getInstance()
             calendar[Calendar.HOUR_OF_DAY] = this?.getInt(Constants.PREFERENCES_ALARM_HOUR, 0) ?: 0
             calendar[Calendar.MINUTE] = this?.getInt(Constants.PREFERENCES_ALARM_MINUTES, 0) ?: 0

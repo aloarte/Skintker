@@ -15,7 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.p4r4d0x.domain.utils.Constants
-import com.p4r4d0x.domain.utils.Constants.SKITNKER_PREFERENCES
+import com.p4r4d0x.domain.utils.Constants.SKINTKER_PREFERENCES
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.addAlarmPreferences
 import com.p4r4d0x.skintker.presenter.common.utils.AlarmUtils.cancelAlarm
@@ -31,7 +31,7 @@ import org.koin.android.ext.android.inject
 class SettingsFragment : Fragment() {
 
     private fun getPreferences() =
-        activity?.getSharedPreferences(SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
+        activity?.getSharedPreferences(SKINTKER_PREFERENCES, Context.MODE_PRIVATE)
 
     private val userId: String =
         getPreferences()?.getString(Constants.PREFERENCES_USER_ID, "") ?: ""
@@ -90,7 +90,7 @@ class SettingsFragment : Fragment() {
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
             activity?.let {
-                prefs = it.getSharedPreferences(SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
+                prefs = it.getSharedPreferences(SKINTKER_PREFERENCES, Context.MODE_PRIVATE)
             }
             setContent {
                 SkintkerTheme {

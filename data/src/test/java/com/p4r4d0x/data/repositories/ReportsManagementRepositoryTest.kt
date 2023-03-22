@@ -2,13 +2,18 @@ package com.p4r4d0x.data.repositories
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.p4r4d0x.data.databaseModule
 import com.p4r4d0x.data.datasources.ReportsManagementDataSource
 import com.p4r4d0x.data.dto.ApiResult
-import com.p4r4d0x.data.parsers.DataParser
 import com.p4r4d0x.data.room.*
-import com.p4r4d0x.data.testDatasourcesModule
-import com.p4r4d0x.data.testRepositoriesModule
+import com.p4r4d0x.data.testutils.TestData.LIMIT
+import com.p4r4d0x.data.testutils.TestData.OFFSET
+import com.p4r4d0x.data.testutils.TestData.USER_ID
+import com.p4r4d0x.data.testutils.TestData.date
+import com.p4r4d0x.data.testutils.TestData.log
+import com.p4r4d0x.data.testutils.TestData.stringDate
+import com.p4r4d0x.data.testutils.databaseModule
+import com.p4r4d0x.data.testutils.testDatasourcesModule
+import com.p4r4d0x.data.testutils.testRepositoriesModule
 import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.domain.repository.ReportsManagementRepository
 import com.p4r4d0x.test.KoinBaseTest
@@ -30,28 +35,6 @@ import java.util.*
 @Config(application = KoinTestApplication::class, sdk = [Build.VERSION_CODES.P])
 class ReportsManagementRepositoryTest :
     KoinBaseTest(testRepositoriesModule, testDatasourcesModule, databaseModule) {
-
-    companion object {
-        const val USER_ID = "userId"
-        const val OFFSET = 0
-        const val LIMIT = 4
-        val date = Date()
-        val stringDate = DataParser.backendDateToString(date)
-
-    }
-
-    private val log = DailyLogBO(
-        date,
-        irritation = IrritationBO(1, emptyList()),
-        additionalData = AdditionalDataBO(
-            stressLevel = 10,
-            weather = AdditionalDataBO.WeatherBO(humidity = 0, temperature = 0),
-            travel = AdditionalDataBO.TravelBO(city = "Madrid", traveled = false),
-            beerTypes = emptyList(),
-            alcoholLevel = AlcoholLevel.Few
-        ),
-        foodList = emptyList()
-    )
 
     private val databaseLogList = listOf(
         DailyLogDetails(

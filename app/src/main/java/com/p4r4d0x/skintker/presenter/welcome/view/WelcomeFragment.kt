@@ -35,7 +35,7 @@ class WelcomeFragment : Fragment() {
 
     private val viewModel: WelcomeViewModel by inject()
     private fun getPreferences() =
-        activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
+        activity?.getSharedPreferences(Constants.SKINTKER_PREFERENCES, Context.MODE_PRIVATE)
 
     override fun onResume() {
         super.onResume()

@@ -41,10 +41,14 @@ class ReportsManagementRepositoryImpl(
     override suspend fun getReports(userId: String): DailyLogContentsBO {
         return when (val result = dataSource.getReports(userId)) {
             is ApiResult.Success -> {
-                val apiResult = result.data // get data from backend
-                dao.insertAllDailyLogs(apiResult.logList) // Insert into the source of truth the data
-                //Return with the reports obtained from the database
-                DailyLogContentsBO(count = apiResult.count, logList = getReportsFromDatabase())
+                with(result.data) {
+                    dao.insertAllDailyLogs(logList) // Insert data into the source of truth
+                    //Return with the reports obtained from the database
+                    DailyLogContentsBO(
+                        count = count,
+                        logList = getReportsFromDatabase()
+                    )
+                }
             }
             is ApiResult.Error -> {
                 //If the backend had some error, return the data from database

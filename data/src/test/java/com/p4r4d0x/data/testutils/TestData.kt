@@ -1,34 +1,28 @@
-package com.p4r4d0x.domain
+package com.p4r4d0x.data.testutils
 
+import com.p4r4d0x.data.parsers.DataParser
 import com.p4r4d0x.domain.bo.*
 import java.util.*
 
 object TestData {
-
-    const val USER_ID = "user_id"
-
+    const val USER_ID = "userId"
+    const val REPORT_DATE = "09-02-2023"
+    const val OFFSET = 0
+    const val LIMIT = 4
     val date = Date()
-
-    private val additionalData = AdditionalDataBO(
-        stressLevel = 7,
-        alcoholLevel = AlcoholLevel.Few,
-        weather = AdditionalDataBO.WeatherBO(
-            humidity = 2,
-            temperature = 1
-        ),
-        travel = AdditionalDataBO.TravelBO(
-            traveled = true,
-            city = "Madrid"
-        )
-    )
-
-    private val irritationData = IrritationBO(1, emptyList())
+    val stringDate = DataParser.backendDateToString(date)
 
     val log = DailyLogBO(
-        date,
-        additionalData = additionalData,
-        irritation = irritationData,
-        foodList = emptyList()
+        DataParser.backendStringToDate("09-02-2023"),
+        irritation = IrritationBO(9, listOf("chest", "ears")),
+        additionalData = AdditionalDataBO(
+            stressLevel = 4,
+            weather = AdditionalDataBO.WeatherBO(humidity = 1, temperature = 4),
+            travel = AdditionalDataBO.TravelBO(city = "Madrid", traveled = false),
+            beerTypes = listOf("wheat", "stout"),
+            alcoholLevel = AlcoholLevel.Few
+        ),
+        foodList = listOf("banana", "fish", "meat")
     )
 
     val stats = PossibleCausesBO(

@@ -54,7 +54,7 @@ class SurveyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val prefs: SharedPreferences? =
-            activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
+            activity?.getSharedPreferences(Constants.SKINTKER_PREFERENCES, Context.MODE_PRIVATE)
 
         return ComposeView(requireContext()).apply {
             id = R.id.survey_fragment

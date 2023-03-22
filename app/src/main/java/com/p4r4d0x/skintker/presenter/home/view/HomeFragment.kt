@@ -24,7 +24,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by inject()
 
     private fun getPreferences() =
-        activity?.getSharedPreferences(Constants.SKITNKER_PREFERENCES, Context.MODE_PRIVATE)
+        activity?.getSharedPreferences(Constants.SKINTKER_PREFERENCES, Context.MODE_PRIVATE)
 
     private lateinit var userId: String
     override fun onResume() {

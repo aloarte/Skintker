@@ -158,16 +158,16 @@ class DataParserTest {
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            Constants.LABEL_IRRITATION to log.irritation.overallValue.toLong(),
+            Constants.LABEL_IRRITATED_ZONES to log.irritation.zoneValues.joinToString(separator = ","),
             Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            Constants.LABEL_BEERS to log.additionalData.beerTypes.joinToString(separator = ","),
             Constants.LABEL_ALCOHOL to "None",
-            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
-            Constants.LABEL_CITY to log.additionalData?.travel?.city,
-            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+            Constants.LABEL_STRESS to log.additionalData.stressLevel.toLong(),
+            Constants.LABEL_CITY to log.additionalData.travel.city,
+            Constants.LABEL_TRAVELED to log.additionalData.travel.traveled,
+            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData.weather.temperature.toLong(),
+            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData.weather.humidity.toLong()
         )
         data[USER_ID] = userData
 
@@ -182,16 +182,16 @@ class DataParserTest {
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            Constants.LABEL_IRRITATION to log.irritation.overallValue.toLong(),
+            Constants.LABEL_IRRITATED_ZONES to log.irritation.zoneValues.joinToString(separator = ","),
             Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            Constants.LABEL_BEERS to log.additionalData.beerTypes.joinToString(separator = ","),
             Constants.LABEL_ALCOHOL to "Few",
-            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
-            Constants.LABEL_CITY to log.additionalData?.travel?.city,
-            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+            Constants.LABEL_STRESS to log.additionalData.stressLevel.toLong(),
+            Constants.LABEL_CITY to log.additionalData.travel.city,
+            Constants.LABEL_TRAVELED to log.additionalData.travel.traveled,
+            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData.weather.temperature.toLong(),
+            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData.weather.humidity.toLong()
         )
         data[USER_ID] = userData
 
@@ -206,16 +206,16 @@ class DataParserTest {
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            Constants.LABEL_IRRITATION to log.irritation.overallValue.toLong(),
+            Constants.LABEL_IRRITATED_ZONES to log.irritation.zoneValues.joinToString(separator = ","),
             Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            Constants.LABEL_BEERS to log.additionalData.beerTypes.joinToString(separator = ","),
             Constants.LABEL_ALCOHOL to "FewWine",
-            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
-            Constants.LABEL_CITY to log.additionalData?.travel?.city,
-            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+            Constants.LABEL_STRESS to log.additionalData.stressLevel.toLong(),
+            Constants.LABEL_CITY to log.additionalData.travel.city,
+            Constants.LABEL_TRAVELED to log.additionalData.travel.traveled,
+            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData.weather.temperature.toLong(),
+            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData.weather.humidity.toLong()
         )
         data[USER_ID] = userData
 
@@ -230,16 +230,16 @@ class DataParserTest {
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            Constants.LABEL_IRRITATION to log.irritation.overallValue.toLong(),
+            Constants.LABEL_IRRITATED_ZONES to log.irritation.zoneValues.joinToString(separator = ","),
             Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            Constants.LABEL_BEERS to log.additionalData.beerTypes.joinToString(separator = ","),
             Constants.LABEL_ALCOHOL to "Some",
-            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
-            Constants.LABEL_CITY to log.additionalData?.travel?.city,
-            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+            Constants.LABEL_STRESS to log.additionalData.stressLevel.toLong(),
+            Constants.LABEL_CITY to log.additionalData.travel.city,
+            Constants.LABEL_TRAVELED to log.additionalData.travel.traveled,
+            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData.weather.temperature.toLong(),
+            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData.weather.humidity.toLong()
         )
         data[USER_ID] = userData
 
@@ -254,16 +254,16 @@ class DataParserTest {
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            Constants.LABEL_IRRITATION to log.irritation.overallValue.toLong(),
+            Constants.LABEL_IRRITATED_ZONES to log.irritation.zoneValues.joinToString(separator = ","),
             Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
+            Constants.LABEL_BEERS to log.additionalData.beerTypes.joinToString(separator = ","),
             Constants.LABEL_ALCOHOL to "Nonexistantenumvalue",
-            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
-            Constants.LABEL_CITY to log.additionalData?.travel?.city,
-            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+            Constants.LABEL_STRESS to log.additionalData.stressLevel.toLong(),
+            Constants.LABEL_CITY to log.additionalData.travel.city,
+            Constants.LABEL_TRAVELED to log.additionalData.travel.traveled,
+            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData.weather.temperature.toLong(),
+            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData.weather.humidity.toLong()
         )
         data[USER_ID] = userData
 
@@ -278,16 +278,16 @@ class DataParserTest {
         val data = mutableMapOf<String, Any>()
         val userData = hashMapOf(
             Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation?.overallValue?.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation?.zoneValues?.joinToString(separator = ","),
+            Constants.LABEL_IRRITATION to log.irritation.overallValue.toLong(),
+            Constants.LABEL_IRRITATED_ZONES to log.irritation.zoneValues.joinToString(separator = ","),
             Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData?.beerTypes?.joinToString(separator = ","),
-            Constants.LABEL_ALCOHOL to log.additionalData?.alcoholLevel?.name,
-            Constants.LABEL_STRESS to log.additionalData?.stressLevel?.toLong(),
-            Constants.LABEL_CITY to log.additionalData?.travel?.city,
-            Constants.LABEL_TRAVELED to log.additionalData?.travel?.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData?.weather?.temperature?.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData?.weather?.humidity?.toLong()
+            Constants.LABEL_BEERS to log.additionalData.beerTypes.joinToString(separator = ","),
+            Constants.LABEL_ALCOHOL to log.additionalData.alcoholLevel.name,
+            Constants.LABEL_STRESS to log.additionalData.stressLevel.toLong(),
+            Constants.LABEL_CITY to log.additionalData.travel.city,
+            Constants.LABEL_TRAVELED to log.additionalData.travel.traveled,
+            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData.weather.temperature.toLong(),
+            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData.weather.humidity.toLong()
         )
         data[USER_ID] = userData
 
