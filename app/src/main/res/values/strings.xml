@@ -65,6 +65,7 @@
     <string name="survey" translatable="false">n</string>
     <string name="survey_result" translatable="false">n %s</string>
     <string name="survey_result_description" translatable="false">n</string>
+    <string name="survey_log_create_error">	⚠️Daily log coudln\'t be created. Please, try again.</string>
 
     <!-- Resume  -->
     <string name="resume_title">Possible causes 📋</string>
@@ -82,7 +83,7 @@
     <string name="resume_no_causes_title">Not enough data 😓</string>
     <string name="resume_no_causes">Can\'t extract any conclusions with the number of logs reported. Please, come back to this section when you log a few days more.</string>
 
-    <!-- survey-->
+    <!-- settings-->
     <string name="settings_export_description">You can export all of your loaded logs data into an external file.</string>
     <string name="settings_profile_description">You are logged in with the data below. You can perform a logout anytime.</string>
     <string name="settings_wipe_data_description">Erase all the data registered.</string>

@@ -106,6 +106,14 @@ class SurveyFragment : Fragment() {
                             is SurveyState.Result -> {
                                 navigate(FragmentScreen.Home, FragmentScreen.Survey)
                             }
+                            is SurveyState.ResultError -> {
+                                Toast.makeText(
+                                    activity,
+                                    getString(R.string.survey_log_create_error),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                navigate(FragmentScreen.Home, FragmentScreen.Survey)
+                            }
                         }
                     }
                 }

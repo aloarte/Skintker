@@ -64,7 +64,7 @@ class SurveyViewModel(
                 DataParser.createLogFromSurvey(surveyQuestions.date, answers, resources)
             )
         ) {
-            _uiState.value = SurveyState.Result
+            _uiState.value = if (it) SurveyState.Result else SurveyState.ResultError
         }
     }
 

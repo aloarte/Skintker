@@ -57,9 +57,13 @@
     <string name="file_rationale_title">Permisos de lectura/escrtura de ficheros</string>
     <string name="file_rationale_no_permissions">Estas características están deshabilitadas. Por favor, ve a ajustes del sistema y habilita los permisos para poder activarlas.</string>
 
+
     <!-- login-->
     <string name="login_description">En Skintker usamos tu cuenta para guardar tus reportes diarios en nuestra base de datos remota. De esta forma podrás tener la seguridad de que tus datos no se perderán.</string>
     <string name="google_sso_error">Algo salió mal al hacer login con tu cuenta de Google. Por favor, sigue intentándolo y si el error persiste contacta con nosotros.</string>
+
+    <!-- survey -->
+    <string name="survey_log_create_error">	⚠️No se pudo crear el reporte. Por favor, intentalo de nuevo.</string>
 
     <!-- Resume  -->
     <string name="resume_title">Causas posibles 📋</string>
@@ -76,7 +80,7 @@
     <string name="resume_weather_humidity">Humedad</string>
     <string name="resume_no_causes_title">No hay información suficiente 😓</string>
     <string name="resume_no_causes">No se pueden extrar conclusiones con el número de reportes diarios almacenado. Por favor, vuelve a esta sección cuando aportes más datos para poder extraer posibles causas.</string>
-    <!-- survey-->
+    <!-- settings-->
     <string name="settings_export_description">Puedes exportar todos los datos almacenados en un fichero externo.</string>
     <string name="settings_profile_description">Estás logueado en el sistema con los datos que puedes ver a continuación. Puedes cerrar la sesión en cualquier momento.</string>
     <string name="settings_wipe_data_description">Borra todos los datos almacenados.</string>
