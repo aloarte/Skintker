@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ "main","feature/use_skintvault_BE" ]
+    branches: [ "main","feature/use_skintkvault_BE" ]
   pull_request:
     branches: [ "main" ]
 
