@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main","feature/use_skintvault_BE" ]
   pull_request:
     branches: [ "main" ]
 
@@ -13,16 +13,6 @@ jobs:
         uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{github.token}}
-
-  #  detekt:
-  #    runs-on: ubuntu-latest
-  #
-  #    steps:
-  #      - name: "checkout"
-  #        uses: actions/checkout@v2
-  #
-  #      - name: "detekt"
-  #        uses: natiginfo/action-detekt-all@1.22.0
 
   build:
     needs: [ avoid_redundancy ]
@@ -106,4 +96,3 @@ jobs:
 
       - name: Unit Tests Report
         uses: asadmansr/android-test-report-action@v1.2.0
-        if: ${{ always() }}
