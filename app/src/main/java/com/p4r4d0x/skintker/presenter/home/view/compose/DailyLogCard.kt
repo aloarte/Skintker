@@ -94,10 +94,12 @@ fun DailyLogCard(
                         painter = painterResource(id = R.drawable.icon_close),
                         contentDescription = "",
                         modifier = Modifier
+                            .size(20.dp)
                             .fillMaxWidth(0.2f)
                             .height(20.dp)
                             .clickable {
                                 removeLog(log.date)
+                                collapseView = !collapseView
                             }
                     )
                 }

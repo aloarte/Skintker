@@ -14,6 +14,7 @@ object Constants {
     const val JSON_PARSE_NO_BODY_CODE = -82
     const val JSON_PARSE_EMPTY_BODY = "The server response have a empty body"
     const val JSON_PARSE_NO_BODY = "The server response doesn't have a body"
+    const val JSON_PARSE_EMPTY_STATS = "Empty stats"
 
 
 }

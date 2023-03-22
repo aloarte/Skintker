@@ -74,6 +74,8 @@ fun TabScreen(
 fun ResumeScreen(viewModel: HomeViewModel) {
     viewModel.possibleCauses.observeAsState().value?.let { causes ->
         ResumeBody(causes = causes)
+    } ?: run {
+        StandaloneEmptyUserStats()
     }
 }
 

@@ -110,7 +110,7 @@ class SurveyFragment : Fragment() {
                                 Toast.makeText(
                                     activity,
                                     getString(R.string.survey_log_create_error),
-                                    Toast.LENGTH_LONG
+                                    Toast.LENGTH_SHORT
                                 ).show()
                                 navigate(FragmentScreen.Home, FragmentScreen.Survey)
                             }

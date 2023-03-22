@@ -1,3 +1,5 @@
+@file:OptIn(DelicateCoroutinesApi::class)
+
 package com.p4r4d0x.skintker.presenter.home.view
 
 import android.content.Context
@@ -16,6 +18,10 @@ import com.p4r4d0x.skintker.presenter.home.viewmodel.HomeViewModel
 import com.p4r4d0x.skintker.presenter.main.FragmentScreen
 import com.p4r4d0x.skintker.presenter.main.navigate
 import com.p4r4d0x.skintker.theme.SkintkerTheme
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import java.util.*
 
@@ -66,19 +72,24 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.logDeleted.observe(viewLifecycleOwner) { logDeleted ->
-            if (logDeleted) {
-                Toast.makeText(
-                    activity, getString(
-                        if (logDeleted) {
-                            R.string.log_removed
-                        } else {
-                            R.string.log_not_removed
-                        }
-                    ), Toast.LENGTH_LONG
-                ).show()
+        GlobalScope.launch {
+            viewModel.logDeleted.collect { logDeleted ->
+                showToast(logDeleted)
             }
         }
+
+    }
+
+    private fun showToast(logDeleted: Boolean) = GlobalScope.launch(Dispatchers.Main) {
+        Toast.makeText(
+            activity, getString(
+                if (logDeleted) {
+                    R.string.log_removed
+                } else {
+                    R.string.log_not_removed
+                }
+            ), Toast.LENGTH_SHORT
+        ).show()
     }
 
 }

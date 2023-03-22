@@ -47,15 +47,7 @@ fun ResumeBody(
         Column(Modifier.background(MaterialTheme.colors.background)) {
             ResumeTitle(!causes.enoughData || noCauses)
             if (!causes.enoughData || noCauses) {
-                Text(
-                    stringResource(id = R.string.resume_no_causes),
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Light,
-                    style = MaterialTheme.typography.caption,
-                    modifier = Modifier
-                        .padding(vertical = 20.dp, horizontal = 30.dp)
-                )
-                TumbleweedRolling()
+                EmptyUserStats()
             } else {
                 LazyColumn {
                     item {
@@ -73,6 +65,44 @@ fun ResumeBody(
             }
         }
     }
+}
+
+@Composable
+fun StandaloneEmptyUserStats() {
+    SkintkerTheme {
+        Column(Modifier.background(MaterialTheme.colors.background)) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+
+            ) {
+                Text(
+                    stringResource(id = R.string.resume_no_causes_title),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.h3,
+                    modifier = Modifier
+                        .padding(vertical = 15.dp, horizontal = 10.dp)
+                )
+            }
+            EmptyUserStats()
+        }
+    }
+}
+
+@Composable
+fun EmptyUserStats() {
+    Text(
+        stringResource(id = R.string.resume_no_causes),
+        fontSize = 12.sp,
+        fontWeight = FontWeight.Light,
+        style = MaterialTheme.typography.caption,
+        modifier = Modifier
+            .padding(vertical = 20.dp, horizontal = 30.dp)
+    )
+    TumbleweedRolling()
 }
 
 @Composable

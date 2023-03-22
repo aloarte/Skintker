@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.p4r4d0x.data.Constants
 import com.p4r4d0x.data.Constants.JSON_PARSE_EMPTY_BODY
 import com.p4r4d0x.data.Constants.JSON_PARSE_EMPTY_BODY_CODE
+import com.p4r4d0x.data.Constants.JSON_PARSE_EMPTY_STATS
 import com.p4r4d0x.data.Constants.JSON_PARSE_EXCEPTION_CODE
 import com.p4r4d0x.data.Constants.JSON_PARSE_NO_BODY
 import com.p4r4d0x.data.Constants.JSON_PARSE_NO_BODY_CODE
@@ -41,8 +42,11 @@ class StatsDataSourceImpl(
             val response = api.getStats(userId)
             if (response.code() == Constants.API_SUCCESS_CODE) {
                 with(parseSkintkvaultResponse(response.body())) {
-                    if (statusCode >= 0) ApiResult.Success(this.toPossibleCauses())
-                    else ApiResult.Error(statusCode, statusMessage)
+                    if (statusCode >= 0) {
+                        this.toPossibleCauses()?.let {
+                            ApiResult.Success(it)
+                        } ?: ApiResult.Error(statusCode, JSON_PARSE_EMPTY_STATS)
+                    } else ApiResult.Error(statusCode, statusMessage)
                 }
             } else {
                 ApiResult.Error(response.code(), response.message())

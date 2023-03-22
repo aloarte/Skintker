@@ -231,6 +231,11 @@ fun SkintkvaultResponseLogs.toDailyLogContents(): DailyLogContentsBO {
 }
 
 fun SkintkvaultResponseStats.toPossibleCauses(): PossibleCausesBO? {
-    return this.content?.stats?.toPossibleCauses()
+    return this.content?.stats?.let {
+        if (it.relevantLogs > 0) {
+            it.toPossibleCauses()
+        } else null
+    }
+
 }
 
