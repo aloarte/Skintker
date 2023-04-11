@@ -1,6 +1,5 @@
 package com.p4r4d0x.skintker.presenter.survey.view.compose
 
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
@@ -42,7 +41,6 @@ fun QuestionContent(
             Spacer(modifier = Modifier.height(10.dp))
             QuestionDescription(question.description)
             Spacer(modifier = Modifier.height(10.dp))
-            Log.d("ALRALR", "Question content $shouldAskPermissions")
             if (shouldAskPermissions) {
                 QuestionBodyPermissions(
                     viewModel = viewModel,
@@ -105,31 +103,32 @@ private fun QuestionBodyPermissions(
 ) {
     onAction.invoke(SurveyActionType.GET_LOCATION)
     if (question.permissionsRequired.isEmpty()) {
-        Log.d("ALRALR", "question permission  1")
         QuestionBody(viewModel, question, answer, onAnswer, onAction, modifier)
     } else {
-        Log.d("ALRALR", "question permission  2")
-
         val multiplePermissionsState =
             rememberMultiplePermissionsState(question.permissionsRequired)
+
+
         when {
+            //The first time: user didn't denied and the permissions ain't granted yet
+            !multiplePermissionsState.shouldShowRationale && !multiplePermissionsState.allPermissionsGranted -> {
+                PermissionsRationale(
+                    question = question,
+                    multiplePermissionsState = multiplePermissionsState,
+                    modifier = modifier.padding(horizontal = 20.dp),
+                    onDoNotAskForPermissions = onDoNotAskForPermissions
+                )
+            }
             // Show a dialog to enable the GPS
             viewModel?.gpsNotActive?.collectAsState()?.value == false -> {
-                Log.d("ALRALR", "question permission  4.8")
                 EnableGPS(
                     modifier = modifier.padding(horizontal = 20.dp),
                     onAction,
                     onDoNotAskForPermissions
                 )
             }
-            // If all permissions are granted, then show the question
-            multiplePermissionsState.allPermissionsGranted -> {
-                Log.d("ALRALR", "question permission  3")
-                QuestionBody(viewModel, question, answer, onAnswer, onAction, modifier)
-            }
             //If the user denied the permission explicitly
             multiplePermissionsState.shouldShowRationale -> {
-                Log.d("ALRALR", "question permission  4")
                 PermissionsRationale(
                     question = question,
                     multiplePermissionsState = multiplePermissionsState,
@@ -137,16 +136,11 @@ private fun QuestionBodyPermissions(
                     onDoNotAskForPermissions = onDoNotAskForPermissions
                 )
             }
-            //The first time: user didn't denied and the permissions ain't granted yet
-            !multiplePermissionsState.shouldShowRationale && !multiplePermissionsState.allPermissionsGranted -> {
-                Log.d("ALRALR", "question permission  4.5")
-                PermissionsRationale(
-                    question = question,
-                    multiplePermissionsState = multiplePermissionsState,
-                    modifier = modifier.padding(horizontal = 20.dp),
-                    onDoNotAskForPermissions = onDoNotAskForPermissions
-                )
+            // If all permissions are granted, then show the question
+            multiplePermissionsState.allPermissionsGranted -> {
+                QuestionBody(viewModel, question, answer, onAnswer, onAction, modifier)
             }
+
 
             // The user denied the PermissionsRationale
 //            !shouldAskPermissions ->{
@@ -155,7 +149,6 @@ private fun QuestionBodyPermissions(
 //            }
             // The user denied everything and don't want to use the location
             else -> {
-                Log.d("ALRALR", "question permission  5")
                 QuestionBody(viewModel, question, answer, onAnswer, onAction, modifier)
             }
         }
@@ -235,7 +228,6 @@ private fun QuestionBody(
     }
 }
 
-
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 private fun PermissionsRationale(
@@ -245,8 +237,6 @@ private fun PermissionsRationale(
     onDoNotAskForPermissions: () -> Unit
 ) {
     Column(modifier) {
-        Spacer(modifier = Modifier.height(32.dp))
-        QuestionTitle(question.questionText)
         Spacer(modifier = Modifier.height(32.dp))
         val rationaleId =
             question.permissionsRationaleText ?: R.string.permissions_rationale

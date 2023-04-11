@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,25 +40,13 @@ class SurveyFragment : Fragment() {
 
     private val args: SurveyFragmentArgs by navArgs()
 
-    private var requestedGps = false
-
-    override fun onStart() {
-        super.onStart()
-        viewModel.loadDate(args.pickDate)
-    }
+    private var wasGpsActivationRequested = false
 
     override fun onResume() {
         super.onResume()
-        Log.d("ALRALR", "ONRESUME $requestedGps")
-        observeViewModel()
-//        if (requestedGps) {
-//            GlobalScope.launch {
-//                delay(2000)
-//
-//                requestGPS()
-//            }
-//        }
-
+        if (wasGpsActivationRequested) {
+            requestGPS()
+        }
     }
 
     override fun onCreateView(
@@ -69,6 +56,9 @@ class SurveyFragment : Fragment() {
     ): View {
         val prefs: SharedPreferences? =
             activity?.getSharedPreferences(Constants.SKINTKER_PREFERENCES, Context.MODE_PRIVATE)
+
+        observeViewModel()
+        viewModel.loadDate(args.pickDate)
 
         return ComposeView(requireContext()).apply {
             id = R.id.survey_fragment
@@ -151,12 +141,11 @@ class SurveyFragment : Fragment() {
                 showDatePicker()
             }
             SurveyActionType.GET_LOCATION -> {
-                requestedGps = false
+                wasGpsActivationRequested = false
                 requestGPS()
             }
             SurveyActionType.SETTINGS_GPS -> {
-                requestedGps = true
-                Log.d("ALRALR", "SETTINGS_GPS")
+                wasGpsActivationRequested = true
                 startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
             }
         }
@@ -164,8 +153,6 @@ class SurveyFragment : Fragment() {
 
     private fun requestGPS() {
         (requireActivity() as? MainActivity)?.let {
-
-            Log.d("ALRALR", "is enabled: ${it.isGpsEnabled()}")
             if (it.isGpsEnabled()) {
                 it.getLocation { city ->
                     viewModel.updateCityValue(city)

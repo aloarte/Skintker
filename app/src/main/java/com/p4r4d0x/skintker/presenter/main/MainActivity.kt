@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         //Navigation
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
@@ -50,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         //Notifications
         createNotificationChannel()
     }
-
 
     private fun getCityFromLocation(location: Location, cityObtained: (String) -> Unit) {
         val gcd = Geocoder(this@MainActivity, Locale.getDefault())
