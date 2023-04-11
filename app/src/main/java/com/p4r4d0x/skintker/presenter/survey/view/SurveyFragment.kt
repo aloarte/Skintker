@@ -1,8 +1,11 @@
 package com.p4r4d0x.skintker.presenter.survey.view
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +41,8 @@ class SurveyFragment : Fragment() {
 
     private val args: SurveyFragmentArgs by navArgs()
 
+    private var requestedGps = false
+
     override fun onStart() {
         super.onStart()
         viewModel.loadDate(args.pickDate)
@@ -45,7 +50,16 @@ class SurveyFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        Log.d("ALRALR", "ONRESUME $requestedGps")
         observeViewModel()
+//        if (requestedGps) {
+//            GlobalScope.launch {
+//                delay(2000)
+//
+//                requestGPS()
+//            }
+//        }
+
     }
 
     override fun onCreateView(
@@ -137,9 +151,28 @@ class SurveyFragment : Fragment() {
                 showDatePicker()
             }
             SurveyActionType.GET_LOCATION -> {
-                (requireActivity() as? MainActivity)?.getLocation {
-                    viewModel.updateCityValue(it)
+                requestedGps = false
+                requestGPS()
+            }
+            SurveyActionType.SETTINGS_GPS -> {
+                requestedGps = true
+                Log.d("ALRALR", "SETTINGS_GPS")
+                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            }
+        }
+    }
+
+    private fun requestGPS() {
+        (requireActivity() as? MainActivity)?.let {
+
+            Log.d("ALRALR", "is enabled: ${it.isGpsEnabled()}")
+            if (it.isGpsEnabled()) {
+                it.getLocation { city ->
+                    viewModel.updateCityValue(city)
                 }
+                viewModel.setGpsStatus(active = true)
+            } else {
+                viewModel.setGpsStatus(active = false)
             }
         }
     }

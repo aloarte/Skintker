@@ -123,7 +123,11 @@ private val jetpackQuestions = mutableListOf(
                 R.string.question_7_answer_1,
                 R.string.question_7_answer_2
             )
-        ), permissionsRequired = listOf(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+        ),
+        permissionsRequired = listOf(
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION
+        )
 
     ),
     Question(

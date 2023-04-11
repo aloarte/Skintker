@@ -64,7 +64,7 @@ fun SingleAnswerQuestionPreview() {
             shouldAskPermissions = false,
             onDoNotAskForPermissions = {},
             onAnswer = {},
-            onAction = {},
+            onAction = {}
         )
     }
 }
@@ -93,7 +93,7 @@ fun SlideAnswerQuestionPreview() {
             shouldAskPermissions = false,
             onDoNotAskForPermissions = {},
             onAnswer = {},
-            onAction = {},
+            onAction = {}
         )
     }
 }
@@ -151,7 +151,7 @@ fun SingleTextInputAnswerQuestionPreview() {
             shouldAskPermissions = false,
             onDoNotAskForPermissions = {},
             onAnswer = {},
-            onAction = {},
+            onAction = {}
         )
     }
 }
@@ -182,7 +182,7 @@ fun SingleTextInputSingleChoiceAnswerQuestionPreview() {
             shouldAskPermissions = false,
             onDoNotAskForPermissions = {},
             onAnswer = {},
-            onAction = {},
+            onAction = {}
         )
     }
 }

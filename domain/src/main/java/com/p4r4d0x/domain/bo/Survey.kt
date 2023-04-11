@@ -46,7 +46,7 @@ sealed class PossibleAnswer {
     ) : PossibleAnswer()
 }
 
-enum class SurveyActionType { PICK_DATE, GET_LOCATION }
+enum class SurveyActionType { PICK_DATE, GET_LOCATION, SETTINGS_GPS }
 
 /**
  * Sealed class with the possible answers in the survey

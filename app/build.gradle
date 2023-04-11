@@ -84,6 +84,7 @@ android {
 dependencies {
     implementation project(path: ':domain')
     implementation project(path: ':data')
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
     testImplementation project(path: ':test')
 
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
