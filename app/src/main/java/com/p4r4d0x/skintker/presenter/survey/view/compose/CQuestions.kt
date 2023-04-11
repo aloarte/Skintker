@@ -41,18 +41,26 @@ fun QuestionContent(
             Spacer(modifier = Modifier.height(10.dp))
             QuestionDescription(question.description)
             Spacer(modifier = Modifier.height(10.dp))
-            if (shouldAskPermissions) {
+            if (question.permissionsRequired.isEmpty()) {
+                QuestionBody(
+                    viewModel,
+                    question,
+                    answer,
+                    onAnswer,
+                    onAction,
+                    Modifier.fillParentMaxWidth()
+                )
+            } else {
                 QuestionBodyPermissions(
                     viewModel = viewModel,
                     question = question,
                     answer = answer,
+                    shouldAskPermissions = shouldAskPermissions,
                     onDoNotAskForPermissions = onDoNotAskForPermissions,
                     onAnswer = onAnswer,
                     onAction = onAction,
                     modifier = Modifier.fillParentMaxWidth()
                 )
-            } else {
-                QuestionBody(viewModel, question, answer, onAnswer, onAction, modifier)
             }
 
         }
@@ -96,63 +104,54 @@ private fun QuestionBodyPermissions(
     viewModel: SurveyViewModel?,
     question: Question,
     answer: Answer<*>?,
+    shouldAskPermissions: Boolean,
     onDoNotAskForPermissions: () -> Unit,
     onAnswer: (Answer<*>) -> Unit,
     onAction: (SurveyActionType) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    onAction.invoke(SurveyActionType.GET_LOCATION)
-    if (question.permissionsRequired.isEmpty()) {
-        QuestionBody(viewModel, question, answer, onAnswer, onAction, modifier)
-    } else {
-        val multiplePermissionsState =
-            rememberMultiplePermissionsState(question.permissionsRequired)
 
+    if (question.permissionsRequired.any { it == android.Manifest.permission.ACCESS_COARSE_LOCATION || it == android.Manifest.permission.ACCESS_FINE_LOCATION }) {
+        onAction.invoke(SurveyActionType.GET_LOCATION)
+    }
 
-        when {
-            //The first time: user didn't denied and the permissions ain't granted yet
-            !multiplePermissionsState.shouldShowRationale && !multiplePermissionsState.allPermissionsGranted -> {
-                PermissionsRationale(
-                    question = question,
-                    multiplePermissionsState = multiplePermissionsState,
-                    modifier = modifier.padding(horizontal = 20.dp),
-                    onDoNotAskForPermissions = onDoNotAskForPermissions
-                )
-            }
-            // Show a dialog to enable the GPS
-            viewModel?.gpsNotActive?.collectAsState()?.value == false -> {
-                EnableGPS(
-                    modifier = modifier.padding(horizontal = 20.dp),
-                    onAction,
-                    onDoNotAskForPermissions
-                )
-            }
-            //If the user denied the permission explicitly
-            multiplePermissionsState.shouldShowRationale -> {
-                PermissionsRationale(
-                    question = question,
-                    multiplePermissionsState = multiplePermissionsState,
-                    modifier = modifier.padding(horizontal = 20.dp),
-                    onDoNotAskForPermissions = onDoNotAskForPermissions
-                )
-            }
-            // If all permissions are granted, then show the question
-            multiplePermissionsState.allPermissionsGranted -> {
-                QuestionBody(viewModel, question, answer, onAnswer, onAction, modifier)
-            }
+    val multiplePermissionsState = rememberMultiplePermissionsState(question.permissionsRequired)
 
-
-            // The user denied the PermissionsRationale
-//            !shouldAskPermissions ->{
-//                Log.d("ALRALR", "question permission  -5")
-//                QuestionBody(viewModel, question, answer, onAnswer, onAction, modifier)
-//            }
-            // The user denied everything and don't want to use the location
-            else -> {
-                QuestionBody(viewModel, question, answer, onAnswer, onAction, modifier)
-            }
+    when {
+        // The user denied the PermissionsRationale
+        !shouldAskPermissions -> {
+            QuestionBody(viewModel, question, answer, onAnswer, onAction, modifier)
         }
-
+        //The first time: user didn't denied and the permissions ain't granted yet
+        !multiplePermissionsState.shouldShowRationale && !multiplePermissionsState.allPermissionsGranted -> {
+            PermissionsRationale(
+                question = question,
+                multiplePermissionsState = multiplePermissionsState,
+                modifier = modifier.padding(horizontal = 20.dp),
+                onDoNotAskForPermissions = onDoNotAskForPermissions
+            )
+        }
+        //If the user denied the permission explicitly from the android permission mgr
+        multiplePermissionsState.shouldShowRationale -> {
+            PermissionsRationale(
+                question = question,
+                multiplePermissionsState = multiplePermissionsState,
+                modifier = modifier.padding(horizontal = 20.dp),
+                onDoNotAskForPermissions = onDoNotAskForPermissions
+            )
+        }
+        // Show a dialog to enable the GPS
+        viewModel?.gpsNotActive?.collectAsState()?.value == false -> {
+            EnableGPS(
+                modifier = modifier.padding(horizontal = 20.dp),
+                onAction,
+                onDoNotAskForPermissions
+            )
+        }
+        // If all permissions are granted, then show the question
+        multiplePermissionsState.allPermissionsGranted -> {
+            QuestionBody(viewModel, question, answer, onAnswer, onAction, modifier)
+        }
     }
 }
 
