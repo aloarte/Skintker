@@ -1,8 +1,8 @@
 package com.p4r4d0x.skintker.presenter.home.view.compose
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -15,10 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -83,50 +81,9 @@ fun ResumeScreen(viewModel: HomeViewModel) {
 fun HistoryScreen(viewModel: HomeViewModel, removeLog: (Date) -> Unit) {
     viewModel.logList.observeAsState().value?.let { logs ->
         if (logs.isEmpty()) {
-            Column(Modifier.background(MaterialTheme.colors.background)) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-
-                ) {
-
-                    Text(
-                        stringResource(
-                            R.string.resume_no_causes_title
-                        ),
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.h3,
-                        modifier = Modifier
-                            .padding(vertical = 15.dp, horizontal = 10.dp)
-                    )
-                }
-                Text(
-                    stringResource(id = R.string.history_no_logs),
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Light,
-                    style = MaterialTheme.typography.caption,
-                    modifier = Modifier
-                        .padding(vertical = 20.dp, horizontal = 30.dp)
-                )
-                TumbleweedRolling()
-            }
+            EmptyHistoryContents()
         } else {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp, vertical = 14.dp)
-            ) {
-                item {
-                    logs.forEach { log ->
-                        DailyLogCard(log = log, removeLog)
-                        Spacer(modifier = Modifier.height(5.dp))
-
-                    }
-                }
-            }
+            HistoryContents(logs, removeLog)
         }
     }
 }

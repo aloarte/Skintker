@@ -68,6 +68,15 @@
     <string name="survey_result_description" translatable="false">n</string>
     <string name="survey_log_create_error">	⚠️Daily log coudln\'t be created. Please, try again.</string>
 
+    <!-- dialog-->
+    <string name="dialog_ko">Cancel</string>
+    <string name="dialog_single_ok">Remove</string>
+    <string name="dialog_all_ok">Wipe</string>
+    <string name="dialog_title_single">Delete daily log</string>
+    <string name="dialog_title_all">Clear all saved logs</string>
+    <string name="dialog_description_single">Do you want to remove the log registered in %1$s?</string>
+
+
     <!-- Resume  -->
     <string name="resume_title">Possible causes 📋</string>
     <string name="resume_description">The data that may be related as the cause of the itch that have been extracted are based on those logs that exceed the configured intensity threshold</string>
