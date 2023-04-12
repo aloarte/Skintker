@@ -53,7 +53,6 @@
     <string name="file_rationale_title">File read/write permissions</string>
     <string name="file_rationale_no_permissions">This features are disabled. Please, go to settings and enable the permissions to enable them.</string>
     <string name="gps_disabled">We use the GPS to get the city where you are at this moment. Please, activate the GPS on your device.</string>
-
     <string name="permissions_rationale">This question requires some permissions. Please grant them.</string>
     <string name="request_permissions">OK!</string>
     <string name="do_not_ask_permissions">Nope 🙅</string>
