@@ -85,28 +85,30 @@ dependencies {
     implementation project(path: ':domain')
     implementation project(path: ':data')
 
-    implementation 'com.google.android.gms:play-services-location:21.0.1'
-
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    //Gms
+    implementation "com.google.android.gms:play-services-location:$googleGmsGpsVersion"
+    implementation "com.google.android.gms:play-services-auth:$googleGmsAuthVersion"
 
     //Room
     implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
+
     //Koin
     implementation "io.insert-koin:koin-core:$koinVersion"
     implementation "io.insert-koin:koin-android:$koinVersion"
     implementation "io.insert-koin:koin-androidx-navigation:$koinVersion"
     implementation "io.insert-koin:koin-androidx-compose:$koinVersion"
+
     //Architecture
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$composeViewModel"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
-    implementation "androidx.core:core-ktx:$coreKtx"
-    implementation "androidx.appcompat:appcompat:1.4.1"
-//    implementation "androidx.core:core-ktx:$coreKtxVersion"
-//    implementation "androidx.appcompat:appcompat:$appCompat"
+    implementation "androidx.core:core-ktx:$coreKtxVersion"
+    implementation "androidx.appcompat:appcompat:$appCompat"
 
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+
     //Compose
     implementation "androidx.activity:activity-compose:$activityCompose"
     implementation "androidx.compose.material:material:$compose"
@@ -117,11 +119,11 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:$composeNavigation"
     implementation "com.google.android.material:compose-theme-adapter:$composeTheme"
     implementation "com.google.android.material:material:$material"
-    implementation 'com.google.accompanist:accompanist-permissions:0.24.2-alpha'
+    implementation "com.google.accompanist:accompanist-permissions:$accompanistPermissionsVersion"
     implementation "com.chargemap.compose:numberpicker:0.0.11"
 
     //Lottie
-    implementation "com.airbnb.android:lottie-compose:4.2.2"
+    implementation "com.airbnb.android:lottie-compose:$lottieComposeVersion"
 
     //Firebase
     implementation platform("com.google.firebase:firebase-bom:$firebaseVersion")
@@ -136,9 +138,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofitGsonConverterVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$retrofitOkhttp"
 
-//    //Test
+    //Test
     testImplementation project(path: ':test')
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "androidx.arch.core:core-testing:$archCoreVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines"
     testImplementation "io.insert-koin:koin-test-junit4:$koinVersion"
     testImplementation "io.insert-koin:koin-test-junit5:$koinVersion"
