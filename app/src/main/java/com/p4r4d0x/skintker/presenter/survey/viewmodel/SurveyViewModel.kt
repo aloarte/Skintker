@@ -31,6 +31,10 @@ class SurveyViewModel(
     val city: MutableStateFlow<String>
         get() = _city
 
+    private val _gpsNotActive = MutableStateFlow(false)
+    val gpsNotActive: MutableStateFlow<Boolean>
+        get() = _gpsNotActive
+
     private val _logReported = MutableLiveData<Boolean>()
     val logReported: LiveData<Boolean>
         get() = _logReported
@@ -103,6 +107,10 @@ class SurveyViewModel(
 
     fun updateCityValue(city: String) {
         _city.value = city
+    }
+
+    fun setGpsStatus(active: Boolean) {
+        _gpsNotActive.value = active
     }
 
     fun shouldAskForPermissions() {

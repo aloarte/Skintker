@@ -56,7 +56,7 @@
     <string name="file_rationale">Para poder utilizar esta funcionalidad es necesario que proporciones permisos.</string>
     <string name="file_rationale_title">Permisos de lectura/escrtura de ficheros</string>
     <string name="file_rationale_no_permissions">Estas características están deshabilitadas. Por favor, ve a ajustes del sistema y habilita los permisos para poder activarlas.</string>
-
+    <string name="gps_disabled">Usamos el GPS para obtener la ciudad donde te encuentras en estos momentos. Por favor, activa el sensor GPS en tu dispositivo.</string>
 
     <!-- login-->
     <string name="login_description">En Skintker usamos tu cuenta para guardar tus reportes diarios en nuestra base de datos remota. De esta forma podrás tener la seguridad de que tus datos no se perderán.</string>

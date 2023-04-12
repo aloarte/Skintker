@@ -1,8 +1,10 @@
 package com.p4r4d0x.skintker.presenter.survey.view
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,14 +40,13 @@ class SurveyFragment : Fragment() {
 
     private val args: SurveyFragmentArgs by navArgs()
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.loadDate(args.pickDate)
-    }
+    private var wasGpsActivationRequested = false
 
     override fun onResume() {
         super.onResume()
-        observeViewModel()
+        if (wasGpsActivationRequested) {
+            requestGPS()
+        }
     }
 
     override fun onCreateView(
@@ -55,6 +56,9 @@ class SurveyFragment : Fragment() {
     ): View {
         val prefs: SharedPreferences? =
             activity?.getSharedPreferences(Constants.SKINTKER_PREFERENCES, Context.MODE_PRIVATE)
+
+        observeViewModel()
+        viewModel.loadDate(args.pickDate)
 
         return ComposeView(requireContext()).apply {
             id = R.id.survey_fragment
@@ -137,9 +141,25 @@ class SurveyFragment : Fragment() {
                 showDatePicker()
             }
             SurveyActionType.GET_LOCATION -> {
-                (requireActivity() as? MainActivity)?.getLocation {
-                    viewModel.updateCityValue(it)
+                wasGpsActivationRequested = false
+                requestGPS()
+            }
+            SurveyActionType.SETTINGS_GPS -> {
+                wasGpsActivationRequested = true
+                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            }
+        }
+    }
+
+    private fun requestGPS() {
+        (requireActivity() as? MainActivity)?.let {
+            if (it.isGpsEnabled()) {
+                it.getLocation { city ->
+                    viewModel.updateCityValue(city)
                 }
+                viewModel.setGpsStatus(active = true)
+            } else {
+                viewModel.setGpsStatus(active = false)
             }
         }
     }
