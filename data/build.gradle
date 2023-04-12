@@ -65,7 +65,8 @@ dependencies {
     testImplementation project(path: ':test')
     testImplementation "io.insert-koin:koin-test-junit4:$koinVersion"
     testImplementation "io.insert-koin:koin-test-junit5:$koinVersion"
-    testImplementation "org.robolectric:robolectric$roboelectricVersion"
+    testImplementation "org.robolectric:robolectric:$roboelectricVersion"
+
     implementation "androidx.test.ext:junit-ktx:$testJunitKtxVersion"
     testImplementation "junit:junit:$junit"
     testImplementation "io.mockk:mockk:$mockk"

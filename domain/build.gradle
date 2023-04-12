@@ -50,7 +50,7 @@ dependencies {
     implementation "androidx.test:core-ktx:$testCoreVersion"
     implementation "androidx.test.ext:junit-ktx:$testJunitKtxVersion"
     testImplementation "androidx.test:rules:$testCoreVersion"
-    testImplementation "org.robolectric:robolectric$roboelectricVersion"
+    testImplementation "org.robolectric:robolectric:$roboelectricVersion"
     testImplementation "junit:junit:$junit"
     testImplementation "io.mockk:mockk:$mockk"
 
