@@ -38,9 +38,10 @@ import java.util.*
 @Composable
 fun DailyLogCard(
     /*@PreviewParameter(DailyLogProvider::class) */log: DailyLogBO,
-                                                   removeLog: (Date) -> Unit
+                                                   onShowDialog: (Date) -> Unit
 ) {
     var collapseView by remember { mutableStateOf(true) }
+
     Card(
         modifier = Modifier.clickable(
             onClick = { collapseView = !collapseView }
@@ -91,15 +92,15 @@ fun DailyLogCard(
                     )
                 } else {
                     Image(
-                        painter = painterResource(id = R.drawable.icon_close),
+                        painter = painterResource(id = R.drawable.icon_delete),
                         contentDescription = "",
                         modifier = Modifier
                             .size(20.dp)
                             .fillMaxWidth(0.2f)
                             .height(20.dp)
                             .clickable {
-                                removeLog(log.date)
-                                collapseView = !collapseView
+                                onShowDialog(log.date)
+//                                collapseView = !collapseView
                             }
                     )
                 }
