@@ -65,6 +65,18 @@
     <!-- survey -->
     <string name="survey_log_create_error">	⚠️No se pudo crear el reporte. Por favor, intentalo de nuevo.</string>
 
+    <!-- dialog-->
+    <string name="dialog_ko">Cancelar</string>
+    <string name="dialog_single_ok">Eliminar</string>
+    <string name="dialog_title_single">Eliminar reporte</string>
+    <string name="dialog_description_single">¿Deseas eliminar el reporte del día %1$s?</string>
+    <string name="dialog_all_ok">Eliminar</string>
+    <string name="dialog_title_all">Eliminar todos los reportes</string>
+    <string name="dialog_description_all">¿Deseas eliminar todos los reportes vinculados a tu usuario?</string>
+    <string name="dialog_logout_ok">Salir</string>
+    <string name="dialog_title_logout">Cerrar sesión y salir</string>
+    <string name="dialog_description_logout">¿Deseas cerrar la sesión abierta con tu cuenta de google y salir de la aplicación?</string>
+
     <!-- Resume  -->
     <string name="resume_title">Causas posibles 📋</string>
     <string name="resume_description">Los datos que pueden estar relacionados como la causa del picor que se han extraído se basan  en aquellos logs que superan el umbral de intensidad configurado</string>

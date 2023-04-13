@@ -5,21 +5,19 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.p4r4d0x.skintker.R
+import com.p4r4d0x.skintker.presenter.common.compose.CustomDialog
+import com.p4r4d0x.skintker.presenter.common.compose.DeleteDialogAllContent
 import com.p4r4d0x.skintker.presenter.common.compose.Description
 import com.p4r4d0x.skintker.presenter.common.compose.SkintkerDivider
+import com.p4r4d0x.skintker.presenter.common.utils.DialogsData
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 
 @Composable
@@ -38,7 +36,6 @@ fun SettingScreen(
     ) {
         SettingScreenContent(
             settingsViewModel,
-            onExportPressed,
             onLogoutPressed,
             onRemoveLogsPressed,
             onAlarmPressed
@@ -87,57 +84,71 @@ fun SettingsTopBar(
     }
 }
 
-@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun SettingScreenContent(
     settingsViewModel: SettingsViewModel,
-    onExportPressed: () -> Unit,
     onLogoutPressed: () -> Unit,
     onRemoveLogsPressed: () -> Unit,
     onAlarmPressed: (Boolean) -> Unit
 ) {
+
+    val showDeleteDialog: MutableState<Boolean> = remember {
+        mutableStateOf(false)
+    }
+    val showLogoutDialog: MutableState<Boolean> = remember {
+        mutableStateOf(false)
+    }
     LazyColumn {
         item {
+            StateDeleteDialog(showDeleteDialog, onRemoveLogsPressed)
+            StateLogoutDialog(showLogoutDialog, onLogoutPressed)
             Column(Modifier.fillMaxSize()) {
-                ProfileSection(settingsViewModel, onLogoutPressed)
+                ProfileSection(settingsViewModel) {
+                    showLogoutDialog.value = true
+                }
                 SkintkerDivider()
-                RemoveLogsSection(onRemoveLogsPressed)
+                RemoveLogsSection {
+                    showDeleteDialog.value = true
+                }
                 SkintkerDivider()
                 AlarmSection(settingsViewModel, onAlarmPressed)
-                SkintkerDivider()
-                SkintkerDivider()
-                val multiplePermissionsState =
-                    rememberMultiplePermissionsState(
-                        listOf(
-                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            android.Manifest.permission.READ_EXTERNAL_STORAGE
-                        )
-                    )
-                when {
-                    // If all permissions are granted, then show the question
-                    multiplePermissionsState.allPermissionsGranted -> {
-                        CSVButtons(onExportPressed)
-                    }
-                    multiplePermissionsState.shouldShowRationale -> {
-                        PermissionsRationale(multiplePermissionsState = multiplePermissionsState) {
-                        }
-                    }
-                    // If the criteria above hasn't been met, the user denied some permission, but show the question
-                    else -> {
-                        Text(
-                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp),
-                            text = stringResource(id = R.string.file_rationale_no_permissions),
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.Light,
-                            style = MaterialTheme.typography.caption,
-                        )
-                    }
-                }
-                Divider(
-                    modifier = Modifier.height(20.dp),
-                    color = Color.Transparent
-                )
             }
+        }
+    }
+}
+
+@Composable
+fun StateLogoutDialog(showLogoutDialog: MutableState<Boolean>, onLogoutPressed: () -> Unit) {
+    val dialogData = DialogsData(
+        titleRes = R.string.dialog_title_logout,
+        okButtonRes = R.string.dialog_logout_ok,
+        descriptionRes = R.string.dialog_description_logout
+    )
+
+    if (showLogoutDialog.value) {
+        CustomDialog(dialogData, { DeleteDialogAllContent(dialogData) }) { confirm ->
+            if (confirm) {
+                onLogoutPressed()
+            }
+            showLogoutDialog.value = false
+        }
+    }
+}
+
+@Composable
+fun StateDeleteDialog(showDeleteDialog: MutableState<Boolean>, onRemoveLogsPressed: () -> Unit) {
+    val dialogData = DialogsData(
+        titleRes = R.string.dialog_title_all,
+        okButtonRes = R.string.dialog_all_ok,
+        descriptionRes = R.string.dialog_description_all
+    )
+
+    if (showDeleteDialog.value) {
+        CustomDialog(dialogData, { DeleteDialogAllContent(dialogData) }) { confirm ->
+            if (confirm) {
+                onRemoveLogsPressed()
+            }
+            showDeleteDialog.value = false
         }
     }
 }
@@ -154,7 +165,9 @@ fun RemoveLogsSection(onRemoveLogsPressed: () -> Unit) {
                 enabled = true,
                 modifier = Modifier
                     .height(40.dp),
-                onClick = { onRemoveLogsPressed() }
+                onClick = {
+                    onRemoveLogsPressed()
+                }
             ) {
                 Text(text = stringResource(R.string.btn_wipe_data))
             }

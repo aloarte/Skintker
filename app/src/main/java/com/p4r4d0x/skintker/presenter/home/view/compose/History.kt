@@ -17,8 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.skintker.R
-import com.p4r4d0x.skintker.presenter.common.compose.DeleteDialog
-import com.p4r4d0x.skintker.presenter.common.compose.DeleteDialogContent
+import com.p4r4d0x.skintker.presenter.common.compose.CustomDialog
+import com.p4r4d0x.skintker.presenter.common.compose.DeleteDialogSingleContent
+import com.p4r4d0x.skintker.presenter.common.utils.DialogsData
 import java.util.*
 
 @Composable
@@ -30,7 +31,14 @@ fun HistoryContents(logs: List<DailyLogBO>, removeLog: (Date) -> Unit) {
         mutableStateOf(null)
     }
     if (showDeleteDialog.value) {
-        DeleteDialog({ DeleteDialogContent(logDate.value) }) { confirm ->
+        val dialogData = DialogsData(
+            titleRes = R.string.dialog_title_single,
+            okButtonRes = R.string.dialog_single_ok,
+            descriptionRes = R.string.dialog_description_single
+        )
+        CustomDialog(
+            dialogData,
+            { DeleteDialogSingleContent(logDate.value, dialogData) }) { confirm ->
             if (confirm) {
                 logDate.value?.let {
                     removeLog(it)
@@ -38,8 +46,6 @@ fun HistoryContents(logs: List<DailyLogBO>, removeLog: (Date) -> Unit) {
                 }
             }
             showDeleteDialog.value = false
-
-
         }
     }
     LazyColumn(

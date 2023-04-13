@@ -71,11 +71,14 @@
     <!-- dialog-->
     <string name="dialog_ko">Cancel</string>
     <string name="dialog_single_ok">Remove</string>
-    <string name="dialog_all_ok">Wipe</string>
     <string name="dialog_title_single">Delete daily log</string>
-    <string name="dialog_title_all">Clear all saved logs</string>
     <string name="dialog_description_single">Do you want to remove the log registered in %1$s?</string>
-
+    <string name="dialog_all_ok">Wipe</string>
+    <string name="dialog_title_all">Clear all saved logs</string>
+    <string name="dialog_description_all">Do you want to wipe all the logs from your user?</string>
+    <string name="dialog_logout_ok">Logout</string>
+    <string name="dialog_title_logout">Logout and exit</string>
+    <string name="dialog_description_logout">Do you want to logout from your google account and exit the application?</string>
 
     <!-- Resume  -->
     <string name="resume_title">Possible causes 📋</string>

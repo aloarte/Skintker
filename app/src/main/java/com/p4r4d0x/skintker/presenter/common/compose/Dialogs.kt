@@ -16,10 +16,13 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.p4r4d0x.domain.utils.getDDMMYYYYDate
 import com.p4r4d0x.skintker.R
+import com.p4r4d0x.skintker.presenter.common.utils.DialogsData
 import java.util.*
 
+
 @Composable
-fun DeleteDialog(
+fun CustomDialog(
+    dialogsData: DialogsData,
     content: @Composable () -> Unit,
     onActionClicked: (Boolean) -> Unit
 ) {
@@ -27,9 +30,9 @@ fun DeleteDialog(
         onDismissRequest = { },
         content = {
             CompleteDialogContent(
-                title = stringResource(id = R.string.dialog_title_single),
+                title = stringResource(dialogsData.titleRes),
                 onActionClicked = onActionClicked,
-                successButtonText = stringResource(id = R.string.dialog_single_ok),
+                successButtonText = stringResource(dialogsData.okButtonRes),
                 content = content
             )
         },
@@ -38,14 +41,34 @@ fun DeleteDialog(
             dismissOnClickOutside = false
         )
     )
-
 }
 
 @Composable
-fun DeleteDialogContent(date: Date?) {
+fun DeleteDialogAllContent(dialogsData: DialogsData) {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
         Text(
-            stringResource(id = R.string.dialog_description_single, date?.getDDMMYYYYDate() ?: ""),
+            stringResource(id = dialogsData.descriptionRes),
+            Modifier.width(220.dp)
+        )
+    }
+}
+
+
+@Composable
+fun DeleteDialogSingleContent(date: Date?, dialogsData: DialogsData) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+        Text(
+            stringResource(id = dialogsData.descriptionRes, date?.getDDMMYYYYDate() ?: ""),
+            Modifier.width(220.dp)
+        )
+    }
+}
+
+@Composable
+fun DeleteLogoutContent() {
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+        Text(
+            stringResource(id = R.string.dialog_description_single),
             Modifier.width(220.dp)
         )
     }
