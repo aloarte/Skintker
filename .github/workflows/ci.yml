@@ -28,7 +28,7 @@ jobs:
           distribution: 'temurin'
           cache: gradle
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@2.4.2
+        uses: gradle/gradle-build-action@v2.4.2
       - name: Build app
         run: ./gradlew compileDebugSources
 
@@ -45,7 +45,7 @@ jobs:
           cache: gradle
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@2.4.2
+        uses: gradle/gradle-build-action@v2.4.2
 
       - name: Unit Tests
         run: ./gradlew :data:testDebugUnitTest
@@ -67,7 +67,7 @@ jobs:
           cache: gradle
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@2.4.2
+        uses: gradle/gradle-build-action@v2.4.2
 
       - name: Unit Tests
         run: ./gradlew :domain:testDebugUnitTest
@@ -89,7 +89,7 @@ jobs:
           cache: gradle
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@2.4.2
+        uses: gradle/gradle-build-action@v2.4.2
 
       - name: Unit Tests
         run: ./gradlew :app:testDebugUnitTest
