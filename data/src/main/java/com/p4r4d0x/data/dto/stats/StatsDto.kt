@@ -14,18 +14,6 @@ data class StatsDto(
     val weather: WeatherStatsDto?
 ) {
 
-    /*
-    *
-    val enoughData: Boolean = false,
-    val relevantLogs:Int=-1,
-    val dietaryCauses: List<String> = emptyList(),
-    val mostAffectedZones: List<String> = emptyList(),
-    val alcohol: StatsAlcohol = StatsAlcohol(),
-    val stress: StatsStress = StatsStress(),
-    val travel: StatsTravel = StatsTravel(),
-    val weather: StatsWeather = StatsWeather()
-    *
-    * */
     data class AlcoholStatsDto(val isPossible: Boolean = false, val beerType: String)
 
     data class StressStatsDto(val isPossible: Boolean = false, val level: Int)
