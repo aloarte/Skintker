@@ -21,7 +21,7 @@ object Constants {
     const val PREFERENCES_ALARM_MINUTES = "prefs_alarm_minutes"
 
     //Thresholds
-    const val DEFAULT_MIN_LOGS = 12
+    const val DEFAULT_MIN_LOGS = 6
 
     //Files
     const val EXPORT_FILE_NAME = "SkintkerDDBB.csv"

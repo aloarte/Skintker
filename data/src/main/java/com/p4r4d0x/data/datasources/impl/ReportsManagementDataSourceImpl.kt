@@ -13,7 +13,7 @@ import com.p4r4d0x.data.dto.ApiResult
 import com.p4r4d0x.data.dto.SkintkvaultResponseLogs
 import com.p4r4d0x.data.dto.logs.toDto
 import com.p4r4d0x.data.getInsertReportStatus
-import com.p4r4d0x.data.parsers.toDailyLogContents
+import com.p4r4d0x.data.parsers.DataParser.toDailyLogContents
 import com.p4r4d0x.data.wasInsertSuccessful
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.bo.DailyLogContentsBO
