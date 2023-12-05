@@ -138,7 +138,7 @@ class DataParserTest {
         )
 
     @Test
-    fun `create log from survey with beer question`() {
+    fun `test create log from survey with beer question`() {
         val answerList = getAnswerList(expandBeerQuestion = true)
 
         val surveyLog = createLogFromSurvey(
@@ -152,7 +152,7 @@ class DataParserTest {
     }
 
     @Test
-    fun `create log from survey without beer question`() {
+    fun `test create log from survey without beer question`() {
         val answerList = getAnswerList(expandBeerQuestion = false)
 
         val surveyLog = createLogFromSurvey(
@@ -166,7 +166,7 @@ class DataParserTest {
     }
 
     @Test
-    fun `to possible causes incomplete item`() {
+    fun `test to possible causes incomplete item`() {
         val responseStats = SkintkvaultResponseStats(
             statusCode = 200,
             content = StatsResponse("", incompleteStatsDto)
@@ -178,7 +178,7 @@ class DataParserTest {
     }
 
     @Test
-    fun `to possible causes complete item`() {
+    fun `test to possible causes complete item`() {
         val responseStats = SkintkvaultResponseStats(
             statusCode = 200,
             content = StatsResponse("", completeStatsDto)
@@ -190,7 +190,7 @@ class DataParserTest {
     }
 
     @Test
-    fun `to daily log contents`() {
+    fun `test to daily log contents`() {
         val responseStats = SkintkvaultResponseLogs(
             statusCode = 200,
             content = LogListResponse("", listOf(logDto), 1)
@@ -202,7 +202,7 @@ class DataParserTest {
     }
 
     @Test
-    fun `to daily log contents no response content`() {
+    fun `test to daily log contents no response content`() {
         val responseStats = SkintkvaultResponseLogs(
             statusCode = 200,
             content = null
@@ -212,6 +212,4 @@ class DataParserTest {
 
         Assert.assertEquals(DailyLogContentsBO(), surveyLog)
     }
-
-
 }

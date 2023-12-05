@@ -39,13 +39,8 @@ class CSVParserTest {
         val referenceBeerList = mapOf(BEER_TYPE_1 to 0, BEER_TYPE_2 to 1)
     }
 
-    @Before
-    fun setup() {
-
-    }
-
     @Test
-    fun `get header CSV row`() {
+    fun `test get header CSV row`() {
         val headerList = getHeaderCSVRow(referenceZonesList, referenceFoodList, referenceBeerList)
 
         val expectedList = listOf(
@@ -70,7 +65,7 @@ class CSVParserTest {
     }
 
     @Test
-    fun `get data CSV row`() {
+    fun `test get data CSV row`() {
         val dailyLog = DailyLogBO(
             date = date,
 
@@ -120,6 +115,4 @@ class CSVParserTest {
         )
         assertEquals(expectedList, dataRow)
     }
-
-
 }

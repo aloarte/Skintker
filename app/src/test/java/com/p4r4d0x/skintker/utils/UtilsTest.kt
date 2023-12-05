@@ -10,7 +10,7 @@ import org.junit.Test
 class UtilsTest {
 
     @Test
-    fun `get humidity`() {
+    fun `test get humidity`() {
         Assert.assertEquals(R.string.humidity_3, getHumidityString(-1))
         Assert.assertEquals(R.string.humidity_1, getHumidityString(1))
         Assert.assertEquals(R.string.humidity_2, getHumidityString(2))
@@ -20,7 +20,7 @@ class UtilsTest {
     }
 
     @Test
-    fun `get temperature`() {
+    fun `test get temperature`() {
         Assert.assertEquals(R.string.temperature_3, getTemperatureString(-1))
         Assert.assertEquals(R.string.temperature_1, getTemperatureString(1))
         Assert.assertEquals(R.string.temperature_2, getTemperatureString(2))
@@ -30,7 +30,7 @@ class UtilsTest {
     }
 
     @Test
-    fun `get alcohol level`() {
+    fun `test get alcohol level`() {
         Assert.assertEquals(R.string.card_no_alcohol, getAlcoholLevel(-1))
         Assert.assertEquals(R.string.card_no_alcohol, getAlcoholLevel(0))
         Assert.assertEquals(R.string.card_any_alcohol_beer, getAlcoholLevel(1))

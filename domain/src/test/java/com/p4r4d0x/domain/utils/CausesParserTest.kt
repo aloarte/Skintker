@@ -13,7 +13,7 @@ import org.junit.Test
 class CausesParserTest {
 
     @Test
-    fun `get possible causes item list`() {
+    fun `test get possible causes item list`() {
         val itemMap = mapOf(
             "Item1" to 20,
             "Item2" to 30,
@@ -30,7 +30,7 @@ class CausesParserTest {
     }
 
     @Test
-    fun `get possible stress causes`() {
+    fun `test get possible stress causes`() {
         val map = mapOf(
             6 to 30,
             4 to 30,
@@ -51,7 +51,7 @@ class CausesParserTest {
     }
 
     @Test
-    fun `get possible  travel causes`() {
+    fun `test get possible  travel causes`() {
         val travelMap = mapOf(true to 10, false to 90)
         val cityMap =
             mapOf(
@@ -73,7 +73,7 @@ class CausesParserTest {
     }
 
     @Test
-    fun `get possible weather causes`() {
+    fun `test get possible weather causes`() {
         val temperatureMap = mapOf(
             1 to 10,
             2 to 50,
@@ -110,7 +110,7 @@ class CausesParserTest {
     }
 
     @Test
-    fun `get alcohol cause`() {
+    fun `test get alcohol cause`() {
         val alcoholMap = mapOf(
             AlcoholLevel.None to 30,
             AlcoholLevel.Few to 50,
