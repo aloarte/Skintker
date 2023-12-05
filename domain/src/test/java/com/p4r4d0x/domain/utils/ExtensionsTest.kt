@@ -15,7 +15,7 @@ class ExtensionsTest {
     }
 
     @Test
-    fun `get max value (String,Int)`() {
+    fun `test get max value (String,Int)`() {
         val map = mapOf(
             MAP_STRING_VALUE to 3,
             MAP_STRING_VALUE_2 to 5
@@ -25,7 +25,7 @@ class ExtensionsTest {
     }
 
     @Test
-    fun `get max value (Int,Int)`() {
+    fun `test get max value (Int,Int)`() {
         val map = mapOf(
             MAP_INT_VALUE to 10,
             MAP_INT_VALUE_2 to 5
@@ -35,7 +35,7 @@ class ExtensionsTest {
     }
 
     @Test
-    fun `get key of max value (Int,Int)`() {
+    fun `test get key of max value (Int,Int)`() {
         val map = mapOf(
             MAP_INT_VALUE to 10,
             MAP_INT_VALUE_2 to 5
@@ -45,7 +45,7 @@ class ExtensionsTest {
     }
 
     @Test
-    fun `update value (String,Int)`() {
+    fun `test update value (String,Int)`() {
         val map = mutableMapOf(MAP_STRING_VALUE to 3)
 
         map.increaseValue(MAP_STRING_VALUE)
@@ -54,7 +54,7 @@ class ExtensionsTest {
     }
 
     @Test
-    fun `update value (Int,Int)`() {
+    fun `test update value (Int,Int)`() {
         val map = mutableMapOf(MAP_INT_VALUE to 3)
 
         map.increaseValue(MAP_INT_VALUE)
@@ -63,7 +63,7 @@ class ExtensionsTest {
     }
 
     @Test
-    fun `update value (Boolean,Int)`() {
+    fun `test update value (Boolean,Int)`() {
         val map = mutableMapOf(true to 3)
 
         map.increaseValue(true)
@@ -72,7 +72,7 @@ class ExtensionsTest {
     }
 
     @Test
-    fun `update value (AlcoholLevel,Int)`() {
+    fun `test update value (AlcoholLevel,Int)`() {
         val map = mutableMapOf(AlcoholLevel.Few to 3)
 
         map.increaseValue(AlcoholLevel.Few)
@@ -81,7 +81,7 @@ class ExtensionsTest {
     }
 
     @Test
-    fun `clean string`() {
+    fun `test clean string`() {
         assertEquals("Pineapple ", "Pineapple \uD83C\uDF4D".cleanString())
         assertEquals("Pineapple ", "Pinéapple ".cleanString())
         assertEquals("Pineapple", "Pineapple".cleanString())

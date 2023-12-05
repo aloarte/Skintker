@@ -3,9 +3,22 @@ package com.p4r4d0x.data.utils
 import android.content.res.Resources
 import com.example.data.R
 import com.google.firebase.Timestamp
+import com.p4r4d0x.data.datasources.StatsDataSourceTest
+import com.p4r4d0x.data.dto.SkintkvaultResponseLogs
+import com.p4r4d0x.data.dto.SkintkvaultResponseStats
+import com.p4r4d0x.data.dto.logs.LogListResponse
+import com.p4r4d0x.data.dto.stats.StatsResponse
 import com.p4r4d0x.data.parsers.DataParser
 import com.p4r4d0x.data.parsers.DataParser.createLogFromSurvey
-import com.p4r4d0x.data.parsers.DataParser.parseDocumentData
+import com.p4r4d0x.data.parsers.DataParser.toDailyLogContents
+import com.p4r4d0x.data.parsers.DataParser.toPossibleCauses
+import com.p4r4d0x.data.testutils.TestData.completeStatsBo
+import com.p4r4d0x.data.testutils.TestData.completeStatsDto
+import com.p4r4d0x.data.testutils.TestData.incompleteStatsBo
+import com.p4r4d0x.data.testutils.TestData.incompleteStatsDto
+import com.p4r4d0x.data.testutils.TestData.log
+import com.p4r4d0x.data.testutils.TestData.logDto
+import com.p4r4d0x.data.testutils.Utils.buildResponse
 import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.domain.utils.Constants
 import io.mockk.every
@@ -125,7 +138,7 @@ class DataParserTest {
         )
 
     @Test
-    fun `create log from survey with beer question`() {
+    fun `test create log from survey with beer question`() {
         val answerList = getAnswerList(expandBeerQuestion = true)
 
         val surveyLog = createLogFromSurvey(
@@ -139,7 +152,7 @@ class DataParserTest {
     }
 
     @Test
-    fun `create log from survey without beer question`() {
+    fun `test create log from survey without beer question`() {
         val answerList = getAnswerList(expandBeerQuestion = false)
 
         val surveyLog = createLogFromSurvey(
@@ -153,160 +166,50 @@ class DataParserTest {
     }
 
     @Test
-    fun `parse document data from fb success data AlcoholLevelNone`() {
-        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
-        val data = mutableMapOf<String, Any>()
-        val userData = hashMapOf(
-            Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation.overallValue.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation.zoneValues.joinToString(separator = ","),
-            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData.beerTypes.joinToString(separator = ","),
-            Constants.LABEL_ALCOHOL to "None",
-            Constants.LABEL_STRESS to log.additionalData.stressLevel.toLong(),
-            Constants.LABEL_CITY to log.additionalData.travel.city,
-            Constants.LABEL_TRAVELED to log.additionalData.travel.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData.weather.temperature.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData.weather.humidity.toLong()
+    fun `test to possible causes incomplete item`() {
+        val responseStats = SkintkvaultResponseStats(
+            statusCode = 200,
+            content = StatsResponse("", incompleteStatsDto)
         )
-        data[USER_ID] = userData
 
-        val parsedLog = parseDocumentData(userId = USER_ID, data = data)
+        val surveyLog = responseStats.toPossibleCauses()
 
-        Assert.assertEquals(log, parsedLog)
+        Assert.assertEquals(incompleteStatsBo, surveyLog)
     }
 
     @Test
-    fun `parse document data from fb success data AlcoholLevelNoneFew`() {
-        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.Few)
-        val data = mutableMapOf<String, Any>()
-        val userData = hashMapOf(
-            Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation.overallValue.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation.zoneValues.joinToString(separator = ","),
-            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData.beerTypes.joinToString(separator = ","),
-            Constants.LABEL_ALCOHOL to "Few",
-            Constants.LABEL_STRESS to log.additionalData.stressLevel.toLong(),
-            Constants.LABEL_CITY to log.additionalData.travel.city,
-            Constants.LABEL_TRAVELED to log.additionalData.travel.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData.weather.temperature.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData.weather.humidity.toLong()
+    fun `test to possible causes complete item`() {
+        val responseStats = SkintkvaultResponseStats(
+            statusCode = 200,
+            content = StatsResponse("", completeStatsDto)
         )
-        data[USER_ID] = userData
 
-        val parsedLog = parseDocumentData(userId = USER_ID, data = data)
+        val surveyLog = responseStats.toPossibleCauses()
 
-        Assert.assertEquals(log, parsedLog)
+        Assert.assertEquals(completeStatsBo, surveyLog)
     }
 
     @Test
-    fun `parse document data from fb success data AlcoholLevelNoneFewAlcohol`() {
-        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.FewWine)
-        val data = mutableMapOf<String, Any>()
-        val userData = hashMapOf(
-            Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation.overallValue.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation.zoneValues.joinToString(separator = ","),
-            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData.beerTypes.joinToString(separator = ","),
-            Constants.LABEL_ALCOHOL to "FewWine",
-            Constants.LABEL_STRESS to log.additionalData.stressLevel.toLong(),
-            Constants.LABEL_CITY to log.additionalData.travel.city,
-            Constants.LABEL_TRAVELED to log.additionalData.travel.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData.weather.temperature.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData.weather.humidity.toLong()
+    fun `test to daily log contents`() {
+        val responseStats = SkintkvaultResponseLogs(
+            statusCode = 200,
+            content = LogListResponse("", listOf(logDto), 1)
         )
-        data[USER_ID] = userData
 
-        val parsedLog = parseDocumentData(userId = USER_ID, data = data)
+        val surveyLog = responseStats.toDailyLogContents()
 
-        Assert.assertEquals(log, parsedLog)
+        Assert.assertEquals(DailyLogContentsBO(1, listOf(log)), surveyLog)
     }
 
     @Test
-    fun `parse document data from fb success data AlcoholLevelSome`() {
-        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.Some)
-        val data = mutableMapOf<String, Any>()
-        val userData = hashMapOf(
-            Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation.overallValue.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation.zoneValues.joinToString(separator = ","),
-            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData.beerTypes.joinToString(separator = ","),
-            Constants.LABEL_ALCOHOL to "Some",
-            Constants.LABEL_STRESS to log.additionalData.stressLevel.toLong(),
-            Constants.LABEL_CITY to log.additionalData.travel.city,
-            Constants.LABEL_TRAVELED to log.additionalData.travel.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData.weather.temperature.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData.weather.humidity.toLong()
+    fun `test to daily log contents no response content`() {
+        val responseStats = SkintkvaultResponseLogs(
+            statusCode = 200,
+            content = null
         )
-        data[USER_ID] = userData
 
-        val parsedLog = parseDocumentData(userId = USER_ID, data = data)
+        val surveyLog = responseStats.toDailyLogContents()
 
-        Assert.assertEquals(log, parsedLog)
-    }
-
-    @Test
-    fun `parse document data from fb success data bad alcohol type`() {
-        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
-        val data = mutableMapOf<String, Any>()
-        val userData = hashMapOf(
-            Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation.overallValue.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation.zoneValues.joinToString(separator = ","),
-            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData.beerTypes.joinToString(separator = ","),
-            Constants.LABEL_ALCOHOL to "Nonexistantenumvalue",
-            Constants.LABEL_STRESS to log.additionalData.stressLevel.toLong(),
-            Constants.LABEL_CITY to log.additionalData.travel.city,
-            Constants.LABEL_TRAVELED to log.additionalData.travel.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData.weather.temperature.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData.weather.humidity.toLong()
-        )
-        data[USER_ID] = userData
-
-        val parsedLog = parseDocumentData(userId = USER_ID, data = data)
-
-        Assert.assertEquals(log, parsedLog)
-    }
-
-    @Test
-    fun `parse document data from fb wrong data bad user`() {
-        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
-        val data = mutableMapOf<String, Any>()
-        val userData = hashMapOf(
-            Constants.LABEL_DATE to Timestamp(log.date),
-            Constants.LABEL_IRRITATION to log.irritation.overallValue.toLong(),
-            Constants.LABEL_IRRITATED_ZONES to log.irritation.zoneValues.joinToString(separator = ","),
-            Constants.LABEL_FOODS to log.foodList.joinToString(separator = ","),
-            Constants.LABEL_BEERS to log.additionalData.beerTypes.joinToString(separator = ","),
-            Constants.LABEL_ALCOHOL to log.additionalData.alcoholLevel.name,
-            Constants.LABEL_STRESS to log.additionalData.stressLevel.toLong(),
-            Constants.LABEL_CITY to log.additionalData.travel.city,
-            Constants.LABEL_TRAVELED to log.additionalData.travel.traveled,
-            Constants.LABEL_WEATHER_TEMPERATURE to log.additionalData.weather.temperature.toLong(),
-            Constants.LABEL_WEATHER_HUMIDITY to log.additionalData.weather.humidity.toLong()
-        )
-        data[USER_ID] = userData
-
-        val parsedLog = parseDocumentData(userId = BAD_USER_ID, data = data)
-
-        Assert.assertNull(parsedLog)
-    }
-
-    @Test
-    fun `parse document data from fb wrong data parse exception`() {
-        val log = getDailyLog(true, alcoholLevel = AlcoholLevel.None)
-        val data = mutableMapOf<String, Any>()
-        val userData = hashMapOf(
-            Constants.LABEL_DATE to Timestamp(log.date)
-        )
-        data[USER_ID] = userData
-
-        val parsedLog = parseDocumentData(userId = USER_ID, data = data)
-
-        Assert.assertNull(parsedLog)
+        Assert.assertEquals(DailyLogContentsBO(), surveyLog)
     }
 }

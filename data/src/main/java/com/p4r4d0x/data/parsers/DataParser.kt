@@ -58,6 +58,7 @@ object DataParser {
                         stress = answer.answerValue
                     }
                 }
+
                 is Answer.MultipleChoice -> {
                     when (questionCnt) {
                         Constants.SECOND_QUESTION_NUMBER -> {
@@ -65,6 +66,7 @@ object DataParser {
                                 irritationZones.add(resources.getString(it))
                             }
                         }
+
                         Constants.NINTH_QUESTION_NUMBER, Constants.EIGHTH_QUESTION_NUMBER -> {
                             answer.answersStringRes.forEach {
                                 foodList.add(
@@ -72,6 +74,7 @@ object DataParser {
                                 )
                             }
                         }
+
                         FIFTH_QUESTION_NUMBER -> {
                             answer.answersStringRes.forEach {
                                 beerType.add(
@@ -81,23 +84,27 @@ object DataParser {
                         }
                     }
                 }
+
                 is Answer.SingleChoice -> {
                     if (questionCnt == Constants.FOURTH_QUESTION_NUMBER) {
                         alcohol = resources.getString(answer.answer)
                     }
                 }
+
                 is Answer.DoubleSlider -> {
                     if (questionCnt == Constants.SIXTH_QUESTION_NUMBER) {
                         weatherHumidity = answer.answerValueFirstSlider
                         weatherTemperature = answer.answerValueSecondSlider
                     }
                 }
+
                 is Answer.SingleTextInputSingleChoice -> {
                     if (questionCnt == Constants.SEVENTH_QUESTION_NUMBER) {
                         traveled = resources.getString(answer.answer)
                         city = answer.input
                     }
                 }
+
                 is Answer.SingleTextInput -> TODO()
 
             }
@@ -166,76 +173,29 @@ object DataParser {
         return sdf.parse(aDate, pos) ?: Date(aDate)
     }
 
-    fun parseDocumentData(userId: String, data: MutableMap<String, Any>): DailyLogBO? {
-        val userData = data[userId] as? MutableMap<*, *>
-        return try {
-            userData?.let {
-                DailyLogBO(
-                    date = (userData[LABEL_DATE] as? Timestamp)?.toDate() ?: Date(),
-                    irritation = IrritationBO(
-                        overallValue = (userData[LABEL_IRRITATION] as Long).toInt(),
-                        zoneValues = listOf(
-                            * (userData[LABEL_IRRITATED_ZONES] as String).split(",").toTypedArray()
-                        )
-                    ),
-                    foodList = listOf(
-                        * (userData[LABEL_FOODS] as String).split(",").toTypedArray()
-                    ),
-                    additionalData = AdditionalDataBO(
-                        stressLevel = (userData[LABEL_STRESS] as Long).toInt(),
-                        weather = AdditionalDataBO.WeatherBO(
-                            humidity = (userData[LABEL_WEATHER_HUMIDITY] as Long).toInt(),
-                            temperature = (userData[LABEL_WEATHER_TEMPERATURE] as Long).toInt()
-                        ),
-                        travel = AdditionalDataBO.TravelBO(
-                            traveled = userData[LABEL_TRAVELED] as Boolean,
-                            city = userData[LABEL_CITY] as String
-                        ),
-                        alcoholLevel = try {
-                            AlcoholLevel.valueOf(userData[LABEL_ALCOHOL] as String)
-                        } catch (e: IllegalArgumentException) {
-                            AlcoholLevel.None
-                        },
-                        beerTypes = listOf(
-                            * (userData[LABEL_BEERS] as String).split(",").toTypedArray()
-                        )
-                    )
-                )
-            } ?: run {
-                null
-            }
-        } catch (e: Exception) {
-            null
+    @SuppressLint("SimpleDateFormat")
+    fun ReportDto.toBo(): DailyLogBO {
+        return DailyLogBO(
+            date = backendStringToDate(this.date),
+            foodList = this.foodList,
+            irritation = this.irritation.toBo(),
+            additionalData = this.additionalData.toBo()
+        )
+    }
+
+    fun SkintkvaultResponseLogs.toDailyLogContents(): DailyLogContentsBO {
+        return this.content?.let { logListResponse ->
+            DailyLogContentsBO(logListResponse.count, logListResponse.logList.map { it.toBo() })
+        } ?: DailyLogContentsBO()
+
+    }
+
+    fun SkintkvaultResponseStats.toPossibleCauses(): PossibleCausesBO? {
+        return this.content?.stats?.let {
+            if (it.relevantLogs > 0) {
+                it.toPossibleCauses()
+            } else null
         }
     }
 
 }
-
-
-@SuppressLint("SimpleDateFormat")
-fun ReportDto.toBo(): DailyLogBO {
-    return DailyLogBO(
-        date = backendStringToDate(this.date),
-        foodList = this.foodList,
-        irritation = this.irritation.toBo(),
-        additionalData = this.additionalData.toBo()
-    )
-}
-
-
-fun SkintkvaultResponseLogs.toDailyLogContents(): DailyLogContentsBO {
-    return this.content?.let { logListResponse ->
-        DailyLogContentsBO(logListResponse.count, logListResponse.logList.map { it.toBo() })
-    } ?: DailyLogContentsBO()
-
-}
-
-fun SkintkvaultResponseStats.toPossibleCauses(): PossibleCausesBO? {
-    return this.content?.stats?.let {
-        if (it.relevantLogs > 0) {
-            it.toPossibleCauses()
-        } else null
-    }
-
-}
-

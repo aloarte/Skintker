@@ -27,12 +27,12 @@ android {
 //            storePassword keystoreProperties['storePassword']
 //        }
     }
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.p4r4d0x.skintker"
         minSdk 26
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -40,15 +40,16 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "API_URL", '"https://skintkvault.herokuapp.com"'
+            buildConfigField "String", "API_URL", '"https://skt.skintkvault.co:443/"'
             buildConfigField "String", "DATABASE_NAME", '"logs_database"'
 
             signingConfig signingConfigs.debug
         }
         release {
-            buildConfigField "String", "API_URL", '"https://skintkvault.herokuapp.com"'
+            buildConfigField "String", "API_URL", '"https://skt.skintkvault.co:443/"'
             buildConfigField "String", "DATABASE_NAME", '"logs_database"'
             minifyEnabled false
+            debuggable = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }

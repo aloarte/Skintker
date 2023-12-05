@@ -12,7 +12,7 @@ import com.p4r4d0x.data.api.SkintkvaultApi
 import com.p4r4d0x.data.datasources.StatsDatasource
 import com.p4r4d0x.data.dto.ApiResult
 import com.p4r4d0x.data.dto.SkintkvaultResponseStats
-import com.p4r4d0x.data.parsers.toPossibleCauses
+import com.p4r4d0x.data.parsers.DataParser.toPossibleCauses
 import com.p4r4d0x.domain.bo.PossibleCausesBO
 import okhttp3.ResponseBody
 

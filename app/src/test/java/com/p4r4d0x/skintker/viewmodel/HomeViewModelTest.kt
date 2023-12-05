@@ -89,7 +89,6 @@ class HomeViewModelTest : KoinBaseTest(testUseCasesModule) {
             Assert.assertEquals(causes, possibleCauses)
         }
 
-    @Ignore
     @Test
     fun `test home view model delete logs`() =
         coroutinesTestRule.runBlockingTest {

@@ -58,9 +58,7 @@ data class ReportDto(
             city = this.city
         )
     }
-
 }
-
 
 fun DailyLogBO.toDto() = ReportDto(
     date = DataParser.backendDateToString(this.date),
