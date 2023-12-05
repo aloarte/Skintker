@@ -30,7 +30,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2.4.2
       - name: Build app
-        run: ./gradlew compileDebugSources
+        run: ./gradlew build -x test
 
   testData:
     needs: [ build ]
