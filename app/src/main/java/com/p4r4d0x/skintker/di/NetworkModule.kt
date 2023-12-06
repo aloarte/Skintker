@@ -2,6 +2,7 @@ package com.p4r4d0x.skintker.di
 
 import com.p4r4d0x.data.api.SkintkvaultApi
 import com.p4r4d0x.skintker.BuildConfig
+import com.p4r4d0x.skintker.TokenInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -27,6 +28,7 @@ fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
 fun provideOkHttpClient(): OkHttpClient =
     OkHttpClient()
         .newBuilder()
+        .addInterceptor(TokenInterceptor())
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         })
