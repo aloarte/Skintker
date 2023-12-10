@@ -84,7 +84,7 @@
     <!-- question 9 -->
     <string name="question_9_title">Hoy comí alguno de estos alimentos …</string>
     <string name="question_9_description">Alimentos procesados</string>
-    <string name="question_9_answer_1">Chcolate 🍫</string>
+    <string name="question_9_answer_1">Chocolate 🍫</string>
     <string name="question_9_answer_2">Dulces 🍮</string>
     <string name="question_9_answer_3">Lácteos 🥛</string>
     <string name="question_9_answer_4">Lácteos fermentados 🧀</string>

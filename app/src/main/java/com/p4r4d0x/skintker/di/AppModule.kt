@@ -9,6 +9,7 @@ import com.p4r4d0x.data.datasources.impl.ReportsManagementDataSourceImpl
 import com.p4r4d0x.data.datasources.impl.ResourcesDatasourceImpl
 import com.p4r4d0x.data.datasources.impl.StatsDataSourceImpl
 import com.p4r4d0x.data.datasources.impl.SurveyDataSourceImpl
+import com.p4r4d0x.data.parsers.LogsNormalizer
 import com.p4r4d0x.data.repositories.ReportsManagementRepositoryImpl
 import com.p4r4d0x.data.repositories.ResourcesRepositoryImpl
 import com.p4r4d0x.data.repositories.StatsRepositoryImpl
@@ -23,6 +24,7 @@ import com.p4r4d0x.skintker.presenter.login.viewmodel.LoginViewModel
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
 import com.p4r4d0x.skintker.presenter.survey.viewmodel.SurveyViewModel
 import com.p4r4d0x.skintker.presenter.welcome.viewmodel.WelcomeViewModel
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -50,7 +52,7 @@ val repositoriesModule = module {
     factory<SurveyRepository> { SurveyRepositoryImpl(get()) }
     factory<ResourcesRepository> { ResourcesRepositoryImpl(get()) }
     factory<StatsRepository> { StatsRepositoryImpl(get()) }
-    factory<ReportsManagementRepository> { ReportsManagementRepositoryImpl(get(), get()) }
+    factory<ReportsManagementRepository> { ReportsManagementRepositoryImpl(get(), get(), get()) }
 
 }
 
@@ -60,6 +62,11 @@ val datasourcesModule = module {
     factory<StatsDatasource> { StatsDataSourceImpl(get(), get()) }
     factory<ReportsManagementDataSource> { ReportsManagementDataSourceImpl(get(), get()) }
 
+}
+
+val componentsModule = module {
+
+    factory { LogsNormalizer(androidContext().resources) }
 }
 
 val externalModule = module {

@@ -95,6 +95,63 @@
     <string name="question_9_answer_12">Sauces 🍯</string>
     <string name="question_9_answer_13">Soy derivatives 🌱</string>
 
+
+    <!--Normalized values-->
+    <string translatable="false" name="normalized_question_2_answer_1">Ears</string>
+    <string translatable="false" name="normalized_question_2_answer_2">Eyelid</string>
+    <string translatable="false" name="normalized_question_2_answer_3">Cheeks</string>
+    <string translatable="false" name="normalized_question_2_answer_4">Lips</string>
+    <string translatable="false" name="normalized_question_2_answer_5">Neck</string>
+    <string translatable="false" name="normalized_question_2_answer_6">Shoulders</string>
+    <string translatable="false" name="normalized_question_2_answer_7">Arms</string>
+    <string translatable="false" name="normalized_question_2_answer_8">Wrists</string>
+    <string translatable="false" name="normalized_question_2_answer_9">Hands</string>
+    <string translatable="false" name="normalized_question_2_answer_10">Legs</string>
+    <string translatable="false" name="normalized_question_2_answer_11">Chest</string>
+    <string translatable="false" name="normalized_question_2_answer_12">Back</string>
+    <string translatable="false" name="normalized_question_5_answer_1">Wheat</string>
+    <string translatable="false" name="normalized_question_5_answer_2">Stout</string>
+    <string translatable="false" name="normalized_question_5_answer_3">Porter</string>
+    <string translatable="false" name="normalized_question_5_answer_4">Lager</string>
+    <string translatable="false" name="normalized_question_5_answer_5">Dark Lager</string>
+    <string translatable="false" name="normalized_question_5_answer_6">Brown Ale</string>
+    <string translatable="false" name="normalized_question_5_answer_7">Pale Ale/IPA</string>
+    <string translatable="false" name="normalized_question_5_answer_8">Belgian-Style Ale</string>
+    <string translatable="false" name="normalized_question_5_answer_9">Sour Ale</string>
+    <string translatable="false" name="normalized_question_8_answer_1">Meat</string>
+    <string translatable="false" name="normalized_question_8_answer_2">Seafood</string>
+    <string translatable="false" name="normalized_question_8_answer_3">Blue fish</string>
+    <string translatable="false" name="normalized_question_8_answer_4">White fish</string>
+    <string translatable="false" name="normalized_question_8_answer_5">Pineapple</string>
+    <string translatable="false" name="normalized_question_8_answer_6">Strawberries</string>
+    <string translatable="false" name="normalized_question_8_answer_7">Bananas</string>
+    <string translatable="false" name="normalized_question_8_answer_8">Citrus</string>
+    <string translatable="false" name="normalized_question_8_answer_9">Tomato</string>
+    <string translatable="false" name="normalized_question_8_answer_10">Avocado</string>
+    <string translatable="false" name="normalized_question_8_answer_11">Eggplant</string>
+    <string translatable="false" name="normalized_question_8_answer_12">Zucchini</string>
+    <string translatable="false" name="normalized_question_8_answer_13">Pumpkin</string>
+    <string translatable="false" name="normalized_question_8_answer_14">Peas</string>
+    <string translatable="false" name="normalized_question_8_answer_15">Mushrooms</string>
+    <string translatable="false" name="normalized_question_8_answer_16">Eggs</string>
+    <string translatable="false" name="normalized_question_8_answer_17">Hot spices</string>
+    <string translatable="false" name="normalized_question_8_answer_18">Nuts</string>
+    <string translatable="false" name="normalized_question_9_answer_1">Chocolate</string>
+    <string translatable="false" name="normalized_question_9_answer_2">Sweets</string>
+    <string translatable="false" name="normalized_question_9_answer_3">Dairy products</string>
+    <string translatable="false" name="normalized_question_9_answer_4">Fermented dairy</string>
+    <string translatable="false" name="normalized_question_9_answer_5">Bread</string>
+    <string translatable="false" name="normalized_question_9_answer_6">Pasta</string>
+    <string translatable="false" name="normalized_question_9_answer_7">Pickles</string>
+    <string translatable="false" name="normalized_question_9_answer_8">Canned legumes</string>
+    <string translatable="false" name="normalized_question_9_answer_9">Canned vegetables</string>
+    <string translatable="false" name="normalized_question_9_answer_10">Canned fish</string>
+    <string translatable="false" name="normalized_question_9_answer_11">Inlay</string>
+    <string translatable="false" name="normalized_question_9_answer_12">Sauces</string>
+    <string translatable="false" name="normalized_question_9_answer_13">Soy derivatives</string>
+
+
+
     <!-- Test questions  -->
     <string name="multiple_answer_title" translatable="false">Multiple answer title</string>
     <string name="multiple_description" translatable="false">Pick one or more</string>

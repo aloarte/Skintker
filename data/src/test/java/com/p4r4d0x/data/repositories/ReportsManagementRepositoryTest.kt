@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.p4r4d0x.data.datasources.ReportsManagementDataSource
 import com.p4r4d0x.data.dto.ApiResult
+import com.p4r4d0x.data.parsers.LogsNormalizer
 import com.p4r4d0x.data.room.*
 import com.p4r4d0x.data.testutils.TestData.LIMIT
 import com.p4r4d0x.data.testutils.TestData.OFFSET
@@ -11,6 +12,7 @@ import com.p4r4d0x.data.testutils.TestData.USER_ID
 import com.p4r4d0x.data.testutils.TestData.date
 import com.p4r4d0x.data.testutils.TestData.log
 import com.p4r4d0x.data.testutils.TestData.stringDate
+import com.p4r4d0x.data.testutils.appContextModule
 import com.p4r4d0x.data.testutils.databaseModule
 import com.p4r4d0x.data.testutils.testDatasourcesModule
 import com.p4r4d0x.data.testutils.testRepositoriesModule
@@ -34,7 +36,7 @@ import java.util.*
 @RunWith(AndroidJUnit4::class)
 @Config(application = KoinTestApplication::class, sdk = [Build.VERSION_CODES.P])
 class ReportsManagementRepositoryTest :
-    KoinBaseTest(testRepositoriesModule, testDatasourcesModule, databaseModule) {
+    KoinBaseTest(testRepositoriesModule, testDatasourcesModule, databaseModule, appContextModule) {
 
     private val databaseLogList = listOf(
         DailyLogDetails(
@@ -52,12 +54,14 @@ class ReportsManagementRepositoryTest :
 
     private val datasource: ReportsManagementDataSource by inject()
 
+    private val normalizer: LogsNormalizer by inject()
+
 
     private lateinit var repository: ReportsManagementRepository
 
     @Before
     fun setUp() {
-        repository = ReportsManagementRepositoryImpl(dao, datasource)
+        repository = ReportsManagementRepositoryImpl(dao, datasource,normalizer)
     }
 
     @Test
