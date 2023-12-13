@@ -3,24 +3,10 @@ package com.p4r4d0x.data.parsers
 import android.annotation.SuppressLint
 import android.content.res.Resources
 import com.example.data.R
-import com.google.firebase.Timestamp
 import com.p4r4d0x.data.dto.*
 import com.p4r4d0x.data.dto.logs.*
-import com.p4r4d0x.data.parsers.DataParser.backendStringToDate
 import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.domain.utils.Constants
-import com.p4r4d0x.domain.utils.Constants.FIFTH_QUESTION_NUMBER
-import com.p4r4d0x.domain.utils.Constants.LABEL_ALCOHOL
-import com.p4r4d0x.domain.utils.Constants.LABEL_BEERS
-import com.p4r4d0x.domain.utils.Constants.LABEL_CITY
-import com.p4r4d0x.domain.utils.Constants.LABEL_DATE
-import com.p4r4d0x.domain.utils.Constants.LABEL_FOODS
-import com.p4r4d0x.domain.utils.Constants.LABEL_IRRITATED_ZONES
-import com.p4r4d0x.domain.utils.Constants.LABEL_IRRITATION
-import com.p4r4d0x.domain.utils.Constants.LABEL_STRESS
-import com.p4r4d0x.domain.utils.Constants.LABEL_TRAVELED
-import com.p4r4d0x.domain.utils.Constants.LABEL_WEATHER_HUMIDITY
-import com.p4r4d0x.domain.utils.Constants.LABEL_WEATHER_TEMPERATURE
 import com.p4r4d0x.domain.utils.Constants.MAX_QUESTION_NUMBER
 import com.p4r4d0x.domain.utils.getDateWithoutTime
 import java.text.ParsePosition
@@ -37,14 +23,15 @@ object DataParser {
         answers: List<Answer<*>>,
         resources: Resources
     ): DailyLogBO {
-        val dontHaveBeerQuestion = answers.size < MAX_QUESTION_NUMBER
         var questionCnt = 1
         var weatherHumidity = 0.0f
         var weatherTemperature = 0.0f
         var irritation = 0.0f
         var stress = 0.0f
         var alcohol = ""
-        val beerType = mutableListOf<String>()
+        val beers = mutableListOf<String>()
+        val wines = mutableListOf<String>()
+        val distilledDrinks = mutableListOf<String>()
         var city = ""
         var traveled = ""
         val irritationZones = mutableListOf<String>()
@@ -66,8 +53,7 @@ object DataParser {
                                 irritationZones.add(resources.getString(it))
                             }
                         }
-
-                        Constants.NINTH_QUESTION_NUMBER, Constants.EIGHTH_QUESTION_NUMBER -> {
+                        Constants.TENTH_QUESTION_NUMBER, Constants.ELEVENTH_QUESTION_NUMBER -> {
                             answer.answersStringRes.forEach {
                                 foodList.add(
                                     resources.getString(it)
@@ -75,11 +61,21 @@ object DataParser {
                             }
                         }
 
-                        FIFTH_QUESTION_NUMBER -> {
+                        Constants.FIFTH_QUESTION_NUMBER -> {
                             answer.answersStringRes.forEach {
-                                beerType.add(
-                                    resources.getString(it)
-                                )
+                                beers.add(resources.getString(it))
+                            }
+                        }
+
+                        Constants.SIXTH_QUESTION_NUMBER -> {
+                            answer.answersStringRes.forEach {
+                                wines.add(resources.getString(it))
+                            }
+                        }
+
+                        Constants.SEVENTH_QUESTION_NUMBER -> {
+                            answer.answersStringRes.forEach {
+                                wines.add(resources.getString(it))
                             }
                         }
                     }
@@ -92,14 +88,14 @@ object DataParser {
                 }
 
                 is Answer.DoubleSlider -> {
-                    if (questionCnt == Constants.SIXTH_QUESTION_NUMBER) {
+                    if (questionCnt == Constants.EIGHTH_QUESTION_NUMBER) {
                         weatherHumidity = answer.answerValueFirstSlider
                         weatherTemperature = answer.answerValueSecondSlider
                     }
                 }
 
                 is Answer.SingleTextInputSingleChoice -> {
-                    if (questionCnt == Constants.SEVENTH_QUESTION_NUMBER) {
+                    if (questionCnt == Constants.NINTH_QUESTION_NUMBER) {
                         traveled = resources.getString(answer.answer)
                         city = answer.input
                     }
@@ -108,8 +104,24 @@ object DataParser {
                 is Answer.SingleTextInput -> TODO()
 
             }
-            questionCnt += if (dontHaveBeerQuestion && questionCnt == Constants.FOURTH_QUESTION_NUMBER) 2 else 1
+
+            questionCnt += when (questionCnt) {
+                Constants.FOURTH_QUESTION_NUMBER -> {  //Alcohol type question
+                    when(fromStringResource(alcohol, resources)){
+                        AlcoholLevel.None -> 4
+                        AlcoholLevel.Beer -> 1
+                        AlcoholLevel.Wine -> 2
+                        AlcoholLevel.Distilled -> 3
+                        AlcoholLevel.Mixed -> 4
+                    }
+                }
+                Constants.FIFTH_QUESTION_NUMBER -> 3   // Beer question
+                Constants.SIXTH_QUESTION_NUMBER -> 2   // Wine question
+                Constants.SEVENTH_QUESTION_NUMBER -> 1 //Distilled drinks question
+                else -> 1
+            }
         }
+        val alcoholType = fromStringResource(alcohol, resources)
 
         return DailyLogBO(
             date = date,
@@ -127,8 +139,12 @@ object DataParser {
                     traveled = traveled == resources.getString(R.string.question_7_answer_1),
                     city = city.lowercase(Locale.getDefault())
                 ),
-                alcoholLevel = fromStringResource(alcohol, resources),
-                beerTypes = beerType
+                alcohol = AdditionalDataBO.AlcoholBO(
+                    level = alcoholType,
+                    beers = if(alcoholType==AlcoholLevel.Beer) beers else emptyList(),
+                    wines = if(alcoholType==AlcoholLevel.Wine) wines else emptyList(),
+                    distilledDrinks = if(alcoholType==AlcoholLevel.Distilled) distilledDrinks else emptyList()
+                )
             ),
             foodList = foodList
         )
@@ -137,9 +153,10 @@ object DataParser {
     private fun fromStringResource(alcoholStr: String, resources: Resources): AlcoholLevel {
         return when (alcoholStr) {
             resources.getString(R.string.question_4_answer_1) -> AlcoholLevel.None
-            resources.getString(R.string.question_4_answer_2) -> AlcoholLevel.Few
-            resources.getString(R.string.question_4_answer_3) -> AlcoholLevel.FewWine
-            resources.getString(R.string.question_4_answer_4) -> AlcoholLevel.Some
+            resources.getString(R.string.question_4_answer_2) -> AlcoholLevel.Beer
+            resources.getString(R.string.question_4_answer_3) -> AlcoholLevel.Wine
+            resources.getString(R.string.question_4_answer_4) -> AlcoholLevel.Distilled
+            resources.getString(R.string.question_4_answer_5) -> AlcoholLevel.Mixed
             else -> AlcoholLevel.None
         }
     }

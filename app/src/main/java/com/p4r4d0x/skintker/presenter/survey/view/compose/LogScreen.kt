@@ -17,8 +17,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.p4r4d0x.data.parsers.DataParser
+import com.p4r4d0x.domain.bo.AlcoholLevel
 import com.p4r4d0x.domain.bo.Answer
 import com.p4r4d0x.domain.bo.SurveyActionType
+import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.presenter.survey.LogState
 import com.p4r4d0x.skintker.presenter.survey.SurveyState
@@ -75,22 +78,50 @@ fun LogQuestionScreen(
                 SurveyBottomBar(
                     state = questionState,
                     onPreviousPressed = {
-                        if (questions.skipBeerQuestion) {
-                            questions.currentIndex -= 2
-                        } else {
-                            questions.currentIndex--
+                        questions.currentIndex -= when (questionState.question.id) {
+                            5 -> 1 //Beer question
+                            6 -> 2 //Wine question
+                            7 -> 3 //Distilled drinks question
+                            8 -> 4 //Weather question
+                            else -> 1
                         }
+//                        if (questions.skipBeerQuestion) {
+//                            questions.currentIndex -= 2
+//                        } else {
+//                            questions.currentIndex--
+//                        }
                     },
                     onNextPressed = {
-                        questions.skipBeerQuestion =
-                            questionState.question.id == 4 && ((questionState.answer as? Answer.SingleChoice)?.let {
-                                it.answer != R.string.question_4_answer_2
-                            } ?: false)
-                        if (questions.skipBeerQuestion) {
-                            questions.currentIndex += 2
-                        } else {
-                            questions.currentIndex++
-                        }
+//                        questions.skipBeerQuestion =
+//                            questionState.question.id == 4 && ((questionState.answer as? Answer.SingleChoice)?.let {
+//                                it.answer != R.string.question_4_answer_2
+//                            } ?: false)
+//                        if (questions.skipBeerQuestion) {
+//                            questions.currentIndex += 2
+//                        } else {
+//                            questions.currentIndex++
+//                        }
+
+                        questions.currentIndex +=
+                            when (questionState.question.id) {
+                                4 -> {  //Alcohol type question
+                                    (questionState.answer as? Answer.SingleChoice)?.let {
+                                        when (it.answer) {
+                                            R.string.question_4_answer_1 -> 4
+                                            R.string.question_4_answer_2 -> 1
+                                            R.string.question_4_answer_3 -> 2
+                                            R.string.question_4_answer_4 -> 3
+                                            R.string.question_4_answer_5 -> 4
+                                            else -> 4
+                                        }
+                                    } ?: 1
+                                }
+
+                                5 -> 3// Beer question
+                                6 -> 2 // Wine question
+                                7 -> 1 //Distilled drinks question
+                                else -> 1
+                            }
                     },
                     onDonePressed = onDonePressed
                 )

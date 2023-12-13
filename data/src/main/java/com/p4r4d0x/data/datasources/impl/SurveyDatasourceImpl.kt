@@ -6,6 +6,7 @@ import com.p4r4d0x.domain.bo.PossibleAnswer
 import com.p4r4d0x.domain.bo.Question
 import com.p4r4d0x.domain.bo.Survey
 import com.p4r4d0x.domain.utils.Constants.EIGHTH_QUESTION_NUMBER
+import com.p4r4d0x.domain.utils.Constants.ELEVENTH_QUESTION_NUMBER
 import com.p4r4d0x.domain.utils.Constants.FIFTH_QUESTION_NUMBER
 import com.p4r4d0x.domain.utils.Constants.FIRST_QUESTION_NUMBER
 import com.p4r4d0x.domain.utils.Constants.FOURTH_QUESTION_NUMBER
@@ -13,6 +14,7 @@ import com.p4r4d0x.domain.utils.Constants.NINTH_QUESTION_NUMBER
 import com.p4r4d0x.domain.utils.Constants.SECOND_QUESTION_NUMBER
 import com.p4r4d0x.domain.utils.Constants.SEVENTH_QUESTION_NUMBER
 import com.p4r4d0x.domain.utils.Constants.SIXTH_QUESTION_NUMBER
+import com.p4r4d0x.domain.utils.Constants.TENTH_QUESTION_NUMBER
 import com.p4r4d0x.domain.utils.Constants.THIRD_QUESTION_NUMBER
 
 class SurveyDataSourceImpl : SurveyDataSource {
@@ -76,7 +78,9 @@ private val jetpackQuestions = mutableListOf(
                 R.string.question_4_answer_1,
                 R.string.question_4_answer_2,
                 R.string.question_4_answer_3,
-                R.string.question_4_answer_4
+                R.string.question_4_answer_4,
+                R.string.question_4_answer_5
+
             )
         )
     ),
@@ -100,28 +104,57 @@ private val jetpackQuestions = mutableListOf(
     Question(
         id = SIXTH_QUESTION_NUMBER,
         questionText = R.string.question_6_title,
-        description = R.string.question_6_description,
-        answer = PossibleAnswer.DoubleSlider(
-            range = 1f..5f,
-            steps = 3,
-            defaultValueFirstSlider = 3f,
-            startTextFirstSlider = R.string.question_6_slide_1_start,
-            endTextFirstSlider = R.string.question_6_slide_1_end,
-            defaultValueSecondSlider = 3f,
-            startTextSecondSlider = R.string.question_6_slide_2_start,
-            endTextSecondSlider = R.string.question_6_slide_2_end
+        answer = PossibleAnswer.MultipleChoice(
+            listOf(
+                R.string.question_6_answer_1,
+                R.string.question_6_answer_2,
+                R.string.question_6_answer_3,
+                R.string.question_6_answer_4,
+                R.string.question_6_answer_5,
+                R.string.question_6_answer_6
+            )
         )
     ),
     Question(
         id = SEVENTH_QUESTION_NUMBER,
         questionText = R.string.question_7_title,
-        description = R.string.question_7_description,
+        answer = PossibleAnswer.MultipleChoice(
+            listOf(
+                R.string.question_7_answer_1,
+                R.string.question_7_answer_2,
+                R.string.question_7_answer_3,
+                R.string.question_7_answer_4,
+                R.string.question_7_answer_5,
+                R.string.question_7_answer_6,
+                R.string.question_7_answer_7
+            )
+        )
+    ),
+    Question(
+        id = EIGHTH_QUESTION_NUMBER,
+        questionText = R.string.question_8_title,
+        description = R.string.question_8_description,
+        answer = PossibleAnswer.DoubleSlider(
+            range = 1f..5f,
+            steps = 3,
+            defaultValueFirstSlider = 3f,
+            startTextFirstSlider = R.string.question_8_slide_1_start,
+            endTextFirstSlider = R.string.question_8_slide_1_end,
+            defaultValueSecondSlider = 3f,
+            startTextSecondSlider = R.string.question_8_slide_2_start,
+            endTextSecondSlider = R.string.question_8_slide_2_end
+        )
+    ),
+    Question(
+        id = NINTH_QUESTION_NUMBER,
+        questionText = R.string.question_9_title,
+        description = R.string.question_9_description,
         answer = PossibleAnswer.SingleTextInputSingleChoice(
             hint = "",
             maxCharacters = 40,
             optionsStringRes = listOf(
-                R.string.question_7_answer_1,
-                R.string.question_7_answer_2
+                R.string.question_9_answer_1,
+                R.string.question_9_answer_2
             )
         ),
         permissionsRequired = listOf(
@@ -131,51 +164,51 @@ private val jetpackQuestions = mutableListOf(
 
     ),
     Question(
-        id = EIGHTH_QUESTION_NUMBER,
-        questionText = R.string.question_8_title,
-        description = R.string.question_8_description,
+        id = TENTH_QUESTION_NUMBER,
+        questionText = R.string.question_10_title,
+        description = R.string.question_10_description,
         answer = PossibleAnswer.MultipleChoice(
             optionsStringRes = listOf(
-                R.string.question_8_answer_1,
-                R.string.question_8_answer_2,
-                R.string.question_8_answer_3,
-                R.string.question_8_answer_4,
-                R.string.question_8_answer_5,
-                R.string.question_8_answer_6,
-                R.string.question_8_answer_7,
-                R.string.question_8_answer_8,
-                R.string.question_8_answer_9,
-                R.string.question_8_answer_10,
-                R.string.question_8_answer_11,
-                R.string.question_8_answer_12,
-                R.string.question_8_answer_13,
-                R.string.question_8_answer_14,
-                R.string.question_8_answer_15,
-                R.string.question_8_answer_16,
-                R.string.question_8_answer_17,
-                R.string.question_8_answer_18
+                R.string.question_10_answer_1,
+                R.string.question_10_answer_2,
+                R.string.question_10_answer_3,
+                R.string.question_10_answer_4,
+                R.string.question_10_answer_5,
+                R.string.question_10_answer_6,
+                R.string.question_10_answer_7,
+                R.string.question_10_answer_8,
+                R.string.question_10_answer_9,
+                R.string.question_10_answer_10,
+                R.string.question_10_answer_11,
+                R.string.question_10_answer_12,
+                R.string.question_10_answer_13,
+                R.string.question_10_answer_14,
+                R.string.question_10_answer_15,
+                R.string.question_10_answer_16,
+                R.string.question_10_answer_17,
+                R.string.question_10_answer_18
             )
         )
     ),
     Question(
-        id = NINTH_QUESTION_NUMBER,
-        questionText = R.string.question_9_title,
-        description = R.string.question_9_description,
+        id = ELEVENTH_QUESTION_NUMBER,
+        questionText = R.string.question_11_title,
+        description = R.string.question_11_description,
         answer = PossibleAnswer.MultipleChoice(
             optionsStringRes = listOf(
-                R.string.question_9_answer_1,
-                R.string.question_9_answer_2,
-                R.string.question_9_answer_3,
-                R.string.question_9_answer_4,
-                R.string.question_9_answer_5,
-                R.string.question_9_answer_6,
-                R.string.question_9_answer_7,
-                R.string.question_9_answer_8,
-                R.string.question_9_answer_9,
-                R.string.question_9_answer_10,
-                R.string.question_9_answer_11,
-                R.string.question_9_answer_12,
-                R.string.question_9_answer_13
+                R.string.question_11_answer_1,
+                R.string.question_11_answer_2,
+                R.string.question_11_answer_3,
+                R.string.question_11_answer_4,
+                R.string.question_11_answer_5,
+                R.string.question_11_answer_6,
+                R.string.question_11_answer_7,
+                R.string.question_11_answer_8,
+                R.string.question_11_answer_9,
+                R.string.question_11_answer_10,
+                R.string.question_11_answer_11,
+                R.string.question_11_answer_12,
+                R.string.question_11_answer_13
             )
         )
     )

@@ -23,15 +23,13 @@ data class ReportDto(
         val stressLevel: Int,
         val weather: WeatherDto,
         val travel: TravelDto,
-        val alcoholLevel: AlcoholLevel,
-        val beerTypes: List<String>
+        val alcohol: AlcoholDto
     ) {
         fun toBo() = AdditionalDataBO(
             stressLevel = this.stressLevel,
             weather = this.weather.toBo(),
             travel = this.travel.toBo(),
-            alcoholLevel = this.alcoholLevel,
-            beerTypes = this.beerTypes
+            alcohol = this.alcohol.toBo()
         )
     }
 
@@ -58,6 +56,27 @@ data class ReportDto(
             city = this.city
         )
     }
+
+    data class AlcoholDto(
+        val level: AlcoholLevel,
+        val beers: List<String> = emptyList(),
+        val wines: List<String> = emptyList(),
+        val distilledDrinks: List<String> = emptyList()
+    ) {
+        fun toBo() = AdditionalDataBO.AlcoholBO(
+            level = this.level,
+            beers = this.beers,
+            wines = this.wines,
+            distilledDrinks = this.distilledDrinks,
+        )
+
+        fun fromBo(bo: AdditionalDataBO.AlcoholBO) = AlcoholDto(
+            level = this.level,
+            beers = this.beers,
+            wines = this.wines,
+            distilledDrinks = this.distilledDrinks,
+        )
+    }
 }
 
 fun DailyLogBO.toDto() = ReportDto(
@@ -76,8 +95,7 @@ fun AdditionalDataBO.toDto() = ReportDto.AdditionalDataDto(
     stressLevel = this.stressLevel,
     weather = this.weather.toDto(),
     travel = this.travel.toDto(),
-    alcoholLevel = this.alcoholLevel,
-    beerTypes = this.beerTypes
+    alcohol = this.alcohol.toDto()
 )
 
 fun AdditionalDataBO.WeatherBO.toDto() = ReportDto.WeatherDto(
@@ -89,3 +107,11 @@ fun AdditionalDataBO.TravelBO.toDto() = ReportDto.TravelDto(
     traveled = this.traveled,
     city = this.city
 )
+
+fun AdditionalDataBO.AlcoholBO.toDto() = ReportDto.AlcoholDto(
+    level = this.level,
+    beers = this.beers,
+    wines = this.wines,
+    distilledDrinks = this.distilledDrinks,
+)
+

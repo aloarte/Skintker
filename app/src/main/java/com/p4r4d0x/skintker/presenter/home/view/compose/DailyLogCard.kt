@@ -198,13 +198,39 @@ private fun AdditionalData(additionalDataBO: AdditionalDataBO, modifier: Modifie
             modifier = additionalDataModifier
         )
         Text(
-            text = stringResource(id = getAlcoholLevel(additionalDataBO.alcoholLevel.value)),
+            text = stringResource(id = getAlcoholLevel(additionalDataBO.alcohol.level.value)),
             fontSize = 10.sp,
             style = MaterialTheme.typography.body1,
             modifier = additionalDataModifier
         )
-        if (additionalDataBO.beerTypes.isNotEmpty()) {
-            additionalDataBO.beerTypes.forEach { beerType ->
+        if (additionalDataBO.alcohol.beers.isNotEmpty()) {
+            additionalDataBO.alcohol.beers.forEach { beerType ->
+                Text(
+                    text = beerType,
+                    fontSize = 10.sp,
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.primaryVariant,
+                    modifier = Modifier
+                        .fillMaxWidth(0.5f)
+                        .padding(vertical = 1.dp, horizontal = 5.dp)
+                )
+            }
+        }
+        if (additionalDataBO.alcohol.wines.isNotEmpty()) {
+            additionalDataBO.alcohol.wines.forEach { beerType ->
+                Text(
+                    text = beerType,
+                    fontSize = 10.sp,
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.primaryVariant,
+                    modifier = Modifier
+                        .fillMaxWidth(0.5f)
+                        .padding(vertical = 1.dp, horizontal = 5.dp)
+                )
+            }
+        }
+        if (additionalDataBO.alcohol.distilledDrinks.isNotEmpty()) {
+            additionalDataBO.alcohol.distilledDrinks.forEach { beerType ->
                 Text(
                     text = beerType,
                     fontSize = 10.sp,

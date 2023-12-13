@@ -81,27 +81,38 @@ object CSVParser {
             log.foodList.joinToString(separator = ",") { food ->
                 food.cleanString()
             },
-            log.irritation?.overallValue.toString(),
-            log.irritation?.zoneValues?.joinToString(separator = ",") { zone ->
+            log.irritation.overallValue.toString(),
+            log.irritation.zoneValues.joinToString(separator = ",") { zone ->
                 zone.cleanString()
             },
-            log.additionalData?.alcoholLevel?.name,
-            log.additionalData?.beerTypes?.joinToString(separator = ",") { beerType ->
+            log.additionalData.alcohol.level.name,
+            log.additionalData.alcohol.beers.joinToString(separator = ",") { beerType ->
                 beerType.cleanString()
             },
-            log.additionalData?.stressLevel.toString(),
-            log.additionalData?.weather?.humidity.toString(),
-            log.additionalData?.weather?.temperature.toString(),
-            log.additionalData?.travel?.city,
-            log.additionalData?.travel?.traveled.toString()
+            log.additionalData.alcohol.wines.joinToString(separator = ",") { wineType ->
+                wineType.cleanString()
+            },
+            log.additionalData.alcohol.distilledDrinks.joinToString(separator = ",") { distilledDrinkType ->
+                distilledDrinkType.cleanString()
+            },
+            log.additionalData.stressLevel.toString(),
+            log.additionalData.weather.humidity.toString(),
+            log.additionalData.weather.temperature.toString(),
+            log.additionalData.travel.city,
+            log.additionalData.travel.traveled.toString()
 
         )
 
-        dataList.addAll(getDataList(log.irritation?.zoneValues, referenceZonesList))
+        dataList.addAll(getDataList(log.irritation.zoneValues, referenceZonesList))
         dataList.addAll(getDataList(log.foodList, referenceFoodList))
-        log.additionalData?.beerTypes?.let {
+        log.additionalData.alcohol.beers.let {
             dataList.addAll(getDataList(it, referenceBeerTypesList))
-
+        }
+        log.additionalData.alcohol.wines.let {
+            dataList.addAll(getDataList(it, referenceBeerTypesList))
+        }
+        log.additionalData.alcohol.distilledDrinks.let {
+            dataList.addAll(getDataList(it, referenceBeerTypesList))
         }
 
         return dataList

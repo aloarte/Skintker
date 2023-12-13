@@ -30,7 +30,6 @@ sealed class SurveyState {
         val date: Date
     ) : SurveyState() {
         var currentIndex by mutableStateOf(0)
-        var skipBeerQuestion by mutableStateOf(false)
     }
 
     //Final state. Process the survey.
