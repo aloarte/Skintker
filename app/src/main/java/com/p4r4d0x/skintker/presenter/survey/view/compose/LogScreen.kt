@@ -85,23 +85,8 @@ fun LogQuestionScreen(
                             8 -> 4 //Weather question
                             else -> 1
                         }
-//                        if (questions.skipBeerQuestion) {
-//                            questions.currentIndex -= 2
-//                        } else {
-//                            questions.currentIndex--
-//                        }
                     },
                     onNextPressed = {
-//                        questions.skipBeerQuestion =
-//                            questionState.question.id == 4 && ((questionState.answer as? Answer.SingleChoice)?.let {
-//                                it.answer != R.string.question_4_answer_2
-//                            } ?: false)
-//                        if (questions.skipBeerQuestion) {
-//                            questions.currentIndex += 2
-//                        } else {
-//                            questions.currentIndex++
-//                        }
-
                         questions.currentIndex +=
                             when (questionState.question.id) {
                                 4 -> {  //Alcohol type question
