@@ -6,7 +6,6 @@ import com.p4r4d0x.domain.bo.DailyLogBO
 
 class LogsNormalizer(private val resources: Resources) {
 
-
     fun denormalizeLog(log: DailyLogBO): DailyLogBO {
         return log.copy(
             foodList = log.foodList.map(::denormalizeFood),
@@ -132,6 +131,7 @@ class LogsNormalizer(private val resources: Resources) {
         resources.getString(R.string.normalized_question_5_answer_6) -> resources.getString(R.string.question_5_answer_6)
         resources.getString(R.string.normalized_question_5_answer_7) -> resources.getString(R.string.question_5_answer_7)
         resources.getString(R.string.normalized_question_5_answer_8) -> resources.getString(R.string.question_5_answer_8)
+        resources.getString(R.string.normalized_question_5_answer_9) -> resources.getString(R.string.question_5_answer_9)
         resources.getString(R.string.normalized_question_5_answer_10) -> resources.getString(R.string.question_5_answer_10)
         else -> ""
     }

@@ -5,6 +5,7 @@ import com.p4r4d0x.data.api.SkintkvaultApi
 import com.p4r4d0x.data.datasources.ReportsManagementDataSource
 import com.p4r4d0x.data.datasources.StatsDatasource
 import com.p4r4d0x.data.datasources.SurveyDataSource
+import com.p4r4d0x.data.parsers.LogsNormalizer
 import com.p4r4d0x.data.room.DailyLogDao
 import com.p4r4d0x.data.room.LogsDatabase
 import com.p4r4d0x.domain.repository.ReportsManagementRepository
@@ -16,6 +17,7 @@ import org.koin.dsl.module
 
 val appContextModule = module {
     factory { mockk<Resources>() }
+    factory { mockk<LogsNormalizer>() }
 }
 
 val apiModule = module {

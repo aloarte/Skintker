@@ -56,7 +56,6 @@ class ReportsManagementRepositoryTest :
 
     private val normalizer: LogsNormalizer by inject()
 
-
     private lateinit var repository: ReportsManagementRepository
 
     @Before
@@ -66,12 +65,14 @@ class ReportsManagementRepositoryTest :
 
     @Test
     fun `test create report success`() {
+        coEvery { normalizer.normalizeLog(log) } returns log
         coEvery { datasource.addReport(USER_ID, log) } returns
                 ApiResult.Success(ReportStatus.Created)
         coEvery { dao.insertDailyLog(log) } returns true
 
         val logInserted = runBlocking { repository.addReport(USER_ID, log) }
 
+        coVerify { normalizer.normalizeLog(log) }
         coVerify { datasource.addReport(USER_ID, log) }
         coVerify { dao.insertDailyLog(log) }
         Assertions.assertEquals(ReportStatus.Created, logInserted)
@@ -79,12 +80,14 @@ class ReportsManagementRepositoryTest :
 
     @Test
     fun `test update report success`() {
+        coEvery { normalizer.normalizeLog(log) } returns log
         coEvery { datasource.addReport(USER_ID, log) } returns
                 ApiResult.Success(ReportStatus.Edited)
         coEvery { dao.updateDailyLog(log) } returns true
 
         val logInserted = runBlocking { repository.editReport(USER_ID, log) }
 
+        coVerify { normalizer.normalizeLog(log) }
         coVerify { datasource.addReport(USER_ID, log) }
         coVerify { dao.updateDailyLog(log) }
         Assertions.assertEquals(ReportStatus.Edited, logInserted)
@@ -92,11 +95,13 @@ class ReportsManagementRepositoryTest :
 
     @Test
     fun `test create report error`() {
+        coEvery { normalizer.normalizeLog(log) } returns log
         coEvery { datasource.addReport(USER_ID, log) } returns
                 ApiResult.Error(-1, "Error not created")
 
         val logInserted = runBlocking { repository.addReport(USER_ID, log) }
 
+        coVerify { normalizer.normalizeLog(log) }
         coVerify { datasource.addReport(USER_ID, log) }
         coVerify(exactly = 0) { dao.insertDailyLog(log) }
         Assertions.assertEquals(ReportStatus.Error, logInserted)
@@ -104,12 +109,14 @@ class ReportsManagementRepositoryTest :
 
     @Test
     fun `test get report list success`() {
+        coEvery { normalizer.denormalizeLog(log) } returns log
         coEvery { datasource.getReports(USER_ID) } returns ApiResult.Success(logContents)
         coEvery { dao.insertAllDailyLogs(logList) } returns true
         coEvery { dao.getAll() } returns databaseLogList
 
         val logList = runBlocking { repository.getReports(USER_ID) }
 
+        coVerify { normalizer.denormalizeLog(log) }
         coVerify { datasource.getReports(USER_ID) }
         coVerify { dao.insertAllDailyLogs(this@ReportsManagementRepositoryTest.logList) }
         coVerify { dao.getAll() }
@@ -118,6 +125,7 @@ class ReportsManagementRepositoryTest :
 
     @Test
     fun `test get report list error but had logs in database`() {
+        coEvery { normalizer.denormalizeLog(log) } returns log
         coEvery { datasource.getReports(USER_ID) } returns ApiResult.Error(
             -1,
             "Error retrieving log contents"
@@ -128,6 +136,7 @@ class ReportsManagementRepositoryTest :
         val logList = runBlocking { repository.getReports(USER_ID) }
 
         coVerify { datasource.getReports(USER_ID) }
+        coVerify { normalizer.denormalizeLog(log) }
         coVerify(exactly = 0) { dao.insertAllDailyLogs(this@ReportsManagementRepositoryTest.logList) }
         coVerify { dao.getAll() }
         Assertions.assertEquals(logContents, logList)
@@ -153,6 +162,7 @@ class ReportsManagementRepositoryTest :
     @Test
     fun `test get report list paginated success`() {
         val logContents = DailyLogContentsBO(count = 4, logList = logList)
+        coEvery { normalizer.denormalizeLog(log) } returns log
         coEvery { datasource.getReports(USER_ID, LIMIT, OFFSET) } returns ApiResult.Success(
             logContents
         )
@@ -161,6 +171,7 @@ class ReportsManagementRepositoryTest :
 
         val logList = runBlocking { repository.getReports(USER_ID, LIMIT, OFFSET) }
 
+        coVerify { normalizer.denormalizeLog(log) }
         coVerify { datasource.getReports(USER_ID, LIMIT, OFFSET) }
         coVerify { dao.insertAllDailyLogs(this@ReportsManagementRepositoryTest.logList) }
         coVerify { dao.getLogListPaginated(LIMIT, OFFSET) }

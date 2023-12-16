@@ -202,7 +202,10 @@
     <string name="slide_point_1" translatable="false">Low</string>
     <string name="slide_point_2" translatable="false">Medium</string>
     <string name="slide_point_3" translatable="false">High</string>
-    <string name="card_no_alcohol" translatable="false">No alcohol ingested</string>
+    <string name="no_alcohol" translatable="false">No alcohol</string>
+    <string name="alcohol_beer" translatable="false">Beers</string>
+    <string name="alcohol_wine" translatable="false">Wine</string>
+    <string name="alcohol_distilled" translatable="false">Distilled drinks</string>
 
 
 </resources>

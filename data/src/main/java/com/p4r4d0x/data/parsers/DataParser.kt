@@ -75,7 +75,7 @@ object DataParser {
 
                         Constants.SEVENTH_QUESTION_NUMBER -> {
                             answer.answersStringRes.forEach {
-                                wines.add(resources.getString(it))
+                                distilledDrinks.add(resources.getString(it))
                             }
                         }
                     }
