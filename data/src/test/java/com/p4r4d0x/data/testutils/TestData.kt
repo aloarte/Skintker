@@ -21,8 +21,10 @@ object TestData {
             stressLevel = 4,
             weather = ReportDto.WeatherDto(humidity = 1, temperature = 4),
             travel = ReportDto.TravelDto(city = "Madrid", traveled = false),
-            beerTypes = listOf("wheat", "stout"),
-            alcoholLevel = AlcoholLevel.Few
+            alcohol = ReportDto.AlcoholDto(
+                level = AlcoholLevel.Beer,
+                beers = listOf("wheat", "stout")
+            ),
         ),
         foodList = listOf("banana", "fish", "meat")
     )
@@ -34,8 +36,10 @@ object TestData {
             stressLevel = 4,
             weather = AdditionalDataBO.WeatherBO(humidity = 1, temperature = 4),
             travel = AdditionalDataBO.TravelBO(city = "Madrid", traveled = false),
-            beerTypes = listOf("wheat", "stout"),
-            alcoholLevel = AlcoholLevel.Few
+            alcohol = AdditionalDataBO.AlcoholBO(
+                level = AlcoholLevel.Beer,
+                beers = listOf("wheat", "stout")
+            ),
         ),
         foodList = listOf("banana", "fish", "meat")
     )

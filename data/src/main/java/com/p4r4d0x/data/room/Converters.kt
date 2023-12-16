@@ -77,6 +77,24 @@ object Converters {
     }
 
     @TypeConverter
+    fun toAlcohol(alcoholStr: String?): AdditionalDataBO.AlcoholBO? {
+        if (alcoholStr == null) {
+            return null
+        }
+        val gson = Gson()
+        return gson.fromJson(alcoholStr, AdditionalDataBO.AlcoholBO::class.java)
+    }
+
+    @TypeConverter
+    fun fromAlcohol(alcohol: AdditionalDataBO.AlcoholBO?): String? {
+        if (alcohol == null) {
+            return null
+        }
+        val gson = Gson()
+        return gson.toJson(alcohol, AdditionalDataBO.AlcoholBO::class.java)
+    }
+
+    @TypeConverter
     fun toAlcoholLevel(alcoholLevelStr: String?): AlcoholLevel? {
         if (alcoholLevelStr == null) {
             return null

@@ -1,9 +1,11 @@
 package com.p4r4d0x.data.testutils
 
+import android.content.res.Resources
 import com.p4r4d0x.data.api.SkintkvaultApi
 import com.p4r4d0x.data.datasources.ReportsManagementDataSource
 import com.p4r4d0x.data.datasources.StatsDatasource
 import com.p4r4d0x.data.datasources.SurveyDataSource
+import com.p4r4d0x.data.parsers.LogsNormalizer
 import com.p4r4d0x.data.room.DailyLogDao
 import com.p4r4d0x.data.room.LogsDatabase
 import com.p4r4d0x.domain.repository.ReportsManagementRepository
@@ -12,6 +14,11 @@ import com.p4r4d0x.domain.repository.SurveyRepository
 import io.mockk.mockk
 import okhttp3.MediaType.Companion.toMediaType
 import org.koin.dsl.module
+
+val appContextModule = module {
+    factory { mockk<Resources>() }
+    factory { mockk<LogsNormalizer>() }
+}
 
 val apiModule = module {
     factory { mockk<SkintkvaultApi>() }

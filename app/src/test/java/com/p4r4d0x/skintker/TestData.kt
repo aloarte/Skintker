@@ -16,8 +16,7 @@ object TestData {
             0,
             AdditionalDataBO.WeatherBO(0, 0),
             AdditionalDataBO.TravelBO(false, ""),
-            AlcoholLevel.None,
-            emptyList()
+            AdditionalDataBO.AlcoholBO(level =  AlcoholLevel.None)
         ), emptyList()
     )
 

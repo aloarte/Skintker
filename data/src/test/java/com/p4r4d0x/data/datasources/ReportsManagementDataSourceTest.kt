@@ -59,46 +59,52 @@ class ReportsManagementDataSourceTest :
                 "    \"statusCode\": $ecInvalidDate,\n" +
                 "    \"statusMessage\": \"$errorInvalidDate\"\n" +
                 "}"
+
         const val JSON_LOG_LIST = "{\n" +
                 "    \"statusCode\": 0,\n" +
                 "    \"content\": {\n" +
                 "        \"type\": \"com.skintker.domain.model.responses.LogListResponse\",\n" +
+                "       \"count\": 1,\n" +
                 "        \"logList\": [\n" +
-                "            {\n" +
-                "                \"date\": \"09-02-2023\",\n" +
-                "                \"foodList\": [\n" +
-                "                    \"banana\",\n" +
-                "                    \"fish\",\n" +
-                "                    \"meat\"\n" +
+                "          {\n" +
+                "            \"date\": \"09-02-2023\",\n" +
+                "            \"irritation\": {\n" +
+                "              \"overallValue\": 9,\n" +
+                "              \"zoneValues\": [\n" +
+                "                \"chest\",\n" +
+                "                \"ears\"\n" +
+                "              ]\n" +
+                "            },\n" +
+                "            \"additionalData\": {\n" +
+                "              \"stressLevel\": 4,\n" +
+                "              \"weather\": {\n" +
+                "                \"humidity\": 1,\n" +
+                "                \"temperature\": 4\n" +
+                "              },\n" +
+                "              \"travel\": {\n" +
+                "                \"traveled\": false,\n" +
+                "                \"city\": \"Madrid\"\n" +
+                "              },\n" +
+                "              \"alcohol\": {\n" +
+                "                \"level\": \"Beer\",\n" +
+                "                \"beers\": [\n" +
+                "                  \"wheat\",\n" +
+                "                  \"stout\"\n" +
                 "                ],\n" +
-                "                \"irritation\": {\n" +
-                "                    \"overallValue\": 9,\n" +
-                "                    \"zoneValues\": [\n" +
-                "                        \"chest\",\n" +
-                "                        \"ears\"\n" +
-                "                    ]\n" +
-                "                },\n" +
-                "                \"additionalData\": {\n" +
-                "                    \"stressLevel\": 4,\n" +
-                "                    \"weather\": {\n" +
-                "                        \"humidity\": 1,\n" +
-                "                        \"temperature\": 4\n" +
-                "                    },\n" +
-                "                    \"travel\": {\n" +
-                "                        \"traveled\": false,\n" +
-                "                        \"city\": \"Madrid\"\n" +
-                "                    },\n" +
-                "                    \"alcoholLevel\": \"Few\",\n" +
-                "                    \"beerTypes\": [\n" +
-                "                        \"wheat\",\n" +
-                "                        \"stout\"\n" +
-                "                    ]\n" +
-                "                }\n" +
-                "            }\n" +
-                "        ],\n" +
-                "        \"count\": 1\n" +
+                "                \"wines\": [],\n" +
+                "                \"distilledDrinks\": []\n" +
+                "              }\n" +
+                "            },\n" +
+                "            \"foodList\": [\n" +
+                "              \"banana\",\n" +
+                "              \"fish\",\n" +
+                "              \"meat\"\n" +
+                "            ]\n" +
+                "          }\n" +
+                "        ]"+
                 "    }\n" +
                 "}"
+
         const val JSON_LOG_EMPTY_LIST = "{\n" +
                 "    \"statusCode\": 0,\n" +
                 "    \"content\": {\n" +
@@ -107,6 +113,7 @@ class ReportsManagementDataSourceTest :
                 "        \"count\": 0\n" +
                 "    }\n" +
                 "}"
+
         const val JSON_DELETE_LOG = " {\n" +
                 "            \"statusCode\": 0,\n" +
                 "            \"statusMessage\": \"Report removed correctly\"\n" +

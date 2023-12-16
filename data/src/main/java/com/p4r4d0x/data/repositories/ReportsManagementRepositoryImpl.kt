@@ -3,6 +3,7 @@ package com.p4r4d0x.data.repositories
 import com.p4r4d0x.data.datasources.ReportsManagementDataSource
 import com.p4r4d0x.data.dto.ApiResult
 import com.p4r4d0x.data.parsers.DataParser.backendDateToString
+import com.p4r4d0x.data.parsers.LogsNormalizer
 import com.p4r4d0x.data.room.DailyLogDao
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.bo.DailyLogContentsBO
@@ -12,25 +13,30 @@ import java.util.*
 
 class ReportsManagementRepositoryImpl(
     private val dao: DailyLogDao,
-    private val dataSource: ReportsManagementDataSource
+    private val dataSource: ReportsManagementDataSource,
+    private val normalizer: LogsNormalizer
 ) : ReportsManagementRepository {
 
     override suspend fun addReport(userId: String, log: DailyLogBO): ReportStatus {
-        return when (val result = dataSource.addReport(userId, log)) {
+        val normalizedLog = normalizer.normalizeLog(log)
+        return when (val result = dataSource.addReport(userId, normalizedLog)) {
             is ApiResult.Success -> {
-                dao.insertDailyLog(log)
+                dao.insertDailyLog(normalizedLog)
                 result.data
             }
+
             is ApiResult.Error -> ReportStatus.Error
         }
     }
 
     override suspend fun editReport(userId: String, log: DailyLogBO): ReportStatus {
-        return when (val result = dataSource.addReport(userId, log)) {
+        val normalizedLog = normalizer.normalizeLog(log)
+        return when (val result = dataSource.addReport(userId, normalizedLog)) {
             is ApiResult.Success -> {
-                dao.updateDailyLog(log)
+                dao.updateDailyLog(normalizedLog)
                 result.data
             }
+
             is ApiResult.Error -> ReportStatus.Error
         }
     }
@@ -50,6 +56,7 @@ class ReportsManagementRepositoryImpl(
                     )
                 }
             }
+
             is ApiResult.Error -> {
                 //If the backend had some error, return the data from database
                 with(getReportsFromDatabase()) {
@@ -72,6 +79,7 @@ class ReportsManagementRepositoryImpl(
                 }
 
             }
+
             is ApiResult.Error -> {
                 //If the backend had some error, return the data from database
                 with(getReportsFromDatabase(limit = count, offset = offset)) {
@@ -93,6 +101,7 @@ class ReportsManagementRepositoryImpl(
                 }
                 result.data
             }
+
             is ApiResult.Error -> false
         }
     }
@@ -109,17 +118,18 @@ class ReportsManagementRepositoryImpl(
                 }
                 result.data
             }
+
             is ApiResult.Error -> false
         }
     }
 
     private suspend fun getReportsFromDatabase() = dao.getAll().map { dailyLogAndIrritation ->
-        dailyLogAndIrritation.toDomain()
+        normalizer.denormalizeLog(dailyLogAndIrritation.toDomain())
     }
 
     private suspend fun getReportsFromDatabase(limit: Int, offset: Int) =
         dao.getLogListPaginated(limit, offset).map { dailyLogAndIrritation ->
-            dailyLogAndIrritation.toDomain()
+            normalizer.denormalizeLog(dailyLogAndIrritation.toDomain())
         }
 
 }

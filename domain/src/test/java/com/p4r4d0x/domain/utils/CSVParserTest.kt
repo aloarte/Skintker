@@ -71,7 +71,7 @@ class CSVParserTest {
 
             foodList = listOf(FOOD_1, FOOD_3),
             additionalData = AdditionalDataBO(
-                alcoholLevel = AlcoholLevel.Few,
+                alcohol = AdditionalDataBO.AlcoholBO(level = AlcoholLevel.None),
                 weather = AdditionalDataBO.WeatherBO(
                     temperature = 3,
                     humidity = 4
@@ -102,7 +102,9 @@ class CSVParserTest {
             "$FOOD_1,$FOOD_3",
             "10",
             ZONE_1,
-            "Few",
+            "None",
+            "",
+            "",
             "",
             "10",
             "4",
@@ -111,7 +113,7 @@ class CSVParserTest {
             "true",
             ZONE_1, "",
             FOOD_1, "", FOOD_3,
-            "", ""
+            "", "","","","",""
         )
         assertEquals(expectedList, dataRow)
     }

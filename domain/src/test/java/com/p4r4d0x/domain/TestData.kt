@@ -11,7 +11,7 @@ object TestData {
 
     private val additionalData = AdditionalDataBO(
         stressLevel = 7,
-        alcoholLevel = AlcoholLevel.Few,
+        alcohol = AdditionalDataBO.AlcoholBO(level = AlcoholLevel.None),
         weather = AdditionalDataBO.WeatherBO(
             humidity = 2,
             temperature = 1

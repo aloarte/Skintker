@@ -6,12 +6,15 @@ object Constants {
     const val SECOND_QUESTION_NUMBER = 2
     const val THIRD_QUESTION_NUMBER = 3
     const val FOURTH_QUESTION_NUMBER = 4
-    const val FIFTH_QUESTION_NUMBER = 5
-    const val SIXTH_QUESTION_NUMBER = 6
-    const val SEVENTH_QUESTION_NUMBER = 7
-    const val EIGHTH_QUESTION_NUMBER = 8
+    const val FIFTH_QUESTION_NUMBER = 5 // A
+    const val SIXTH_QUESTION_NUMBER = 6 // B
+    const val SEVENTH_QUESTION_NUMBER = 7 // C
+    const val EIGHTH_QUESTION_NUMBER = 8  // 6
     const val NINTH_QUESTION_NUMBER = 9
-    const val MAX_QUESTION_NUMBER = 9
+    const val TENTH_QUESTION_NUMBER = 10
+    const val ELEVENTH_QUESTION_NUMBER = 11
+
+    const val MAX_QUESTION_NUMBER = 11
 
     //Preferences
     const val SKINTKER_PREFERENCES = "preferences_skintker"

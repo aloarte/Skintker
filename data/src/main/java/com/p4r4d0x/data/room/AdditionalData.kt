@@ -25,8 +25,7 @@ data class AdditionalData(
     val stressLevel: Int,
     val weather: AdditionalDataBO.WeatherBO,
     val travel:AdditionalDataBO.TravelBO,
-    val alcoholLevel: AlcoholLevel,
-    val beerType: List<String>,
+    val alcohol: AdditionalDataBO.AlcoholBO,
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "additional_data_id")
     var additionalDataId: Long = 0
@@ -38,8 +37,7 @@ data class AdditionalData(
             stressLevel = stressLevel,
             weather = weather,
             travel = travel,
-            alcoholLevel = alcoholLevel,
-            beerTypes = beerType
+            alcohol = alcohol
         )
     }
 }
@@ -50,8 +48,6 @@ fun fromDomainObject(additionalDataBO: AdditionalDataBO, logId: Long) =
         logId = logId,
         weather = additionalDataBO.weather,
         travel = additionalDataBO.travel,
-        alcoholLevel = additionalDataBO.alcoholLevel,
-        beerType = additionalDataBO.beerTypes
-
+        alcohol = additionalDataBO.alcohol
     )
 

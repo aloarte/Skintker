@@ -90,6 +90,7 @@
     <string name="resume_weather">Parece que las condiciones climáticas afectan al estado de tu piel.</string>
     <string name="resume_weather_temperature">Temperatura</string>
     <string name="resume_weather_humidity">Humedad</string>
+    <string name="resume_warning_correlation">Recuerda que la correlación no implica causalidad. Incluso si encuentras una correlación fuerte entre dos variables, esto no significa necesariamente que una causa la otra.</string>
     <string name="resume_no_causes_title">No hay información suficiente 😓</string>
     <string name="resume_no_causes">No se pueden extrar conclusiones con el número de reportes diarios almacenado. Por favor, vuelve a esta sección cuando aportes más datos para poder extraer posibles causas.</string>
     <!-- settings-->

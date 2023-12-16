@@ -73,11 +73,11 @@ class ExtensionsTest {
 
     @Test
     fun `test update value (AlcoholLevel,Int)`() {
-        val map = mutableMapOf(AlcoholLevel.Few to 3)
+        val map = mutableMapOf(AlcoholLevel.Beer to 3)
 
-        map.increaseValue(AlcoholLevel.Few)
+        map.increaseValue(AlcoholLevel.Beer)
 
-        assertEquals(4, map[AlcoholLevel.Few])
+        assertEquals(4, map[AlcoholLevel.Beer])
     }
 
     @Test
