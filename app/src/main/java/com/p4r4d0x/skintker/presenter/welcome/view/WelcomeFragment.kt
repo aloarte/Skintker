@@ -48,7 +48,7 @@ class WelcomeFragment : Fragment() {
             FirebaseAuth.getInstance()
                 .signInWithCredential(GoogleAuthProvider.getCredential(it.idToken, null))
             FirebaseAuth.getInstance().currentUser
-        }
+        }?: FirebaseAuth.getInstance().currentUser
     }
 
     private fun getGoogleSignIn(): GoogleSignInAccount? {

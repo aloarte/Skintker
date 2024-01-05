@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import com.google.firebase.auth.FirebaseAuth
 import com.p4r4d0x.domain.utils.Constants
 import com.p4r4d0x.domain.utils.Constants.SKINTKER_PREFERENCES
 import com.p4r4d0x.skintker.R
@@ -103,10 +104,17 @@ class SettingsFragment : Fragment() {
                             viewModel.launchExportUseCase(resources, requireContext(), userId)
                         },
                         onLogoutPressed = {
-                            // Google sign out
-                            mGoogleSignInClient.signOut().addOnCompleteListener {
+                            if(FirebaseAuth.getInstance().currentUser?.isAnonymous==true){
+                                FirebaseAuth.getInstance().signOut()
                                 navigate(FragmentScreen.Welcome, FragmentScreen.Settings)
+                            }else{
+                                // Google sign out
+                                mGoogleSignInClient.signOut().addOnCompleteListener {
+                                    FirebaseAuth.getInstance().signOut()
+                                    navigate(FragmentScreen.Welcome, FragmentScreen.Settings)
+                                }
                             }
+
                         },
                         onAlarmPressed = { addAlarm ->
                             if (addAlarm) {

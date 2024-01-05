@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.FirebaseAuth
 import com.p4r4d0x.domain.bo.ProfileBO
 import com.p4r4d0x.domain.usecases.ExportLogsDBUseCase
 import com.p4r4d0x.domain.usecases.RemoveLogsUseCase
@@ -42,10 +43,14 @@ class SettingsViewModel(
     }
 
     fun getLoggedUserInfo(lastSignedInAccount: GoogleSignInAccount?) {
-        lastSignedInAccount?.let {
-            _profile.value =
-                ProfileBO(it.email ?: "", it.displayName ?: "", it.id ?: "")
+        _profile.value = if(FirebaseAuth.getInstance().currentUser?.isAnonymous==true){
+            ProfileBO.AnonymousProfileBO()
+        }else{
+           lastSignedInAccount?.let {
+                ProfileBO.AuthenticatedProfileBO(it.email ?: "", it.displayName ?: "", it.id ?: "")
+            }
         }
+
     }
 
     fun updateReminderTime(prefs: SharedPreferences?) {

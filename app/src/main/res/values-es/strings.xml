@@ -14,7 +14,8 @@
     <string name="btn_notification_update">ACTUALIZAR RECORDATORIO</string>
     <string name="btn_notification_clear">ELIMINAR</string>
     <string name="btn_wipe_data">BORRAR DATOS</string>
-    <string name="btn_sign_in">Login con Google"</string>
+    <string name="btn_sign_in">Login con Google</string>
+    <string name="btn_sign_in_anon">"Login anónimo</string>
 
     <!-- Pick date -->
     <string name="pick_date_update">Actualizar el reporte de hoy</string>
@@ -96,6 +97,8 @@
     <!-- settings-->
     <string name="settings_export_description">Puedes exportar todos los datos almacenados en un fichero externo.</string>
     <string name="settings_profile_description">Estás logueado en el sistema con los datos que puedes ver a continuación. Puedes cerrar la sesión en cualquier momento.</string>
+    <string name="settings_anon_profile_description">Estás logueado en el sistema como un usuario anónimo, te servirá para probar la aplicación. Puedes hacer un logout cuando quieras para hacer login con tu cuenta personal.</string>
+
     <string name="settings_wipe_data_description">Borra todos los datos almacenados.</string>
     <string name="settings_toast_remove_logs_error">No se pudieron borrar todos los datos</string>
     <string name="settings_toast_remove_logs">Todos los datos borrados</string>

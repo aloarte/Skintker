@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
+import com.p4r4d0x.domain.bo.ProfileBO
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.presenter.common.compose.Description
 import com.p4r4d0x.skintker.presenter.settings.viewmodel.SettingsViewModel
@@ -43,25 +44,12 @@ fun ProfileSection(
     settingsViewModel.profile.observeAsState().value?.let { profile ->
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
 
-            Description(R.string.settings_profile_description)
-            Row(
-                Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    modifier = Modifier.fillMaxWidth(0.5f),
-                    text = profile.email,
-                    style = MaterialTheme.typography.caption
-                )
-
-                Text(
-                    modifier = Modifier.fillMaxWidth(0.5f),
-                    text = profile.name,
-                    style = MaterialTheme.typography.caption
-                )
-
+            if(profile.isAnonymous){
+                AnonymousUser()
+            }else{
+                AuthenticatedUser(profile as ProfileBO.AuthenticatedProfileBO)
             }
+
             Spacer(modifier = Modifier.height(20.dp))
 
             Button(
@@ -76,7 +64,34 @@ fun ProfileSection(
 
         }
     }
+}
 
+@Composable
+fun AnonymousUser(){
+    Description(R.string.settings_anon_profile_description)
+}
+
+@Composable
+fun AuthenticatedUser(profile: ProfileBO.AuthenticatedProfileBO){
+    Description(R.string.settings_profile_description)
+    Row(
+        Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Text(
+            modifier = Modifier.fillMaxWidth(0.5f),
+            text = profile.email,
+            style = MaterialTheme.typography.caption
+        )
+
+        Text(
+            modifier = Modifier.fillMaxWidth(0.5f),
+            text = profile.name,
+            style = MaterialTheme.typography.caption
+        )
+
+    }
 }
 
 @OptIn(ExperimentalPermissionsApi::class)

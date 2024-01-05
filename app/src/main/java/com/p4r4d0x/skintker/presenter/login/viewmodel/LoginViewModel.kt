@@ -26,4 +26,14 @@ class LoginViewModel : ViewModel() {
         }
     }
 
+    fun signAnonymous() = viewModelScope.launch {
+        try {
+            _loadingState.value = LoginLoadingState.LOADING
+            auth.signInAnonymously()
+            _loadingState.value = LoginLoadingState.LOADED
+        } catch (e: Exception) {
+            _loadingState.value = LoginLoadingState.error(e.localizedMessage)
+        }
+    }
+
 }

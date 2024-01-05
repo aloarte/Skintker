@@ -40,7 +40,6 @@ fun LoginScreen(viewModel: LoginViewModel, context: Context) {
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     val loginError = stringResource(id = R.string.google_sso_error)
-
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) {
@@ -59,8 +58,10 @@ fun LoginScreen(viewModel: LoginViewModel, context: Context) {
     }
 
     Scaffold {
-        Box {
-            LoginScreenContent(launcher, context)
+        Box(Modifier.padding(it)) {
+            LoginScreenContent(launcher, context){
+                viewModel.signAnonymous()
+            }
             SnackbarHost(
                 modifier = Modifier.align(Alignment.BottomCenter),
                 hostState = snackbarHostState
@@ -96,7 +97,8 @@ class SkintkerSnackbarData(
 @Composable
 fun LoginScreenContent(
     launcher: ManagedActivityResultLauncher<Intent, ActivityResult>,
-    context: Context
+    context: Context,
+    onAnonLogin: () -> Unit
 ) {
     Surface(
         color = MaterialTheme.colors.primary,
@@ -111,7 +113,7 @@ fun LoginScreenContent(
                 painter = painterResource(id = R.drawable.ic_logo_background),
                 contentDescription = null,// decorative element
                 modifier = Modifier
-                    .size(400.dp)
+                    .size(350.dp)
                     .shadow(
                         elevation = 0.dp
                     ),
@@ -126,7 +128,15 @@ fun LoginScreenContent(
                     .padding(vertical = 0.dp, horizontal = 30.dp)
             )
 
+            Divider(
+                modifier = Modifier
+                    .height(40.dp),
+                color = Color.Transparent
+            )
+
             GoogleSignInRow(launcher = launcher, context = context)
+            GoogleSignInRowAnonymous(onAnonLogin)
+
         }
     }
 }
@@ -143,8 +153,7 @@ fun GoogleSignInRow(
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
+            .padding(horizontal = 24.dp, vertical = 6.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -173,6 +182,49 @@ fun GoogleSignInRow(
                     style = MaterialTheme.typography.button,
                     color = MaterialTheme.colors.onSurface,
                     text = stringResource(id = R.string.btn_sign_in)
+                )
+                Icon(
+                    tint = Color.Transparent, imageVector = Icons.Default.MailOutline,
+                    contentDescription = null
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun GoogleSignInRowAnonymous(onAnonLogin: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .padding(horizontal = 24.dp, vertical = 6.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        OutlinedButton(
+            border = ButtonDefaults.outlinedBorder.copy(width = 1.dp),
+            onClick = {
+                onAnonLogin.invoke()
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Icon(
+                    tint = Color.Unspecified,
+                    painter = painterResource(id = R.drawable.icon_close),
+                    contentDescription = null
+                )
+                Text(
+                    style = MaterialTheme.typography.button,
+                    color = MaterialTheme.colors.onSurface,
+                    text = stringResource(id = R.string.btn_sign_in_anon)
                 )
                 Icon(
                     tint = Color.Transparent, imageVector = Icons.Default.MailOutline,
