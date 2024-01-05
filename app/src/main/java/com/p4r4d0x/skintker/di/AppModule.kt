@@ -33,7 +33,7 @@ val vmModule = module {
     viewModel { LoginViewModel() }
     viewModel { SurveyViewModel(get(), get(), get()) }
     viewModel { HomeViewModel(get(), get(), get()) }
-    viewModel { SettingsViewModel(get(), get()) }
+    viewModel { SettingsViewModel(get(), get(),get()) }
 }
 
 val useCasesModule = module {
@@ -44,8 +44,8 @@ val useCasesModule = module {
     factory { GetStatsUseCase(get()) }
     factory { ExportLogsDBUseCase(get(), get()) }
     factory { RemoveLogUseCase(get()) }
+    factory { RemoveLocalLogsUseCase(get()) }
     factory { RemoveLogsUseCase(get()) }
-
 }
 
 val repositoriesModule = module {
@@ -53,7 +53,6 @@ val repositoriesModule = module {
     factory<ResourcesRepository> { ResourcesRepositoryImpl(get()) }
     factory<StatsRepository> { StatsRepositoryImpl(get()) }
     factory<ReportsManagementRepository> { ReportsManagementRepositoryImpl(get(), get(), get()) }
-
 }
 
 val datasourcesModule = module {
@@ -61,11 +60,9 @@ val datasourcesModule = module {
     factory<ResourcesDatasource> { ResourcesDatasourceImpl() }
     factory<StatsDatasource> { StatsDataSourceImpl(get(), get()) }
     factory<ReportsManagementDataSource> { ReportsManagementDataSourceImpl(get(), get()) }
-
 }
 
 val componentsModule = module {
-
     factory { LogsNormalizer(androidContext().resources) }
 }
 

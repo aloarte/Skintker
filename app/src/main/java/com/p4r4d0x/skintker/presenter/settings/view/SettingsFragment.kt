@@ -104,6 +104,7 @@ class SettingsFragment : Fragment() {
                             viewModel.launchExportUseCase(resources, requireContext(), userId)
                         },
                         onLogoutPressed = {
+                            viewModel.clearLocalReports(userId)
                             if(FirebaseAuth.getInstance().currentUser?.isAnonymous==true){
                                 FirebaseAuth.getInstance().signOut()
                                 navigate(FragmentScreen.Welcome, FragmentScreen.Settings)

@@ -11,12 +11,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
 import com.p4r4d0x.domain.bo.ProfileBO
 import com.p4r4d0x.domain.usecases.ExportLogsDBUseCase
+import com.p4r4d0x.domain.usecases.RemoveLocalLogsUseCase
 import com.p4r4d0x.domain.usecases.RemoveLogsUseCase
 import com.p4r4d0x.domain.utils.Constants
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class SettingsViewModel(
     private val exportLogsUseCase: ExportLogsDBUseCase,
+    private val removeLocalLogsUseCase: RemoveLocalLogsUseCase,
     private val removeLogsUseCase: RemoveLogsUseCase
 ) : ViewModel() {
 
@@ -39,6 +41,14 @@ class SettingsViewModel(
             params = ExportLogsDBUseCase.Params(resources, context, userId)
         ) {
             _exportStatus.value = it
+        }
+    }
+
+    fun clearLocalReports(userId: String) {
+        removeLocalLogsUseCase.invoke(
+            scope = viewModelScope,
+            params = RemoveLocalLogsUseCase.Params(userId)
+        ) {
         }
     }
 

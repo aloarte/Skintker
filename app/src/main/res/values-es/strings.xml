@@ -61,6 +61,7 @@
 
     <!-- login-->
     <string name="login_description">En Skintker usamos tu cuenta para guardar tus reportes diarios en nuestra base de datos remota. De esta forma podrás tener la seguridad de que tus datos no se perderán.</string>
+    <string name="login_anon_description">También puedes iniciar sesión con un usuario anónimo para poder probar la aplicación.</string>
     <string name="google_sso_error">Algo salió mal al hacer login con tu cuenta de Google. Por favor, sigue intentándolo y si el error persiste contacta con nosotros.</string>
 
     <!-- survey -->

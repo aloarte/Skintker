@@ -20,4 +20,6 @@ interface ReportsManagementRepository {
     suspend fun deleteReport(userId: String, date: Date): Boolean
 
     suspend fun deleteReports(userId: String): Boolean
+
+    suspend fun deleteLocalReports(userId: String): Boolean
 }

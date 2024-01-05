@@ -60,6 +60,7 @@
 
     <!-- login-->
     <string name="login_description">In Skintker we use your account to save your reports in our remote database. this way you can be calm, your data won\'t be lost</string>
+    <string name="login_anon_description">Also you can sign in with an anonymous user in order to try the application.</string>
     <string name="google_sso_error">Anything failed while login you with your Google account. Please retry and if persis contact us.</string>
 
     <!-- survey-->

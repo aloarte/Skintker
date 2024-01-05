@@ -123,6 +123,15 @@ class ReportsManagementRepositoryImpl(
         }
     }
 
+    override suspend fun deleteLocalReports(userId: String): Boolean {
+        return try {
+            dao.deleteAll()
+            true
+        } catch (exception: Exception) {
+            false
+        }
+    }
+
     private suspend fun getReportsFromDatabase() = dao.getAll().map { dailyLogAndIrritation ->
         normalizer.denormalizeLog(dailyLogAndIrritation.toDomain())
     }

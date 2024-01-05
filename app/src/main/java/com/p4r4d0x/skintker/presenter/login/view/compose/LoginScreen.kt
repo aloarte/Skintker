@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -113,7 +114,7 @@ fun LoginScreenContent(
                 painter = painterResource(id = R.drawable.ic_logo_background),
                 contentDescription = null,// decorative element
                 modifier = Modifier
-                    .size(350.dp)
+                    .size(300.dp)
                     .shadow(
                         elevation = 0.dp
                     ),
@@ -123,9 +124,20 @@ fun LoginScreenContent(
                 stringResource(id = R.string.login_description),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Normal,
+                textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.caption,
                 modifier = Modifier
-                    .padding(vertical = 0.dp, horizontal = 30.dp)
+                    .padding(vertical = 5.dp, horizontal = 30.dp)
+            )
+
+            Text(
+                stringResource(id = R.string.login_anon_description),
+                fontSize = 14.sp,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Normal,
+                style = MaterialTheme.typography.caption,
+                modifier = Modifier
+                    .padding(vertical = 5.dp, horizontal = 30.dp)
             )
 
             Divider(
@@ -212,24 +224,16 @@ fun GoogleSignInRowAnonymous(onAnonLogin: () -> Unit) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
-                Icon(
-                    tint = Color.Unspecified,
-                    painter = painterResource(id = R.drawable.icon_close),
-                    contentDescription = null
-                )
                 Text(
                     style = MaterialTheme.typography.button,
                     color = MaterialTheme.colors.onSurface,
                     text = stringResource(id = R.string.btn_sign_in_anon)
                 )
-                Icon(
-                    tint = Color.Transparent, imageVector = Icons.Default.MailOutline,
-                    contentDescription = null
-                )
+
             }
         }
     }
