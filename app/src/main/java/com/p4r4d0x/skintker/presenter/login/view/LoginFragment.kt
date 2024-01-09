@@ -19,6 +19,8 @@ class LoginFragment : Fragment() {
 
     private val viewModel: LoginViewModel by inject()
 
+    private var navigated = false
+
     override fun onResume() {
         super.onResume()
         observeViewModel()
@@ -26,7 +28,8 @@ class LoginFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.loadingState.observe(viewLifecycleOwner) { loadingState ->
-            if (loadingState == LoginLoadingState.LOADED) {
+            if (loadingState == LoginLoadingState.LOADED && !navigated) {
+                navigated = true
                 navigate(FragmentScreen.Welcome, FragmentScreen.Login)
             }
         }

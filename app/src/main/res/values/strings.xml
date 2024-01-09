@@ -15,6 +15,7 @@
     <string name="btn_notification_clear">REMOVE</string>
     <string name="btn_wipe_data">WIPE DATA</string>
     <string name="btn_sign_in">"Sign in with Google"</string>
+    <string name="btn_sign_in_anon">"Anonymous sign in"</string>
 
     <!-- Pick date -->
     <string name="pick_date_update">Update today\'s log</string>
@@ -59,6 +60,7 @@
 
     <!-- login-->
     <string name="login_description">In Skintker we use your account to save your reports in our remote database. this way you can be calm, your data won\'t be lost</string>
+    <string name="login_anon_description">Also you can sign in with an anonymous user in order to try the application.</string>
     <string name="google_sso_error">Anything failed while login you with your Google account. Please retry and if persis contact us.</string>
 
     <!-- survey-->
@@ -99,6 +101,7 @@
     <!-- settings-->
     <string name="settings_export_description">You can export all of your loaded logs data into an external file.</string>
     <string name="settings_profile_description">You are logged in with the data below. You can perform a logout anytime.</string>
+    <string name="settings_anon_profile_description">You are logged in with an anonymous user, you can only try the application. You can perform a logout anytime and login with a real account.</string>
     <string name="settings_wipe_data_description">Erase all the data registered.</string>
     <string name="settings_toast_remove_logs_error">Data couldn\'t be removed</string>
     <string name="settings_toast_remove_logs">Data erased</string>

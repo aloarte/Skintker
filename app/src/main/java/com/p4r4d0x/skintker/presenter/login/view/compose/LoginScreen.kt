@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -40,7 +41,6 @@ fun LoginScreen(viewModel: LoginViewModel, context: Context) {
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     val loginError = stringResource(id = R.string.google_sso_error)
-
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) {
@@ -59,8 +59,10 @@ fun LoginScreen(viewModel: LoginViewModel, context: Context) {
     }
 
     Scaffold {
-        Box {
-            LoginScreenContent(launcher, context)
+        Box(Modifier.padding(it)) {
+            LoginScreenContent(launcher, context){
+                viewModel.signAnonymous()
+            }
             SnackbarHost(
                 modifier = Modifier.align(Alignment.BottomCenter),
                 hostState = snackbarHostState
@@ -96,7 +98,8 @@ class SkintkerSnackbarData(
 @Composable
 fun LoginScreenContent(
     launcher: ManagedActivityResultLauncher<Intent, ActivityResult>,
-    context: Context
+    context: Context,
+    onAnonLogin: () -> Unit
 ) {
     Surface(
         color = MaterialTheme.colors.primary,
@@ -111,7 +114,7 @@ fun LoginScreenContent(
                 painter = painterResource(id = R.drawable.ic_logo_background),
                 contentDescription = null,// decorative element
                 modifier = Modifier
-                    .size(400.dp)
+                    .size(300.dp)
                     .shadow(
                         elevation = 0.dp
                     ),
@@ -121,12 +124,31 @@ fun LoginScreenContent(
                 stringResource(id = R.string.login_description),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Normal,
+                textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.caption,
                 modifier = Modifier
-                    .padding(vertical = 0.dp, horizontal = 30.dp)
+                    .padding(vertical = 5.dp, horizontal = 30.dp)
+            )
+
+            Text(
+                stringResource(id = R.string.login_anon_description),
+                fontSize = 14.sp,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Normal,
+                style = MaterialTheme.typography.caption,
+                modifier = Modifier
+                    .padding(vertical = 5.dp, horizontal = 30.dp)
+            )
+
+            Divider(
+                modifier = Modifier
+                    .height(40.dp),
+                color = Color.Transparent
             )
 
             GoogleSignInRow(launcher = launcher, context = context)
+            GoogleSignInRowAnonymous(onAnonLogin)
+
         }
     }
 }
@@ -143,8 +165,7 @@ fun GoogleSignInRow(
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
+            .padding(horizontal = 24.dp, vertical = 6.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -178,6 +199,41 @@ fun GoogleSignInRow(
                     tint = Color.Transparent, imageVector = Icons.Default.MailOutline,
                     contentDescription = null
                 )
+            }
+        }
+    }
+}
+
+@Composable
+fun GoogleSignInRowAnonymous(onAnonLogin: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .padding(horizontal = 24.dp, vertical = 6.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        OutlinedButton(
+            border = ButtonDefaults.outlinedBorder.copy(width = 1.dp),
+            onClick = {
+                onAnonLogin.invoke()
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Text(
+                    style = MaterialTheme.typography.button,
+                    color = MaterialTheme.colors.onSurface,
+                    text = stringResource(id = R.string.btn_sign_in_anon)
+                )
+
             }
         }
     }

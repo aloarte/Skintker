@@ -19,8 +19,21 @@ class LoginViewModel : ViewModel() {
     fun signWithCredential(credential: AuthCredential) = viewModelScope.launch {
         try {
             _loadingState.value = LoginLoadingState.LOADING
-            auth.signInWithCredential(credential)
-            _loadingState.value = LoginLoadingState.LOADED
+            auth.signInWithCredential(credential).addOnCompleteListener {
+                _loadingState.value = LoginLoadingState.LOADED
+            }
+        } catch (e: Exception) {
+            _loadingState.value = LoginLoadingState.error(e.localizedMessage)
+        }
+    }
+
+    fun signAnonymous() = viewModelScope.launch {
+        try {
+            _loadingState.value = LoginLoadingState.LOADING
+            auth.signInAnonymously().addOnCompleteListener{
+                _loadingState.value = LoginLoadingState.LOADED
+
+            }
         } catch (e: Exception) {
             _loadingState.value = LoginLoadingState.error(e.localizedMessage)
         }
