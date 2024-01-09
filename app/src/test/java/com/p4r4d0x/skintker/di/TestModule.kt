@@ -13,7 +13,7 @@ val testViewModelModule = module {
     viewModel { WelcomeViewModel(get()) }
     viewModel { SurveyViewModel(get(), get(), get()) }
     viewModel { HomeViewModel(get(), get(), get()) }
-    viewModel { SettingsViewModel(get(), get()) }
+    viewModel { SettingsViewModel(get(), get(),get()) }
 }
 
 val testUseCasesModule = module {
@@ -24,6 +24,7 @@ val testUseCasesModule = module {
     factory { mockk<GetStatsUseCase>() }
     factory { mockk<ExportLogsDBUseCase>() }
     factory { mockk<RemoveLogsUseCase>() }
+    factory { mockk<RemoveLocalLogsUseCase>() }
     factory { mockk<RemoveLogUseCase>() }
 
 }
