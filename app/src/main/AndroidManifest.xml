@@ -16,6 +16,7 @@
             android:name="com.p4r4d0x.skintker.presenter.main.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"
             android:theme="@style/Theme.Skintker.Fullscreen">
             <intent-filter>
