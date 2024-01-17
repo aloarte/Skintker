@@ -121,8 +121,8 @@ class HomeViewModelTest : KoinBaseTest(testUseCasesModule) {
     }
 
     private fun generateCauses() = PossibleCausesBO(
-        true, emptyList(), true, emptyList(),
-        PossibleCausesBO.StressCauseBO(true, 5),
+        emptyList(), true, emptyList(),
+        PossibleCausesBO.StressCauseBO(true),
         PossibleCausesBO.TravelCauseBO(true, ""),
         Pair(
             PossibleCausesBO.WeatherCauseBO(

@@ -40,29 +40,30 @@ class StatsDataSourceTest :
                 "    \"content\": {\n" +
                 "        \"type\": \"com.skintker.domain.model.responses.StatsResponse\",\n" +
                 "        \"stats\": {\n" +
-                "            \"enoughData\": true,\n" +
-                "            \"relevantLogs\": 10,\n" +
-                "            \"alcohol\": {\n" +
-                "                \"isPossible\": true,\n" +
-                "                \"beerType\": \"wheat\"\n" +
-                "            },\n" +
-                "            \"stress\": {\n" +
-                "                \"level\": 4\n" +
-                "            },\n" +
-                "            \"travel\": {\n" +
-                "                \"city\": \"Madrid\"\n" +
-                "            },\n" +
-                "            \"weather\": {\n" +
-                "                \"temperature\": {\n" +
-                "                    \"isPossible\": true,\n" +
-                "                    \"level\": 4\n" +
-                "                },\n" +
-                "                \"humidity\": {\n" +
-                "                    \"isPossible\": true,\n" +
-                "                    \"level\": 1\n" +
-                "                }\n" +
-                "            }\n" +
-                "        }\n" +
+                    "  \"dietaryCauses\": [\n" +
+                            "    \"Meat\",\n" +
+                            "    \"Blue fish\"\n" +
+                            "  ],\n" +
+                            "  \"mostAffectedZones\": [\n" +
+                            "    \"IrritationZone\"\n" +
+                            "  ],\n" +
+                            "  \"alcohol\": {\n" +
+                            "    \"isPossible\": true\n" +
+                            "  },\n" +
+                            "  \"stress\": true,\n" +
+                            "  \"travel\": {\n" +
+                            "    \"isPossible\": true,\n" +
+                            "    \"city\": \"Madrid\"\n" +
+                            "  },\n" +
+                            "  \"weather\": {\n" +
+                            "    \"temperature\": {\n" +
+                            "      \"level\": 0\n" +
+                            "    },\n" +
+                            "    \"humidity\": {\n" +
+                            "      \"level\": 5\n" +
+                            "    }\n" +
+                            "  }\n" +
+                            "}"+
                 "    }\n" +
                 "}"
     }

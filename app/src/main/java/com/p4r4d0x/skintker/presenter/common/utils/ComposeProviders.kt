@@ -85,11 +85,10 @@ class PossibleCausesProvider : PreviewParameterProvider<PossibleCausesBO> {
     override val values: Sequence<PossibleCausesBO>
         get() = listOf(
             PossibleCausesBO(
-                enoughData = true,
                 dietaryCauses = listOf("Alcohol", "Nuts", "Fermented"),
                 alcoholCause = true,
                 mostAffectedZones = listOf("Neck", "Wrists"),
-                stressCause = PossibleCausesBO.StressCauseBO(true, 8),
+                stressCause = PossibleCausesBO.StressCauseBO(true),
                 travelCause = PossibleCausesBO.TravelCauseBO(true, "Madrid"),
                 weatherCause = Pair(
                     PossibleCausesBO.WeatherCauseBO(
@@ -105,11 +104,10 @@ class PossibleCausesProvider : PreviewParameterProvider<PossibleCausesBO> {
                 )
             ),
             PossibleCausesBO(
-                enoughData = false,
                 dietaryCauses = emptyList(),
                 alcoholCause = false,
                 mostAffectedZones = emptyList(),
-                stressCause = PossibleCausesBO.StressCauseBO(false, 0),
+                stressCause = PossibleCausesBO.StressCauseBO(false),
                 travelCause = PossibleCausesBO.TravelCauseBO(false, null),
                 weatherCause = Pair(
                     PossibleCausesBO.WeatherCauseBO(
@@ -125,11 +123,10 @@ class PossibleCausesProvider : PreviewParameterProvider<PossibleCausesBO> {
                 )
             ),
             PossibleCausesBO(
-                enoughData = true,
                 dietaryCauses = listOf("Alcohol", "Nuts", "Fermented"),
                 alcoholCause = true,
                 mostAffectedZones = listOf("Neck", "Wrists"),
-                stressCause = PossibleCausesBO.StressCauseBO(false, 0),
+                stressCause = PossibleCausesBO.StressCauseBO(false),
                 travelCause = PossibleCausesBO.TravelCauseBO(false, null),
                 weatherCause = Pair(
                     PossibleCausesBO.WeatherCauseBO(
@@ -145,11 +142,10 @@ class PossibleCausesProvider : PreviewParameterProvider<PossibleCausesBO> {
                 )
             ),
             PossibleCausesBO(
-                enoughData = false,
                 dietaryCauses = listOf("Alcohol", "Nuts", "Fermented"),
                 alcoholCause = true,
                 mostAffectedZones = listOf("Neck", "Wrists"),
-                stressCause = PossibleCausesBO.StressCauseBO(false, 0),
+                stressCause = PossibleCausesBO.StressCauseBO(false),
                 travelCause = PossibleCausesBO.TravelCauseBO(false, null),
                 weatherCause = Pair(
                     PossibleCausesBO.WeatherCauseBO(
@@ -165,11 +161,10 @@ class PossibleCausesProvider : PreviewParameterProvider<PossibleCausesBO> {
                 )
             ),
             PossibleCausesBO(
-                enoughData = true,
                 dietaryCauses = listOf("Alcohol"),
                 alcoholCause = false,
                 mostAffectedZones = emptyList(),
-                stressCause = PossibleCausesBO.StressCauseBO(true, 6),
+                stressCause = PossibleCausesBO.StressCauseBO(true),
                 travelCause = PossibleCausesBO.TravelCauseBO(false, null),
                 weatherCause = Pair(
                     PossibleCausesBO.WeatherCauseBO(
