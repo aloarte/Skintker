@@ -1,7 +1,6 @@
 package com.p4r4d0x.domain.bo
 
 data class PossibleCausesBO(
-    val enoughData: Boolean,
     val dietaryCauses: List<String>,
     val alcoholCause: Boolean,
     val mostAffectedZones: List<String>,
@@ -10,7 +9,7 @@ data class PossibleCausesBO(
     val weatherCause: Pair<WeatherCauseBO, WeatherCauseBO>
 ) {
 
-    data class StressCauseBO(val possibleCause: Boolean, val averageLevel: Int)
+    data class StressCauseBO(val possibleCause: Boolean)
 
     data class TravelCauseBO(val possibleCause: Boolean, val city: String?)
 

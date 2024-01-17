@@ -32,11 +32,10 @@ object TestData {
     )
 
     val stats = PossibleCausesBO(
-        enoughData = false,
         dietaryCauses = emptyList(),
         alcoholCause = true,
         mostAffectedZones = emptyList(),
-        stressCause = PossibleCausesBO.StressCauseBO(false, 4),
+        stressCause = PossibleCausesBO.StressCauseBO(false),
         travelCause = PossibleCausesBO.TravelCauseBO(false, "Madrid"),
         weatherCause = Pair(
             PossibleCausesBO.WeatherCauseBO(

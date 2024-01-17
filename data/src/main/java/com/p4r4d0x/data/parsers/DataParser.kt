@@ -209,9 +209,7 @@ object DataParser {
 
     fun SkintkvaultResponseStats.toPossibleCauses(): PossibleCausesBO? {
         return this.content?.stats?.let {
-            if (it.relevantLogs > 0) {
                 it.toPossibleCauses()
-            } else null
         }
     }
 

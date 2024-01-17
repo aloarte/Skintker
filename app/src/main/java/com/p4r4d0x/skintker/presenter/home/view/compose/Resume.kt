@@ -45,8 +45,8 @@ fun ResumeBody(
                 !causes.weatherCause.first.possibleCause &&
                 !causes.weatherCause.first.possibleCause
         Column(Modifier.background(MaterialTheme.colors.background)) {
-            ResumeTitle(!causes.enoughData || noCauses)
-            if (!causes.enoughData || noCauses) {
+            ResumeTitle(noCauses)
+            if (noCauses) {
                 EmptyUserStats()
             } else {
                 LazyColumn {
@@ -206,22 +206,6 @@ fun StressResume(stressCause: PossibleCausesBO.StressCauseBO) {
                 style = MaterialTheme.typography.caption
             )
             Spacer(modifier = Modifier.height(3.dp))
-            Row {
-                Text(
-                    stringResource(id = R.string.resume_stress_level),
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Light,
-                    style = MaterialTheme.typography.caption
-                )
-                Text(
-                    stressCause.averageLevel.toString(),
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Light,
-                    color = MaterialTheme.colors.primaryVariant,
-                    style = MaterialTheme.typography.caption,
-                    modifier = Modifier.padding(horizontal = 3.dp)
-                )
-            }
         }
     }
 }
