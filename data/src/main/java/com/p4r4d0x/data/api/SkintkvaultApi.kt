@@ -1,6 +1,7 @@
 package com.p4r4d0x.data.api
 
 import com.p4r4d0x.data.dto.logs.ReportDto
+import com.p4r4d0x.data.dto.user.UserDto
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -45,5 +46,12 @@ interface SkintkvaultApi {
     @GET("stats/{userId}")
     suspend fun getStats(
         @Path("userId") id: String
+    ): Response<ResponseBody>
+
+    /* /user */
+
+    @PUT("user/fb")
+    suspend fun addUser(
+        @Body report: UserDto
     ): Response<ResponseBody>
 }

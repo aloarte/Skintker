@@ -5,12 +5,14 @@ import com.p4r4d0x.data.api.SkintkvaultApi
 import com.p4r4d0x.data.datasources.ReportsManagementDataSource
 import com.p4r4d0x.data.datasources.StatsDatasource
 import com.p4r4d0x.data.datasources.SurveyDataSource
+import com.p4r4d0x.data.datasources.UserDataSource
 import com.p4r4d0x.data.parsers.LogsNormalizer
 import com.p4r4d0x.data.room.DailyLogDao
 import com.p4r4d0x.data.room.LogsDatabase
 import com.p4r4d0x.domain.repository.ReportsManagementRepository
 import com.p4r4d0x.domain.repository.StatsRepository
 import com.p4r4d0x.domain.repository.SurveyRepository
+import com.p4r4d0x.domain.repository.UserRepository
 import io.mockk.mockk
 import okhttp3.MediaType.Companion.toMediaType
 import org.koin.dsl.module
@@ -33,7 +35,7 @@ val testRepositoriesModule = module {
     factory { mockk<StatsRepository>() }
     factory { mockk<SurveyRepository>() }
     factory { mockk<ReportsManagementRepository>() }
-
+    factory { mockk<UserRepository>() }
 }
 
 val testDatasourcesModule = module {
@@ -41,6 +43,5 @@ val testDatasourcesModule = module {
     factory { mockk<StatsDatasource>() }
     factory { mockk<SurveyDataSource>() }
     factory { mockk<ReportsManagementDataSource>() }
-
-
+    factory { mockk<UserDataSource>() }
 }
