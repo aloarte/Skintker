@@ -136,8 +136,11 @@ dependencies {
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitGsonConverterVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$retrofitOkhttp"
+
+    //Moshi
+    implementation "com.squareup.moshi:moshi:$moshi"
+    implementation "com.squareup.retrofit2:converter-moshi:$moshiConverter"
 
     //Test
     testImplementation project(path: ':test')

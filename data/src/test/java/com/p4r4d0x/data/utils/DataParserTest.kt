@@ -140,15 +140,15 @@ class DataParserTest {
             ),
             additionalData = AdditionalDataBO(
                 stressLevel = THIRD_QUESTION_ANSWER_SLIDER.toInt(),
-                weather = AdditionalDataBO.WeatherBO(
+                weather = WeatherBO(
                     humidity = EIGHT_QUESTION_ANSWER_SLIDER_1.toInt(),
                     temperature = EIGHT_QUESTION_ANSWER_SLIDER_2.toInt()
                 ),
-                travel = AdditionalDataBO.TravelBO(
+                travel = TravelBO(
                     traveled = false,
                     city = NINTH_QUESTION_ANSWER_INPUT_LOWER_CASE
                 ),
-                alcohol = AdditionalDataBO.AlcoholBO(
+                alcohol = AlcoholBO(
                     level = alcoholLevel,
                     beers = if (expandBeerQuestion) listOf(
                         MULTIPLE_ANSWER_1_VALUE,

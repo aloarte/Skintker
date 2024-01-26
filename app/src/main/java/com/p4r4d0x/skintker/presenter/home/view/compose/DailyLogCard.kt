@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.sp
 import com.p4r4d0x.domain.bo.AdditionalDataBO
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.bo.IrritationBO
+import com.p4r4d0x.domain.bo.TravelBO
+import com.p4r4d0x.domain.bo.WeatherBO
 import com.p4r4d0x.domain.utils.getDDMMYYYYDate
 import com.p4r4d0x.domain.utils.getDayDate
 import com.p4r4d0x.skintker.R
@@ -322,7 +324,7 @@ private fun ItemTextPairNumber(
 }
 
 @Composable
-fun TextCity(travel: AdditionalDataBO.TravelBO, modifier: Modifier) {
+fun TextCity(travel: TravelBO, modifier: Modifier) {
     Text(
         text = stringResource(
             id = if (travel.traveled) {
@@ -355,7 +357,7 @@ fun TextCity(travel: AdditionalDataBO.TravelBO, modifier: Modifier) {
 }
 
 @Composable
-fun WeatherText(weather: AdditionalDataBO.WeatherBO) {
+fun WeatherText(weather: WeatherBO) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

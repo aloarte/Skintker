@@ -2,16 +2,22 @@ package com.p4r4d0x.data.dto.logs
 
 import com.p4r4d0x.data.parsers.DataParser
 import com.p4r4d0x.domain.bo.AdditionalDataBO
+import com.p4r4d0x.domain.bo.AlcoholBO
 import com.p4r4d0x.domain.bo.AlcoholLevel
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.bo.IrritationBO
+import com.p4r4d0x.domain.bo.TravelBO
+import com.p4r4d0x.domain.bo.WeatherBO
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class ReportDto(
     val date: String,
     val foodList: List<String>,
     val irritation: IrritationDto,
     val additionalData: AdditionalDataDto
 ) {
+    @JsonClass(generateAdapter = true)
     data class IrritationDto(val overallValue: Int, val zoneValues: List<String>) {
         fun toBo() = IrritationBO(overallValue = this.overallValue, zoneValues = this.zoneValues)
 
@@ -19,6 +25,7 @@ data class ReportDto(
             IrritationDto(overallValue = bo.overallValue, zoneValues = bo.zoneValues)
     }
 
+    @JsonClass(generateAdapter = true)
     data class AdditionalDataDto(
         val stressLevel: Int,
         val weather: WeatherDto,
@@ -33,44 +40,46 @@ data class ReportDto(
         )
     }
 
+    @JsonClass(generateAdapter = true)
     data class WeatherDto(val humidity: Int, val temperature: Int) {
-        fun toBo() = AdditionalDataBO.WeatherBO(
+        fun toBo() = WeatherBO(
             humidity = this.humidity,
             temperature = this.temperature
         )
 
-        fun fromBo(bo: AdditionalDataBO.WeatherBO) = WeatherDto(
+        fun fromBo(bo: WeatherBO) = WeatherDto(
             humidity = bo.humidity,
             temperature = bo.temperature
         )
     }
-
+    @JsonClass(generateAdapter = true)
     data class TravelDto(val traveled: Boolean, val city: String) {
-        fun toBo() = AdditionalDataBO.TravelBO(
+        fun toBo() = TravelBO(
             traveled = this.traveled,
             city = this.city
         )
 
-        fun fromBo(bo: AdditionalDataBO.TravelBO) = TravelDto(
+        fun fromBo(bo: TravelBO) = TravelDto(
             traveled = this.traveled,
             city = this.city
         )
     }
 
+    @JsonClass(generateAdapter = true)
     data class AlcoholDto(
         val level: AlcoholLevel,
         val beers: List<String> = emptyList(),
         val wines: List<String> = emptyList(),
         val distilledDrinks: List<String> = emptyList()
     ) {
-        fun toBo() = AdditionalDataBO.AlcoholBO(
+        fun toBo() = AlcoholBO(
             level = this.level,
             beers = this.beers,
             wines = this.wines,
             distilledDrinks = this.distilledDrinks,
         )
 
-        fun fromBo(bo: AdditionalDataBO.AlcoholBO) = AlcoholDto(
+        fun fromBo(bo: AlcoholBO) = AlcoholDto(
             level = this.level,
             beers = this.beers,
             wines = this.wines,
@@ -98,17 +107,17 @@ fun AdditionalDataBO.toDto() = ReportDto.AdditionalDataDto(
     alcohol = this.alcohol.toDto()
 )
 
-fun AdditionalDataBO.WeatherBO.toDto() = ReportDto.WeatherDto(
+fun WeatherBO.toDto() = ReportDto.WeatherDto(
     humidity = this.humidity,
     temperature = this.temperature
 )
 
-fun AdditionalDataBO.TravelBO.toDto() = ReportDto.TravelDto(
+fun TravelBO.toDto() = ReportDto.TravelDto(
     traveled = this.traveled,
     city = this.city
 )
 
-fun AdditionalDataBO.AlcoholBO.toDto() = ReportDto.AlcoholDto(
+fun AlcoholBO.toDto() = ReportDto.AlcoholDto(
     level = this.level,
     beers = this.beers,
     wines = this.wines,

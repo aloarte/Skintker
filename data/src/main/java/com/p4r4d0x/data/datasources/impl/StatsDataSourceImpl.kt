@@ -1,6 +1,5 @@
 package com.p4r4d0x.data.datasources.impl
 
-import com.google.gson.Gson
 import com.p4r4d0x.data.Constants
 import com.p4r4d0x.data.Constants.JSON_PARSE_EMPTY_BODY
 import com.p4r4d0x.data.Constants.JSON_PARSE_EMPTY_BODY_CODE
@@ -14,11 +13,12 @@ import com.p4r4d0x.data.dto.ApiResult
 import com.p4r4d0x.data.dto.SkintkvaultResponseStats
 import com.p4r4d0x.data.parsers.DataParser.toPossibleCauses
 import com.p4r4d0x.domain.bo.PossibleCausesBO
+import com.squareup.moshi.Moshi
 import okhttp3.ResponseBody
 
 class StatsDataSourceImpl(
     private val api: SkintkvaultApi,
-    private val gson: Gson
+    private val moshi: Moshi
 ) : StatsDatasource {
 
     private fun parseSkintkvaultResponse(body: ResponseBody?): SkintkvaultResponseStats = try {
@@ -27,7 +27,7 @@ class StatsDataSourceImpl(
                 statusCode = JSON_PARSE_EMPTY_BODY_CODE,
                 statusMessage = JSON_PARSE_EMPTY_BODY
             )
-            else gson.fromJson(it, SkintkvaultResponseStats::class.java)
+            else moshi.adapter(SkintkvaultResponseStats::class.java).fromJson(it)
 
         } ?: SkintkvaultResponseStats(
             statusCode = JSON_PARSE_NO_BODY_CODE,

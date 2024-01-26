@@ -131,15 +131,15 @@ object DataParser {
             ),
             additionalData = AdditionalDataBO(
                 stressLevel = stress.toInt(),
-                weather = AdditionalDataBO.WeatherBO(
+                weather = WeatherBO(
                     humidity = weatherHumidity.toInt(),
                     temperature = weatherTemperature.toInt()
                 ),
-                travel = AdditionalDataBO.TravelBO(
+                travel = TravelBO(
                     traveled = traveled == resources.getString(R.string.question_7_answer_1),
                     city = city.lowercase(Locale.getDefault())
                 ),
-                alcohol = AdditionalDataBO.AlcoholBO(
+                alcohol = AlcoholBO(
                     level = alcoholType,
                     beers = if(alcoholType==AlcoholLevel.Beer) beers else emptyList(),
                     wines = if(alcoholType==AlcoholLevel.Wine) wines else emptyList(),

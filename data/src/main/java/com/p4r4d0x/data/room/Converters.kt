@@ -1,10 +1,13 @@
 package com.p4r4d0x.data.room
 
 import androidx.room.TypeConverter
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.p4r4d0x.domain.bo.AdditionalDataBO
+import com.p4r4d0x.domain.bo.AlcoholBO
 import com.p4r4d0x.domain.bo.AlcoholLevel
+import com.p4r4d0x.domain.bo.TravelBO
+import com.p4r4d0x.domain.bo.WeatherBO
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import java.lang.reflect.Type
 import java.util.*
 
@@ -24,9 +27,12 @@ object Converters {
         if (zonesStr == null) {
             return null
         }
-        val gson = Gson()
-        val type: Type = object : TypeToken<List<String?>?>() {}.type
-        return gson.fromJson(zonesStr, type)
+
+        val moshi = Moshi.Builder().build()
+        val type: Type = Types.newParameterizedType(List::class.java, String::class.java)
+        val adapter: JsonAdapter<List<String>> = moshi.adapter(type)
+
+        return adapter.fromJson(zonesStr)
     }
 
     @TypeConverter
@@ -34,64 +40,67 @@ object Converters {
         if (zones == null) {
             return null
         }
-        val gson = Gson()
-        val type: Type = object : TypeToken<List<String?>?>() {}.type
-        return gson.toJson(zones, type)
+        val moshi = Moshi.Builder().build()
+        val type: Type = Types.newParameterizedType(List::class.java, String::class.java)
+        val adapter: JsonAdapter<List<String>> = moshi.adapter(type)
+
+        return adapter.toJson(zones)
     }
 
 
     @TypeConverter
-    fun toToWeather(weatherStr: String?): AdditionalDataBO.WeatherBO? {
+    fun toWeather(weatherStr: String?): WeatherBO? {
         if (weatherStr == null) {
             return null
         }
-        val gson = Gson()
-        return gson.fromJson(weatherStr, AdditionalDataBO.WeatherBO::class.java)
+        val moshi = Moshi.Builder().build()
+        return moshi.adapter(WeatherBO::class.java).fromJson(weatherStr)
     }
 
     @TypeConverter
-    fun fromWeather(weather: AdditionalDataBO.WeatherBO?): String? {
+    fun fromWeather(weather: WeatherBO?): String? {
         if (weather == null) {
             return null
         }
-        val gson = Gson()
-        return gson.toJson(weather, AdditionalDataBO.WeatherBO::class.java)
+        val moshi = Moshi.Builder().build()
+        return moshi.adapter(WeatherBO::class.java).toJson(weather)
     }
 
     @TypeConverter
-    fun toTravel(travelStr: String?): AdditionalDataBO.TravelBO? {
+    fun toTravel(travelStr: String?): TravelBO? {
         if (travelStr == null) {
             return null
         }
-        val gson = Gson()
-        return gson.fromJson(travelStr, AdditionalDataBO.TravelBO::class.java)
+        val moshi = Moshi.Builder().build()
+        return moshi.adapter(TravelBO::class.java).fromJson(travelStr)
     }
 
     @TypeConverter
-    fun fromTravel(travel: AdditionalDataBO.TravelBO?): String? {
+    fun fromTravel(travel: TravelBO?): String? {
         if (travel == null) {
             return null
         }
-        val gson = Gson()
-        return gson.toJson(travel, AdditionalDataBO.TravelBO::class.java)
+        val moshi = Moshi.Builder().build()
+        return moshi.adapter(TravelBO::class.java).toJson(travel)
+
     }
 
     @TypeConverter
-    fun toAlcohol(alcoholStr: String?): AdditionalDataBO.AlcoholBO? {
+    fun toAlcohol(alcoholStr: String?): AlcoholBO? {
         if (alcoholStr == null) {
             return null
         }
-        val gson = Gson()
-        return gson.fromJson(alcoholStr, AdditionalDataBO.AlcoholBO::class.java)
+        val moshi = Moshi.Builder().build()
+        return moshi.adapter(AlcoholBO::class.java).fromJson(alcoholStr)
     }
 
     @TypeConverter
-    fun fromAlcohol(alcohol: AdditionalDataBO.AlcoholBO?): String? {
+    fun fromAlcohol(alcohol: AlcoholBO?): String? {
         if (alcohol == null) {
             return null
         }
-        val gson = Gson()
-        return gson.toJson(alcohol, AdditionalDataBO.AlcoholBO::class.java)
+        val moshi = Moshi.Builder().build()
+        return moshi.adapter(AlcoholBO::class.java).toJson(alcohol)
     }
 
     @TypeConverter
@@ -99,8 +108,8 @@ object Converters {
         if (alcoholLevelStr == null) {
             return null
         }
-        val gson = Gson()
-        return gson.fromJson(alcoholLevelStr, AlcoholLevel::class.java)
+        val moshi = Moshi.Builder().build()
+        return moshi.adapter(AlcoholLevel::class.java).fromJson(alcoholLevelStr)
     }
 
     @TypeConverter
@@ -108,7 +117,7 @@ object Converters {
         if (alcoholLevel == null) {
             return null
         }
-        val gson = Gson()
-        return gson.toJson(alcoholLevel, AlcoholLevel::class.java)
+        val moshi = Moshi.Builder().build()
+        return moshi.adapter(AlcoholLevel::class.java).toJson(alcoholLevel)
     }
 }

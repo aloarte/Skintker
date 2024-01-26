@@ -11,12 +11,12 @@ object TestData {
 
     private val additionalData = AdditionalDataBO(
         stressLevel = 7,
-        alcohol = AdditionalDataBO.AlcoholBO(level = AlcoholLevel.None),
-        weather = AdditionalDataBO.WeatherBO(
+        alcohol = AlcoholBO(level = AlcoholLevel.None),
+        weather = WeatherBO(
             humidity = 2,
             temperature = 1
         ),
-        travel = AdditionalDataBO.TravelBO(
+        travel = TravelBO(
             traveled = true,
             city = "Madrid"
         )

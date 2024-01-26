@@ -2,7 +2,6 @@ package com.p4r4d0x.data.datasources
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.google.gson.Gson
 import com.p4r4d0x.data.Constants.JSON_PARSE_EXCEPTION_CODE
 import com.p4r4d0x.data.api.SkintkvaultApi
 import com.p4r4d0x.data.datasources.impl.ReportsManagementDataSourceImpl
@@ -22,6 +21,7 @@ import com.p4r4d0x.data.testutils.testRepositoriesModule
 import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.test.KoinBaseTest
 import com.p4r4d0x.test.KoinTestApplication
+import com.squareup.moshi.Moshi
 import io.mockk.coEvery
 import io.mockk.coVerify
 import kotlinx.coroutines.runBlocking
@@ -132,12 +132,11 @@ class ReportsManagementDataSourceTest :
 
     private lateinit var datasource: ReportsManagementDataSource
 
-    private var gson: Gson = Gson()
-
+    private var moshi: Moshi = Moshi.Builder().build()
 
     @Before
     fun setUp() {
-        datasource = ReportsManagementDataSourceImpl(api, gson)
+        datasource = ReportsManagementDataSourceImpl(api, moshi)
     }
 
     @Test
@@ -183,7 +182,7 @@ class ReportsManagementDataSourceTest :
 
         coVerify { api.addReport(USER_ID, logDto) }
         val exceptionMsg =
-            "java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 6 path $"
+            "Expected BEGIN_OBJECT but was STRING at path \$"
         val expected =
             ApiResult.Error<ReportStatus>(JSON_PARSE_EXCEPTION_CODE, exceptionMsg)
         Assertions.assertEquals(expected, logInserted)

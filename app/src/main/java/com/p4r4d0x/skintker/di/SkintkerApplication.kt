@@ -15,7 +15,6 @@ class SkintkerApplication : Application() {
                 repositoriesModule,
                 datasourcesModule,
                 networkModule,
-                externalModule,
                 databaseModule,
                 componentsModule
             )

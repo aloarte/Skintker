@@ -37,9 +37,9 @@ object TestData {
         irritation = IrritationBO(9, listOf("chest", "ears")),
         additionalData = AdditionalDataBO(
             stressLevel = 4,
-            weather = AdditionalDataBO.WeatherBO(humidity = 1, temperature = 4),
-            travel = AdditionalDataBO.TravelBO(city = "Madrid", traveled = false),
-            alcohol = AdditionalDataBO.AlcoholBO(
+            weather = WeatherBO(humidity = 1, temperature = 4),
+            travel = TravelBO(city = "Madrid", traveled = false),
+            alcohol = AlcoholBO(
                 level = AlcoholLevel.Beer,
                 beers = listOf("wheat", "stout")
             ),

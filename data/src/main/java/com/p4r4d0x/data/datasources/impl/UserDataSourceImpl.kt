@@ -1,6 +1,5 @@
 package com.p4r4d0x.data.datasources.impl
 
-import com.google.gson.Gson
 import com.p4r4d0x.data.Constants
 import com.p4r4d0x.data.api.SkintkvaultApi
 import com.p4r4d0x.data.datasources.UserDataSource
@@ -8,11 +7,12 @@ import com.p4r4d0x.data.dto.ApiResult
 import com.p4r4d0x.data.dto.SkintkvaultResponseUser
 import com.p4r4d0x.data.dto.user.UserDto
 import com.p4r4d0x.data.dto.user.UserResultEnum
+import com.squareup.moshi.Moshi
 import okhttp3.ResponseBody
 
 class UserDataSourceImpl(
     private val api: SkintkvaultApi,
-    private val gson: Gson
+    private val moshi: Moshi
 ) : UserDataSource {
 
     override suspend fun loginUser(userId: String): ApiResult<UserResultEnum> {
@@ -40,7 +40,7 @@ class UserDataSourceImpl(
             if (it.isEmpty()) SkintkvaultResponseUser(
                 statusCode = Constants.JSON_PARSE_EMPTY_BODY_CODE
             )
-            else gson.fromJson(it, SkintkvaultResponseUser::class.java)
+            else moshi.adapter(SkintkvaultResponseUser::class.java).fromJson(it)
 
         } ?: SkintkvaultResponseUser(
             statusCode = Constants.JSON_PARSE_NO_BODY_CODE

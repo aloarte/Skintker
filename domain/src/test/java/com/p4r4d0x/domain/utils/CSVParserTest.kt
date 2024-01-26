@@ -1,9 +1,12 @@
 package com.p4r4d0x.domain.utils
 
 import com.p4r4d0x.domain.bo.AdditionalDataBO
+import com.p4r4d0x.domain.bo.AlcoholBO
 import com.p4r4d0x.domain.bo.AlcoholLevel
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.bo.IrritationBO
+import com.p4r4d0x.domain.bo.TravelBO
+import com.p4r4d0x.domain.bo.WeatherBO
 import com.p4r4d0x.domain.utils.CSVParser.getCSVRowFromData
 import com.p4r4d0x.domain.utils.CSVParser.getHeaderCSVRow
 import com.p4r4d0x.domain.utils.Constants.LABEL_ALCOHOL
@@ -18,7 +21,6 @@ import com.p4r4d0x.domain.utils.Constants.LABEL_STRESS
 import com.p4r4d0x.domain.utils.Constants.LABEL_TRAVELED
 import com.p4r4d0x.domain.utils.Constants.LABEL_WEATHER_HUMIDITY
 import com.p4r4d0x.domain.utils.Constants.LABEL_WEATHER_TEMPERATURE
-import org.junit.Before
 import org.junit.Test
 import java.util.*
 import kotlin.test.assertEquals
@@ -71,12 +73,12 @@ class CSVParserTest {
 
             foodList = listOf(FOOD_1, FOOD_3),
             additionalData = AdditionalDataBO(
-                alcohol = AdditionalDataBO.AlcoholBO(level = AlcoholLevel.None),
-                weather = AdditionalDataBO.WeatherBO(
+                alcohol = AlcoholBO(level = AlcoholLevel.None),
+                weather = WeatherBO(
                     temperature = 3,
                     humidity = 4
                 ),
-                travel = AdditionalDataBO.TravelBO(
+                travel = TravelBO(
                     city = "Madrid",
                     traveled = true
                 ),
