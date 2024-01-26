@@ -33,7 +33,7 @@ android {
         applicationId "com.p4r4d0x.skintker"
         minSdk 26
         targetSdk 34
-        versionCode 2
+        versionCode 3
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -49,7 +49,7 @@ android {
             buildConfigField "String", "API_URL", '"https://skt.skintkvault.co:443/"'
             buildConfigField "String", "DATABASE_NAME", '"logs_database"'
             minifyEnabled true
-            debuggable = true
+            debuggable = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
