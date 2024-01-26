@@ -6,7 +6,10 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.p4r4d0x.domain.bo.AdditionalDataBO
+import com.p4r4d0x.domain.bo.AlcoholBO
 import com.p4r4d0x.domain.bo.AlcoholLevel
+import com.p4r4d0x.domain.bo.TravelBO
+import com.p4r4d0x.domain.bo.WeatherBO
 
 @Entity(
     tableName = "additional_data_table",
@@ -23,9 +26,9 @@ data class AdditionalData(
     @NonNull @ColumnInfo(name = "log_id")
     val logId: Long,
     val stressLevel: Int,
-    val weather: AdditionalDataBO.WeatherBO,
-    val travel:AdditionalDataBO.TravelBO,
-    val alcohol: AdditionalDataBO.AlcoholBO,
+    val weather: WeatherBO,
+    val travel: TravelBO,
+    val alcohol: AlcoholBO,
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "additional_data_id")
     var additionalDataId: Long = 0

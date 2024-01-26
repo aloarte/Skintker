@@ -1,6 +1,5 @@
 package com.p4r4d0x.data.datasources.impl
 
-import com.google.gson.Gson
 import com.p4r4d0x.data.Constants
 import com.p4r4d0x.data.Constants.JSON_PARSE_EMPTY_BODY
 import com.p4r4d0x.data.Constants.JSON_PARSE_EMPTY_BODY_CODE
@@ -18,11 +17,12 @@ import com.p4r4d0x.data.wasInsertSuccessful
 import com.p4r4d0x.domain.bo.DailyLogBO
 import com.p4r4d0x.domain.bo.DailyLogContentsBO
 import com.p4r4d0x.domain.bo.ReportStatus
+import com.squareup.moshi.Moshi
 import okhttp3.ResponseBody
 
 class ReportsManagementDataSourceImpl(
     private val api: SkintkvaultApi,
-    private val gson: Gson
+    private val moshi: Moshi
 ) : ReportsManagementDataSource {
 
     private fun parseSkintkvaultResponse(body: ResponseBody?): SkintkvaultResponseLogs = try {
@@ -32,7 +32,7 @@ class ReportsManagementDataSourceImpl(
                 statusCode = JSON_PARSE_EMPTY_BODY_CODE,
                 statusMessage = JSON_PARSE_EMPTY_BODY
             )
-            else gson.fromJson(it, SkintkvaultResponseLogs::class.java)
+            else moshi.adapter(SkintkvaultResponseLogs::class.java).fromJson(it)
 
         } ?: SkintkvaultResponseLogs(
             statusCode = JSON_PARSE_NO_BODY_CODE,

@@ -2,7 +2,6 @@ package com.p4r4d0x.data.datasources
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.google.gson.Gson
 import com.p4r4d0x.data.api.SkintkvaultApi
 import com.p4r4d0x.data.datasources.impl.UserDataSourceImpl
 import com.p4r4d0x.data.dto.*
@@ -16,6 +15,7 @@ import com.p4r4d0x.data.testutils.testDatasourcesModule
 import com.p4r4d0x.domain.bo.*
 import com.p4r4d0x.test.KoinBaseTest
 import com.p4r4d0x.test.KoinTestApplication
+import com.squareup.moshi.Moshi
 import io.mockk.coEvery
 import io.mockk.coVerify
 import kotlinx.coroutines.runBlocking
@@ -46,11 +46,11 @@ class UserDataSourceTest :    KoinBaseTest(testDatasourcesModule, apiModule) {
 
     private lateinit var datasource: UserDataSource
 
-    private var gson: Gson = Gson()
+    private var moshi: Moshi = Moshi.Builder().build()
 
     @Before
     fun setUp() {
-        datasource = UserDataSourceImpl(api, gson)
+        datasource = UserDataSourceImpl(api, moshi)
     }
 
     @Test

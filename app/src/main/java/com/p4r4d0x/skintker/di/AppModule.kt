@@ -1,6 +1,5 @@
 package com.p4r4d0x.skintker.di
 
-import com.google.gson.Gson
 import com.p4r4d0x.data.datasources.ReportsManagementDataSource
 import com.p4r4d0x.data.datasources.ResourcesDatasource
 import com.p4r4d0x.data.datasources.StatsDatasource
@@ -72,8 +71,4 @@ val datasourcesModule = module {
 
 val componentsModule = module {
     factory { LogsNormalizer(androidContext().resources) }
-}
-
-val externalModule = module {
-    factory { Gson() }
 }

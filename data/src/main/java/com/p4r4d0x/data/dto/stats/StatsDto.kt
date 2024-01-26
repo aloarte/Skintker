@@ -1,7 +1,9 @@
 package com.p4r4d0x.data.dto.stats
 
 import com.p4r4d0x.domain.bo.PossibleCausesBO
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class StatsDto(
     val dietaryCauses: List<String> = emptyList(),
     val mostAffectedZones: List<String> = emptyList(),
