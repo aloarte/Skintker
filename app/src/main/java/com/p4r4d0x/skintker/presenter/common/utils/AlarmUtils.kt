@@ -51,7 +51,7 @@ object AlarmUtils {
                 activity,
                 ALARM1_ID,
                 Intent(activity, ReportAlarmReceiver::class.java),
-                PendingIntent.FLAG_UPDATE_CURRENT
+                PendingIntent.FLAG_IMMUTABLE
             )
         )
     }
@@ -66,7 +66,7 @@ object AlarmUtils {
                     activity,
                     ReportAlarmReceiver::class.java
                 ),
-                PendingIntent.FLAG_UPDATE_CURRENT
+                PendingIntent.FLAG_IMMUTABLE
             )
         )
         clearAlarmPreferences(preferences)

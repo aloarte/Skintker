@@ -23,7 +23,7 @@ class WakeUpAlarmReceiver : BroadcastReceiver() {
                     context,
                     AlarmUtils.ALARM1_ID,
                     Intent(context, ReportAlarmReceiver::class.java),
-                    PendingIntent.FLAG_UPDATE_CURRENT
+                    PendingIntent.FLAG_IMMUTABLE
                 )
             )
         }

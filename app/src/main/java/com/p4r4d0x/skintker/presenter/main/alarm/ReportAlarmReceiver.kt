@@ -1,11 +1,14 @@
 package com.p4r4d0x.skintker.presenter.main.alarm
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.compose.ui.graphics.toArgb
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.p4r4d0x.domain.utils.Constants.CHANNEL_ID
@@ -18,8 +21,14 @@ import com.p4r4d0x.skintker.theme.SoftRedDark
 class ReportAlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        with(NotificationManagerCompat.from(context)) {
-            notify(NOTIFICATION_ID, getNotificationBuilder(context).build())
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            with(NotificationManagerCompat.from(context)) {
+                notify(NOTIFICATION_ID, getNotificationBuilder(context).build())
+            }
         }
     }
 
@@ -40,7 +49,7 @@ class ReportAlarmReceiver : BroadcastReceiver() {
             .setContentIntent(
                 PendingIntent.getActivity(
                     context, 0,
-                    notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT
+                    notificationIntent, PendingIntent.FLAG_IMMUTABLE
                 )
             )
             .setVibrate(AlarmUtils.vibratePattern)
