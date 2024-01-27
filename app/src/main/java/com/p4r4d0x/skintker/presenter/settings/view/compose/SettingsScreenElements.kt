@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.p4r4d0x.domain.bo.ProfileBO
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.presenter.common.compose.Description
@@ -140,6 +141,59 @@ fun PermissionsRationale(
     }
 }
 
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+fun PermissionsRationaleAlarm(
+    multiplePermissionsState: MultiplePermissionsState,
+    onDoNotAskForPermissions: () -> Unit
+) {
+    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+
+        Description(R.string.settings_notification_description)
+
+        Card(
+            modifier = Modifier.padding(vertical = 15.dp, horizontal = 10.dp),
+            shape = RoundedCornerShape(15.dp),
+            border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.primary)
+        ) {
+            Column(modifier = Modifier.padding(vertical = 5.dp, horizontal = 25.dp)) {
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = stringResource(id = R.string.notifications_rationale_title),
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.body1,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 12.dp, horizontal = 10.dp)
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = stringResource(id = R.string.notifications_rationale),
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Light,
+                    style = MaterialTheme.typography.caption,
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                OutlinedButton(
+                    onClick = {
+                        multiplePermissionsState.launchMultiplePermissionRequest()
+                    }
+                ) {
+                    Text(stringResource(R.string.request_permissions))
+                }
+                Spacer(modifier = Modifier.height(2.dp))
+                OutlinedButton(onClick = onDoNotAskForPermissions) {
+                    Text(stringResource(R.string.do_not_ask_permissions))
+                }
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+        }
+    }
+
+}
+
+
 @Composable
 fun AlarmDescription(reminderTime: String) {
     Text(
@@ -149,5 +203,40 @@ fun AlarmDescription(reminderTime: String) {
         style = MaterialTheme.typography.caption,
         modifier = Modifier.padding(vertical = 20.dp, horizontal = 30.dp)
     )
+}
+
+
+@ExperimentalPermissionsApi
+@Composable
+fun AlarmPermissions(
+    viewModel: SettingsViewModel,
+    onAlarmPressed: (Boolean) -> Unit,
+    onDoNotAskForPermissions: ()->Unit
+) {
+
+    val multiplePermissionsState = rememberMultiplePermissionsState(listOf(
+        android.Manifest.permission.POST_NOTIFICATIONS,
+    ))
+
+    when {
+        //The first time: user didn't denied and the permissions ain't granted yet
+        !multiplePermissionsState.shouldShowRationale && !multiplePermissionsState.allPermissionsGranted -> {
+            PermissionsRationaleAlarm(
+                multiplePermissionsState = multiplePermissionsState,
+                onDoNotAskForPermissions = onDoNotAskForPermissions
+            )
+        }
+        //If the user denied the permission explicitly from the android permission mgr
+        multiplePermissionsState.shouldShowRationale -> {
+            PermissionsRationaleAlarm(
+                multiplePermissionsState = multiplePermissionsState,
+                onDoNotAskForPermissions = onDoNotAskForPermissions
+            )
+        }
+        // If all permissions are granted, then show the question
+        multiplePermissionsState.allPermissionsGranted -> {
+            AlarmSection(viewModel,onAlarmPressed)
+        }
+    }
 }
 

@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.p4r4d0x.skintker.R
 import com.p4r4d0x.skintker.presenter.common.compose.CustomDialog
 import com.p4r4d0x.skintker.presenter.common.compose.DeleteDialogAllContent
@@ -35,6 +36,7 @@ fun SettingScreen(
         }
     ) {
         SettingScreenContent(
+            it,
             settingsViewModel,
             onLogoutPressed,
             onRemoveLogsPressed,
@@ -84,8 +86,10 @@ fun SettingsTopBar(
     }
 }
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun SettingScreenContent(
+    paddingValues: PaddingValues,
     settingsViewModel: SettingsViewModel,
     onLogoutPressed: () -> Unit,
     onRemoveLogsPressed: () -> Unit,
@@ -98,7 +102,10 @@ fun SettingScreenContent(
     val showLogoutDialog: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
-    LazyColumn {
+    val showAlarmSection: MutableState<Boolean> = remember {
+        mutableStateOf(true)
+    }
+    LazyColumn(contentPadding = paddingValues) {
         item {
             StateDeleteDialog(showDeleteDialog, onRemoveLogsPressed)
             StateLogoutDialog(showLogoutDialog, onLogoutPressed)
@@ -111,7 +118,12 @@ fun SettingScreenContent(
                     showDeleteDialog.value = true
                 }
                 SkintkerDivider()
-                AlarmSection(settingsViewModel, onAlarmPressed)
+                if(showAlarmSection.value){
+                    AlarmPermissions(settingsViewModel, onAlarmPressed){
+                        showAlarmSection.value = false
+                    }
+                }
+
             }
         }
     }
