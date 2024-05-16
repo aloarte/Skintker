@@ -1,6 +1,5 @@
 # Skintker
-
-[![Playstore Downloads](https://playbadges.pavi2410.me/badge/downloads?id=com.p4r4d0x.skintker)](https://app.codecov.io/gh/aloarte/skintker)
+[![Playstore Downloads](https://playbadges.pavi2410.me/badge/downloads?id=com.p4r4d0x.skintker)](https://playbadges.pavi2410.me/badge/downloads?id=com.p4r4d0x.skintker)
 [![Tests](https://github.com/aloarte/skintker/actions/workflows/ci.yml/badge.svg)](https://github.com/aloarte/skintker/actions/workflows/ci.yml)
 
 <img src="/results/logo.png" width="800" align="left">
